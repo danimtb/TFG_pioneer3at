@@ -76,6 +76,63 @@ Procesador & Hitachi H8S \\ \hline
 
 \subsection{Sensor Kinect}
 
+Kinect es un conjunto de sensores de bajo coste que lo convierte en una
+herramienta excepcional (Figura \ref{fig:sensor_kinect}). Este dispositivo incluye una cámara de vídeo RGB, una cámara infrarroja de profundidad, un array de micrófonos y altavoces, un acelerómetro y un pequeño motor que le permite hacer movimientos de inclinación.\\
 
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.6\textwidth]{figuras/sensor_kinect.png}
+\caption{Sensor Kinect}
+\label{fig:sensor_kinect}
+\end{figure}
+
+Su función principal es la de percibir el entorno captando una serie de puntos que se ubican en las tres dimensiones. Su funcionamiento a grandes rasgos se basa en un emisor de infrarrojos a 830 nm que interactñua con los objetos y una cámara infrarroja que etecta la diferencia entre la proyección anterior y la actual, obteniendo la distancia a cada objeto.\\
 
 \subsection{Láser SICK LMS100}
+
+Aunque el planteamiento incial del proyecto planteaba la navegación basada únicamente en el sensor kinect, debemos mencionar el uso del sensor láser Sick LMS100 (Figura \ref{fig:sensor_sicklms100}).\\
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.6\textwidth]{figuras/SICK_LMS100.jpg}
+\caption{Sensor escaner láser Sick LMS100}
+\label{fig:sensor_sicklms100}
+\end{figure}
+
+Este es un sensor láser por infrarrojos de clase I (Inofensivo para el ojo humano), que obtiene la medida de distancias con gran preción y rapidez en un solo plano y realizando un barrido de 270º (Figura \ref{fig:sicklms100_rango}).\\
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.6\textwidth]{figuras/sicklms100_rango.png}
+\caption{Campo de visión del sensor láser Sick LMS100} \label{fig:sicklms100_rango}
+\end{figure}
+
+Este sensor está colocado en la parte trasera del robot, enfocando hacia atrás para cubrir un mayor rango y conocer todo el entorno alrededor del robot.\\
+
+En la siguiente tabla (Tabla \ref{tabla_sicklms100}) se recogen sus características principales.\\
+
+\begin{table}[!h]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{c c}
+\hline
+{\bf Especificaciones} & {\bf Sick LMS100} \\ \hline
+Campo de aplicación & Interno \\
+Fuente infrarroja & 905 nm \\
+Clase Láser & 1 (IEC 60825-1) \\
+Campo de visión & 270º \\
+Frecuencia de escaneo & 25Hz/50Hz \\
+Resolución angular & 0.25º/0.5º \\
+Distancia de operación & 0.05 - 20 m  \\
+Tiempo de respuesta & 20 ms \\
+Error & 30 mm \\
+Interfaz de datos & Ethernet \\
+Tensión de operación & 10.8V - 20V DC \\
+Consumo & 20 W \\
+Peso & 1.1 Kg \\
+Dimensiones & 105mm x 102mm x 152mm\\ \hline
+\end{tabular}
+}
+\caption{Características del sensor láser Sick LMS100}
+\label{tabla_sicklms100}
+\end{table}
