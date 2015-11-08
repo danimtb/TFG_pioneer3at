@@ -95,6 +95,13 @@ A continuación, al sensor de Kinect MT9M001C12STM, que no es más que el
 sensor CMOS de una cámara en la que se le trata para que observe solo el
 infrarrojo, obteniendo los puntos infrarrojos en el plano 2D. El motivo por el que podemos medir la profundidad de los objetos (su distancia) es porque sabemos el patrón de cómo emite el laser emisor, por tanto sabremos que si un punto no está en el sitio que corresponde, se ha trasladado respecto al punto inicial y se le aplica la correspondiente transformación, obteniendo finalmente los puntos de toda la nube en coordenadas cartesianas XYZ.\\
 
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.6\textwidth]{figuras/traslaciones_kinect.png}
+\caption{Sensor Kinect}
+\label{fig:sensor_kinect}
+\end{figure}
+
 \subsection{Láser SICK LMS100}
 
 Aunque el planteamiento incial del proyecto planteaba la navegación basada únicamente en el sensor kinect, debemos mencionar el uso del sensor láser Sick LMS100 (Figura \ref{fig:sensor_sicklms100}).\\
