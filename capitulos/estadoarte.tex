@@ -1,0 +1,188 @@
+\chapter{Estado del arte}
+
+La robótica móvil vive actualmente un momento de gran desarrollo para multitud de aplicaciones en entornos diversos, desde espacios abiertos con orografía accidentada y condiciones climáticas adversas **proyecto robot catastrofes** **proyecto DARPA big dog**, entornos controlados y espacios interiores conocidos como la automatización de tareas de almacenaje de productos **referencia robots amazon**, hasta orientación y exploración de espacios interiores desconocidos **robot creacion de mapas de edificios**.\\
+
+De la misma forma, el interés en robots que sea capaces de reproducir las capacidades de un ser humano e incluso que pueda dar asistencia ya sea en entornos conocidos o no abre un área de posibilidades en las que los robots móviles cobran importancia.\\
+
+Los avances tanto el las características hardaware como software son notables aunque estas suelen variar dependiendo de la aplicación a la que un robot esté destinado. En este capítulo trata de hacer un resumen del estadoactual de la robótica móvil.\\
+
+
+\section{Hardware en robótica móvil}
+
+Como hemos indicado previamente, la configuración hardware de un robot móvil varía dependiendo de la aplicación a la que vaya destinado. Es cierto que lo ideal para un robot sería disponer de una configuración hardware común que fuera polivalente en los diferentes terrenos y situaciones, sin embargo, debido a la variedad de aplicaciones y dado que un robot suele destinarse a tareas específicas, la elección del hardware que mejor se adapta es una tendencia común en robótica.\\
+
+Para seleccionar el hardaware debemos valorar el tipo de actuador que se requiere, entendiéndose por actuador al dispositivo que genera el movimiento de los elementos que hacen que el robot móvil se desplace. En robótica móvil suelen utilizarse los actuadores de tipo eleéctrico, ya que ofrecen unas prestaciones de potencia, controlabilidad y coste adecuados. Además, ofrecen la posibilidad de que la alimentación esté integrada en el robot, haciéndolo independiente de una fuente de energía accesoria.\\
+
+Los actuadores eléctricos son, por tanto, los más utilizados. En concreto, los motores de corriente continua (Figura \ref{fig:motor_encoder}) ofrecen un fácil control y fácil acoplamiento a un encoder. Los encoder son sensores de posición que perminten conocer el giro de un eje de rotación. Estos sensores son muy importantes en robótica móvil, ya que a partir de la información que arrojan el robot tiene consciencia de su posición relativa, en el caso de los encoders incrementales, o su posición absoluta, en el caso de los encoders absolutos. **referencia a la sección de sesnsores**.\\
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.4\textwidth]{figuras/motor_encoder.jpg}
+\caption{Motor de corriente continua con encoder} \label{fig:motor_encoder}
+\end{figure}
+
+Existen otros tipos de actuadores eléctricos que se utilizan en robótica, como puede ser el caso de los motores paso a paso, sin embargo su baja velocidad de giro no los hacen adecuados para robots móviles.\\
+
+La disposición de los actuadores determina la configuración del robot. Centrándonos en robots que se desplazan mediante ruedas y descartando a los robots con patas, podemos distinguir las siguientes configuraciones: Ackerman, triciclo clásico, tracción diferencial, skid-steer, síncrona y omnidireccional.\\
+
+**IMAGEN de las configuraciones LIBRO**
+
+\newcounter{enum1} % creamos un contador par la enumeración. 
+\begin{enumerate}[a.]
+  \item Configuración Ackerman
+\setcounter{enum1}{\value{enumi}} % le damos al contador el valor de la enumeración.
+\end{enumerate}
+
+Consta de cuatro ruedas. Las ruedas motrices son las traseras o las delanteras, y éstas últimas se encargan además de la dirección. Permite un desplazamiento a altas velocidades y la posibilidad de realizar giros con estabilidad. Esta configuración es la que se utiliza en la industria del automóvil.\\
+
+\begin{enumerate}[a.]
+\setcounter{enumi}{\value{enum1}} % reiniciamos enumeración con el valor del contador.
+  \item Triciclo clásico
+\setcounter{enum1}{\value{enumi}}
+\end{enumerate}
+
+Consta de tres ruedas. Las ruedas motrices pueden ser las dos ruedas traseras o solo la delantera, que se encarga de la dirección. Este es el caso de los triciclos y de algunas bicicletas. Esta configuración ofrece alto grado de maniobrabilidad penalizando la estabilidad del conjunto y realizar giros den 90º.\\
+
+\begin{enumerate}[a.]
+\setcounter{enumi}{\value{enum1}}
+  \item Configuración diferencial
+\setcounter{enum1}{\value{enumi}}
+\end{enumerate}
+
+Consta de dos ruedas colocadas en el eje perpendicular a la dirección de desplazamiento del robot. Cada rueda es controlada por un motor, de tal forma que la diferencia de velocidad giro de una rueda respecto a otra determina el giro, avance o retroceso del robot. Los robots que presentan esta configuración suelen utilizar una tercera rueda que gira libremente que sirver como apoyo (rueda loca). Es la configuración típica de las sillas de ruedas y su característica principal es que permite realizar giros completos sobre sí mismo.\\
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.3\textwidth]{figuras/pioneer3dx.jpg}
+\caption{Robot de configuración diferencial Pioneer 3 DX} \label{fig:pioneer_3dx}
+\end{figure}
+
+\begin{enumerate}[a.]
+\setcounter{enumi}{\value{enum1}}
+  \item Skid steer
+\setcounter{enum1}{\value{enumi}}
+\end{enumerate}
+
+Consta de cuatro ruedas, todas ellas motrices, y su principio de funcionamiento es el mismo que el utilizado en la configuración diferencial. Esta configuración presenta las ventajas de la configuración diferencial, pudiendo realizar giros sobre el eje del robot, pero presenta la desventaja de que las ruedas deben deslizarse lateralmente, por tanto existe un rozamiento que varía en función de la inclinación el tipo de terreno que dificulta realizar un modelo cinemático.\\
+
+Proporciona mucha tracción y estabilidad y suele encontrarse en aplicaciones relacionadas con la exploración, vehículos obra o vehículos todo terreno (Figura \ref{fig:ejemplos_skid-steer}).\\
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.7\textwidth]{figuras/skid-steer_examples.png}
+\caption{Ejemplos de configuración diferencial: Cargador frontal, Robotnik Guardian, Pioneer 3 AT} \label{fig:ejemplos_skid-steer}
+\end{figure}
+
+Este sistema es el que se utiliza también en los tanques de guerra, aunque en vez de neumáticos se utilizan orugas, denominado configuración por deslizamiento de cintas **Referencia**.\\
+
+\begin{enumerate}[a.]
+\setcounter{enumi}{\value{enum1}}
+  \item Configuración síncrona
+\setcounter{enum1}{\value{enumi}}
+\end{enumerate}
+
+Conformado por tres o más ruedas acopladas mecánicamente y dotadas de tracción, este sistema permite que todas las ruedas roten en la misma dirección y giren a la misma velocidad (Figura \ref{fig:configuracion_sincrona}). Es utilizada ampliamente en robótica para robots móviles de interior, aunque está siendo desplazada por la configuración omnidireccional. \\
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.4\textwidth]{figuras/configuracion_sincrona.png}
+\caption{Configuración síncrona} \label{fig:configuracion_sincrona}
+\end{figure}
+
+\begin{enumerate}[a.]
+\setcounter{enumi}{\value{enum1}}
+  \item Configuración omnidireccional
+\setcounter{enum1}{\value{enumi}}
+\end{enumerate}
+
+Consta de 3 ruedas cada una con un motor independiente, que permiten el desplazamiento en cualquier direción (Figura \ref{fig:configuracion_omnidireccional}). Las ruedas omnidireccionaes constan de una serie de rodillos con el eje de rotación perpendicular a la direccioón de avance.\\
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.4\textwidth]{figuras/configuracion_omnidireccional.png}\hspace{2cm}
+\includegraphics[width=0.3\textwidth]{figuras/rueda_omnidireccional.png}
+\caption{Configuración síncrona y rueda omnidireccional} \label{fig:configuracion_omnidireccional}
+\end{figure}
+
+Esta configuración diferencial empieza a utilizarse en sistemas de 4 ruedas con las demonminadas ''Mecanum Wheels'' **REFERENCIAAA**, que son ruedas similares a las omnidireccionales pero con los rodillos colocados en cierto ángulo (Figura \ref{fig:ruedas_mecanum}). La combinación de los giros de cada una permiten al robot moverse en cualquier dirección.\\
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.4\textwidth]{figuras/mecanum-wheels_uranus.png}
+\caption{Robot Uranus con ruedas tipo Mecanum} \label{fig:ruedas_mecanum}
+\end{figure}
+
+\section{Sensores en robótica móvil}
+
+Para que un robot pueda realizar tareas con una determinada precisión y velocidad debe conocer el entorno del sistema en el que se quiera actuar así como el estado del robot en ese sistema.\\
+
+Existen dos tipos de sensores, los sensores internos, que aportan información sobre la posición orientación del robot, y los externos, que aportan información del entorno alrededor del robot.
+
+\subsection{Sensores internos}
+
+Dentro de los sensores internos, los sensores de posción primordiales son los encoders, tanto los de tipo incremental como los de tipo absoluto (Figura \ref{fig:esquema_encoder}). Su funcionamiento se basa en un foto-emisor y un foto-receptor que detectanel paso o no de luz a través de un disco con ciertas marcas acoplado al eje de giro del actuador.
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.4\textwidth]{figuras/encoder_absoluto.png}
+\caption{Esquema de un encoder absoluto} \label{fig:esquema_encoder}
+\end{figure}
+
+Los sensores de velocidad son similares a los encoders pero miden la velocidad de giro del eje del actuador. La tacogeneratriz proporciona una tensión proporcional a la velocidd de giro.\\
+
+Los sensores acelerómetros o inclinómetros, permiten conocer la inclinación del robot en cada uno de sus ejes, así como las aceleraciones producidas por su propio desplazamiento.\\
+
+Existen otros sensores más sofisticados como las Unidades de medida inercial (IMU) (Figura \ref{fig:sensor_imu}). Son disposiivos que combinan las medidas de un giróscopo y varios acelerómetros para determinar la posición relativa (x, y, z) y la orientación (roll, pitch, yaw), velocidad y aceleración respecto a un sistema de referencia.\\
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.4\textwidth]{figuras/sensor_imu.png}
+\caption{Unidad de medida inercial, IMU} \label{fig:sensor_imu}
+\end{figure}
+
+Debido  a  que  la  aceleración  se  ha  de  integrar  dos  veces  para  obtener  la 
+posición,  el  error  crece  de  forma  cuadrática.  Luego  para  largos  periodos  de operación las unidades IMU se deben de resetear con otros sensores tipo GPS.\\
+
+\subsection{Sensores externos}
+
+Los sensores externos son aquellos que nos aportan información sobre el estado del robot respecto al entorno o que nos da información sobre lo que ocurre alrededor de este.\\
+
+Los sensores de presencia, como son los sensores de tipo inductivo, capacitivo, óptico o mecánico. Sea cual sea la naturaleza del sensor, su función es la de detectar presencia. Un ejemplo de aplicación a un robot móvil sería una serie de sensores de presencia mecánicos, denominados "fin de carrera", colocados en la parte delantera, de modo que al tocar algún obstáculo se tuviera conciencia de la presencia de un obstáculo.\\
+
+Sensores de posicionamiento global GPS (Global Positioning System) que permiten determinar la posición de un objeto en todo el mundo, normalmente con una precisión de metros. El GPS funciona con una red de satélites con trayectorias sincronizadas que cobren toda la superficie de la tierra. El GPS lanza señales a los satélites y calculando el tiempoq ue tarda éstos en responder, se obtiene la posición por trianguación.\\
+
+Los sensores GPS se utilizan en robots móviles que operan en el exterior y suen combinarse con otros sensores que ofrezcan una mayor precisión.\\
+
+Los sensores de distancia son aquellos que nos dan una referencia de la longitud que existe a los objetos cercanos. Es el caso de los sensores e ultrasonidos, donde un emisor emite una onda ultrasónica y cuando es reflejada por un objeto se puede determinar la distancia a la que se encuentra midiendo el tiempo que tarda el sonido en ir y volver. Los sensores de distancia también pueden ser infrarrojos, funcionando de la misma manera.\\
+
+Existen sensores de distancia que utilizan tecnología láser para determinar la longitud de un punto a otro, se denominan Scanners láser. Estos sensores emiten rayos láser en un plano de 2 dimensiones y en un rango determinado, y midiendo el tiempo de vuelo del haz láser son capaces de obtener una medida muy precisa de la distancia.\\
+
+Existen otro tipo de sensores de distancia que permiten obtener distancias a puntos de manera tridimensional. Algunos utilizan un sistema de doble cámara conocidos como cámara estereoscópica (Figura \ref{fig:camara_estereoscopica}). Estos sesnores son capaces de obtener imágenes 3D con la información de dos imágenes tomadas a cierta distancia una de otra. Es el sensor más parecido a la visión humana.\\
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.4\textwidth]{figuras/pr2_stereocam.jpg}
+\caption{Cámara estereoscópica del robot PR2} \label{fig:camara_estereoscopica}
+\end{figure}
+
+Otros sensores de distancia en 3 dimensiones, son los sensores de tipo Infrarrojo **BUSCAR NOMBRE CORRECTO SENSORES 3D BOSCH**, como es el sensor Kinect, que ha se ha vuelto muy popular debido a su bajo coste y su buena respuesta.\\
+
+Kinect es un dispositivo derrollado por PrimeSense**refenrecia** y distribuido por Microsoft para la vieoconsola Xbox 360 (Figura \ref{fig:sensor_kinect}).\\
+
+Inicialmente permitía controlar e interactuar con la consola XBOX sin necesidad de tener contacto físico con un controlador. Este sensor permite reconocer gestos, comandos de voz, objetos e imágenes; esto hace que tenga mucho interés en el mundo de la robótica.
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.4\textwidth]{figuras/kinect.jpg}
+\caption{Sensor de 3 dimensiones Kinect para Xbox 360} \label{fig:sensor_kinect}
+\end{figure}
+
+Para captar el entorno en 3 dimensiones, Kinect incluye una cámara de vídeo RGB, un emisor de haz infrarrojo y una cámara infrarroja.
+
+\section{Control en la robótica móvil actual}
+
+vhbjklmñvhjbknlmñknjbhvgcvbjnklmñghjkljhgfhjk ljhgfhjkljhgfghjkljhgfghjkljhgfhjkjhgfhjkjhgfhjklkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk kkkkkkkkkkkkkkkkkkkkkkkkkk kkkkkkkkkkkkkkkkkkk kkkkkkkkkkkkkkkkkkkkkkkkkkkkk kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk kkkkkkkkkkkkkkkk kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkjnb.\\
+
+\section{Aplicaciones actuales de la robótica móvil}
+
+vhbjklmñvhjbknlmñknjbhvgcvbjnklmñkjnb.\\
