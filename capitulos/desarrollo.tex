@@ -88,6 +88,13 @@ herramienta excepcional (Figura \ref{fig:sensor_kinect}). Este dispositivo inclu
 
 Su función principal es la de percibir el entorno captando una serie de puntos que se ubican en las tres dimensiones. Su funcionamiento a grandes rasgos se basa en un emisor de infrarrojos a 830 nm que interactñua con los objetos y una cámara infrarroja que etecta la diferencia entre la proyección anterior y la actual, obteniendo la distancia a cada objeto.\\
 
+En primer lugar, el laser infrarrojo es emitido por Kinect con un patrón
+determinado, el cual no es simétrico sino que tiene puntos aleatorios que se dispersa gracias a unas lentes de proyección. Estos puntos aleatorios se reflejan en los objetos, los cuales sería posible verlos con una cámara externa.\\
+
+A continuación, al sensor de Kinect MT9M001C12STM, que no es más que el
+sensor CMOS de una cámara en la que se le trata para que observe solo el
+infrarrojo, obteniendo los puntos infrarrojos en el plano 2D. El motivo por el que podemos medir la profundidad de los objetos (su distancia) es porque sabemos el patrón de cómo emite el laser emisor, por tanto sabremos que si un punto no está en el sitio que corresponde, se ha trasladado respecto al punto inicial y se le aplica la correspondiente transformación, obteniendo finalmente los puntos de toda la nube en coordenadas cartesianas XYZ.\\
+
 \subsection{Láser SICK LMS100}
 
 Aunque el planteamiento incial del proyecto planteaba la navegación basada únicamente en el sensor kinect, debemos mencionar el uso del sensor láser Sick LMS100 (Figura \ref{fig:sensor_sicklms100}).\\
