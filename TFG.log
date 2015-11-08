@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.7.28)  8 NOV 2015 18:01
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.7.28)  8 NOV 2015 18:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -704,11 +704,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 20--21
  []
 
 
+LaTeX Warning: Reference `fig:esquema_robot1' on page viii undefined on input l
+ine 22.
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 22--23
 
  []
 
-<figuras/esquema_robot.jpg, id=308, 1361.085pt x 909.3975pt>
+<figuras/esquema_robot.jpg, id=307, 1361.085pt x 909.3975pt>
 File: figuras/esquema_robot.jpg Graphic file (type jpg)
 
 <use figuras/esquema_robot.jpg>
@@ -794,6 +798,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 54--55
 Underfull \hbox (badness 10000) in paragraph at lines 56--57
 
  []
+
+
+LaTeX Warning: Reference `fig:esquema_robot2' on page xii undefined on input li
+ne 58.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 58--59
@@ -1424,7 +1432,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 16--17
 
  []
 
-<figuras/motor_encoder.jpg, id=487, 853.1875pt x 853.1875pt>
+<figuras/motor_encoder.jpg, id=485, 853.1875pt x 853.1875pt>
 File: figuras/motor_encoder.jpg Graphic file (type jpg)
 
 <use figuras/motor_encoder.jpg>
@@ -1482,7 +1490,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 52--53
 
  []
 
-<figuras/pioneer3dx.jpg, id=495, 367.3725pt x 261.97874pt>
+<figuras/pioneer3dx.jpg, id=493, 367.3725pt x 261.97874pt>
 File: figuras/pioneer3dx.jpg Graphic file (type jpg)
 
 <use figuras/pioneer3dx.jpg>
@@ -1498,7 +1506,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 68--69
 
  []
 
-<figuras/skid-steer_examples.png, id=497, 1198.4775pt x 355.3275pt>
+<figuras/skid-steer_examples.png, id=495, 1198.4775pt x 355.3275pt>
 File: figuras/skid-steer_examples.png Graphic file (type png)
 
 <use figuras/skid-steer_examples.png>
@@ -1542,7 +1550,7 @@ Package babel Info: Redefining spanish shorthand "!
 Package babel Info: Redefining spanish shorthand "?
 (babel)             in language  on input line 85.
 [7 <./figuras/pioneer3dx.jpg> <./figuras/skid-steer_examples.png>]
-<figuras/configuracion_sincrona.png, id=507, 579.16376pt x 422.57875pt>
+<figuras/configuracion_sincrona.png, id=505, 579.16376pt x 422.57875pt>
 File: figuras/configuracion_sincrona.png Graphic file (type png)
 
 <use figuras/configuracion_sincrona.png>
@@ -1555,7 +1563,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 98--99
  []
 
 
-<figuras/configuracion_omnidireccional.png, id=509, 573.14125pt x 492.84125pt>
+<figuras/configuracion_omnidireccional.png, id=507, 573.14125pt x 492.84125pt>
 File: figuras/configuracion_omnidireccional.png Graphic file (type png)
 
 <use figuras/configuracion_omnidireccional.png>
@@ -1563,7 +1571,7 @@ Package pdftex.def Info: figuras/configuracion_omnidireccional.png used on inpu
 t line 102.
 (pdftex.def)             Requested size: 170.71393pt x 146.79317pt.
 
-<figuras/rueda_omnidireccional.png, id=510, 356.33125pt x 367.3725pt>
+<figuras/rueda_omnidireccional.png, id=508, 356.33125pt x 367.3725pt>
 File: figuras/rueda_omnidireccional.png Graphic file (type png)
 
 <use figuras/rueda_omnidireccional.png>
@@ -1575,7 +1583,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 107--108
 
  []
 
-<figuras/mecanum-wheels_uranus.png, id=512, 647.41875pt x 408.52625pt>
+<figuras/mecanum-wheels_uranus.png, id=510, 647.41875pt x 408.52625pt>
 File: figuras/mecanum-wheels_uranus.png Graphic file (type png)
 
 <use figuras/mecanum-wheels_uranus.png>
@@ -1643,7 +1651,7 @@ Package babel Info: Redefining spanish shorthand "!
 Package babel Info: Redefining spanish shorthand "?
 (babel)             in language  on input line 121.
 
-<figuras/encoder_absoluto.png, id=522, 459.7175pt x 280.04625pt>
+<figuras/encoder_absoluto.png, id=520, 459.7175pt x 280.04625pt>
 File: figuras/encoder_absoluto.png Graphic file (type png)
 
 <use figuras/encoder_absoluto.png>
@@ -1691,7 +1699,7 @@ Package babel Info: Redefining spanish shorthand "!
 Package babel Info: Redefining spanish shorthand "?
 (babel)             in language  on input line 136.
 [9 <./figuras/mecanum-wheels_uranus.png> <./figuras/encoder_absoluto.png>]
-<figuras/sensor_imu.png, id=530, 235.88126pt x 235.88126pt>
+<figuras/sensor_imu.png, id=528, 235.88126pt x 235.88126pt>
 File: figuras/sensor_imu.png Graphic file (type png)
 
 <use figuras/sensor_imu.png>
@@ -1775,7 +1783,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 160--161
 
  []
 
-<figuras/pr2_stereocam.jpg, id=537, 1409.265pt x 939.51pt>
+<figuras/pr2_stereocam.jpg, id=535, 1409.265pt x 939.51pt>
 File: figuras/pr2_stereocam.jpg Graphic file (type jpg)
 
 <use figuras/pr2_stereocam.jpg>
@@ -1791,7 +1799,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 170--171
 
  []
 
-<figuras/kinect.jpg, id=539, 397.485pt x 151.3153pt>
+<figuras/kinect.jpg, id=537, 397.485pt x 151.3153pt>
 File: figuras/kinect.jpg Graphic file (type jpg)
  <use figuras/kinect.jpg>
 Package pdftex.def Info: figuras/kinect.jpg used on input line 176.
@@ -1809,62 +1817,36 @@ Package babel Info: Redefining spanish shorthand "!
 Package babel Info: Redefining spanish shorthand "?
 (babel)             in language  on input line 182.
 
-Overfull \hbox (427.68588pt too wide) in paragraph at lines 184--185
-\OT1/cmr/m/n/12 vhbjklm~nvhjbknlm~nknjbhvgcvbjnklm~nghjkljhgfhjk ljhgfhjkljhgfg
-hjkljhgfghjkljhgfhjkjhgfhjkjhgfhjklkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
-kkkkkkkkkkkk
- []
-
-
-Overfull \hbox (37.32883pt too wide) in paragraph at lines 184--185
-\OT1/cmr/m/n/12 kkkkkkkkkkkkkkkkkkkkkkkkkk kkkkkkkkkkkkkkkkkkk kkkkkkkkkkkkkkkk
-kkkkkkkkkkkkk
- []
-
-
-Overfull \hbox (94.1199pt too wide) in paragraph at lines 184--185
-\OT1/cmr/m/n/12 kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
-kkkkkkkkkkkkkkkkkkkkk
- []
-
-
-Overfull \hbox (607.85068pt too wide) in paragraph at lines 184--185
-\OT1/cmr/m/n/12 kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk kkkkkkkkkkkkkk
-kk kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
-kkkkkkkkkkkkkkkkkkkkkkkkkk
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 184--185
 
  []
 
-LaTeX Info: Redefining \. on input line 185.
-LaTeX Info: Redefining \% on input line 185.
+LaTeX Info: Redefining \. on input line 186.
+LaTeX Info: Redefining \% on input line 186.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 185.
+(babel)             in language  on input line 186.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 185.
+(babel)             in language  on input line 186.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 185.
+(babel)             in language  on input line 186.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 185.
+(babel)             in language  on input line 186.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 185.
+(babel)             in language  on input line 186.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 185.
+(babel)             in language  on input line 186.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 185.
+(babel)             in language  on input line 186.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 185.
+(babel)             in language  on input line 186.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 185.
+(babel)             in language  on input line 186.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 185.
+(babel)             in language  on input line 186.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 185.
+(babel)             in language  on input line 186.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 185.
+(babel)             in language  on input line 186.
 [11 <./figuras/pr2_stereocam.jpg> <./figuras/kinect.jpg>]
 Package babel Info: Redefining spanish shorthand <<
 (babel)             in language  on input line 186.
@@ -3199,15 +3181,18 @@ Package rerunfilecheck Info: File `TFG.out' has not changed.
 (rerunfilecheck)             Checksum: 8A1BDF5D3FBD7A29FD69AB10B9EA6435;4493.
 
 
+LaTeX Warning: There were undefined references.
+
+
 LaTeX Warning: There were multiply-defined labels.
 
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 107.
  ) 
 Here is how much of TeX's memory you used:
- 9340 strings out of 494925
- 134224 string characters out of 6178544
+ 9342 strings out of 494925
+ 134264 string characters out of 6178544
  238684 words of memory out of 5000000
- 12160 multiletter control sequences out of 15000+600000
+ 12162 multiletter control sequences out of 15000+600000
  14370 words of font info for 54 fonts, out of 8000000 for 9000
  62 hyphenation exceptions out of 8191
  30i,10n,34p,660b,627s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -3222,10 +3207,10 @@ ublic/amsfonts/cm/cmsl10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
 amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
 ts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mti12.pfb>
-Output written on TFG.pdf (54 pages, 2557220 bytes).
+Output written on TFG.pdf (54 pages, 2557227 bytes).
 PDF statistics:
- 705 PDF objects out of 1000 (max. 8388607)
- 611 compressed objects within 7 object streams
+ 703 PDF objects out of 1000 (max. 8388607)
+ 609 compressed objects within 7 object streams
  143 named destinations out of 1000 (max. 500000)
  578 words of extra memory for PDF output out of 10000 (max. 10000000)
 
