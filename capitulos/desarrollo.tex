@@ -93,7 +93,7 @@ determinado, el cual no es simétrico sino que tiene puntos aleatorios que se dis
 
 A continuación, al sensor de Kinect MT9M001C12STM, que no es más que el
 sensor CMOS de una cámara en la que se le trata para que observe solo el
-infrarrojo, obteniendo los puntos infrarrojos en el plano 2D. El motivo por el que podemos medir la profundidad de los objetos (su distancia) es porque sabemos el patrón de cómo emite el laser emisor, por tanto sabremos que si un punto no está en el sitio que corresponde, se ha trasladado respecto al punto inicial y se le aplica la correspondiente transformación, obteniendo finalmente los puntos de toda la nube en coordenadas cartesianas XYZ.\\
+infrarrojo, obteniendo los puntos infrarrojos en el plano 2D. El motivo por el que podemos medir la profundidad de los objetos (su distancia) es porque sabemos el patrón de cómo emite el laser emisor, por tanto sabremos que si un punto no está en el sitio que corresponde, se ha trasladado respecto al punto inicial y se le aplica la correspondiente transformación (Figura \ref{fig:proyecciones_kinect}), obteniendo finalmente los puntos de toda la nube en coordenadas cartesianas XYZ.\\
 
 \begin{figure}[htp]
 \centering
@@ -185,4 +185,12 @@ Dimensiones & 105mm x 102mm x 152mm\\ \hline
 \label{tabla_sicklms100}
 \end{table}
 
-\subsection{Intel NUC ***}
+\subsection{Intel NUC NUC5i7RYH}
+
+El ordenador Intel NUC NUC5i7RYH, es un ordenador de altas prestaciones y de tamaño compacto que ofrece unas buenas características para procesar datos y realizar la algoritmia adecuada para tareas de robótica.\\
+
+Está equipado con un procesador i7-5557U de quinta generación que ofrece una frecuencai de reloj de 3.1 GHz. Está incorporado con un discoduro de estado sólido que permite una alta velocidad de lectura y escritura en disco, así como una tarjeta RAM de tipo DDR3 **CAPACIDAD** que permitirá el intercambio de información entre los nodos ROS de una manera fluida.
+
+Su cometido será el de procesar la información de los sensores, generar los mapas incorporando los obstáculos, generar las trayectorias de navegación y comandar los motores del robot para realizar movimientos.\\
+
+Dispone de tamaño compacto y un consumo bajo, juto con una alimentación a partir de los 12 voltios, lo que lo hace ideal para incorporarlo en robots móviles que requieran realizar tareas sin depender de una infraestructura.\\
