@@ -15,6 +15,10 @@
 \usepackage{subfigure}
 \usepackage{listings}
 \usepackage{appendix}
+\usepackage{cite}
+\usepackage{url}
+\usepackage[backend=biber,style=alphabetic]{biblatex}
+\addbibresource{bibliografia/bibliografia.bib}
 %Márgenes
 \usepackage[left=3cm,top=3cm,right=3cm,bottom=3cm]{geometry}
 
@@ -36,6 +40,19 @@
     filecolor=black,
     linkcolor=black,
     urlcolor=black,
+}
+
+
+\DeclareLabelalphaTemplate{
+  \labelelement{
+    \field[uppercase,final]{shorthand}
+    \field[uppercase]{label}
+    \field[uppercase,strwidth=3,strside=left,ifnames=1]{labelname}
+    \field[uppercase,strwidth=1,strside=left]{labelname}
+  }
+  \labelelement{
+    \field[strwidth=2,strside=right]{year}
+  }
 }
 
 %empieza el documento
@@ -94,13 +111,12 @@
 
 \include{capitulos/conclusion}
 
-%estilo de bibliografía: plana, alfa...
-\bibliographystyle{plain}
 %genera doble hoja en blanco
 \cleardoublepage
 %se incluye la bibliografía. Archivo de tipo .bib (bibtex)
-\bibliographystyle{apalike}
-\bibliography{bibliografia/bibliografia}
+%\bibliographystyle{alpha}
+%\bibliography{bibliografia/bibliografia}
+\printbibliography
 
 \include{capitulos/apendice}
 
