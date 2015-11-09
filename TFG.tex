@@ -17,6 +17,7 @@
 \usepackage{appendix}
 \usepackage{cite}
 \usepackage{url}
+\usepackage{natbib}
 %Márgenes
 \usepackage[left=3cm,top=3cm,right=3cm,bottom=3cm]{geometry}
 
@@ -38,21 +39,6 @@
     filecolor=black,
     linkcolor=black,
     urlcolor=black,
-}
-
-\usepackage[backend=biber,style=alphabetic]{biblatex}
-\addbibresource{bibliografia/bibliografia.bib}
-
-\DeclareLabelalphaTemplate{
-  \labelelement{
-    \field[uppercase,final]{shorthand}
-    \field[uppercase]{label}
-    \field[uppercase,strwidth=3,strside=left,ifnames=1]{labelname}
-    \field[uppercase,strwidth=1,strside=left]{labelname}
-  }
-  \labelelement{
-    \field[strwidth=2,strside=right]{year}
-  }
 }
 
 %empieza el documento
@@ -114,9 +100,8 @@
 %genera doble hoja en blanco
 \cleardoublepage
 %se incluye la bibliografía. Archivo de tipo .bib (bibtex)
-%\bibliographystyle{alpha}
-%\bibliography{bibliografia/bibliografia}
-\printbibliography
+\bibliographystyle{alpha}
+\bibliography{bibliografia/bibliografia}
 
 \include{capitulos/apendice}
 
