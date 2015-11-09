@@ -24,22 +24,55 @@ El objetivo de este proyecto es realizar el control de un robot móvil para que s
 
 El robot debe ser capaz de localiarse y situarse en el entorno, el sensor kinect ofrecerá información sobre los objetos alrededor del robot, y el software desarrollado para ROS deberá ser capaz de hacer un control reactivo sobre los movimientos para permitir al robot moverse por interiores y guiarlo hacia un punto indicado.\\
 
-Los objetivos principales de este proyecto serán los siguientes:\\
+Los objetivos principales de este proyecto serán los siguientes:
 
-\newcounter{enum1} % creamos un contador par la enumeración. 
+\newcounter{enum2} % creamos un contador par la enumeración. 
 \begin{enumerate}[a)]
 \item El primer objetivo es familirizarse con el control de los robots móviles y más concretamente en el control del robot Pioneer 3 AT. Familiarizarse con el sensor Kinect y con el software necesario para su uso. Y familiarizarse con el framework ROS y sus herramientas para el desarrollo de sistemas robóticos.
-\setcounter{enum1}{\value{enumi}}
+\setcounter{enum2}{\value{enumi}}
 \end{enumerate}
 
 \begin{enumerate}[a)]
 \setcounter{enumi}{\value{enum1}}
 \item Detección de obstáculos simples con el sensor Kinect para su inclusión posterior en el sistema de navegación del robot.
-\setcounter{enum1}{\value{enumi}}
+\setcounter{enum2}{\value{enumi}}
 \end{enumerate}
 
 \begin{enumerate}[a)]
 \setcounter{enumi}{\value{enum1}}
-\item Realizar un sistema de nevegación autónomo basado en la información aportada por el sensor Kinect y otro tipo de sensores embebidos.
-\setcounter{enum1}{\value{enumi}}
+\item Telecontrol del robot Pioneer 3 AT a partir del software ROS para realizar un controlador manual desde un ordenador externo.
+\setcounter{enum2}{\value{enumi}}
 \end{enumerate}
+
+\begin{enumerate}[a)]
+\setcounter{enumi}{\value{enum1}}
+\item Realizar un sistema de navegación autónomo que sea capaz de dirigir el robot basándose en la información aportada por el sensor Kinect y otro tipo de sensores embebidos.
+\setcounter{enum2}{\value{enumi}}
+\end{enumerate}
+
+De los objetivos anteriores podemos desgranar algunos objetivos parciales a cubrir:
+
+\newcounter{enum3}
+\begin{enumerate}[a)]
+\item Comprender el funcionamiento de ROS y la integración e interacción del software desarrollado bajo este entorno.
+\setcounter{enum3}{\value{enumi}}
+\end{enumerate}
+
+\begin{enumerate}[a)]
+\setcounter{enumi}{\value{enum1}}
+\item Control del movimeinto del robot Pioneer 3 AT a través de ROS, así como la obtención de la infromación de la odometría, estado de la batería, encendido de motores...
+\setcounter{enum3}{\value{enumi}}
+\end{enumerate}
+
+\begin{enumerate}[a)]
+\setcounter{enumi}{\value{enum1}}
+\item Puesta en marcha el sistema de navegación para robots de ROS conocido como ''Navigation Stack'' y exploración de las capadidades del sistema.
+\setcounter{enum3}{\value{enumi}}
+\end{enumerate}
+
+\begin{enumerate}[a)]
+\setcounter{enumi}{\value{enum1}}
+\item Valorar el uso de sensores adicionales y buscar una disposición óptima de los mismos para integrarlos en el sistema de navegación y en la arquitectura hardware del propio robot.
+\setcounter{enum3}{\value{enumi}}
+\end{enumerate}
+
