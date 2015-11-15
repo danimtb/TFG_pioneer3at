@@ -1,19 +1,19 @@
 \chapter{Estado del arte}
 
-La robótica móvil vive actualmente un momento de gran desarrollo para multitud de aplicaciones en entornos diversos, desde espacios abiertos con orografía accidentada y condiciones climáticas adversas **proyecto robot catastrofes** **proyecto DARPA big dog**, entornos controlados y espacios interiores conocidos como la automatización de tareas de almacenaje de productos **referencia robots amazon**, hasta orientación y exploración de espacios interiores desconocidos **robot creacion de mapas de edificios**.\\
+La robótica móvil vive actualmente un momento de gran desarrollo para multitud de aplicaciones en entornos diversos, desde espacios abiertos con orografía accidentada y condiciones climáticas adversas **proyecto robot catastrofes** **proyecto DARPA big dog**, entornos controlados y espacios interiores conocidos como la automatización de tareas de almacenaje de productos **referencia robots amazon**, hasta orientación y exploración de espacios interiores desconocidos **robot creacion de mapas de edificios**.
 
-De la misma forma, el interés en robots que sea capaces de reproducir las capacidades de un ser humano e incluso que pueda dar asistencia ya sea en entornos conocidos o no abre un área de posibilidades en las que los robots móviles cobran importancia.\\
+De la misma forma, el interés en robots que sea capaces de reproducir las capacidades de un ser humano e incluso que pueda dar asistencia ya sea en entornos conocidos o no abre un área de posibilidades en las que los robots móviles cobran importancia.
 
-Los avances tanto el las características hardaware como software son notables aunque estas suelen variar dependiendo de la aplicación a la que un robot esté destinado. En este capítulo trata de hacer un resumen del estadoactual de la robótica móvil.\\
+Los avances tanto el las características hardaware como software son notables aunque estas suelen variar dependiendo de la aplicación a la que un robot esté destinado. En este capítulo trata de hacer un resumen del estadoactual de la robótica móvil.
 
 
 \section{Hardware en robótica móvil}
 
-Como hemos indicado previamente, la configuración hardware de un robot móvil varía dependiendo de la aplicación a la que vaya destinado. Es cierto que lo ideal para un robot sería disponer de una configuración hardware común que fuera polivalente en los diferentes terrenos y situaciones, sin embargo, debido a la variedad de aplicaciones y dado que un robot suele destinarse a tareas específicas, la elección del hardware que mejor se adapta es una tendencia común en robótica.\\
+Como hemos indicado previamente, la configuración hardware de un robot móvil varía dependiendo de la aplicación a la que vaya destinado. Es cierto que lo ideal para un robot sería disponer de una configuración hardware común que fuera polivalente en los diferentes terrenos y situaciones, sin embargo, debido a la variedad de aplicaciones y dado que un robot suele destinarse a tareas específicas, la elección del hardware que mejor se adapta es una tendencia común en robótica.
 
-Para seleccionar el hardaware debemos valorar el tipo de actuador que se requiere, entendiéndose por actuador al dispositivo que genera el movimiento de los elementos que hacen que el robot móvil se desplace. En robótica móvil suelen utilizarse los actuadores de tipo eleéctrico, ya que ofrecen unas prestaciones de potencia, controlabilidad y coste adecuados. Además, ofrecen la posibilidad de que la alimentación esté integrada en el robot, haciéndolo independiente de una fuente de energía accesoria.\\
+Para seleccionar el hardaware debemos valorar el tipo de actuador que se requiere, entendiéndose por actuador al dispositivo que genera el movimiento de los elementos que hacen que el robot móvil se desplace. En robótica móvil suelen utilizarse los actuadores de tipo eleéctrico, ya que ofrecen unas prestaciones de potencia, controlabilidad y coste adecuados. Además, ofrecen la posibilidad de que la alimentación esté integrada en el robot, haciéndolo independiente de una fuente de energía accesoria.
 
-Los actuadores eléctricos son, por tanto, los más utilizados. En concreto, los motores de corriente continua (Figura \ref{fig:motor_encoder}) ofrecen un fácil control y fácil acoplamiento a un encoder. Los encoder son sensores de posición que perminten conocer el giro de un eje de rotación. Estos sensores son muy importantes en robótica móvil, ya que a partir de la información que arrojan el robot tiene consciencia de su posición relativa, en el caso de los encoders incrementales, o su posición absoluta, en el caso de los encoders absolutos. **referencia a la sección de sesnsores**.\\
+Los actuadores eléctricos son, por tanto, los más utilizados. En concreto, los motores de corriente continua (Figura \ref{fig:motor_encoder}) ofrecen un fácil control y fácil acoplamiento a un encoder. Los encoder son sensores de posición que perminten conocer el giro de un eje de rotación. Estos sensores son muy importantes en robótica móvil, ya que a partir de la información que arrojan el robot tiene consciencia de su posición relativa, en el caso de los encoders incrementales, o su posición absoluta, en el caso de los encoders absolutos. **referencia a la sección de sesnsores**.
 
 \begin{figure}[htp]
 \centering
@@ -21,9 +21,9 @@ Los actuadores eléctricos son, por tanto, los más utilizados. En concreto, los m
 \caption{Motor de corriente continua con encoder} \label{fig:motor_encoder}
 \end{figure}
 
-Existen otros tipos de actuadores eléctricos que se utilizan en robótica, como puede ser el caso de los motores paso a paso, sin embargo su baja velocidad de giro no los hacen adecuados para robots móviles.\\
+Existen otros tipos de actuadores eléctricos que se utilizan en robótica, como puede ser el caso de los motores paso a paso, sin embargo su baja velocidad de giro no los hacen adecuados para robots móviles.
 
-La disposición de los actuadores determina la configuración del robot. Centrándonos en robots que se desplazan mediante ruedas y descartando a los robots con patas, podemos distinguir las siguientes configuraciones: Ackerman, triciclo clásico, tracción diferencial, skid-steer, síncrona y omnidireccional.\\
+La disposición de los actuadores determina la configuración del robot. Centrándonos en robots que se desplazan mediante ruedas y descartando a los robots con patas, podemos distinguir las siguientes configuraciones: Ackerman, triciclo clásico, tracción diferencial, skid-steer, síncrona y omnidireccional.
 
 **IMAGEN de las configuraciones LIBRO**
 
@@ -33,7 +33,7 @@ La disposición de los actuadores determina la configuración del robot. Centrándo
 \setcounter{enum1}{\value{enumi}} % le damos al contador el valor de la enumeración.
 \end{enumerate}
 
-Consta de cuatro ruedas. Las ruedas motrices son las traseras o las delanteras, y éstas últimas se encargan además de la dirección. Permite un desplazamiento a altas velocidades y la posibilidad de realizar giros con estabilidad. Esta configuración es la que se utiliza en la industria del automóvil.\\
+Consta de cuatro ruedas. Las ruedas motrices son las traseras o las delanteras, y éstas últimas se encargan además de la dirección. Permite un desplazamiento a altas velocidades y la posibilidad de realizar giros con estabilidad. Esta configuración es la que se utiliza en la industria del automóvil.
 
 \begin{enumerate}[a.]
 \setcounter{enumi}{\value{enum1}} % reiniciamos enumeración con el valor del contador.
@@ -41,7 +41,7 @@ Consta de cuatro ruedas. Las ruedas motrices son las traseras o las delanteras, 
 \setcounter{enum1}{\value{enumi}}
 \end{enumerate}
 
-Consta de tres ruedas. Las ruedas motrices pueden ser las dos ruedas traseras o solo la delantera, que se encarga de la dirección. Este es el caso de los triciclos y de algunas bicicletas. Esta configuración ofrece alto grado de maniobrabilidad penalizando la estabilidad del conjunto y realizar giros den 90º.\\
+Consta de tres ruedas. Las ruedas motrices pueden ser las dos ruedas traseras o solo la delantera, que se encarga de la dirección. Este es el caso de los triciclos y de algunas bicicletas. Esta configuración ofrece alto grado de maniobrabilidad penalizando la estabilidad del conjunto y realizar giros den 90º.
 
 \begin{enumerate}[a.]
 \setcounter{enumi}{\value{enum1}}
@@ -49,7 +49,7 @@ Consta de tres ruedas. Las ruedas motrices pueden ser las dos ruedas traseras o 
 \setcounter{enum1}{\value{enumi}}
 \end{enumerate}
 
-Consta de dos ruedas colocadas en el eje perpendicular a la dirección de desplazamiento del robot. Cada rueda es controlada por un motor, de tal forma que la diferencia de velocidad giro de una rueda respecto a otra determina el giro, avance o retroceso del robot. Los robots que presentan esta configuración suelen utilizar una tercera rueda que gira libremente que sirver como apoyo (rueda loca). Es la configuración típica de las sillas de ruedas y su característica principal es que permite realizar giros completos sobre sí mismo.\\
+Consta de dos ruedas colocadas en el eje perpendicular a la dirección de desplazamiento del robot. Cada rueda es controlada por un motor, de tal forma que la diferencia de velocidad giro de una rueda respecto a otra determina el giro, avance o retroceso del robot. Los robots que presentan esta configuración suelen utilizar una tercera rueda que gira libremente que sirver como apoyo (rueda loca). Es la configuración típica de las sillas de ruedas y su característica principal es que permite realizar giros completos sobre sí mismo.
 
 \begin{figure}[htp]
 \centering
@@ -63,9 +63,9 @@ Consta de dos ruedas colocadas en el eje perpendicular a la dirección de desplaz
 \setcounter{enum1}{\value{enumi}}
 \end{enumerate}
 
-Consta de cuatro ruedas, todas ellas motrices, y su principio de funcionamiento es el mismo que el utilizado en la configuración diferencial. Esta configuración presenta las ventajas de la configuración diferencial, pudiendo realizar giros sobre el eje del robot, pero presenta la desventaja de que las ruedas deben deslizarse lateralmente, por tanto existe un rozamiento que varía en función de la inclinación el tipo de terreno que dificulta realizar un modelo cinemático.\\
+Consta de cuatro ruedas, todas ellas motrices, y su principio de funcionamiento es el mismo que el utilizado en la configuración diferencial. Esta configuración presenta las ventajas de la configuración diferencial, pudiendo realizar giros sobre el eje del robot, pero presenta la desventaja de que las ruedas deben deslizarse lateralmente, por tanto existe un rozamiento que varía en función de la inclinación el tipo de terreno que dificulta realizar un modelo cinemático.
 
-Proporciona mucha tracción y estabilidad y suele encontrarse en aplicaciones relacionadas con la exploración, vehículos obra o vehículos todo terreno (Figura \ref{fig:ejemplos_skid-steer}).\\
+Proporciona mucha tracción y estabilidad y suele encontrarse en aplicaciones relacionadas con la exploración, vehículos obra o vehículos todo terreno (Figura \ref{fig:ejemplos_skid-steer}).
 
 \begin{figure}[htp]
 \centering
@@ -73,7 +73,7 @@ Proporciona mucha tracción y estabilidad y suele encontrarse en aplicaciones rel
 \caption{Ejemplos de configuración diferencial: Cargador frontal, Robotnik Guardian, Pioneer 3 AT} \label{fig:ejemplos_skid-steer}
 \end{figure}
 
-Este sistema es el que se utiliza también en los tanques de guerra, aunque en vez de neumáticos se utilizan orugas, denominado configuración por deslizamiento de cintas **Referencia**.\\
+Este sistema es el que se utiliza también en los tanques de guerra, aunque en vez de neumáticos se utilizan orugas, denominado configuración por deslizamiento de cintas **Referencia**.
 
 \begin{enumerate}[a.]
 \setcounter{enumi}{\value{enum1}}
@@ -81,7 +81,7 @@ Este sistema es el que se utiliza también en los tanques de guerra, aunque en ve
 \setcounter{enum1}{\value{enumi}}
 \end{enumerate}
 
-Conformado por tres o más ruedas acopladas mecánicamente y dotadas de tracción, este sistema permite que todas las ruedas roten en la misma dirección y giren a la misma velocidad (Figura \ref{fig:configuracion_sincrona}). Es utilizada ampliamente en robótica para robots móviles de interior, aunque está siendo desplazada por la configuración omnidireccional. \\
+Conformado por tres o más ruedas acopladas mecánicamente y dotadas de tracción, este sistema permite que todas las ruedas roten en la misma dirección y giren a la misma velocidad (Figura \ref{fig:configuracion_sincrona}). Es utilizada ampliamente en robótica para robots móviles de interior, aunque está siendo desplazada por la configuración omnidireccional.
 
 \begin{figure}[htp]
 \centering
@@ -95,7 +95,7 @@ Conformado por tres o más ruedas acopladas mecánicamente y dotadas de tracción, 
 \setcounter{enum1}{\value{enumi}}
 \end{enumerate}
 
-Consta de 3 ruedas cada una con un motor independiente, que permiten el desplazamiento en cualquier direción (Figura \ref{fig:configuracion_omnidireccional}). Las ruedas omnidireccionaes constan de una serie de rodillos con el eje de rotación perpendicular a la direccioón de avance.\\
+Consta de 3 ruedas cada una con un motor independiente, que permiten el desplazamiento en cualquier direción (Figura \ref{fig:configuracion_omnidireccional}). Las ruedas omnidireccionaes constan de una serie de rodillos con el eje de rotación perpendicular a la direccioón de avance.
 
 \begin{figure}[htp]
 \centering
@@ -104,7 +104,7 @@ Consta de 3 ruedas cada una con un motor independiente, que permiten el desplaza
 \caption{Configuración síncrona y rueda omnidireccional} \label{fig:configuracion_omnidireccional}
 \end{figure}
 
-Esta configuración diferencial empieza a utilizarse en sistemas de 4 ruedas con las demonminadas ''Mecanum Wheels'' **REFERENCIAAA**, que son ruedas similares a las omnidireccionales pero con los rodillos colocados en cierto ángulo (Figura \ref{fig:ruedas_mecanum}). La combinación de los giros de cada una permiten al robot moverse en cualquier dirección.\\
+Esta configuración diferencial empieza a utilizarse en sistemas de 4 ruedas con las demonminadas ''Mecanum Wheels'' **REFERENCIAAA**, que son ruedas similares a las omnidireccionales pero con los rodillos colocados en cierto ángulo (Figura \ref{fig:ruedas_mecanum}). La combinación de los giros de cada una permiten al robot moverse en cualquier dirección.
 
 \begin{figure}[htp]
 \centering
@@ -114,7 +114,7 @@ Esta configuración diferencial empieza a utilizarse en sistemas de 4 ruedas con 
 
 \section{Sensores en robótica móvil}
 
-Para que un robot pueda realizar tareas con una determinada precisión y velocidad debe conocer el entorno del sistema en el que se quiera actuar así como el estado del robot en ese sistema.\\
+Para que un robot pueda realizar tareas con una determinada precisión y velocidad debe conocer el entorno del sistema en el que se quiera actuar así como el estado del robot en ese sistema.
 
 Existen dos tipos de sensores, los sensores internos, que aportan información sobre la posición orientación del robot, y los externos, que aportan información del entorno alrededor del robot.
 
@@ -128,11 +128,11 @@ Dentro de los sensores internos, los sensores de posción primordiales son los en
 \caption{Esquema de un encoder absoluto} \label{fig:esquema_encoder}
 \end{figure}
 
-Los sensores de velocidad son similares a los encoders pero miden la velocidad de giro del eje del actuador. La tacogeneratriz proporciona una tensión proporcional a la velocidd de giro.\\
+Los sensores de velocidad son similares a los encoders pero miden la velocidad de giro del eje del actuador. La tacogeneratriz proporciona una tensión proporcional a la velocidd de giro.
 
-Los sensores acelerómetros o inclinómetros, permiten conocer la inclinación del robot en cada uno de sus ejes, así como las aceleraciones producidas por su propio desplazamiento.\\
+Los sensores acelerómetros o inclinómetros, permiten conocer la inclinación del robot en cada uno de sus ejes, así como las aceleraciones producidas por su propio desplazamiento.
 
-Existen otros sensores más sofisticados como las Unidades de medida inercial (IMU) (Figura \ref{fig:sensor_imu}). Son disposiivos que combinan las medidas de un giróscopo y varios acelerómetros para determinar la posición relativa (x, y, z) y la orientación (roll, pitch, yaw), velocidad y aceleración respecto a un sistema de referencia.\\
+Existen otros sensores más sofisticados como las Unidades de medida inercial (IMU) (Figura \ref{fig:sensor_imu}). Son disposiivos que combinan las medidas de un giróscopo y varios acelerómetros para determinar la posición relativa (x, y, z) y la orientación (roll, pitch, yaw), velocidad y aceleración respecto a un sistema de referencia.
 
 \begin{figure}[htp]
 \centering
@@ -141,23 +141,23 @@ Existen otros sensores más sofisticados como las Unidades de medida inercial (IM
 \end{figure}
 
 Debido  a  que  la  aceleración  se  ha  de  integrar  dos  veces  para  obtener  la 
-posición,  el  error  crece  de  forma  cuadrática.  Luego  para  largos  periodos  de operación las unidades IMU se deben de resetear con otros sensores tipo GPS.\\
+posición,  el  error  crece  de  forma  cuadrática.  Luego  para  largos  periodos  de operación las unidades IMU se deben de resetear con otros sensores tipo GPS.
 
 \subsection{Sensores externos}
 
-Los sensores externos son aquellos que nos aportan información sobre el estado del robot respecto al entorno o que nos da información sobre lo que ocurre alrededor de este.\\
+Los sensores externos son aquellos que nos aportan información sobre el estado del robot respecto al entorno o que nos da información sobre lo que ocurre alrededor de este.
 
-Los sensores de presencia, como son los sensores de tipo inductivo, capacitivo, óptico o mecánico. Sea cual sea la naturaleza del sensor, su función es la de detectar presencia. Un ejemplo de aplicación a un robot móvil sería una serie de sensores de presencia mecánicos, denominados "fin de carrera", colocados en la parte delantera, de modo que al tocar algún obstáculo se tuviera conciencia de la presencia de un obstáculo.\\
+Los sensores de presencia, como son los sensores de tipo inductivo, capacitivo, óptico o mecánico. Sea cual sea la naturaleza del sensor, su función es la de detectar presencia. Un ejemplo de aplicación a un robot móvil sería una serie de sensores de presencia mecánicos, denominados "fin de carrera", colocados en la parte delantera, de modo que al tocar algún obstáculo se tuviera conciencia de la presencia de un obstáculo.
 
-Sensores de posicionamiento global GPS (Global Positioning System) que permiten determinar la posición de un objeto en todo el mundo, normalmente con una precisión de metros. El GPS funciona con una red de satélites con trayectorias sincronizadas que cobren toda la superficie de la tierra. El GPS lanza señales a los satélites y calculando el tiempoq ue tarda éstos en responder, se obtiene la posición por trianguación.\\
+Sensores de posicionamiento global GPS (Global Positioning System) que permiten determinar la posición de un objeto en todo el mundo, normalmente con una precisión de metros. El GPS funciona con una red de satélites con trayectorias sincronizadas que cobren toda la superficie de la tierra. El GPS lanza señales a los satélites y calculando el tiempoq ue tarda éstos en responder, se obtiene la posición por trianguación.
 
-Los sensores GPS se utilizan en robots móviles que operan en el exterior y suen combinarse con otros sensores que ofrezcan una mayor precisión.\\
+Los sensores GPS se utilizan en robots móviles que operan en el exterior y suen combinarse con otros sensores que ofrezcan una mayor precisión.
 
-Los sensores de distancia son aquellos que nos dan una referencia de la longitud que existe a los objetos cercanos. Es el caso de los sensores e ultrasonidos, donde un emisor emite una onda ultrasónica y cuando es reflejada por un objeto se puede determinar la distancia a la que se encuentra midiendo el tiempo que tarda el sonido en ir y volver. Los sensores de distancia también pueden ser infrarrojos, funcionando de la misma manera.\\
+Los sensores de distancia son aquellos que nos dan una referencia de la longitud que existe a los objetos cercanos. Es el caso de los sensores e ultrasonidos, donde un emisor emite una onda ultrasónica y cuando es reflejada por un objeto se puede determinar la distancia a la que se encuentra midiendo el tiempo que tarda el sonido en ir y volver. Los sensores de distancia también pueden ser infrarrojos, funcionando de la misma manera.
 
-Existen sensores de distancia que utilizan tecnología láser para determinar la longitud de un punto a otro, se denominan Scanners láser. Estos sensores emiten rayos láser en un plano de 2 dimensiones y en un rango determinado, y midiendo el tiempo de vuelo del haz láser son capaces de obtener una medida muy precisa de la distancia.\\
+Existen sensores de distancia que utilizan tecnología láser para determinar la longitud de un punto a otro, se denominan Scanners láser. Estos sensores emiten rayos láser en un plano de 2 dimensiones y en un rango determinado, y midiendo el tiempo de vuelo del haz láser son capaces de obtener una medida muy precisa de la distancia.
 
-Existen otro tipo de sensores de distancia que permiten obtener distancias a puntos de manera tridimensional. Algunos utilizan un sistema de doble cámara conocidos como cámara estereoscópica (Figura \ref{fig:camara_estereoscopica}). Estos sesnores son capaces de obtener imágenes 3D con la información de dos imágenes tomadas a cierta distancia una de otra. Es el sensor más parecido a la visión humana.\\
+Existen otro tipo de sensores de distancia que permiten obtener distancias a puntos de manera tridimensional. Algunos utilizan un sistema de doble cámara conocidos como cámara estereoscópica (Figura \ref{fig:camara_estereoscopica}). Estos sesnores son capaces de obtener imágenes 3D con la información de dos imágenes tomadas a cierta distancia una de otra. Es el sensor más parecido a la visión humana.
 
 \begin{figure}[htp]
 \centering
@@ -165,9 +165,9 @@ Existen otro tipo de sensores de distancia que permiten obtener distancias a pun
 \caption{Cámara estereoscópica del robot PR2} \label{fig:camara_estereoscopica}
 \end{figure}
 
-Otros sensores de distancia en 3 dimensiones, son los sensores de tipo infrarrojo, como es el sensor Kinect, que ha se ha vuelto muy popular debido a su bajo coste y su buena respuesta.\\
+Otros sensores de distancia en 3 dimensiones, son los sensores de tipo infrarrojo, como es el sensor Kinect, que ha se ha vuelto muy popular debido a su bajo coste y su buena respuesta.
 
-Kinect es un dispositivo derrollado por PrimeSense **refenrecia** y distribuido por Microsoft para la vieoconsola Xbox 360 (Figura \ref{fig:sensor_kinect}).\\
+Kinect es un dispositivo derrollado por PrimeSense **refenrecia** y distribuido por Microsoft para la vieoconsola Xbox 360 (Figura \ref{fig:sensor_kinect}).
 
 Inicialmente permitía controlar e interactuar con la consola XBOX sin necesidad de tener contacto físico con un controlador. Este sensor permite reconocer gestos, comandos de voz, objetos e imágenes; esto hace que tenga mucho interés en el mundo de la robótica.
 
@@ -181,22 +181,22 @@ Para captar el entorno en 3 dimensiones, Kinect incluye una cámara de vídeo RGB,
 
 \section{Control en la robótica móvil actual}
 
-El control del movimento en los robots móviles con ruedas puede describirse, de manera general, en cuatro tareas fundamentales: localización y orientación, planificación de trayectoria, seguimiento de la misma y evasión de los obstáculos.\\
+El control del movimento en los robots móviles con ruedas puede describirse, de manera general, en cuatro tareas fundamentales: localización y orientación, planificación de trayectoria, seguimiento de la misma y evasión de los obstáculos.
 
 \subsection{Localización y orientación en un entorno}
-Normalmente, uno de los mayores problemas que conciernen a la navegación de robots móviles consiste en la determinación de su localización respecto a un mapa en función de la información captada por los sensores.. No basta con situar una referencia global, si no que es imprescindible conocer la posición relativa respecto a los posibles obstáculos, tanto móviles como estáticos, de su entorno. Para esta tarea existen diferentes opciiones, como utilizar mapas introducidos en el robot, o bien elaborar un mapa de manera simultánea al movimiento del robot por un lugar, como si se tratase de un robot de exploración. Es lo que se conocde como SLAM (Simultaneous Localization and Mapping)**refenrecia**.\\
+Normalmente, uno de los mayores problemas que conciernen a la navegación de robots móviles consiste en la determinación de su localización respecto a un mapa en función de la información captada por los sensores.. No basta con situar una referencia global, si no que es imprescindible conocer la posición relativa respecto a los posibles obstáculos, tanto móviles como estáticos, de su entorno. Para esta tarea existen diferentes opciiones, como utilizar mapas introducidos en el robot, o bien elaborar un mapa de manera simultánea al movimiento del robot por un lugar, como si se tratase de un robot de exploración. Es lo que se conocde como SLAM (Simultaneous Localization and Mapping)**refenrecia**.
 
-Uno de las motivaciones para el uso de esta técnica es la construcción de mapas desde el punto de vista del robot, así como el ruido que se genera en los sensores de posición internos del robot que miden la odometría. Sin embargo, esta técnica en ocasiones puede producir efectos no deseados, como incorrecciones en el mapa debido a su alto coste computacional o variaciones debidas a objetos que se mueven en torno al robot.\\
+Uno de las motivaciones para el uso de esta técnica es la construcción de mapas desde el punto de vista del robot, así como el ruido que se genera en los sensores de posición internos del robot que miden la odometría. Sin embargo, esta técnica en ocasiones puede producir efectos no deseados, como incorrecciones en el mapa debido a su alto coste computacional o variaciones debidas a objetos que se mueven en torno al robot.
 
 Pueden distenguirse tres tipos de mapas: geomñetrico, topológico y semántico. El nivel geométrico es el más utilizado y consiste en un mapa métrico donde se representan los segmentos bñasicos de un entorno, o un mapa discretizado, donde se efectua la descomposición de los elementos en celdillas. En el nivel topológico, se representaran nodos y coneciones entre ellos, y el nivel semñantico es cuando se elimina la información geométrica.
 
 \section{Aplicaciones actuales de la robótica móvil}
 
-Algunas de las aplicaciones del área de la robótica móvil ya han sido mencionadas con anterioridad en este documento, estas van enfocadas a sustituir la labor que realiza el ser humano en situaciones de riesgo o en tareas repetitivas que aportan poco valor.\\
+Algunas de las aplicaciones del área de la robótica móvil ya han sido mencionadas con anterioridad en este documento, estas van enfocadas a sustituir la labor que realiza el ser humano en situaciones de riesgo o en tareas repetitivas que aportan poco valor.
 
-Una de las aplicaciones más famosas sobre robótica móvil son los Rovers de exploración espacial de la NASA ''Spirit'' y ''Opportunity'' dentro de la misión ''Mars Exploration Rover'' lanzada en 2003. Estos robots disponen de sistemas de navegación y exploración ideados para sus misiones en la superficie del planeta Marte, con el objetivo de analizar el entorno y los materiales de sus rocas y cráteres y enviar la información de vuelta a la Tierra. **REFERENCIA**\\
+Una de las aplicaciones más famosas sobre robótica móvil son los Rovers de exploración espacial de la NASA ''Spirit'' y ''Opportunity'' dentro de la misión ''Mars Exploration Rover'' lanzada en 2003. Estos robots disponen de sistemas de navegación y exploración ideados para sus misiones en la superficie del planeta Marte, con el objetivo de analizar el entorno y los materiales de sus rocas y cráteres y enviar la información de vuelta a la Tierra. **REFERENCIA**.
 
-Un tercer robot no tripulado fue enviado con posterioridad a la superficie del planeta rojo. El robot ''Curiosity'' forma parte de la segunda generación de robots de exploración espacial y aterrizó en Marte en el año 2012. La misión ''Mars Science Laboratory'' ha permitido descubrir la existencia de antiguos lagos en la superficie del planeta **referencia pagina NASA**.\\
+Un tercer robot no tripulado fue enviado con posterioridad a la superficie del planeta rojo. El robot ''Curiosity'' forma parte de la segunda generación de robots de exploración espacial y aterrizó en Marte en el año 2012. La misión ''Mars Science Laboratory'' ha permitido descubrir la existencia de antiguos lagos en la superficie del planeta \cite{mar}.
 
 \begin{figure}[htp]
 \centering
@@ -204,7 +204,7 @@ Un tercer robot no tripulado fue enviado con posterioridad a la superficie del p
 \caption{Imagen tomada a sí mismo por el robot Curiosity en la superficie marciana} \label{fig:curiosity_rover}
 \end{figure}
 
-Otras aplicaciones conocidas de la robótica móvil son los robots de búsqueda, reconocimiento y desactivación de explosivos. Robots como el iRobot 510 PackBot (Figura \ref{fig:robots_explosivos}), desarrollado por iRobot Corporation, o TALON (Figura \ref{fig:robots_explosivos}), desarrollado por QinetiQ North America, son ejemplos de cómo la robótica móvil es una herramienta muy valiosa en situaciones peligrosas o en sectores como seguridad y defensa.\\
+Otras aplicaciones conocidas de la robótica móvil son los robots de búsqueda, reconocimiento y desactivación de explosivos. Robots como el iRobot 510 PackBot (Figura \ref{fig:robots_explosivos}), desarrollado por iRobot Corporation, o TALON (Figura \ref{fig:robots_explosivos}), desarrollado por QinetiQ North America, son ejemplos de cómo la robótica móvil es una herramienta muy valiosa en situaciones peligrosas o en sectores como seguridad y defensa.
 
 \begin{figure}[htp]
 \centering
@@ -213,7 +213,7 @@ Otras aplicaciones conocidas de la robótica móvil son los robots de búsqueda, re
 \caption{Robots de desactivación de explosivos: iRobot 510 Packbot y TALON} \label{fig:robots_explosivos}
 \end{figure}
 
-También existen robots ideados para realizar tareas en entornos peligrosos o en situaciones de desastre. Como ejemplo podemos citar la catástrofe que sufrío Japón el 11 de Marzo de 2011. Un terremoto causa daños catastróficos en la central nuclear de Fukushima **FUENTE DE LA NOTICIA**. Los niveles de radiación son tan altos que solo los robots son capaces de entrar a valorar la situación de la central.\\
+También existen robots ideados para realizar tareas en entornos peligrosos o en situaciones de desastre. Como ejemplo podemos citar la catástrofe que sufrío Japón el 11 de Marzo de 2011. Un terremoto causa daños catastróficos en la central nuclear de Fukushima **FUENTE DE LA NOTICIA**. Los niveles de radiación son tan altos que solo los robots son capaces de entrar a valorar la situación de la central.
 
 Estos robots, preparados para aguantar la raciación y realizar tareas de exploración y limpieza son Quince (Figura \ref{fig:quince_raccoon_robots}), desarrolado por Chiba Institute of Technology **referencia**, un robot móvil capaz de subir y bajar escaleras y operar en las plantas superiores de la central nuclear.
 
@@ -234,9 +234,9 @@ Siguiendo con la aplicación de robots móviles en tareas de limpieza, podemos des
 \caption{Robot para limpieza del hogar Roomba, de iRobot} \label{fig:roomba_robot}
 \end{figure}
 
-También existen aplicaciones de robots móviles en el ábito de la agricultura. La empresa Robotnik**refenrecia** tiene en marcha diferentes programas para incorporar sus robots en tareas de recolección o inspección de la cosecha.\\
+También existen aplicaciones de robots móviles en el ábito de la agricultura. La empresa Robotnik**refenrecia** tiene en marcha diferentes programas para incorporar sus robots en tareas de recolección o inspección de la cosecha.
 
-Su proyecto AgriRobot (Figura \ref{fig:agrirobot_robot}), investiga el aspecto de la interacción humano-robot (Human-Robot Interface, HRI, en inglés). Para ello se sirven del robot Summit X Lincorporado con 4 ruedas motoras de alta potencia. El robot contiene un pulverizador eléctrico de 10 litros, tiene un sistema de visión, navegación y localización, y utiliza el software ROS.\\
+Su proyecto AgriRobot (Figura \ref{fig:agrirobot_robot}), investiga el aspecto de la interacción humano-robot (Human-Robot Interface, HRI, en inglés). Para ello se sirven del robot Summit X Lincorporado con 4 ruedas motoras de alta potencia. El robot contiene un pulverizador eléctrico de 10 litros, tiene un sistema de visión, navegación y localización, y utiliza el software ROS.
 
 \begin{figure}[htp]
 \centering
@@ -244,7 +244,7 @@ Su proyecto AgriRobot (Figura \ref{fig:agrirobot_robot}), investiga el aspecto d
 \caption{Robot pulverizador de aplicación agrícola, AgriRobot} \label{fig:agrirobot_robot}
 \end{figure}
 
-Al igual que el proyecto VinBot (Figura \ref{fig:vinbot_robot}), de la misma empresa. Un robot móvil autónomo todo terreno dotado con un conjunto de sensores capaces de capturar y analizar imágenes de viñedos y datos en 3D mediante el uso de aplicaciones de cloud computing. Su finalidad es determinar el rendimiento de los viñedos y compartir esta información con los viticultores.\\
+Al igual que el proyecto VinBot (Figura \ref{fig:vinbot_robot}), de la misma empresa. Un robot móvil autónomo todo terreno dotado con un conjunto de sensores capaces de capturar y analizar imágenes de viñedos y datos en 3D mediante el uso de aplicaciones de cloud computing. Su finalidad es determinar el rendimiento de los viñedos y compartir esta información con los viticultores.
 
 \begin{figure}[htp]
 \centering
@@ -263,7 +263,7 @@ En el apartado de la robótica social, podemos hablar de robots móviles con rueda
 \label{fig:robots_sociales}
 \end{figure}
 
-Existen otro tipo de robots con altas capacidades que realizan la función de un robot móvil, como el robot de investigación PR2 (Figura \ref{fig:pr2_robot}), dotado con un sistema de desplazamiento omnidireccional.\\
+Existen otro tipo de robots con altas capacidades que realizan la función de un robot móvil, como el robot de investigación PR2 (Figura \ref{fig:pr2_robot}), dotado con un sistema de desplazamiento omnidireccional.
 
 \begin{figure}[htp]
 \centering
@@ -272,22 +272,19 @@ Existen otro tipo de robots con altas capacidades que realizan la función de un 
 \label{fig:pr2_robot}
 \end{figure}
  
- Este robot, desarrollado por los investigadores de Willow Garage, fue creado para proporcionar una plataforma común junto con ROS (Robot Operating System), sobre la que realizar investigaciones que ayuden al desarrolo software de aplicaciones robóticas.\\
+ Este robot, desarrollado por los investigadores de Willow Garage, fue creado para proporcionar una plataforma común junto con ROS (Robot Operating System), sobre la que realizar investigaciones que ayuden al desarrolo software de aplicaciones robóticas.
  
-Finalmente, podemos detacar una de las palicaciones que más han llamado la atención en la sociedad, los coches sin conductor. Potenciados por los desarrollos de la empresa Google, cuyo proyecto consiste en combinar la información obtenida del servicio de mapas de la compañía con la inteligencia artificial, estos coches suponen un cambio notable a nivel de seguridad en el transporte urbano de nuestra sociedad.
+Finalmente, podemos detacar una de las palicaciones que más han llamado la atención en la sociedad, los coches sin conductor. Potenciados por los desarrollos de la empresa Google, cuyo proyecto consiste en combinar la información obtenida del servicio de mapas de la compañía con la inteligencia artificial, estos coches (Figura \ref{fig:coche_google}) suponen un cambio notable a nivel de seguridad en el transporte urbano de nuestra sociedad.
 
-Los vehículos van equipados con cámaras de vídeo, un sensor láser de 360º colocado en la aprte superior del vehículo, sensores radar, sensores de odometría en las ruedas y de posición con localización GPS **REFERENCIA**.\smallskip
+Los vehículos van equipados con cámaras de vídeo, un sensor láser de 360º colocado en la aprte superior del vehículo, sensores radar, sensores de odometría en las ruedas y de posición con localización GPS **REFERENCIA**.
 
 \begin{figure}[htp]
 \centering
 \includegraphics[width=0.9\textwidth]{figuras/coche_google.jpeg}
 \caption{Sensores del coche autónomo de Google}
-\label{fig:vinbot_robot}
+\label{fig:coche_google}
 \end{figure}
 
-Estos coches disponen actualmente de permiso para circular en algunos estados de Estados Unidos tras haber superado **buscar datos de google** **REFERENCIA**.\\
+Estos coches disponen actualmente de permiso para circular en algunos estados de Estados Unidos tras haber superado **buscar datos de google** **REFERENCIA**.
 
-En conclusión, podemos decir que los campos de aplicación de la robótica móvil son amplios, variados y con grandes perspectivas de futuro. Sin embargo, el mercado de la robótica civil a penas acaba de comenzar con la aparición de los primeros robots domésticos y los robots de caracter social. En otros campos, vemos que existe un auge de la robótica móvil y que a medida que los sistemas robóticos avanzan surgen nuevas posibilidades donde aplicarla.\\
-
-
-
+En conclusión, podemos decir que los campos de aplicación de la robótica móvil son amplios, variados y con grandes perspectivas de futuro. Sin embargo, el mercado de la robótica civil a penas acaba de comenzar con la aparición de los primeros robots domésticos y los robots de caracter social. En otros campos, vemos que existe un auge de la robótica móvil y que a medida que los sistemas robóticos avanzan surgen nuevas posibilidades donde aplicarla.
