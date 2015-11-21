@@ -82,6 +82,21 @@ Sexta fase: Nuevas funcionalidades y toma de datos.
 \end{enumerate}
 
 
+Análisis de tiempos:
+
+\newgantttimeslotformat{stardate}{%
+	\def\decomposestardate##1.##2\relax{%
+		\def\stardateyear{##1}\def\stardateday{##2}%
+	}%
+	\decomposestardate#1\relax%
+	\pgfcalendardatetojulian{\stardateyear-01-01}{#2}%
+	\advance#2 by-1\relax%
+	\advance#2 by\stardateday\relax%
+}
+\begin{ganttchart}[hgrid, vgrid,time slot format=stardate]{2014.265}{2014.297}
+	\gantttitlecalendar{year, month=name, week}\\
+\end{ganttchart}
+
 \section{Tecnologías y herramientas empleadas en el proyecto}
 
 ROS
