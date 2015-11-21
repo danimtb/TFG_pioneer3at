@@ -1,12 +1,100 @@
 \chapter{Desarrollo del proyecto}
 
+En esta capítulo se expone cuál ha sido el planteamiento del proyecto y los pasos que se han seguido para conseguir los objetivos y llegar a unos resultados óptimos.
+
 \section{Planteamiento}
+El robots sobre el que se pretende trabajar es el Pioneer 3 AT, de la empresa Adept Mobile Robots, cuyas características se detallarán más adelante. La configuración del sistema motriz es de tipo skid-steer y será determinante a la hora de realizar el control del desplazamiento.
+
+Para realizar la teleoperación del robot, utilizaremos las herramientas de comunicación de ROS, que hacen que la ejecución de los diferentes nodos de forma distribuida entre equipos se realice de forma transparente para el usuario. Con esta caracterítica podremos desarrollar con facilidad un sistema de telecontrol sin preocuparnos en exceso por la implementación de la comunicación entre equipos.
+
+Para la navegación se pretende que el robot base sus movimientos en un sistema reactivo, es decir, que el robot base su navegación principalmente en la información captada por sus sensores y no en un mapa preestablecido. El control en navegación del robot se basará en la funcionalidad "Navigation Stack" de ROS, que también será explicada en detalle más delante.
+
+El desarrollo principal para la navegación se basa en la infomación aportada por el sensor Kinect, sin embargo, el sensor láser proporciona una información muy potente para robots y también ha sido incluido en el dasarrollo de este proyecto, utilizándolo en conjunto con el sensor Kinect.
+
+Seguidamente, se han realizado los ajustes pertinentes en la navegación del robot, para la cual se ha seguido el concepto de mapas de coste y descomposición en celdas. También se ha valorado la disposición de ambos sensores para capturar el entorno, así como el tratamiento dispar de los datos capturados por cada uno de ellos. De esta forma logramos que no se produzcan detecciones de objetos de manera duplicada y que no haya discrepancias entre los obstáculos que detecta un sensor respecto al otro \footnote{De especial interés en la icorporación de obstáculos al mapa mediante el uso de Costmaps en el sistema de navegación de ROS}.
+
+Finalmente, se han incorporado características adicionales que aportan valor al desarrollo del proyecto, como el uso del simulador Gazebo o la interacción con el robot mediante comandos de voz y sintetizado de voz.
 
 \section{Planificación del proyecto}
 
-\section{Tecnologías empleadas en el proyecto}
+En este apartado se desarrollan las fase por las que ha pasado ete proyecto y realizaremos un análisis de tiempos.
 
-\section{Herramientas utilizadas en el proyecto}
+Fase inicial: Familiarización con el entrono ROS y elección de herramientas.
+
+\begin{enumerate}[i.]
+  \item Utilizaremos las herramientas proporcionadas por ROS para evaluar los datos que pueda manejar el robot: RViz, rqt\_grapth, map\_server, rostopics...
+  
+  \item Para el control del movimiento del robot utilizaremos el nodo RoSAria debido a sus amplias posibilidades.
+  
+  \item Para acceder a la información de la Kinect utilizaremos los driver libfreenect, por ser librerías de código libre y utilizadas ampliamente.
+\end{enumerate}
+
+Segunda fase: Realización del nodo de teleoperación y comunicación entre equipos conectados a la misma red.
+
+\begin{enumerate}[i.]
+  \item Utilizamos la configuración de equipos en red para acceder a la información publicada por nodos que se ejecuten en varias máquinas **referencia**
+  
+  \item Partindo del nodo de teleoperacion de "Turtlesim" *refrencia*, realizamos un nodo similar para nuestro robot.
+\end{enumerate}
+
+Tercera fase: Incorporación de los sensores al robot y acceso a los datos.
+
+\begin{enumerate}[i.]
+  \item Para el sensor Kinect, realizamos un adaptador para conectarlo a la alimetnación del robot. Utilizando el nodo "freenect\_stack" *REFERENCIA*, accedemos a la nube de puntos y la imagen.
+  
+  \item Utilizamos el nodo LMS1xx **Referencia** para la puesta en marcha del láser y el acceso a los datos.
+  
+  \item Incorporación de sistemas de referencia "base\_link", "laser", ''camera\_link'' y sus transformadas mediante el paquete "tf" **referencia**. 
+  
+  \item Visualización del conjunto de datos junto con los ejes de referencia en RViz.
+\end{enumerate}
+
+Cuarta fase: Incorporación del sistema de navegación y ajuste de los parámetros
+
+\begin{enumerate}[i.]
+  \item Calibrado de los encoders de las ruedas del robot y ajuste de la odometría mediante RosAria.
+  
+  \item Incorporación del sistema de navegación ROS de forma básica.
+  
+  \item Navegación utilizando el sensor Kinect y el sensor Sick y generado de mapas mediante "slam\_gmapping".
+  
+  \item Ajuste de los planeadores de taryectoria del robot y parámetros de giro y control.
+\end{enumerate}
+
+Quinta fase: Ajuste de la navegación y simulación mediante gazebo
+
+\begin{enumerate}[i.]
+  \item Navegación en modo global (utilizando un mapa guardado) y en modo local (completamente reactivo).
+  
+  \item Puesta en marcha del simulador Gazebo y configuración del robot en el entorno.
+  
+  \item Disposición de los sensores de manera óptima y remodelado de la estructura física del robot.
+\end{enumerate}
+
+Sexta fase: Nuevas funcionalidades y toma de datos.
+
+\begin{enumerate}[i.]
+  \item Incorporación de la funcionalidad "follower", adaptada a partir del robot Turtlebot **Refeencia**, para el guiado del robot.
+  
+  \item Interfaz de comandos por voz y sintetizador de texto a voz.
+  
+  \item Pruebas físicas, recogida y análisis de los datos.
+\end{enumerate}
+
+
+\section{Tecnologías y herramientas empleadas en el proyecto}
+
+ROS
+
+gazebo
+
+c++
+
+python
+
+controlador de versiones: git - github
+
+pointcloud library
 
 \section{Hardware}
 En esta parte se explica detalladamente el hardware empleado en el desarrollo del proyecto.
@@ -181,7 +269,7 @@ Peso & 1.1 Kg \\
 Dimensiones & 105mm x 102mm x 152mm\\ \hline
 \end{tabular}
 }
-\caption{Características del sensor láser Sick LMS100. Basado en **REFENCIA**}
+\caption{Características del sensor láser Sick LMS100. Basado en \cite{sicklms100}}
 \label{tabla_sicklms100}
 \end{table}
 
@@ -189,11 +277,13 @@ Dimensiones & 105mm x 102mm x 152mm\\ \hline
 
 El ordenador Intel NUC NUC5i7RYH, es un ordenador de altas prestaciones y de tamaño compacto que ofrece unas buenas características para procesar datos y realizar la algoritmia adecuada para tareas de robótica.
 
-Está equipado con un procesador Intel i7-5557U de quinta generación que ofrece una frecuencai de reloj de 3.1 GHz. Está incorporado con un discoduro de estado sólido que permite una alta velocidad de lectura y escritura en disco, así como una tarjeta RAM de tipo DDR3L **CAPACIDAD** que permitirá el intercambio de información entre los nodos ROS de una manera fluida.
+Está equipado con un procesador Intel i7-5557U de quinta generación que ofrece una frecuencai de reloj de 3.1 GHz. Está incorporado con un discoduro de estado sólido que permite una alta velocidad de lectura y escritura en disco, así como una tarjeta RAM de tipo DDR3L de 8GB que permitirá el intercambio de información entre los nodos ROS de una manera fluida.
 
 Su cometido será el de procesar la información de los sensores, generar los mapas incorporando los obstáculos, generar las trayectorias de navegación y comandar los motores del robot para realizar movimientos.
 
 Dispone de tamaño compacto y un consumo bajo, juto con una alimentación a partir de los 12 voltios, lo que lo hace ideal para incorporarlo en robots móviles que requieran realizar tareas sin depender de una infraestructura.
+
+En la tabla \ref{tabla_intelnuc} pueden consultarse sus características principales.
 
 \begin{table}[!h]
 \centering
@@ -216,6 +306,6 @@ Consumo & 65 W \\
 Dimensiones & 115mm x 111mm x 48.7mm\\ \hline
 \end{tabular}
 }
-\caption{Características del sensor láser Sick LMS100}
+\caption{Características del ordenador Intel NUC NUC5i7RYH}
 \label{tabla_intelnuc}
 \end{table}
