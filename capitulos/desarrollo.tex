@@ -3,9 +3,9 @@
 En esta capítulo se expone cuál ha sido el planteamiento del proyecto y los pasos que se han seguido para conseguir los objetivos y llegar a unos resultados óptimos.
 
 \section{Planteamiento}
-El robots sobre el que se pretende trabajar es el Pioneer 3 AT, de la empresa Adept Mobile Robots, cuyas características se detallarán más adelante. La configuración del sistema motriz es de tipo skid-steer y será determinante a la hora de realizar el control del desplazamiento.
+El robot sobre el que se pretende trabajar es el Pioneer 3 AT, de la empresa Adept Mobile Robots, cuyas características se detallarán más adelante. La configuración del sistema motriz es de tipo skid-steer y será determinante a la hora de realizar el control del desplazamiento.
 
-Para realizar la teleoperación del robot, utilizaremos las herramientas de comunicación de ROS, que hacen que la ejecución de los diferentes nodos de forma distribuida entre equipos se realice de forma transparente para el usuario. Con esta caracterítica podremos desarrollar con facilidad un sistema de telecontrol sin preocuparnos en exceso por la implementación de la comunicación entre equipos.
+Para realizar la teleoperación del robot, utilizaremos las herramientas de comunicación de ROS, que hacen que la ejecución de los diferentes nodos de forma distribuida entre equipos se realice de forma transparente para el usuario. Con esta característica podremos desarrollar con facilidad un sistema de telecontrol sin preocuparnos en exceso por la implementación de la comunicación entre equipos.
 
 Para la navegación se pretende que el robot base sus movimientos en un sistema reactivo, es decir, que el robot base su navegación principalmente en la información captada por sus sensores y no en un mapa preestablecido. El control en navegación del robot se basará en la funcionalidad "Navigation Stack" de ROS, que también será explicada en detalle más delante.
 
@@ -26,7 +26,7 @@ Fase inicial: Familiarización con el entrono ROS y elección de herramientas.
   
   \item Para el control del movimiento del robot utilizaremos el nodo RoSAria debido a sus amplias posibilidades.
   
-  \item Para acceder a la información de la Kinect utilizaremos los driver libfreenect, por ser librerías de código libre y utilizadas ampliamente.
+  \item Para acceder a la información de la Kinect utilizaremos los drivers libfreenect, por ser librerías de código libre y utilizadas ampliamente.
 \end{enumerate}
 
 Segunda fase: Realización del nodo de teleoperación y comunicación entre equipos conectados a la misma red.
@@ -40,7 +40,7 @@ Segunda fase: Realización del nodo de teleoperación y comunicación entre equipos
 Tercera fase: Incorporación de los sensores al robot y acceso a los datos.
 
 \begin{enumerate}[i.]
-  \item Para el sensor Kinect, realizamos un adaptador para conectarlo a la alimetnación del robot. Utilizando el nodo "freenect\_stack" *REFERENCIA*, accedemos a la nube de puntos y la imagen.
+  \item Para el sensor Kinect, realizamos un adaptador para conectarlo a la alimentación del robot. Utilizando el nodo "freenect\_stack" *REFERENCIA*, accedemos a la nube de puntos y la imagen.
   
   \item Utilizamos el nodo LMS1xx **Referencia** para la puesta en marcha del láser y el acceso a los datos.
   
@@ -58,10 +58,10 @@ Cuarta fase: Incorporación del sistema de navegación y ajuste de los parámetros
   
   \item Navegación utilizando el sensor Kinect y el sensor Sick y generado de mapas mediante "slam\_gmapping".
   
-  \item Ajuste de los planeadores de taryectoria del robot y parámetros de giro y control.
+  \item Ajuste de los planeadores de trayectoria del robot y parámetros de giro y control.
 \end{enumerate}
 
-Quinta fase: Ajuste de la navegación y simulación mediante gazebo
+Quinta fase: Ajuste de la navegación y simulación mediante Gazebo
 
 \begin{enumerate}[i.]
   \item Navegación en modo global (utilizando un mapa guardado) y en modo local (completamente reactivo).
@@ -106,13 +106,13 @@ Durante ese mes y el mes de Agosto, se comenzó a redactar gran parte del trabajo
 
 En el mes de Septiembre se decidió incorporar un ordenador más potente al robot y reestructurar su chasis para dejar el sistema desarrollado integrado de manera permanente. También se utilizó el array de micrófonos del sensor Kinect para los comandos de voz.
 
-Duante el mes de Octubre se organizó la estructura del proyecto y se puso en marcha el simulador Gazebo. A continuación se realizó el ajuste de los sensores y la optimización del sistema de navegación. En paralelo se realizadon las modificaciones mecánicas y estructurales para la integración de los sensores y el ordenador en el robot.
+Duante el mes de Octubre se organizó la estructura del proyecto y se puso en marcha el simulador Gazebo. A continuación se realizó el ajuste de los sensores y la optimización del sistema de navegación. En paralelo se realizaron las modificaciones mecánicas y estructurales para la integración de los sensores y el ordenador en el robot.
 
 Durante el mes de Novimebre se realizó un pequeño parón a nivel de software, se continuó con la parte mecánica y con la redacción de la memoria de este proyecto.
 
 A continuación, comenzaron a realizarse las pruebas reales con la nueva configuración en el robot.
 
-A continiación se muestra un diagrama de Gantt con el análisis de tiempos de las diferentes tareas.
+A continuación se muestra un diagrama de Gantt con el análisis de tiempos de las diferentes tareas.
 
 \begin{landscape} 
 \begin{ganttchart}{1}{48}
@@ -150,11 +150,11 @@ En esta sección se describen las tanto las tecnologías como las herramientas uti
 
 El Sistema Operativo Robótico \cite{ROS} (conocido en inglés como Robot Operating System o ROS) es un framework para el desarrollo de software para robots que provee la funcionalidad de un sistema operativo \cite{quigley2009ros}. ROS fue desarrollado originalmente en 2007 por el Laboratorio de Inteligencia Artificial de Stanford para dar soporte al proyecto del Robot con Inteligencia Artificial de Stanford \cite{stair}. Desde 2008, el desarrollo continua primordialmente en Willow Garage, un instituto de investigación robótico con más de veinte instituciones que colaboran conjuntamente.
 
-ROS provee los servicios estándar de un sistema operativo como abstracción del hardware, control de dispositivos de bajo nivel, implementación de funcionalidad de uso común, paso de mensajes entre procesos y mantenimiento de paquetes. Está basado en una arquitectura de nodos interconectados que que pueden mandar, recibir y multiplexar mensajes de sensores, control, estados, planificaciones y actuadores, entre otros. La librería está orientada para un sistema UNIX (Ubuntu (Linux)) aunque también se está adaptando a otros sistemas operativos como Fedora, Mac OS X, Arch, Gentoo, OpenSUSE, Slackware, Debian o Microsoft Windows, considerados como 'experimentales'.
+ROS provee los servicios estándar de un sistema operativo como abstracción del hardware, control de dispositivos de bajo nivel, implementación de funcionalidad de uso común, paso de mensajes entre procesos y mantenimiento de paquetes. Está basado en una arquitectura de nodos interconectados que pueden mandar, recibir y multiplexar mensajes de sensores, control, estados, planificaciones y actuadores, entre otros. La librería está orientada para un sistema UNIX (Ubuntu (Linux)) aunque también se está adaptando a otros sistemas operativos como Fedora, Mac OS X, Arch, Gentoo, OpenSUSE, Slackware, Debian o Microsoft Windows, considerados como 'experimentales'.
 
 ROS consta de dos partes básicas: la parte del sistema operativo, ros, como se ha descrito anteriormente y ros-pkg, una suite de paquetes aportados por la contribución de usuarios (organizados en conjuntos llamado en inglés "stacks") que implementan la funcionalidades tales como localización y mapeo simultáneo, planificación, percepción, simulación, etc.
 
-ROS ofrece principlamente dos lenguajes de programación para acceder a su API (Application Programming Interface) completa. Esos lesnguajes son C++ y Python \cite{rosapi}. 
+ROS ofrece principalmente dos lenguajes de programación para acceder a su API (Application Programming Interface) completa. Esos lenguajes son C++ y Python \cite{rosapi}. 
 
 ROS es software libre bajo términos de licencia BSD. Esta licencia permite libertad para uso comercial e investigador. Las contribuciones de los paquetes en ros-pkg están bajo una gran variedad de licencias diferentes.
 
@@ -174,13 +174,13 @@ En sistemas operativos basados en Linux, el lenguaje C++ se compila bajo el comp
 Dentro del desarrollo software en C++ para ROS (roscpp \cite{roscpp}), existe una amplia interfaz para acceder a las diferentes funcionalidades y comunicarse con nodos desarrollados tanto en C++ como en Python.
 
 \subsection{Lenguaje de programación Python}
-Python es un lenguaje de programación interpretado cuya principal característica es que utiiza una sintaxis que favorece el código legible.
+Python es un lenguaje de programación interpretado cuya principal característica es que utiliza una sintaxis que favorece el código legible.
 
 Se trata de un lenguaje de programación multiparadigma, ya que soporta orientación a objetos, programación imperativa y, en menor medida, programación funcional. Es un lenguaje interpretado, usa tipado dinámico y es multiplataforma.
 
-Gracias a sus características, su uso es totalmente flexible y permite un tiempo de desarrollo menor principalmente por su tipado dinámico¡ y su sintaxis. Sin embargo, al tratarse de un lenguaje interpretado, el tiempo de ejecución es más alto lo cual no lo hace adecuado para tareas que requieran altos niveles de eficiencia.
+Gracias a sus características, su uso es totalmente flexible y permite un tiempo de desarrollo menor principalmente por su tipado dinámico y su sintaxis. Sin embargo, al tratarse de un lenguaje interpretado, el tiempo de ejecución es más alto lo cual no lo hace adecuado para tareas que requieran altos niveles de eficiencia.
 
-Desntro del desarrollo en Python para ROS (rospy \cite{rospy}), existe una interfaz completa para comunicarse con los nodos y otras funcionalidades de ROS desarrolladas en Python o C++.
+Dentro del desarrollo en Python para ROS (rospy \cite{rospy}), existe una interfaz completa para comunicarse con los nodos y otras funcionalidades de ROS desarrolladas en Python o C++.
 
 \subsection{Controlador de versiones git y repositiorios github}
 
@@ -189,9 +189,9 @@ gestiona los archivos y directorios y los cambios hechos en ellos a lo largo del
 
 Git fue creado pensando en la eficiencia y la confiabilidad del mantenimiento e versiones cuando estas tienen un gran número de archivos de código fuente. Tiene la capacidad de poder trabajar varias personas con el mismo paquete siempre que no modifiquen el mismo archivo, en ese caso, sería posible ver las diferencias entre ambas versiones, y unirlas o crear unarama del proyecto principal si fuera necesario tener las dos versiones.
 
-GitHub es un sistema de almacenamiento público de código fuente (de cualquier tipo) o un servicio de respositorios. Su principal característica es la de ofrecer una plataforma de interacción social \cite{dabbish2012social}en la que distintas personas pueden trabajar en conjunto. Esto permite que varios desarrolladores contribuyan a un proyecto y trabajen de manera coordinada.
+GitHub es un sistema de almacenamiento público de código fuente (de cualquier tipo) o un servicio de repositorios. Su principal característica es la de ofrecer una plataforma de interacción social \cite{dabbish2012social}en la que distintas personas pueden trabajar en conjunto. Esto permite que varios desarrolladores contribuyan a un proyecto y trabajen de manera coordinada.
 
-Tanto para el desarrollo software de este proyecto como para la redacción de esta memoria se han utilizado estas herramientas, y el acceso a los respositorios se ecuentra en las siguientes direcciones:
+Tanto para el desarrollo software de este proyecto como para la redacción de esta memoria se han utilizado estas herramientas, y el acceso a los repositorios se encuentran en las siguientes direcciones:
 
 \begin{itemize}
 	\item Desarrollo software del proyecto \url{https://github.com/danimtb/pioneer3at_ETSIDI}
@@ -204,13 +204,13 @@ Gazebo \cite{gazebo} es un simulador de robótica en tres dimensiones que ofrece 
 
 Un buen simulador de robótica es esencial para cualquier tipo de desarrollo robótico, ya que podemos realizar las pruebas software o la viabilidad de un sistema antes de construirlo. Gazebo cuenta con un potente motor de física simulada, interacción con objetos y dinámica de los mismos \cite{koenig2004design}.
 
-Gazebo permite una integación completa con ROS, gestiona modelos físicos de robots utilizando el formato URDF (Unified Robot Description Format) \cite{urdf} y añade características específicas como el tipo de material, los momentos de inercia o el modelo de colisión. Además, incorpora plug-ins (funcionalidades añadidas) que permiten la simulación de robots de tipo diferencial, simulación de sensores y el cálculo de tranformadas entre los distintos sistemas de referencia.
+Gazebo permite una integración completa con ROS, gestiona modelos físicos de robots utilizando el formato URDF (Unified Robot Description Format) \cite{urdf} y añade características específicas como el tipo de material, los momentos de inercia o el modelo de colisión. Además, incorpora plug-ins (funcionalidades añadidas) que permiten la simulación de robots de tipo diferencial, simulación de sensores y el cálculo de transformadas entre los distintos sistemas de referencia.
 
 Gazebo es mantenido y desarrollado actualmente por la Open Source Robotics Foundation \cite{osrf}.
 
 \subsection{RViz: Herramienta de visualización robótica}
 
-RViz es una herramienta para la visualzación de datos en 3 dimensiones de forma gráfica que trabaja dentro del entorno ROS.
+RViz es una herramienta para la visualización de datos en 3 dimensiones de forma gráfica que trabaja dentro del entorno ROS.
 Esta aplicación nos permite ver lo que está ocurriendo en nuestra plataforma robótica a tiempo real.
 
 RViz puede usarse para mostrar lecturas de sensores, datos devueltos por sensores de percepción en 3 dimensiones (nubes de puntos), visualizar mapas, visualizar un modelo de nuestro robot y su posición...
@@ -404,7 +404,7 @@ Dimensiones & 105mm x 102mm x 152mm\\ \hline
 
 El ordenador Intel NUC NUC5i7RYH, es un ordenador de altas prestaciones y de tamaño compacto que ofrece unas buenas características para procesar datos y realizar la algoritmia adecuada para tareas de robótica.
 
-Está equipado con un procesador Intel i7-5557U de quinta generación que ofrece una frecuencai de reloj de 3.1 GHz. Está incorporado con un discoduro de estado sólido que permite una alta velocidad de lectura y escritura en disco, así como una tarjeta RAM de tipo DDR3L de 8GB que permitirá el intercambio de información entre los nodos ROS de una manera fluida.
+Está equipado con un procesador Intel i7-5557U de quinta generación que ofrece una frecuencia de reloj de 3.1 GHz. Está incorporado con un disco duro de estado sólido que permite una alta velocidad de lectura y escritura en disco, así como una tarjeta RAM de tipo DDR3L de 8GB que permitirá el intercambio de información entre los nodos ROS de una manera fluida.
 
 Su cometido será el de procesar la información de los sensores, generar los mapas incorporando los obstáculos, generar las trayectorias de navegación y comandar los motores del robot para realizar movimientos.
 
