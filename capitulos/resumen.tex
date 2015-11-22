@@ -19,7 +19,7 @@ Finalmente, un algoritmo de cálculo de movimientos realiza el control de los mot
 
 A parte de la navegación autónoma, también dispone de un sitema de telecontrol del robot mediante otro ordenador  externo y de un algoritmo de detección frontal de objetos en 3 dimensiones (nubes de puntos) que puedan servirle como guía. De esta forma, el robot es capaz de navegar siguiendo el movimiento de una persona o de un robot que le preceda.
 
-El robot Pioneer 3 AT es el robot móvil que se ha empleado en este proyecto (Figura \ref{fig:esquema_robot1}) y sobre el que se ha trabajado de manera específica para realizar las pruebas reales de este proyecto. A este robot se le incorporan un sensor láser de dos dimensiones (sensor Sick LMS100) y un sensor de tres idmensiones (sensor Kinect). El cómputo de la navegación se realiza en un ordenador compacto incorporado en el robot (ordenador Intel NUC ***).
+El robot Pioneer 3 AT es el robot móvil que se ha empleado en este proyecto (Figura \ref{fig:esquema_robot1}) y sobre el que se ha trabajado de manera específica para realizar las pruebas reales de este proyecto. A este robot se le incorporan un sensor láser de dos dimensiones (sensor Sick LMS100) y un sensor de tres idmensiones (sensor Kinect). El cómputo de la navegación se realiza en un ordenador compacto incorporado en el robot (ordenador Intel NUC NUC5i7RYH).
 
 
 \begin{figure}[htp]
@@ -34,7 +34,7 @@ Todas estas implementaciones están desarrolladas bajo el entorno ROS, lo cual pe
 
 Para concluir, podemos decir que este proyecto se encarga de integrar ROS como sistema en un ordenador de abordo incorporado en el robot que permita conectarse con los sensores y realizar la construcción de mapas y navegación autónoma mediante el cáculo de mapas y trayectorias globales y locales, realizar los movimientos del robot, así como reconocer consignas de voz o de teleoperación.
 
-\paragraph{Palabras clave:} palabraclave1, palabraclave2, palabraclave3.
+\paragraph{Palabras clave:} robot móvil, ROS, navegción reactiva, cálculo de trayectorias.
 
 \selectlanguage{USenglish}
 \chapter{Abstract}
@@ -55,7 +55,7 @@ Finally, a movement algorithm does the control over the robot. It calculates mov
 
 Apart from autonomous navigation, the robot also has a telecontrol system from an outside computer and an algorithm to detect frontal objects in three dimensions (pointclouds) that can guide the robot. This is how it can navigate following a person when it is walking or another robot in front of it.
 
-Pioneer 3 AT robot is the one used in this project (Figure \ref{fig:esquema_robot2}). It is the specific platform and all real tests have been made with it. This robots is equipped with a two dimension laser scanner (Sick LMS100 sensor) and a three dimensional sensor (Kinect sensor). The navigation computation is done in an onboard compact computer (Intel NUC *** computer).
+Pioneer 3 AT robot is the one used in this project (Figure \ref{fig:esquema_robot2}). It is the specific platform and all real tests have been made with it. This robots is equipped with a two dimension laser scanner (Sick LMS100 sensor) and a three dimensional sensor (Kinect sensor). The navigation computation is done in an onboard compact computer (Intel NUC NUC5i7RYH computer).
 
 \begin{figure}[htp]
 \centering
@@ -69,6 +69,6 @@ All those implementations are developed under ROS framework. This is why additio
 
 To conclude, it can be said that this project integrates ROS as a robotic system in an onboard computer and connects to sensors to perform tasks such as building maps or navigation from one point to other. The system calculates local and global maps and trajectories, makes movements according to them, as well as recognises voice or teleoperation commands.
 
-\paragraph{Palabras clave:} PalabraClave1, keyword2, keyword3.
+\paragraph{Keywords:} mobile robot, ROS, reactive navigation, trajectory calculation.
 
 \selectlanguage{spanish}
