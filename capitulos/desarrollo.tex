@@ -84,32 +84,132 @@ Sexta fase: Nuevas funcionalidades y toma de datos.
 
 Análisis de tiempos:
 
-\newgantttimeslotformat{stardate}{%
-	\def\decomposestardate##1.##2\relax{%
-		\def\stardateyear{##1}\def\stardateday{##2}%
-	}%
-	\decomposestardate#1\relax%
-	\pgfcalendardatetojulian{\stardateyear-01-01}{#2}%
-	\advance#2 by-1\relax%
-	\advance#2 by\stardateday\relax%
-}
-\begin{ganttchart}[hgrid, vgrid,time slot format=stardate]{2014.265}{2014.297}
-	\gantttitlecalendar{year, month=name, week}\\
+Este proyecto fin de grado comenzó en Noviembre de 2014 y terminó en Febrero de 2015.
+
+Durante el primer mes de Noviembre se estuvo recopilando información sobre ROS y su funcionamiento, los desarrollos existentes aplicados a robots reales y la filosofía del sistema.
+
+En el mes de Diciembre se comenzó a trabajar con el robot, comprobando que todos los elementos se encontraban en correcto funcionamiento y se instaló el sistema operativo en su ordenador de abordo
+
+Duarante el mes de Enero se pudo avanzar menos debido a los exámenes y trabajos de las últimas asignaturas.
+
+En el mes de Febrero se retomó el trabajo, empezando por una primera toma de contacto con la librería Aria y la ejecución de movimientos desde un ordenador externo conectado vía puerto serie.
+
+Durante los meses de Marzo y Abril, el robot comenzó a funcionar con ROS, realizando los primeros movimientos con control por teclado. Seguidamente se realizó el nodo de telecontrol y un nodo para realizar movimientos basados tan solo en la odometría.
+
+En el mes de mayo, se comenzaron a probar la compatibilidad con ROS de la cámara Kinect y el sensor Láser. Acto seguido, comenzaron las primeras pruebas de navegación autónoma.
+
+En los meses de Junio y Julio, siguieron los ajustes en la navegación, tanto en el planificador de trayectoria como en los mapas de coste, así como en el sensor Kinect para la detección de obstáculos a diferente altura. Además se incorporó la funcionalidad de seguimiento.
+
+En Julio también comenzaron las primeras pruebas de comandos de voz y la sintetización de voz.
+
+Durante ese mes y el mes de Agosto, se comenzó a redactar gran parte del trabajo en esta memoria, donde se organizó la estructura del proyecto y la información a incluir.
+
+En el mes de Septiembre se decidió incorporar un ordenador más potente al robot y reestructurar su chasis para dejar el sistema desarrollado integrado de manera permanente. También se utilizó el array de micrófonos del sensor Kinect para los comandos de voz.
+
+Duante el mes de Octubre se organizó la estructura del proyecto y se puso en marcha el simulador Gazebo. A continuación se realizó el ajuste de los sensores y la optimización del sistema de navegación. En paralelo se realizadon las modificaciones mecánicas y estructurales para la integración de los sensores y el ordenador en el robot.
+
+Durante el mes de Novimebre se realizó un pequeño parón a nivel de software, se continuó con la parte mecánica y con la redacción de la memoria de este proyecto.
+
+A continuación, comenzaron a realizarse las pruebas reales con la nueva configuración en el robot.
+
+A continiación se muestra un diagrama de Gantt con el análisis de tiempos de las diferentes tareas.
+
+\begin{landscape} 
+\begin{ganttchart}{1}{48}
+  \gantttitle{2014}{6}
+  \gantttitle{2015}{36}
+  \gantttitle{2016}{6} \\
+  \gantttitlelist{11,...,12}{3}
+  \gantttitlelist{1,...,12}{3}
+  \gantttitlelist{1,2}{3} \\
+  \ganttgroup{Entorno ROS}{1}{3} \\
+  \ganttbar{Recabar informacion}{1}{2} \\
+  \ganttlinkedbar{Realizar tutoriales}{2}{3} \\
+  \ganttgroup{Pruebas robot}{4}{12} \ganttnewline
+  \ganttbar{Sistema Operativo}{4}{4} \\
+  \ganttlinkedbar{Librería Aria}{7}{8} \\
+  \ganttlinkedbar{Primeros movimientos}{9}{12} \\
+  \ganttgroup{Pruebas ROS}{13}{18} \ganttnewline
+  \ganttbar{Instalacion ROS}{13}{14} \\
+  \ganttlinkedbar{Telecontrol}{15}{16} \\
+  \ganttlinkedbar{Movimientos odometría}{17}{19} \\
+  \ganttgroup{Navegacion}{19}{40} \ganttnewline
+  \ganttbar{Navegacion básica}{19}{20} \\
+  \ganttlinkedbar{Navegacion}{21}{28}{29}{30} \\
+  
+  %\ganttlink{elem2}{elem3}
+  %\ganttlink{elem3}{elem4}
 \end{ganttchart}
+\end{landscape}
 
 \section{Tecnologías y herramientas empleadas en el proyecto}
 
-ROS
+En esta sección se describen las tanto las tecnologías como las herramientas utilizadas en el desarrollo del proyecto. 
 
-gazebo
+\subsection{Robot Operating System}
 
-c++
+El Sistema Operativo Robótico \cite{ROS} (conocido en inglés como Robot Operating System o ROS) es un framework para el desarrollo de software para robots que provee la funcionalidad de un sistema operativo \cite{quigley2009ros}. ROS fue desarrollado originalmente en 2007 por el Laboratorio de Inteligencia Artificial de Stanford para dar soporte al proyecto del Robot con Inteligencia Artificial de Stanford \cite{stair}. Desde 2008, el desarrollo continua primordialmente en Willow Garage, un instituto de investigación robótico con más de veinte instituciones que colaboran conjuntamente.
 
-python
+ROS provee los servicios estándar de un sistema operativo como abstracción del hardware, control de dispositivos de bajo nivel, implementación de funcionalidad de uso común, paso de mensajes entre procesos y mantenimiento de paquetes. Está basado en una arquitectura de nodos interconectados que que pueden mandar, recibir y multiplexar mensajes de sensores, control, estados, planificaciones y actuadores, entre otros. La librería está orientada para un sistema UNIX (Ubuntu (Linux)) aunque también se está adaptando a otros sistemas operativos como Fedora, Mac OS X, Arch, Gentoo, OpenSUSE, Slackware, Debian o Microsoft Windows, considerados como 'experimentales'.
 
-controlador de versiones: git - github
+ROS consta de dos partes básicas: la parte del sistema operativo, ros, como se ha descrito anteriormente y ros-pkg, una suite de paquetes aportados por la contribución de usuarios (organizados en conjuntos llamado en inglés "stacks") que implementan la funcionalidades tales como localización y mapeo simultáneo, planificación, percepción, simulación, etc.
 
-pointcloud library
+ROS ofrece principlamente dos lenguajes de programación para acceder a su API (Application Programming Interface) completa. Esos lesnguajes son C++ y Python \cite{rosapi}. 
+
+ROS es software libre bajo términos de licencia BSD. Esta licencia permite libertad para uso comercial e investigador. Las contribuciones de los paquetes en ros-pkg están bajo una gran variedad de licencias diferentes.
+
+Actualemtente ROS es mantenido y desarrollado de manera Open Source por Open Source robotics Foundation \cite{osrf}, una organización independiente sin ánimo de lucro fundada por miembros de la comunidad robótica a nivel global.
+
+\subsection{Lenguaje de programación C++}
+
+El lenguaje C++ es un lenguaje orientado a objetos, y como tal, tiene como objetivo la reducción del tiempo de desarrollo aumentando la eficacia del proceso de generación de los programas.
+
+Como consecuencia, los programas tienden a tener menos líneas de código y con más facilidad de introducir elementos nuevos escritos
+por otras personas.
+
+Al tratarse de un lenguaje compilado, presenta una buena eficiencia en tiempo de ejecución frente a los lenguajes interpretados.
+
+En sistemas operativos basados en Linux, el lenguaje C++ se compila bajo el compilador GCC (GNU Compiler Collection).
+
+Dentro del desarrollo software en C++ para ROS (roscpp \cite{roscpp}), existe una amplia interfaz para acceder a las diferentes funcionalidades y comunicarse con nodos desarrollados tanto en C++ como en Python.
+
+\subsection{Lenguaje de programación Python}
+Python es un lenguaje de programación interpretado cuya principal característica es que utiiza una sintaxis que favorece el código legible.
+
+Se trata de un lenguaje de programación multiparadigma, ya que soporta orientación a objetos, programación imperativa y, en menor medida, programación funcional. Es un lenguaje interpretado, usa tipado dinámico y es multiplataforma.
+
+Gracias a sus características, su uso es totalmente flexible y permite un tiempo de desarrollo menor principalmente por su tipado dinámico¡ y su sintaxis. Sin embargo, al tratarse de un lenguaje interpretado, el tiempo de ejecución es más alto lo cual no lo hace adecuado para tareas que requieran altos niveles de eficiencia.
+
+Desntro del desarrollo en Python para ROS (rospy \cite{rospy}), existe una interfaz completa para comunicarse con los nodos y otras funcionalidades de ROS desarrolladas en Python o C++.
+
+\subsection{Controlador de versiones git y repositiorios github}
+
+Git es un software de control de versiones libre. Es decir, git
+gestiona los archivos y directorios y los cambios hechos en ellos a lo largo del tiempo. Esto te permite recuperar antiguas revisiones del proyecto o ver tu historial de cambios.
+
+Git fue creado pensando en la eficiencia y la confiabilidad del mantenimiento e versiones cuando estas tienen un gran número de archivos de código fuente. Tiene la capacidad de poder trabajar varias personas con el mismo paquete siempre que no modifiquen el mismo archivo, en ese caso, sería posible ver las diferencias entre ambas versiones, y unirlas o crear unarama del proyecto principal si fuera necesario tener las dos versiones.
+
+GitHub es un sistema de almacenamiento público de código fuente (de cualquier tipo) o un servicio de respositorios. Su principal característica es la de ofrecer una plataforma de interacción social \cite{dabbish2012social}en la que distintas personas pueden trabajar en conjunto. Esto permite que varios desarrolladores contribuyan a un proyecto y trabajen de manera coordinada.
+
+Tanto para el desarrollo software de este proyecto como para la redacción de esta memoria se han utilizado estas herramientas, y el acceso a los respositorios se ecuentra en las siguientes direcciones:
+
+\begin{itemize}
+	\item Desarrollo software del proyecto \url{https://github.com/danimtb/pioneer3at_ETSIDI}
+	\item Memoria del proyecto \url{https://github.com/danimtb/TFG_pioneer3at}
+\end{itemize}
+
+\subsection{Simulador de robótica Gazebo}
+
+Gazebo \cite{gazebo} es un simulador de robótica en tres dimensiones que ofrece la simulación de complejos entornos de diversas características, así como robots de todo tipo, su interacción con el entorno y la representación visual de datos obtenidos por diversos sensores como cámaras, láseres, ultrasonidos...
+
+Un buen simulador de robótica es esencial para cualquier tipo de desarrollo robótico, ya que podemos realizar las pruebas software o la viabilidad de un sistema antes de construirlo. Gazebo cuenta con un potente motor de física simulada, interacción con objetos y dinámica de los mismos \cite{koenig2004design}.
+
+Gazebo permite una integación completa con ROS, gestiona modelos físicos de robots utilizando el formato URDF (Unified Robot Description Format) \cite{urdf} y añade características específicas como el tipo de material, los momentos de inercia o el modelo de colisión. Además, incorpora plug-ins (funcionalidades añadidas) que permiten la simulación de robots de tipo diferencial, simulación de sensores y el cálculo de tranformadas entre los distintos sistemas de referencia.
+
+Gazebo es mantenido y desarrollado actualmente por la Open Source Robotics Foundation \cite{osrf}.
+
+\subsection{RViz: Robot Visualization tool}
+
 
 \section{Hardware}
 En esta parte se explica detalladamente el hardware empleado en el desarrollo del proyecto.
