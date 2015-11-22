@@ -8,11 +8,11 @@ El propósito de este proyecto es el control automático de un robot móvil utiliza
 
 El alcance del proyecto requiere múltiples elementos de trabajo:
 
-En primer lugar, requiere un conocimiento previo del sistema hardware, como es el robot Pioneer 3 AT así como la sensor Kinect. Cómo integrar estos elementos y acceder a la información que aportan sus sensores y comandar al robot para que realice movimientos.
+En primer lugar, requiere un conocimiento previo del sistema hardware, como es el robot Pioneer 3 AT así como el sensor Kinect. Cómo integrar estos elementos y acceder a la información que aportan sus sensores y comandar al robot para que realice movimientos.
 
 En segundo lugar, requiere un conocimiento del entorno de desarrollo ROS. Las herramientas software de las que dispone, el funcionamiento interno y la manera de programar e interaccionar con los diferentes elementos, el aprendizaje y comprensión.
 
-En tercer lugar, incorporar los sensores pertienentes para obtener la información que permita al robot posicionarse en el entorno.
+En tercer lugar, incorporar los sensores pertinentes para obtener la información que permita al robot posicionarse en el entorno.
 
 En cuarto lugar, implementar los ajustes necesarios para que el robot pueda operar utilizando el entorno de navegación ofrecido por ROS. Realizar una configuración óptima de los sensores y realizar las pruebas reales para el cáculo de trayectorias y el control reactivo del robot.
 
@@ -20,14 +20,14 @@ Por último, realizar la integración del sistema dentro de la plataforma robótica
 
 \section{Objetivos}
 
-El objetivo de este proyecto es realizar el control de un robot móvil para que sea un robot autónomo, basándose en la información que da la odometría y la nube de puntos que proporciona un sensor que captura el entorno en 3 dimensiones como el sensor Kinect. Este control debe realizarse con la ayuda del software ROS, integrandolo como parte del sistema robótico para que sirva de soporte al desarrollo del proyecto.
+El objetivo de este proyecto es realizar el control de un robot móvil para que sea un robot autónomo, basándose en la información que da la odometría y la nube de puntos que proporciona un sensor que captura el entorno en 3 dimensiones como el sensor Kinect. Este control debe realizarse con la ayuda del software ROS, integrándolo como parte del sistema robótico para que sirva de soporte al desarrollo del proyecto.
 
-El robot debe ser capaz de localiarse y situarse en el entorno, el sensor kinect ofrecerá información sobre los objetos alrededor del robot, y el software desarrollado para ROS deberá ser capaz de hacer un control reactivo sobre los movimientos para permitir al robot moverse por interiores y guiarlo hacia un punto indicado.
+El robot debe ser capaz de localizarse y situarse en el entorno, el sensor Kinect ofrecerá información sobre los objetos alrededor del robot, y el software desarrollado para ROS deberá ser capaz de hacer un control reactivo sobre los movimientos para permitir al robot moverse por interiores y guiarlo hacia un punto indicado.
 
 Los objetivos principales de este proyecto serán los siguientes:
 \newcounter{enum2} % creamos un contador par la enumeración. 
 \begin{enumerate}[a)]
-\item El primer objetivo es familirizarse con el control de los robots móviles y más concretamente en el control del robot Pioneer 3 AT. Familiarizarse con el sensor Kinect y con el software necesario para su uso. Y familiarizarse con el framework ROS y sus herramientas para el desarrollo de sistemas robóticos.
+\item El primer objetivo es familiarizarse con el control de los robots móviles y más concretamente en el control del robot Pioneer 3 AT. Familiarizarse con el sensor Kinect y con el software necesario para su uso. Y familiarizarse con el framework ROS y sus herramientas para el desarrollo de sistemas robóticos.
 \setcounter{enum2}{\value{enumi}}
 \end{enumerate}
 
@@ -59,13 +59,13 @@ De los objetivos anteriores podemos desgranar algunos objetivos intermedios:
 
 \begin{enumerate}[a)]
 \setcounter{enumi}{\value{enum3}}
-\item Control del movimeinto del robot Pioneer 3 AT a través de ROS, así como la obtención de la infromación de la odometría, estado de la batería, encendido de motores...
+\item Control del movimiento del robot Pioneer 3 AT a través de ROS, así como la obtención de la información de la odometría, estado de la batería, encendido de motores...
 \setcounter{enum3}{\value{enumi}}
 \end{enumerate}
 
 \begin{enumerate}[a)]
 \setcounter{enumi}{\value{enum3}}
-\item Puesta en marcha el sistema de navegación para robots de ROS conocido como ''Navigation Stack'' y exploración de las capadidades del sistema.
+\item Puesta en marcha el sistema de navegación para robots de ROS conocido como ''Navigation Stack'' y exploración de las capacidades del sistema.
 \setcounter{enum3}{\value{enumi}}
 \end{enumerate}
 
