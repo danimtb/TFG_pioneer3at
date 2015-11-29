@@ -4,8 +4,8 @@
 \documentclass[10pt,a4paper]{book}
 
 %idioma español y acentos
-\usepackage[spanish, USenglish, es-tabla]{babel}
 \usepackage[latin1]{inputenc}
+\usepackage[spanish, USenglish, es-tabla]{babel}
 
 %algunos símbolos matemáticos y paquete para usar subimágenes
 \usepackage{amsmath}
@@ -20,6 +20,57 @@
 \usepackage{natbib}
 \usepackage{pgfgantt} %para realizar diagramas de gantt
 \usepackage{lscape} %para poner la pagina en horizontal
+\usepackage{caption}
+
+\usepackage{color}
+\definecolor{gray97}{gray}{.97}
+\definecolor{gray75}{gray}{.75}
+\definecolor{gray45}{gray}{.45}
+
+\DeclareCaptionType{code}[Código][Índice de códigos]
+
+%para mostrar fragmentos de codigo fuente
+\lstset{ frame=Ltb,
+     framerule=0pt,
+     aboveskip=0.5cm,
+     framextopmargin=3pt,
+     framexbottommargin=3pt,
+     framexleftmargin=0.4cm,
+     framesep=0pt,
+     rulesep=.4pt,
+     backgroundcolor=\color{gray97},
+     rulesepcolor=\color{black},
+     %
+     stringstyle=\ttfamily,
+     showstringspaces = false,
+     basicstyle=\small\ttfamily,
+     commentstyle=\color{gray45},
+     keywordstyle=\bfseries,
+     %
+     numbers=left,
+     numbersep=15pt,
+     numberstyle=\tiny,
+     numberfirstline = false,
+     breaklines=true,
+   }
+ 
+% minimizar fragmentado de listados
+\lstnewenvironment{listing}[1][]
+   {\lstset{#1}\pagebreak[0]}{\pagebreak[0]}
+ 
+\lstdefinestyle{consola}
+   {basicstyle=\scriptsize\bf\ttfamily,
+    backgroundcolor=\color{gray75},
+   }
+   
+\lstdefinestyle{launch}
+   {basicstyle=\scriptsize\bf\ttfamily,
+   }
+ 
+\lstdefinestyle{C++}
+   {language=C++,
+   }
+   
 %Márgenes
 \usepackage[left=3cm,top=3cm,right=3cm,bottom=3cm]{geometry}
 
@@ -55,7 +106,7 @@
 \include{capitulos/firmas}
 
 %Licencia opcional
-%\include{capitulos/licencia}
+\include{capitulos/licencia}
 
 \include{capitulos/evaluacion}
 %espaciado entre parrafos 8mm mayor del habitual
@@ -74,6 +125,8 @@
 %índice de tablas.
 \listoftables
 
+\listofcodes
+
 %empieza la parte descriptiva del trabajo
 \mainmatter
 
@@ -91,7 +144,9 @@
 
 \include{capitulos/ROS}
 
-\include{capitulos/diseno}
+\include{capitulos/control_primario}
+
+\include{capitulos/navegacion}
 
 \include{capitulos/implementacion}
 

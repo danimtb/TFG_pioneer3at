@@ -4,16 +4,16 @@ La robótica móvil vive actualmente un momento de gran desarrollo para multitud d
 
 De la misma forma, el interés en robots que sea capaces de reproducir las capacidades de un ser humano e incluso que pueda dar asistencia ya sea en entornos conocidos o no abre un área de posibilidades en las que los robots móviles cobran importancia.
 
-Los avances tanto el las características hardaware como software son notables aunque estas suelen variar dependiendo de la aplicación a la que un robot esté destinado. En este capítulo trata de hacer un resumen del estadoactual de la robótica móvil.
+Los avances tanto el las características hardaware como software son notables aunque estas suelen variar dependiendo de la aplicación a la que un robot esté destinado. En este capítulo trata de hacer un resumen del estado actual de la robótica móvil.
 
 
 \section{Hardware en robótica móvil}
 
 Como hemos indicado previamente, la configuración hardware de un robot móvil varía dependiendo de la aplicación a la que vaya destinado. Es cierto que lo ideal para un robot sería disponer de una configuración hardware común que fuera polivalente en los diferentes terrenos y situaciones, sin embargo, debido a la variedad de aplicaciones y dado que un robot suele destinarse a tareas específicas, la elección del hardware que mejor se adapta es una tendencia común en robótica.
 
-Para seleccionar el hardaware debemos valorar el tipo de actuador que se requiere, entendiéndose por actuador al dispositivo que genera el movimiento de los elementos que hacen que el robot móvil se desplace. En robótica móvil suelen utilizarse los actuadores de tipo eleéctrico, ya que ofrecen unas prestaciones de potencia, controlabilidad y coste adecuados. Además, ofrecen la posibilidad de que la alimentación esté integrada en el robot, haciéndolo independiente de una fuente de energía accesoria.
+Para seleccionar el hardaware debemos valorar el tipo de actuador que se requiere, entendiéndose por actuador al dispositivo que genera el movimiento de los elementos que hacen que el robot móvil se desplace. En robótica móvil suelen utilizarse los actuadores de tipo eléctrico, ya que ofrecen unas prestaciones de potencia, controlabilidad y coste adecuados. Además, ofrecen la posibilidad de que la alimentación esté integrada en el robot, haciéndolo independiente de una fuente de energía accesoria.
 
-Los actuadores eléctricos son, por tanto, los más utilizados. En concreto, los motores de corriente continua (Figura \ref{fig:motor_encoder}) ofrecen un fácil control y fácil acoplamiento a un encoder. Los encoder son sensores de posición que perminten conocer el giro de un eje de rotación. Estos sensores son muy importantes en robótica móvil, ya que a partir de la información que arrojan el robot tiene consciencia de su posición relativa, en el caso de los encoders incrementales, o su posición absoluta, en el caso de los encoders absolutos (Más detalladamente en el apartado \ref{sec:sensores}).
+Los actuadores eléctricos son, por tanto, los más utilizados. En concreto, los motores de corriente continua (Figura \ref{fig:motor_encoder}) ofrecen un fácil control y acoplamiento a un encoder. Los encoder son sensores de posición que permiten conocer el giro de un eje de rotación. Estos sensores son muy importantes en robótica móvil, ya que a partir de la información que arrojan el robot tiene consciencia de su posición relativa, en el caso de los encoders incrementales, o su posición absoluta, en el caso de los encoders absolutos (Más detalladamente en el apartado \ref{sec:sensores}).
 
 \begin{figure}[htp]
 \centering
@@ -37,7 +37,7 @@ La disposición de los actuadores determina la configuración del robot. Centrándo
 \setcounter{enum1}{\value{enumi}} % le damos al contador el valor de la enumeración.
 \end{enumerate}
 
-Consta de cuatro ruedas. Las ruedas motrices son las traseras o las delanteras, y éstas últimas se encargan además de la dirección. Permite un desplazamiento a altas velocidades y la posibilidad de realizar giros con estabilidad. Esta configuración es la que se utiliza en la industria del automóvil.
+Consta de cuatro ruedas. Las ruedas motrices son las traseras o delanteras, y éstas últimas se encargan además de la dirección. Permite un desplazamiento a altas velocidades y la posibilidad de realizar giros con estabilidad. Esta configuración es la que se utiliza en la industria del automóvil.
 
 \begin{enumerate}[a.]
 \setcounter{enumi}{\value{enum1}} % reiniciamos enumeración con el valor del contador.
@@ -161,7 +161,7 @@ Los sensores de distancia son aquellos que nos dan una referencia de la longitud
 
 Existen sensores de distancia que utilizan tecnología láser para determinar la longitud de un punto a otro, se denominan Scanners láser. Estos sensores emiten rayos láser en un plano de 2 dimensiones y en un rango determinado, y midiendo el tiempo de vuelo del haz láser son capaces de obtener una medida muy precisa de la distancia.
 
-Existen otro tipo de sensores de distancia que permiten obtener distancias a puntos de manera tridimensional. Algunos utilizan un sistema de doble cámara conocidos como cámara estereoscópica (Figura \ref{fig:camara_estereoscopica}). Estos sesnores son capaces de obtener imágenes 3D con la información de dos imágenes tomadas a cierta distancia una de otra. Es el sensor más parecido a la visión humana.
+Existen otro tipo de sensores de distancia que permiten obtener distancias a puntos de manera tridimensional. Algunos utilizan un sistema de doble cámara conocidos como cámara estereoscópica (Figura \ref{fig:camara_estereoscopica}). Estos sensores son capaces de obtener imágenes 3D con la información de dos imágenes tomadas a cierta distancia una de otra. Es el sensor más parecido a la visión humana.
 
 \begin{figure}[htp]
 \centering
@@ -171,7 +171,7 @@ Existen otro tipo de sensores de distancia que permiten obtener distancias a pun
 
 Otros sensores de distancia en 3 dimensiones, son los sensores de tipo infrarrojo, como es el sensor Kinect, que ha se ha vuelto muy popular debido a su bajo coste y su buena respuesta.
 
-Kinect es un dispositivo derrollado por PrimeSense y distribuido por Microsoft para la vieoconsola Xbox 360 (Figura \ref{fig:sensor_kinect}).
+Kinect es un dispositivo desarrollado por PrimeSense y distribuido por Microsoft para la videoconsola Xbox 360 (Figura \ref{fig:sensor_kinect}).
 
 Inicialmente permitía controlar e interactuar con la consola XBOX sin necesidad de tener contacto físico con un controlador. Este sensor permite reconocer gestos, comandos de voz, objetos e imágenes; esto hace que tenga mucho interés en el mundo de la robótica.
 
@@ -219,7 +219,7 @@ Otras aplicaciones conocidas de la robótica móvil son los robots de búsqueda, re
 
 También existen robots ideados para realizar tareas en entornos peligrosos o en situaciones de desastre. Como ejemplo podemos citar la catástrofe que sufrío Japón el 11 de Marzo de 2011, en la que un terremoto causó daños catastróficos en la central nuclear de Fukushima \cite{fukushima}. Los niveles de radiación fueron tan altos que solo los robots eran capaces de entrar a valorar la situación de la central.
 
-Estos robots, preparados para aguantar la raciación y realizar tareas de exploración y limpieza fueron Quince (Figura \ref{fig:quince_raccoon_robots}), desarrolado por Chiba Institute of Technology \cite{nagatani2011redesign}, un robot móvil capaz de subir y bajar escaleras y operar en las plantas superiores de la central nuclear.
+Estos robots, preparados para aguantar la radiación y realizar tareas de exploración y limpieza fueron Quince (Figura \ref{fig:quince_raccoon_robots}), desarrolado por Chiba Institute of Technology \cite{nagatani2011redesign}, un robot móvil capaz de subir y bajar escaleras y operar en las plantas superiores de la central nuclear.
 
 Y Raccoon (Figura \ref{fig:quince_raccoon_robots}), desarrollado por Tepco, equipado con dos cabezales móviles preparados para aspirar y limpiar, encargado de recuperar el polvo contaminado del edificio del reactor 2.
 
@@ -276,9 +276,9 @@ Existen otro tipo de robots con altas capacidades que realizan la función de un 
 \label{fig:pr2_robot}
 \end{figure}
  
- Este robot, desarrollado por los investigadores de Willow Garage, fue creado para proporcionar una plataforma común junto con ROS (Robot Operating System), sobre la que realizar investigaciones que ayuden al desarrolo software de aplicaciones robóticas.
+ Este robot, desarrollado por los investigadores de Willow Garage, fue creado para proporcionar una plataforma común junto con ROS (Robot Operating System), sobre la que realizar investigaciones que ayuden al desarrollo software de aplicaciones robóticas.
  
-Finalmente, podemos detacar una de las aplicaciones que más han llamado la atención en la sociedad, los coches sin conductor. Potenciados por los desarrollos de la empresa Google, cuyo proyecto consiste en combinar la información obtenida del servicio de mapas de la compañía con la inteligencia artificial, estos coches (Figura \ref{fig:coche_google}) suponen un cambio notable a nivel de seguridad en el transporte urbano de nuestra sociedad.
+Finalmente, podemos destacar una de las aplicaciones que más han llamado la atención en la sociedad, los coches sin conductor. Potenciados por los desarrollos de la empresa Google, cuyo proyecto consiste en combinar la información obtenida del servicio de mapas de la compañía con la inteligencia artificial, estos coches (Figura \ref{fig:coche_google}) suponen un cambio notable a nivel de seguridad en el transporte urbano de nuestra sociedad.
 
 Los vehículos van equipados con cámaras de vídeo, un sensor láser de 360º colocado en la aprte superior del vehículo, sensores radar, sensores de odometría en las ruedas y de posición con localización GPS \cite{guizzo2011google}.
 
@@ -291,4 +291,4 @@ Los vehículos van equipados con cámaras de vídeo, un sensor láser de 360º coloca
 
 Estos coches disponen actualmente de permiso para circular en algunos estados de Estados Unidos tras haber superado 1.800.000 millas desde que el programa (Google Self-Driving Car Project) comenzase en 2009 \cite{googlecar}.
 
-En conclusión, podemos decir que los campos de aplicación de la robótica móvil son amplios, variados y con grandes perspectivas de futuro. Sin embargo, el mercado de la robótica civil a penas acaba de comenzar con la aparición de los primeros robots domésticos y los robots de caracter social. En otros campos, vemos que existe un auge de la robótica móvil y que a medida que los sistemas robóticos avanzan surgen nuevas posibilidades donde aplicarla.
+En conclusión, podemos decir que los campos de aplicación de la robótica móvil son amplios, variados y con grandes perspectivas de futuro. Sin embargo, el mercado de la robótica civil a penas acaba de comenzar con la aparición de los primeros robots domésticos y los robots de carácter social. En otros campos, vemos que existe un auge de la robótica móvil y que a medida que los sistemas robóticos avanzan surgen nuevas posibilidades donde aplicarla.

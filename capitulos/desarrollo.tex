@@ -152,6 +152,13 @@ El Sistema Operativo Robótico \cite{ROS} (conocido en inglés como Robot Operatin
 
 ROS provee los servicios estándar de un sistema operativo como abstracción del hardware, control de dispositivos de bajo nivel, implementación de funcionalidad de uso común, paso de mensajes entre procesos y mantenimiento de paquetes. Está basado en una arquitectura de nodos interconectados que pueden mandar, recibir y multiplexar mensajes de sensores, control, estados, planificaciones y actuadores, entre otros. La librería está orientada para un sistema UNIX (Ubuntu (Linux)) aunque también se está adaptando a otros sistemas operativos como Fedora, Mac OS X, Arch, Gentoo, OpenSUSE, Slackware, Debian o Microsoft Windows, considerados como 'experimentales'.
 
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.4\textwidth]{figuras/ros.png}
+\caption{Logo de ROS}
+\label{fig:ros}
+\end{figure}
+
 ROS consta de dos partes básicas: la parte del sistema operativo, ros, como se ha descrito anteriormente y ros-pkg, una suite de paquetes aportados por la contribución de usuarios (organizados en conjuntos llamado en inglés "stacks") que implementan la funcionalidades tales como localización y mapeo simultáneo, planificación, percepción, simulación, etc.
 
 ROS ofrece principalmente dos lenguajes de programación para acceder a su API (Application Programming Interface) completa. Esos lenguajes son C++ y Python \cite{rosapi}. 
@@ -182,14 +189,14 @@ Gracias a sus características, su uso es totalmente flexible y permite un tiempo
 
 Dentro del desarrollo en Python para ROS (rospy \cite{rospy}), existe una interfaz completa para comunicarse con los nodos y otras funcionalidades de ROS desarrolladas en Python o C++.
 
-\subsection{Controlador de versiones git y repositiorios github}
+\subsection{Controlador de versiones git y repositiorios GitHub}
 
 Git es un software de control de versiones libre. Es decir, git
 gestiona los archivos y directorios y los cambios hechos en ellos a lo largo del tiempo. Esto te permite recuperar antiguas revisiones del proyecto o ver tu historial de cambios.
 
 Git fue creado pensando en la eficiencia y la confiabilidad del mantenimiento e versiones cuando estas tienen un gran número de archivos de código fuente. Tiene la capacidad de poder trabajar varias personas con el mismo paquete siempre que no modifiquen el mismo archivo, en ese caso, sería posible ver las diferencias entre ambas versiones, y unirlas o crear unarama del proyecto principal si fuera necesario tener las dos versiones.
 
-GitHub es un sistema de almacenamiento público de código fuente (de cualquier tipo) o un servicio de repositorios. Su principal característica es la de ofrecer una plataforma de interacción social \cite{dabbish2012social}en la que distintas personas pueden trabajar en conjunto. Esto permite que varios desarrolladores contribuyan a un proyecto y trabajen de manera coordinada.
+GitHub **Referencia pag web**es un sistema de almacenamiento público de código fuente (de cualquier tipo) o un servicio de repositorios. Su principal característica es la de ofrecer una plataforma de interacción social \cite{dabbish2012social}en la que distintas personas pueden trabajar en conjunto. Esto permite que varios desarrolladores contribuyan a un proyecto y trabajen de manera coordinada.
 
 Tanto para el desarrollo software de este proyecto como para la redacción de esta memoria se han utilizado estas herramientas, y el acceso a los repositorios se encuentran en las siguientes direcciones:
 
@@ -204,18 +211,32 @@ Gazebo \cite{gazebo} es un simulador de robótica en tres dimensiones que ofrece 
 
 Un buen simulador de robótica es esencial para cualquier tipo de desarrollo robótico, ya que podemos realizar las pruebas software o la viabilidad de un sistema antes de construirlo. Gazebo cuenta con un potente motor de física simulada, interacción con objetos y dinámica de los mismos \cite{koenig2004design}.
 
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.8\textwidth]{figuras/gazebo.png}
+\caption{Entorno de simulación Gazebo}
+\label{fig:gazebo}
+\end{figure}
+
 Gazebo permite una integración completa con ROS, gestiona modelos físicos de robots utilizando el formato URDF (Unified Robot Description Format) \cite{urdf} y añade características específicas como el tipo de material, los momentos de inercia o el modelo de colisión. Además, incorpora plug-ins (funcionalidades añadidas) que permiten la simulación de robots de tipo diferencial, simulación de sensores y el cálculo de transformadas entre los distintos sistemas de referencia.
 
 Gazebo es mantenido y desarrollado actualmente por la Open Source Robotics Foundation \cite{osrf}.
 
 \subsection{RViz: Herramienta de visualización robótica}
 
-RViz es una herramienta para la visualización de datos en 3 dimensiones de forma gráfica que trabaja dentro del entorno ROS.
+RViz es una herramienta para la visualización de datos en 3 dimensiones de forma gráfica que trabaja dentro del entorno ROS (Figura \ref{fig:rviz}).
 Esta aplicación nos permite ver lo que está ocurriendo en nuestra plataforma robótica a tiempo real.
 
 RViz puede usarse para mostrar lecturas de sensores, datos devueltos por sensores de percepción en 3 dimensiones (nubes de puntos), visualizar mapas, visualizar un modelo de nuestro robot y su posición...
 
-También puede utilizarse para interactuar con nuestro robot, utilizando marcadores interactivos o utilizando su interfaz de usuario.
+También puede utilizarse para interactuar con nuestro robot, utilizando marcadores interactivos o su interfaz de usuario.
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.8\textwidth]{figuras/rviz_model.png}
+\caption{Entorno gráfico RViz}
+\label{fig:rviz}
+\end{figure}
 
 Al uso, RViz es un nodo más dentro de ROS que se suscribe o publica mensajes a otros nodos.
 

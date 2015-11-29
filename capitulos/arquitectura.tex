@@ -17,6 +17,75 @@ A nivel de hardware utilizado en el proyecto, como es el propio robot, los senso
 
 \section{Arquitectura del proyecto}
 
-El proyecto está estructurado siguiendo la filosofía de "paquetes" desarrollados en ROS. En el directorio raíz del proyecto por tanto, encontraremos los paquetes necesarios para que el sistema funcione así como los paquetes propios desarrollados:
+El proyecto está estructurado siguiendo la filosofía de "paquetes" desarrollados en ROS. Los paquetes se compilan dentro de un entorno de trabajo tipo Catkin **REFERENCIA** que se encarga de compilar correctamente a través de CMake **referencia** todos los ejecutables y de realizar el enlazado correctamente.
+
+En el directorio raíz del proyecto por tanto, encontraremos los paquetes necesarios para que el sistema funcione:
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.8\textwidth]{figuras/proyecto_carpetas.png}
+\caption{Estructura del proyecto}
+\label{fig:proyecto_carpetas}
+\end{figure}
+
+Las carpetas de color azul son paquetes desarrollados por terceros que no vienen integrados por defecto en ROS. El procedimiento para utilizarlos es clonar su repositorio en github e incluirlos como submodulos dentro de nuestro proyecto.
+
+A continuación se realiza una breve descripción de cada uno:
+\begin{itemize}
+\item  audio\_common: Agrupa todas las funcionalidades para reproducir sonidos y voz sintetizada.
+
+\item depthimage\_to\_laserscan: Nodo que realiza la conversión del tipo de dato Pointcloud2 a laserscan mediante el análisis de imagen. Configurable mediante parámetros.
+
+\item freenect\_stack: Agrupa los nodos controladores del sensor Kinect basados en libfreenect y tranfroman toda la información a la interfaz de ROS.
+
+\item LMS1xx: Nodo para la conexión con los sensores Láser Sick De la familia LMS100 a través de puerto ethernet.
+
+\item p2os: Agrupa utilidades y nodos para conectarse con los robots de la familia Pioneer, en especial Pioneer 3 AT y 3 DX. Ofrece modelos 3D de cada robot y algunos parámetros de configuración de los robots.
+
+\item pocketsphinx: Utilidad para el rconocimiento de voz mediante cualquier tipo de micrófono.
+
+\item rosaria: Interfaz de comunicación ROS con la librería Aria para el control de los motores del robot y la lectura de los encoders. Ofrece parámetros de calibración de los encoders y acceso al array de ultrasonidos del robot (funcionalidad no incorporada en el robot utilizado para este proyecto).
+
+\item turtlebot, turtlebot\_apps y turtlebot\_msgs: Paquetes que agrupan funcionalidades para el robot Turtlebot, usadas en este caso en nuestro desarrollo.
+\end{itemize}
+
+Los paquetes ROS de desarrollo propio en este proyecto son los indicados en color naranja.
+
+El paquete navigation\_goals es un nodo que realiza navegación a través de puntos establecidos de modo que se puedan programar rutas a seguir por el robot.
+
+El paquete pioneer\_utils es donde se encuentra el desarrollo principal de este proyecto y se describirá en detalle a continuación.
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.8\textwidth]{figuras/pioneer_utils_carpetas.png}
+\caption{Estructura de carpetas del paquete pioneer\_utils}
+\label{fig:pioneer_utils_carpetas}
+\end{figure}
+
+Como cualquier paquete en ROS, disponemos de un archivo CMakeLists.txt y un package.xml, donde se indican los objetivos a compilar y las librerías adicionales para el enlazado así como las dependencias respectivamente.
+
+En cada carpeta encontramos:
+
+\begin{itemize}
+\item  follower: Archivos de configuración para utilizar la funcionalidad follower del robot Turtlebot en el nuestro.
+
+\item gazebo: Configuraciones necesarias para ejecutar Gazebo utilizando un modelo del robot Pioneer 3 AT y sus sensores del mismo tipo que el utilizado en la realidad. Se incluyen launchfiles **OJO** para realizar la navegación con diferentes mapas.
+
+\item main: Launchfiles de las aplicaciones principales que incorpora el robot **COMPLETAR**.
+
+\item maps: Mapas guardados realizados con la funcionalidad de slam\_gmapping.
+
+\item navigation: archivos y ajustes necesarios para realizar navegación del robot con y sin mapa (global navigation o local navigation).
+
+\item panorama: Archivos de configuración para utilizar la funcionalidad panorma del robot Turtlebot en el nuestro.
+
+\item rviz: Configuraciones preguardadas para rviz.
+
+\item sensors: Archivos de configuración para tener acceso a toda la información del hardware y los sensores que se utilizan.
+
+\item src: Carpeta donde se incluye el código fuente en C++ o Python de los nodos de teleoperación, test de navegación y navegación por estima (Dead reckoning).
+
+\item voice\_audio: Archivos de configuración para el nodo de reconocimiento de voz y sonido, diccionarios de palabras y pronunciación.
+\end{itemize}
 
 
