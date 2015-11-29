@@ -1,7 +1,22 @@
 \chapter{Arquitectura}
-
-Esta seccin tiene como objetivo plantear la arquitectura general utilizada en el robot, las comunicaciones con el resto del hardware y con los nodos que porporcionan la informacin necesaria para que el robot sea totalmente autnomo.
+Esta sección tiene como objetivo plantear la arquitectura general utilizada en el robot, las comunicaciones con el resto del hardware y con los nodos que proporcionan la información necesaria para que el robot sea totalmente autónomo.
 
 \section{Arquitectura general}
 
+A nivel de hardware utilizado en el proyecto, como es el propio robot, los sensores el ordenador de abordo el sistema se estructura de a siguiente manera:
+
+\begin{enumerate}[i)]
+\item  Robot Pioneer 3 AT: Este es el robot mencionado anteriormente, el cual debe ser configurado para acceder al puerto serie RS-232 de su placa controladora. Esto nos permite conectarnos con el firmware ARCOS **referencia** y comunicarnos a través de la librería ARIA. De esta forma controlamos los motroes y podemos leer el valor de los encoders de la odometría.
+
+\item Sensores: Tanto el sensor Kinect como el sensor láser irán alimentados a través de las baterías del robot y se comunicarán con el ordenador de abordo a través de puerto USB y ethernet respectivamente.
+
+\item Ordenador Intel NUC: Será el ordenador de abordo encargado de ejecutar ROS y realizar todo el procesamiento necesario. Irá equipado con el sistema operativo Ubuntu 14.04 por ser la última versión estable disponible a fecha de la entrega del proyecto. Irá conectado al robot mediante un convertidor RS-232 a USB, el sensor láser se comunica vía ethernet y el sensor Kinect a través de puerto USB igualmente. También se conectará el audio al altavoz integrado del robot.
+
+\item Ordenador externo: Como se ha mencionado anteriormente, un ordenador externo opcional equipado con ROS podrá utilizarse para realizar tareas de a supervisión inalámrica a través de RViz y para realizar la teleoperación del robot vía TCP/IP integrado en ROS.
+\end{enumerate}
+
 \section{Arquitectura del proyecto}
+
+El proyecto está estructurado siguiendo la filosofía de "paquetes" desarrollados en ROS. En el directorio raíz del proyecto por tanto, encontraremos los paquetes necesarios para que el sistema funcione así como los paquetes propios desarrollados:
+
+
