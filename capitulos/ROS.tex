@@ -1,7 +1,50 @@
 \chapter{Entorno ROS}
 
+La versión del software ROS utilizada para el desarrollo del proyecto ha tratado de ser siempre la más actual posible, ya que eso nos asegura mantener la compatibilidad en futuros trabajos y que el software esté actualizado.
+
+La versión utilizada fue ROS Indigo Igloo desde el comienzo del proyecto, bajo el sistema operativo Ubuntu 14.04. A fecha de entrega del proyecto existe una versión más actualizada del software ROS, sin embargo se desestimó su uso debido a que aún no era una versión estable y algunos paquetes no se encontraban disponibles para tal versión.
+
+Dentro de ROS exixten diferentes conceptos como los nodos, los rostopics, rosservices...
+
+- Nodos.
+- Servicios.
+- Rostopics.
+
+\subsection{Funcionamiento de ROS}
+
 \section{Configuración de ROS}
+Para la instalación de ROS es necesario seguir ciertos pasos bien explicados en la wiki de su página.
+
+Para el ordenador de abordo del robot utilizamos la versión completa del software.
+
+Añadimos nuestra variable de entorno para buscar en los directorios de ros cuando ejecutemos los nodos.
+
+Para el desarrollo dentro de ROS se utiliza el entorno de desarrollo Catkin, que facilita el enlazado y compilación de los paquetes. para ello es necesario tenerlo instalado:
+
+**instalacion catkin**
+
+Y a continuación es necesario incluir nuestro directorio de desarrollo para que sea reconocido:
+
+**source**
+
+A partir de este punto podríamos realizar nodos utilizando las funcionalidades de ROS.
+
+Para el desarrollo de este proyecto es necesario instalar las siguientes funcionalidades adicionales de ROS:
+
+- Navegacion
+- Rosaria
+_pocketsphinx
+- rosdeps
+. mirar cuaderno
+
 \section{Configuración de los paquetes ROS}
+
+Los paquetes ROS son funcionalidades desarrolladas por terceros que se integran en el sistema ROS y que son transferibles de un robot a otro.
+
+Los paquetes ROS incorporan un archivo CMakeLists.txt para la compilación de los nodos que se hayan desarrollado así como sus mensajes. Y un archivo Package Manifest package.xml, donde se indican los requisitos del paquete, el autor, el contacto, y las dependencias del mismo.
+
+
+
 \section{Control teleoprado}
 \section{Navegación autónoma}
 \section{Guiado mediante sensor Kinect}
