@@ -4,7 +4,7 @@ En este capítulo se realiza una primera aproximación al control del robot y a lo
 
 \section{Nodos hardware}
 
-Los nodos necesarios para el control del robot requieren el acceso a los motores y a la lectura de la odometría del robot. También es necesario disponer de controladores para ambos sensores utilizados y qe su información se publique en tipos de datos reconocibles por ROS. Los nodos utilizados se describen a continuación. 
+Los nodos necesarios para el control del robot requieren el acceso a los motores y a la lectura de la odometría. También es necesario disponer de controladores para ambos sensores utilizados y que su información se publique en tipos de datos reconocibles por ROS. Los nodos utilizados para estos dispositivos hardware se describen a continuación. 
 
 \subsection{Control del robot: Rosaria y p2os}
 
@@ -42,13 +42,120 @@ Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_u
 
 Como puede verse, podemos modificar los valores usados por Aria para realizar el cómputo de la odometría.
 
+ROSTOPICS UTILIZADOS
+
 \subsection{Sensor Kinect}
 
+Para la puesta en marcha del sensor Kinect existen en ROS diferentes paquetes que utilizan una u otra librería de código en función de quién haya lo haya desarrollado.
 
-\subsection{Sensor Láser}
+Existen dos paquetes destinados al control del sensor Kinect:
+
+Por un lado tenemos openni\_kinect **referencia**, que utiliza los drivers originales desarrollados por la empresa PrimeSense encargada de fabricar este dispositivo. Este paquete y en concreto los drivers del dispositivo han sido utilizados ampliamente tanto en desarrollos realizados con ROS como fuera de este entorno. Sus características principales son la total funcionalidad, aprovechamiento de toda la tecnología de este sensor y capacidad para monitorear la posición del esqueleto de una persona. Sin embargo, desarrollo del paquete openni\_kinect solo se mantuvo activo hasta a versión de ROS Fuerte **referencia** debido a la compra de PrimeSense por la conocida marca de informática Apple **referencia**.
+
+Por otro lado, gracias al gran desarrollo software llevado a cabo por la comunidad OpenSource, disponemos de los divers libfreenect desarrollados por el proyecto OpenKinect \url{http://openkinect.org/wiki/Main_Page} que trata de ofrecer una vía alternativa para controlar el sensor de Microsoft. Estos drivers se encapsulan y adaptan su interfaz a ROS a través del paquete freenect\_stack **referencia** el cual nos ofrece acceso tan solo a la imagen y la nube de puntos del sensor. Su integración no es completa, no dispone de características adicionales como el monitoreo de la posición de una persona, sin embargo su funcionamiento es correcto y está adaptado a ROS en su versión Indigo y esto nos ofrece la posibilidad de integrarlo en nuestro sistema. Por estas razones ha sido el software utilizado para acceder al sensor Kinect en este proyecto.
+
+freenect\_stack, al ser un paquete de terceros, debe clonarse desde su repositorio de código fuente e incorporarlo a nuestro entorno catkin.
+
+Su puesta en marcha es bastante inmediata y podemos hacer uso de los launch files que ofrece freenect\_launch desde consola de la siguiente forma:
+
+\begin{code}[htp]
+\begin{lstlisting}[style=consola]
+roslaunch freenect_launch freenect.launch
+\end{lstlisting}
+\hypersetup{urlcolor=black}
+Fuente: \href{https://github.com/ros-drivers/freenect_stack/blob/master/freenect_launch/launch/freenect.launch}{\textit{freenect\_stack/freenect\_launch/launch/freenect.launch}}
+\hypersetup{urlcolor=blue}
+\caption{Launchfile para Kinect en el paquete freenect\_launch.}
+\end{code}
+
+\subsection{Sensor Láser Sick LMS100}
+
+Existe un amplio soporte para sensores láser de la marca Sick, entre ellos el más popular es la familia Sick LMS200 ya que se utiliza en muchos desarrollos relacionados con la robótica móvil **referencia**. Esa familia de sensores utiliza una interfaz de comunicación en serie a través de puerto RS-232, sin embargo, la familia de dispositivos Sick LMS100 utiliza interfaz ethernet y requiere un tratamiento de datos diferente.
+
+El láser Sick LMS100 ha sido integrado en ROS y utilizado en este proyecto ya que se había dado uso en proyectos anteriores **referencia alejandro** y se consideró conveniente incorporarlo y utilizarlo para obtener una navegación más precisa del robot.
+
+Para acceder al sensor Sick LMS100 utilizamos el paquekte LMS1xx desarrollado por Clearpath Robotics **referencia** que se basa en el trabajo de otros dos desarrolladores de la comunidad ROS, y en concreto en los drivers desarrollados por **referencia** https://github.com/konradb3/libLMS1xx
+
+El paquete LMS1xx consta de un solo nodo que se conecta a través de una IP indicada como parámetro. Su uso es sencillo mediante un archivo launchfile y tan solo debemos tener la precaución de configurar correctamente la IP manual del puerto ethernet de nuestro ordenador.
+
+\begin{code}[htp]
+\begin{lstlisting}[style=launch]
+<launch>
+  <arg name="host" default="192.168.1.14" />
+  <node pkg="lms1xx" name="lms1xx" type="LMS1xx_node">
+    <param name="host" value="$(arg host)" />
+  </node>
+</launch>
+\end{lstlisting}
+\hypersetup{urlcolor=black}
+Fuente: \href{https://github.com/clearpathrobotics/LMS1xx/blob/master/launch/LMS1xx.launch}{\textit{LMS1xx/launch/LMS1xx.launch}}
+\hypersetup{urlcolor=blue}
+\caption{Launchfile para el sensor Láser Sick LMS100.}
+\end{code}
+
+Pueden precisarse algunos ajustes previos con la herramienta que ofrece el fabricante "SOPAS Engineering tool", los cuales pueden encontrarse en el anexo de este trabajo (Sección \ref{subsection:sicklms100}).
+
+ROSTOPICS UTILIZADOS
 
 \section{Nodo de teleoperación}
 
+Uno de los primeros objetivos de este proyecto es realizar el control teleoperado del robot. Utilizando ROS y sus características para operar de manera distribuida en diferentes máquinas, esta tarea se vuelve inmediata para el usuario.
+
+ROS trabaja en forma de procesos que se ejecutan de manera independiente y se comunican a través del nodo principal o Máster con el paso de mensajes. Ya que el máster dispone de una dirección IP en la máquina que lo ejecuta, basta con indicar en el entorno ROS de cada máquina la dirección de este para que los nodos abran una comunición con esa dirección IP.
+
+Los pasos para configurar las máquinas bajo la misma red se describen con detalle en la guía ROS NETWORKING y consisten básicamente en indicar en el sript \textit{.bashrc} el parámetro ROS	\_IP y ROS\_MASTER\_URI.
+
+ROS\_IP debe contener la IP que tenga nuestra máquina en la red que esté operando y ROS\_MASTER\_URI la dirección \textit{http} correspondiente de la máquina donde se ejecute el nodo principal.
+
+\begin{code}[htp]
+\begin{lstlisting}[style=launch]
+export ROS_IP=10.42.0.1
+export ROS_MASTER_URI=http://10.42.0.1:11311
+\end{lstlisting}
+Fuente: \textit{\sim/.bashrc}
+\caption{Líneas del archivo \textit{.bashrc} en el ordenador de abordo.}
+\end{code}
+
+\begin{code}[htp]
+\begin{lstlisting}[style=launch]
+export ROS_IP=10.42.0.77
+export ROS_MASTER_URI=http://10.42.0.1:11311
+\end{lstlisting}
+Fuente: \textit{\sim/.bashrc}
+\caption{Ejemplo \textit{.bashrc} en un ordenador externo para realizar comunicación con el máster.}
+\end{code}
+
+De esta manera podemos desarrollar un nodo ROS que se conecte al topic de RosAria que comanda los motores \textit{cmd\_vel} y publicar diferentes valores de velocidad en función de las teclas que se pulsen.
+
+**Fragmento de código teleoperación**
+
+ROSTOPICS UTILIZADOS
 \section{Nodo de navegación estimada}
 
+La navegación estimada, más conocida en inglés como Dead Reckoning **referencia**, es la capacidad para realizar navegación en un entorno basándonos solamente en la información que aportan los sensores de la odometría.
+
+Es un método estimado, ya que solo se basa en la información de los encoders y no tiene en cuenta el tipo de superficie, la inclinación, el rozamiento o incluso obstáculos que puedan frenar o modificar el desplazamiento del robot (a pesar de que sus ruedas giren).
+
+Este nodo de navegación puede utilizarse para indicar al robot que avance cierta cantidad de metros y que realice giros a derecha o izquierda en un determinado ángulo.
+
+**Fragmento de código teleoperación**
+
+ROSTOPICS UTILIZADOS
+
+
 \section{Nodo de guiado (follower)}
+
+El nodo de guiado se basa en el procesamiento de la nube de puntos obtenida a través de los nodos del paquete freenect\	_stack.
+
+El nodo está originalmente desarrollado para el robot Turtlebot pero es fácil adaptable a otros robots.
+
+Requiere un rostopic de tipo pointcloud2 al que suscribirse para leer la nube de puntos y un rospotic de tipo **VELOCIDAD** al que publicar los movimeintos de giro, avance y retroceso.
+
+EL tratamiento de la nube de puntos se realiza con la librería PCL (PointCloud Library) y su funcionamiento es el siguiente:
+
+\begin{itemize}[1.-]
+\item Busca puntos que sobresalgan del plano principal.
+\item Calcula las dimensiones de esa zona.
+\item Calcula el centroide del la zona destacada.
+\item Mueve el robot de manera acorde y mantiene la distancia.
+\end{itemize}
