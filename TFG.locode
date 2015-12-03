@@ -9,6 +9,10 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \contentsline {code}{\numberline {7.1}{\ignorespaces Launchfile para RosAria.\relax }}{46}{code.caption.47}
+\contentsline {code}{\numberline {7.2}{\ignorespaces Launchfile para Kinect en el paquete freenect\_launch.\relax }}{47}{code.caption.48}
+\contentsline {code}{\numberline {7.3}{\ignorespaces Launchfile para el sensor L\'aser Sick LMS100.\relax }}{47}{code.caption.49}
+\contentsline {code}{\numberline {7.4}{\ignorespaces L\IeC {\'\i }neas del archivo \textit {.bashrc} en el ordenador de abordo.\relax }}{48}{code.caption.50}
+\contentsline {code}{\numberline {7.5}{\ignorespaces Ejemplo \textit {.bashrc} en un ordenador externo para realizar comunicaci\'on con el m\'aster.\relax }}{48}{code.caption.51}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

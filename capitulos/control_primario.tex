@@ -101,7 +101,7 @@ ROSTOPICS UTILIZADOS
 
 Uno de los primeros objetivos de este proyecto es realizar el control teleoperado del robot. Utilizando ROS y sus características para operar de manera distribuida en diferentes máquinas, esta tarea se vuelve inmediata para el usuario.
 
-ROS trabaja en forma de procesos que se ejecutan de manera independiente y se comunican a través del nodo principal o Máster con el paso de mensajes. Ya que el máster dispone de una dirección IP en la máquina que lo ejecuta, basta con indicar en el entorno ROS de cada máquina la dirección de este para que los nodos abran una comunición con esa dirección IP.
+ROS trabaja en forma de procesos que se ejecutan de manera independiente y se comunican a través del nodo principal o Máster con el paso de mensajes. Ya que el máster dispone de una dirección IP en la máquina que lo ejecuta, basta con indicar en el entorno ROS de cada máquina la dirección de este para que los nodos abran una comunicación con esa dirección IP.
 
 Los pasos para configurar las máquinas bajo la misma red se describen con detalle en la guía ROS NETWORKING y consisten básicamente en indicar en el sript \textit{.bashrc} el parámetro ROS	\_IP y ROS\_MASTER\_URI.
 
@@ -112,7 +112,7 @@ ROS\_IP debe contener la IP que tenga nuestra máquina en la red que esté operand
 export ROS_IP=10.42.0.1
 export ROS_MASTER_URI=http://10.42.0.1:11311
 \end{lstlisting}
-Fuente: \textit{\sim/.bashrc}
+Fuente: \textit{$\sim$/.bashrc}
 \caption{Líneas del archivo \textit{.bashrc} en el ordenador de abordo.}
 \end{code}
 
@@ -121,7 +121,7 @@ Fuente: \textit{\sim/.bashrc}
 export ROS_IP=10.42.0.77
 export ROS_MASTER_URI=http://10.42.0.1:11311
 \end{lstlisting}
-Fuente: \textit{\sim/.bashrc}
+Fuente: $\sim$\textit{/.bashrc}
 \caption{Ejemplo \textit{.bashrc} en un ordenador externo para realizar comunicación con el máster.}
 \end{code}
 
@@ -145,17 +145,23 @@ ROSTOPICS UTILIZADOS
 
 \section{Nodo de guiado (follower)}
 
-El nodo de guiado se basa en el procesamiento de la nube de puntos obtenida a través de los nodos del paquete freenect\	_stack.
+El nodo de guiado se basa en el procesamiento de la nube de puntos obtenida a través de los nodos del paquete freenect\_stack.
 
 El nodo está originalmente desarrollado para el robot Turtlebot pero es fácil adaptable a otros robots.
 
 Requiere un rostopic de tipo pointcloud2 al que suscribirse para leer la nube de puntos y un rospotic de tipo **VELOCIDAD** al que publicar los movimeintos de giro, avance y retroceso.
 
-EL tratamiento de la nube de puntos se realiza con la librería PCL (PointCloud Library) y su funcionamiento es el siguiente:
+EL tratamiento de la nube de puntos se realiza con la librería PCL (PointCloud Library) **referencia** y su funcionamiento es el siguiente:
 
-\begin{itemize}[1.-]
+\begin{enumerate}[1.-]
 \item Busca puntos que sobresalgan del plano principal.
 \item Calcula las dimensiones de esa zona.
 \item Calcula el centroide del la zona destacada.
 \item Mueve el robot de manera acorde y mantiene la distancia.
-\end{itemize}
+\end{enumerate}
+
+código del funcionamiento y paquetes necesarios
+
+LAUNCH FILE
+
+ROSTOPICS UTILIZADOS
