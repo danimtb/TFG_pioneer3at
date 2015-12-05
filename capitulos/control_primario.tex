@@ -8,15 +8,15 @@ Los nodos necesarios para el control del robot requieren el acceso a los motores
 
 \subsection{Control del robot: Rosaria y p2os}
 
-Como hemos indicado anteriormente, la librería que nos proporciona el acceso a la placa controladora de nuestro robot Pioneer es Aria. Esta librería es la que proporciona Adept Mobile Robots para realizar el control completo del robot y acceder a sus parámetros configurables.
+Como hemos indicado anteriormente, la librería que nos proporciona el acceso a la placa controladora de nuestro robot Pioneer es Aria. Esta librería es la que proporciona Adept Mobile Robots para realizar el control completo del robot y acceder a sus parámetros con figurables.
 
 Los paquetes disponibles en ROS para el control de los robots de la familia Pioneer son dos, por un lado tenemos Rosaria y por otro p2os.
 
-p2os es un paquete que agrupa conjunto de utilidades y nodos desarrollados para controlar el robot. Su característica principal es que accede de manera nativa a la placa controladora del robot y no dependen de la librería Aria. Además incorpora funcionalidades configuradas como modelos 3D de robot, simulación con Gazebo o la configuración de la navegación.
+p2os **referencia** es un paquete que agrupa conjunto de utilidades y nodos desarrollados para controlar el robot. Su característica principal es que accede de manera nativa a la placa controladora del robot y no dependen de la librería Aria. Además incorpora funcionalidades configuradas como modelos 3D de robot, simulación con Gazebo o la configuración de la navegación.
 
 Sin embargo, p2os no integra todas las funcionalidades a las que tiene acceso Aria como son la reconfiguración de los parámetros de la odometría.
 
-Rosaria es un nodo de interfaz entre ROS y Aria, por tanto incluye todas prácticamente todas las funcionalidades de esta. Podemos acceder a la calibración de los encoders de la odometría así como conectar con el simulador MobileSim (ver sección \ref{MobileSim})
+Rosaria **referencia** es un nodo de interfaz entre ROS y Aria, por tanto incluye todas prácticamente todas las funcionalidades de esta. Podemos acceder a la calibración de los encoders de la odometría así como conectar con el simulador MobileSim (ver sección \ref{MobileSim})
 
 A continuación se muestra el launchfile para ejecutar el nodo RosAria:
 
@@ -40,7 +40,7 @@ Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_u
 \caption{Launchfile para RosAria.}
 \end{code}
 
-Como puede verse, podemos modificar los valores usados por Aria para realizar el cómputo de la odometría (más información en el apéndice ).
+Como puede verse, podemos modificar los valores usados por Aria para realizar el cómputo de la odometría (más información la subsección \ref{subsection:odometria} del apéndice).
 
 En la tabla \ref{tabla_rosaria} se muestra parte de la API utilizada de rosaria.
 
@@ -62,7 +62,7 @@ DriftFactor & float & Rozamiento de la odometría\\
 RevCount & float & Calibración de los encoders\\
 \end{tabular}
 }
-\caption{Características del ordenador Intel NUC NUC5i7RYH}
+\caption{API de rosaria utilizada. Basado en \cite{rosaria}}
 \label{tabla_rosaria}
 \end{table}
 
