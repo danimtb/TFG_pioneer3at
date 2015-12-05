@@ -40,9 +40,31 @@ Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_u
 \caption{Launchfile para RosAria.}
 \end{code}
 
-Como puede verse, podemos modificar los valores usados por Aria para realizar el cómputo de la odometría.
+Como puede verse, podemos modificar los valores usados por Aria para realizar el cómputo de la odometría (más información en el apéndice ).
 
-ROSTOPICS UTILIZADOS
+En la tabla \ref{tabla_rosaria} se muestra parte de la API utilizada de rosaria.
+
+\begin{table}[!h]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{c c c}
+& {\bf RosAria API} & \\
+{\bf Topics suscitos} & {\bf Mensaje} & {\bf Descripción}\\ \hline
+cmd\_vel & geometry\_msgs/Twist & Recibe los comandos de velocidad\\
+{\bf Topics publicados} & {\bf Mensaje} & {\bf Descripción}\\
+\hline
+pose & nav\_msgs/Odometry & Publica la odometría\\
+{\bf Parámetros} & {\bf Tipo} & {\bf Descripción}\\
+\hline
+port & string & Puerto serie del robot\\
+TicksMM & float & Calibración de la odometría\\
+DriftFactor & float & Rozamiento de la odometría\\
+RevCount & float & Calibración de los encoders\\
+\end{tabular}
+}
+\caption{Características del ordenador Intel NUC NUC5i7RYH}
+\label{tabla_rosaria}
+\end{table}
 
 \subsection{Sensor Kinect}
 
