@@ -4,43 +4,163 @@ La versión del software ROS utilizada para el desarrollo del proyecto ha tratado
 
 La versión utilizada fue ROS Indigo Igloo desde el comienzo del proyecto, bajo el sistema operativo Ubuntu 14.04. A fecha de entrega del proyecto existe una versión más actualizada del software ROS, sin embargo se desestimó su uso debido a que aún no era una versión estable y algunos paquetes no se encontraban disponibles para tal versión.
 
-ROS realiza funciones similares a un sistema operativo, como la comunicación e interacción entre diferentes procesos, la dis tribución en hilos, comunicación distribuida entre máquinas...
+ROS realiza funciones similares a un sistema operativo, como la comunicación e interacción entre diferentes procesos, la distribución en hilos, comunicación distribuida entre máquinas, abstracción del hardware, control a bajo nivel...
+
+ROS también proporciona herramientas y librerías para crear código, compilarlo y ejecutarlo en diferentes máquinas.
 
 El concepto más importante dentro de ROS son los nodos, que no son más que un proceso que se ejecuta y conecta al proceso principal, llamado máster, para comunicarse con otros nodos. Existen diferentes conceptos rostopics, rosservices, nodelets... que serán explicados en el siguiente punto.
 
-\subsection{Funcionamiento de ROS}
+\section{Funcionamiento de ROS}
 
-- Nodos.
-- Servicios.
-- Rostopics.
+Como hemos dicho, en ROS las acciones del robot se llevan a cabo mediante la interacción de diferentes nodos que se conectan entre sí en forma de grafo. Cada nodo se conecta a un nodo principal llamado máster (roscore) que se encarga de abrir un canal de comunicación entre cada nodo o proceso.
+
+En la figura \ref{fig:nodos_conectados} vemos un ejemplo para el robot simulado "turtlesim", al cual le envía comandos el nodo de teleoperación "teleop\_turtle" y ambos publican información a través del nodo "rosout".
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.8\textwidth]{figuras/rosgraph.png}
+\caption{Grafo de ejemplo con nodos conectados}
+\label{fig:nodos_conectados}
+\end{figure}
+
+Teniendo esta estructura en mente, es conveniente definir algunos conceptos sobre los que trabaja ROS **referencia**:
+
+\begin{itemize}
+\item Nodos (nodes): Los nodos son procesos que realizan algún tipo de cómputo. Un robot basado en ROS precisará de varios nodos ejecutándose al mismo tiempo e intercambiándose información.
+
+\item Máster (master): El nodo ROS master proporciona una vía comunicación para el intercambio de mensajes y un registro de cada nodo. También dispone de un registro de parámetros a los que pueden tener acceso cualquiera de los nodos.
+
+\item Mensajes (messages): Los nodos se comunican unos con otros a través de mensajes. La estructura de estos mensajes puede definirse por el usuario y contener diferentes tipos de datos.
+
+\item Topics: Los mensajes son transmitidos a través de un sistema de publicación / subscripción. Un nodo envía un mensaje publicándolo en cierto topic y otro nodo puede leer el mensaje si se suscribe.
+
+\item Servicios (services): Los servicios son similares a los topics pero son mucho más apropiados para realizar comunicaciones del tipo solicitud / respuesta.
+
+\item Bags: El concepto de "bag" puede entenderse como un almacen de mensajes. Los mensajes de cierto topic pueden guardarse para analizar los datos más tarde o reproducir cierta situación.
+\end{itemize}
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.8\textwidth]{figuras/esquema_ros.png}
+\caption{Esquema del funcionamiento de ROS}
+\label{fig:esquema_ros}
+\end{figure}
+
+A nivel de sistema de ficheros ROS se estructura de la siguiente forma:
+
+\begin{itemize}
+\item Paquetes (packages): Es la unidad principal de organización de software en ROS. Un paquete puede contener nodos, tipos de datos, archivos de configuración.
+
+\item Metapaquetes (metapackages): Sirven para representar un conjunto de paquetes que tienen realción entre sí.
+
+\item Package manifests: Son archivos de tipo xml donde se indican los metadatos de un paquete, como su nombre, su versión, una descripción, licencia, dependencias de otras librerías o paquetes...
+
+\item Repositorios: Normalmente, para distribuir los paquetes en ROS se utilizan repositorios bajo un sistema de control de versiones.
+
+\item Tipos de mensajes: Son archivos con la estructura de un
+tipo de mensaje (MiMensaje.msg)
+
+\item Tipos de servicios: Son archivos con la estructura de un tipo de servicio tanto para los datos de solicitud como los de respuesta (MiServicio.srv)
+\end{itemize}
+
+Por último, es necesario conocer algunos tipos de archivos y su uso dentro de ROS para comprender el trabajo de este proyecto:
+
+\begin{itemize}
+\item Launchfiles: ROS ofrece la herramienta "roslaunch" para ejecutar varios nodos con un solo comando y configurar sus parámetros. Es una forma cómoda de organizar la puesta en marcha de todos los nodos y enlazar unos launchfiles con otros. Los archivos suelen tener la extensión \textit{.launch} y su estructura es similar a la sintaxis xml **referencia**.
+
+\item yaml: Es un formato de serialización de datos legible para los humanos de tal modo que se enfoca más en los datos que en el marcado de los archivos. Su formato es \textit{.yaml} y se utiliza para definir parámetros en cada nodo.
+
+\item xacro: Son archivos que combinan el lenguaje xml con macros de tal modo que podemos mantener los archivos más legibles y ordenados **referencia**. Estos archivos se utilizan principalmente para definir un modelo de nuestro robot en URDF (Unified Robot Description Format) y su extensión es \textit{.xacro}.
+
+\item URDF (Unified Robot Description Format): Es un tipo de formato utilizado para describir la estructura de un objeto en forma de eslabones y articulaciones de distinto tipo **refrencia**. En ROS se utilizan para generar modelos del robot en Gazebo y en RViz y conocer de manera gráfica el estado de los eslabones del robot. La extensión de estos archivos es \textit{.urdf}.
+
+\item gazebo: Los archivos \textit{.gazebo} definen características concretas para utilizar robots definidos mediante URDF. Estos archivos permiten desacoplar las características utilizadas en Gazebo del modelo original.
+
+\item world: Los archivos \textit{.world} definen en sintaxis xml mundos virtuales para cargar en el simulador Gazebo. Pueden definirse los objetos a incorporar, las luces y la posición del punto de vista.
+\end{itemize}
 
 \section{Configuración de ROS}
-Para la instalación de ROS es necesario seguir ciertos pasos bien explicados en la wiki de su página.
+Para la instalación de ROS es necesario seguir ciertos pasos bien explicados en la wiki de su página **referencia**. Al ser un sistema fuertemente basado en sistemas UNIX y con mayor soporte para Ubuntu, las instalaciones se realizan principalmente a través de herramientas como apt (Advanced Packaging Tool) **referencia**.
 
-Para el ordenador de abordo del robot utilizamos la versión completa del software.
+Existen diferentes instalaciones de ROS dependiendo de si precisamos de todas sus herramientas y utilidades o no, ya que por ejemplo no tendría sentido instalar herramientas de interfaz gráfica en un robot que dispone de entorno gráfico. Para el ordenador de abordo del robot utilizamos la versión completa del software.
 
-Añadimos nuestra variable de entorno para buscar en los directorios de ros cuando ejecutemos los nodos.
+\begin{code}[htp]
+\begin{lstlisting}[style=consola]
+$ sudo apt-get install ros-indigo-desktop-full
+\end{lstlisting}
+\caption{Mandato de consola para instalar la versión completa de ROS Indigo.}
+\end{code}
 
-Para el desarrollo dentro de ROS se utiliza el entorno de desarrollo Catkin, que facilita el enlazado y compilación de los paquetes. para ello es necesario tenerlo instalado:
+Añadimos nuestra variable de entorno para que el sistema reconozca todas herramientas de ROS:
 
-**instalacion catkin**
+\begin{code}[htp]
+\begin{lstlisting}[style=consola]
+$ source /opt/ros/indigo/setup.bash
+\end{lstlisting}
+\caption{Source al setup de ROS Indigo}
+\end{code}
+
+Para el desarrollo dentro de ROS se utiliza el entorno de desarrollo Catkin **referencia**, que facilita el enlazado y compilación de los paquetes. para ello es necesario tenerlo instalado y crear un entorno de desarrollo:
+
+\begin{code}[htp]
+\begin{lstlisting}[style=consola]
+$ sudo apt-get install ros-indigo-catkin
+$ mkdir -p ~/catkin_ws/src
+$ cd ~/catkin_ws/src
+$ catkin_init_workspace
+\end{lstlisting}
+\caption{Instalación y workspace de Catkin}
+\end{code}
 
 Y a continuación es necesario incluir nuestro directorio de desarrollo para que sea reconocido:
 
-**source**
+\begin{code}[htp]
+\begin{lstlisting}[style=consola]
+$ cd ~/catkin_ws
+$ source devel/setup.bash
+\end{lstlisting}
+\caption{Source al setup de nuestro entorno Catkin}
+\end{code}
 
 A partir de este punto podríamos realizar nodos utilizando las funcionalidades de ROS.
-
-Para el desarrollo de este proyecto es necesario instalar las siguientes funcionalidades adicionales de ROS:
-
-- Navegacion
-- Rosaria
-- pocketsphinx
-- rosdeps
-- mirar cuaderno
 
 \section{Configuración de los paquetes ROS}
 
 Los paquetes ROS son funcionalidades desarrolladas por terceros que se integran en el sistema ROS y que son transferibles de un robot a otro.
 
-Los paquetes ROS incorporan un archivo CMakeLists.txt para la compilación de los nodos que se hayan desarrollado así como sus mensajes. Y un archivo Package Manifest package.xml, donde se indican los requisitos del paquete, el autor, el contacto, y las dependencias del mismo.
+Los paquetes ROS incorporan un archivo CMakeLists.txt para la compilación de los nodos que se hayan desarrollado así como sus mensajes y un archivo Package Manifest (package.xml), como hemos indicado anteriormente.
+
+Para el desarrollo de este proyecto es necesario clonar el repositorio GitHub \hypersetup{urlcolor=black} \href{https://github.com/danimtb/pioneer3at_ETSIDI}{\textit{ pioneeer3at\_ETSIDI}} \hypersetup{urlcolor=blue}en nuestra carpeta \textit{$\sim$/catkin\_ws/src}:
+
+\begin{code}[htp]
+\begin{lstlisting}[style=consola]
+$ cd ~/catkin_ws/src
+$ $ git clone --recursive https://github.com/danimtb/pioneer3at_ETSIDI.git .
+\end{lstlisting}
+\hypersetup{urlcolor=black}
+Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI}{\textit{https://github.com/danimtb/pioneer3at\_ETSIDI}}
+\hypersetup{urlcolor=blue}
+\caption{Clonado del repositorio \textit{pioneer3at\_ETSIDI}}
+\end{code}
+
+
+Junto con el repositorio de desarrollo también es preciso instalar las siguientes funcionalidades adicionales de ROS y gestionar algunas dependencias de librerías, para lo cual nos serviremos de la herramienta rosdep **referencia** creada por los desarrolladores de ROS para este propósito.
+
+Inicializamos rosdep y actualizamos las pedendencias:
+
+\begin{code}[htp]
+\begin{lstlisting}[style=consola]
+$ sudo rosdep init
+$ rosdep update
+\end{lstlisting}
+\hypersetup{urlcolor=black}
+\caption{Inicializando la heamienta \textit{rosdep}.}
+\end{code}
+
+\begin{itemize}
+\item Navegación: Instalamos los paquetes adicionales para realizar la navegación (se hablará de cada uno en el capítulo \ref{chapter:navegacion}).
+\item Rosaria
+\item pocketsphinx
+\item rosdeps
+\item mirar cuaderno
+\end{itemize}
