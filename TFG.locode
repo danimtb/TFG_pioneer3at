@@ -7,14 +7,24 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {code}{\numberline {6.1}{\ignorespaces Mandato de consola para instalar la versi\'on completa de ROS Indigo.\relax }}{44}{code.caption.49}
+\contentsline {code}{\numberline {6.2}{\ignorespaces Source al setup de ROS Indigo\relax }}{44}{code.caption.50}
+\contentsline {code}{\numberline {6.3}{\ignorespaces Instalaci\'on y workspace de Catkin\relax }}{44}{code.caption.51}
+\contentsline {code}{\numberline {6.4}{\ignorespaces Source al setup de nuestro entorno Catkin\relax }}{45}{code.caption.52}
+\contentsline {code}{\numberline {6.5}{\ignorespaces Clonado del repositorio \textit {pioneer3at\_ETSIDI}\relax }}{45}{code.caption.53}
 \addvspace {10\p@ }
-\contentsline {code}{\numberline {7.1}{\ignorespaces Launchfile para RosAria.\relax }}{46}{code.caption.47}
-\contentsline {code}{\numberline {7.2}{\ignorespaces Launchfile para Kinect en el paquete freenect\_launch.\relax }}{47}{code.caption.48}
-\contentsline {code}{\numberline {7.3}{\ignorespaces Launchfile para el sensor L\'aser Sick LMS100.\relax }}{47}{code.caption.49}
-\contentsline {code}{\numberline {7.4}{\ignorespaces L\IeC {\'\i }neas del archivo \textit {.bashrc} en el ordenador de abordo.\relax }}{48}{code.caption.50}
-\contentsline {code}{\numberline {7.5}{\ignorespaces Ejemplo \textit {.bashrc} en un ordenador externo para realizar comunicaci\'on con el m\'aster.\relax }}{48}{code.caption.51}
+\contentsline {code}{\numberline {7.1}{\ignorespaces Launchfile para RosAria.\relax }}{48}{code.caption.54}
+\contentsline {code}{\numberline {7.2}{\ignorespaces Launchfile para Kinect en el paquete freenect\_launch.\relax }}{49}{code.caption.56}
+\contentsline {code}{\numberline {7.3}{\ignorespaces Launchfile para el sensor L\'aser Sick LMS100.\relax }}{50}{code.caption.58}
+\contentsline {code}{\numberline {7.4}{\ignorespaces L\IeC {\'\i }neas del archivo \textit {.bashrc} en el ordenador de abordo.\relax }}{51}{code.caption.60}
+\contentsline {code}{\numberline {7.5}{\ignorespaces Ejemplo \textit {.bashrc} en un ordenador externo para realizar comunicaci\'on con el m\'aster.\relax }}{51}{code.caption.61}
+\contentsline {code}{\numberline {7.6}{\ignorespaces Ejemplo \textit {.bashrc} en un ordenador externo para realizar comunicaci\'on con el m\'aster.\relax }}{51}{code.caption.62}
+\contentsline {code}{\numberline {7.7}{\ignorespaces Launchfile para turtlebot\_follower.\relax }}{53}{code.caption.66}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {code}{\numberline {A.1}{\ignorespaces Inicializando la herramienta \textit {rosdep}.\relax }}{65}{code.caption.68}
+\contentsline {code}{\numberline {A.2}{\ignorespaces Instalando los paquetes de navegaci\'on mapeo.\relax }}{65}{code.caption.69}
+\contentsline {code}{\numberline {A.3}{\ignorespaces Instalando los paquetes de navegaci\'on mapeo.\relax }}{66}{code.caption.70}

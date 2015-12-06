@@ -49,7 +49,7 @@ En la tabla \ref{tabla_rosaria} se muestra parte de la API utilizada de rosaria.
 \resizebox{\textwidth}{!}{
 \begin{tabular}{c c c}
 & {\bf RosAria API} & \\
-{\bf Topics suscitos} & {\bf Mensaje} & {\bf Descripción}\\ \hline
+{\bf Topics suscritos} & {\bf Mensaje} & {\bf Descripción}\\ \hline
 cmd\_vel & geometry\_msgs/Twist & Recibe los comandos de velocidad\\
 {\bf Topics publicados} & {\bf Mensaje} & {\bf Descripción}\\
 \hline
@@ -60,6 +60,10 @@ port & string & Puerto serie del robot\\
 TicksMM & float & Calibración de la odometría\\
 DriftFactor & float & Rozamiento de la odometría\\
 RevCount & float & Calibración de los encoders\\
+{\bf Frames publicados} &  & {\bf Descripción}\\
+\hline
+base\_link & & Referencia base del robot\\
+odom & & Referencia odométrica
 \end{tabular}
 }
 \caption{API de rosaria utilizada. Basado en \cite{rosaria}}
@@ -90,6 +94,28 @@ Fuente: \href{https://github.com/ros-drivers/freenect_stack/blob/master/freenect
 \caption{Launchfile para Kinect en el paquete freenect\_launch.}
 \end{code}
 
+En la tabla \ref{tabla_freenect} se muestra parte de la API utilizada.
+
+\begin{table}[!h]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{c c c}
+& {\bf libfreenect\_stack API} & \\
+{\bf Topics publicados} & {\bf Mensaje} & {\bf Descripción}\\
+\hline
+/camera/depth/image\_raw & sensor\_msgs/Image & Imagen captada\\
+/camera/depth/camera\_info & sensor\_msgs/CameraInfo & Información de la cámara\\
+{\bf Frames} &  & {\bf Descripción}\\
+\hline
+camera\_link & & Referencia base de Kinect\\
+camera\_rgb\_frame & & Referencia cámara RGB\\
+camera\_depth\_frame & & Referencia cámara IR\\
+\end{tabular}
+}
+\caption{API de freenect\_stack utilizada.}
+\label{tabla_freenect}
+\end{table}
+
 \subsection{Sensor Láser Sick LMS100}
 
 Existe un amplio soporte para sensores láser de la marca Sick, entre ellos el más popular es la familia Sick LMS200 ya que se utiliza en muchos desarrollos relacionados con la robótica móvil **referencia**. Esa familia de sensores utiliza una interfaz de comunicación en serie a través de puerto RS-232, sin embargo, la familia de dispositivos Sick LMS100 utiliza interfaz ethernet y requiere un tratamiento de datos diferente.
@@ -115,9 +141,29 @@ Fuente: \href{https://github.com/clearpathrobotics/LMS1xx/blob/master/launch/LMS
 \caption{Launchfile para el sensor Láser Sick LMS100.}
 \end{code}
 
-Pueden precisarse algunos ajustes previos con la herramienta que ofrece el fabricante "SOPAS Engineering tool", los cuales pueden encontrarse en el anexo de este trabajo (Sección \ref{subsection:sicklms100}).
+Pueden precisarse algunos ajustes previos con la herramienta que ofrece el fabricante "SOPAS Engineering tool", los cuales pueden encontrarse en el apéndice de este trabajo (Sección \ref{subsection:sicklms100}).
 
-ROSTOPICS UTILIZADOS
+\begin{table}[!h]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{c c c}
+& {\bf LMS1xx API} & \\
+{\bf Topics publicados} & {\bf Mensaje} & {\bf Descripción}\\
+\hline
+/scan & sensor\_msgs/LaserScan & Puntos láser\\
+{\bf Parámetros} & {\bf Tipo} & {\bf Descripción}\\
+\hline
+host & string & Dirección IP del láser\\
+{\bf Frames} &  & {\bf Descripción}\\
+\hline
+laser & & Centro del haz láser\\
+\end{tabular}
+}
+\caption{API de LMS1xx utilizada.}
+\label{tabla_lms1xx}
+\end{table}
+
+\url{http://wiki.ros.org/LMS1xx}
 
 \section{Nodo de teleoperación}
 
@@ -138,7 +184,7 @@ Fuente: \textit{$\sim$/.bashrc}
 \caption{Líneas del archivo \textit{.bashrc} en el ordenador de abordo.}
 \end{code}
 
-\begin{code}[htp]
+\begin{code}[!htp]
 \begin{lstlisting}[style=launch]
 export ROS_IP=10.42.0.77
 export ROS_MASTER_URI=http://10.42.0.1:11311
@@ -149,9 +195,27 @@ Fuente: $\sim$\textit{/.bashrc}
 
 De esta manera podemos desarrollar un nodo ROS que se conecte al topic de RosAria que comanda los motores \textit{cmd\_vel} y publicar diferentes valores de velocidad en función de las teclas que se pulsen.
 
-**Fragmento de código teleoperación**
+\begin{code}[htp]
+\begin{lstlisting}[style=C++]	
+}
+\end{lstlisting}
+Fuente: $\sim$\textit{/.bashrc}
+\caption{Ejemplo \textit{.bashrc} en un ordenador externo para realizar comunicación con el máster.}
+\end{code}
 
-ROSTOPICS UTILIZADOS
+\begin{table}[!h]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{c c c}
+& {\bf teleop\_p3at API} & \\
+{\bf Topics publicados} & {\bf Mensaje} & {\bf Descripción}\\ \hline
+cmd\_vel & geometry\_msgs/Twist & Publica comandos de velocidad\\
+\end{tabular}
+}
+\caption{API de teleop\_p3at}
+\label{tabla_rosaria}
+\end{table}
+
 \section{Nodo de navegación estimada}
 
 La navegación estimada, más conocida en inglés como Dead Reckoning **referencia**, es la capacidad para realizar navegación en un entorno basándonos solamente en la información que aportan los sensores de la odometría.
@@ -160,10 +224,26 @@ Es un método estimado, ya que solo se basa en la información de los encoders y n
 
 Este nodo de navegación puede utilizarse para indicar al robot que avance cierta cantidad de metros y que realice giros a derecha o izquierda en un determinado ángulo.
 
-**Fragmento de código teleoperación**
+**Fragmento de código**
 
-ROSTOPICS UTILIZADOS
-
+\begin{table}[!h]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{c c c}
+& {\bf moving\_alone API} & \\
+{\bf Topics suscritos} & {\bf Mensaje} & {\bf Descripción}\\ \hline
+pose & nav\_msgs/Odometry & Recibe la odmetría\\
+{\bf Topics publicados} & {\bf Mensaje} & {\bf Descripción}\\ \hline
+cmd\_vel & geometry\_msgs/Twist & Publica comandos de velocidad\\
+{\bf Frames suscritos} &  & {\bf Descripción}\\
+\hline
+base\_link & & Referencia base del robot\\
+odom & & Referencia odométrica
+\end{tabular}
+}
+\caption{API de moving\_alone}
+\label{tabla_rosaria}
+\end{table}
 
 \section{Nodo de guiado (follower)}
 
@@ -173,17 +253,64 @@ El nodo está originalmente desarrollado para el robot Turtlebot pero es fácil ad
 
 Requiere un rostopic de tipo pointcloud2 al que suscribirse para leer la nube de puntos y un rospotic de tipo **VELOCIDAD** al que publicar los movimeintos de giro, avance y retroceso.
 
-EL tratamiento de la nube de puntos se realiza con la librería PCL (PointCloud Library) **referencia** y su funcionamiento es el siguiente:
+\begin{table}[!h]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{c c c}
+& {\bf turtlebot\_follower API} & \\
+{\bf Topics suscritos} & {\bf Mensaje} & {\bf Descripción}\\ \hline
+camera/depth/points & sensor\_msgs/PointCloud2 & Recibe la nube de puntos\\
+{\bf Topics publicados} & {\bf Mensaje} & {\bf Descripción}\\ \hline
+cmd\_vel & geometry\_msgs/Twist & Publica comandos de velocidad\\
+{\bf Parámetros} & {\bf Tipo} & {\bf Descripción}\\
+\hline
+min\_y & double & Minimum y position of points\\
+max\_y & double & Maximum y position of points\\
+min\_x & double & Minimum x position of points\\
+max\_x & double & Maximum x position of points\\
+max\_z & double & Maximum z position of points\\
+goal\_z & double & Distance away from the robot\\
+z\_scale & double & Scaling factor for trans. speed\\
+x\_scale & double & Scaling factor for rot. speed\\
+enabled & bool & Enable/disable movement commands\\
+\end{tabular}
+}
+\caption{API de turtlebot\_follower}
+\label{tabla_rosaria}
+\end{table}
+
+
+\begin{code}[htp]
+\begin{lstlisting}[style=launch]
+<launch>
+    
+<!--  Load turtlebot follower into the 3d sensors nodelet manager to avoid pointcloud serializing -->
+    <node pkg="nodelet" type="nodelet" name="turtlebot_follower" args="load turtlebot_follower/TurtlebotFollower camera/camera_nodelet_manager">
+      <remap from="turtlebot_follower/cmd_vel" to="/cmd_vel"/>
+      <remap from="depth/points" to="camera/depth/points"/>
+      <param name="enabled" value="true" />
+      <param name="x_scale" value="10.0" />
+      <param name="z_scale" value="10.0" />
+      <param name="min_x" value="-0.35" />
+      <param name="max_x" value="0.35" />
+      <param name="min_y" value="0.1" />
+      <param name="max_y" value="0.5" />
+      <param name="max_z" value="1.2" />
+      <param name="goal_z" value="0.6" />
+    </node>
+</launch>
+\end{lstlisting}
+\hypersetup{urlcolor=black}
+Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/follower/simple-follower.launch}{\textit{pioneer\_utils/follower/simple-follower.launch}}
+\hypersetup{urlcolor=blue}
+\caption{Launchfile para turtlebot\_follower.}
+\end{code}
+
+EL tratamiento de la nube de puntos se realiza con la librería PCL (PointCloud Library \cite{PCL}) y su funcionamiento es el siguiente:
 
 \begin{enumerate}[1.-]
-\item Busca puntos que sobresalgan del plano principal.
-\item Calcula las dimensiones de esa zona.
+\item Busca puntos dentro de los límites establecidos.
+\item Calcula las dimensiones de los puntos encontrados.
 \item Calcula el centroide del la zona destacada.
-\item Mueve el robot de manera acorde y mantiene la distancia.
+\item Mueve el robot de manera acorde hasta que alcanza la distancia establecida.
 \end{enumerate}
-
-código del funcionamiento y paquetes necesarios
-
-LAUNCH FILE
-
-ROSTOPICS UTILIZADOS

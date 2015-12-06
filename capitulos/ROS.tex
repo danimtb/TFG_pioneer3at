@@ -79,6 +79,8 @@ Por último, es necesario conocer algunos tipos de archivos y su uso dentro de RO
 \item world: Los archivos \textit{.world} definen en sintaxis xml mundos virtuales para cargar en el simulador Gazebo. Pueden definirse los objetos a incorporar, las luces y la posición del punto de vista.
 \end{itemize}
 
+TRANSFORMACIONES paquete tf, frames.*******
+
 \section{Configuración de ROS}
 Para la instalación de ROS es necesario seguir ciertos pasos bien explicados en la wiki de su página **referencia**. Al ser un sistema fuertemente basado en sistemas UNIX y con mayor soporte para Ubuntu, las instalaciones se realizan principalmente a través de herramientas como apt (Advanced Packaging Tool) **referencia**.
 
@@ -114,7 +116,7 @@ $ catkin_init_workspace
 
 Y a continuación es necesario incluir nuestro directorio de desarrollo para que sea reconocido:
 
-\begin{code}[htp]
+\begin{code}[!htp]
 \begin{lstlisting}[style=consola]
 $ cd ~/catkin_ws
 $ source devel/setup.bash
@@ -122,15 +124,15 @@ $ source devel/setup.bash
 \caption{Source al setup de nuestro entorno Catkin}
 \end{code}
 
-A partir de este punto podríamos realizar nodos utilizando las funcionalidades de ROS.
+A partir de este punto podríamos crear nuestros propios paquetes utilizando las funcionalidades de ROS **referencia \url{http://wiki.ros.org/catkin/Tutorials/CreatingPackage}.
 
 \section{Configuración de los paquetes ROS}
 
 Los paquetes ROS son funcionalidades desarrolladas por terceros que se integran en el sistema ROS y que son transferibles de un robot a otro.
 
-Los paquetes ROS incorporan un archivo CMakeLists.txt para la compilación de los nodos que se hayan desarrollado así como sus mensajes y un archivo Package Manifest (package.xml), como hemos indicado anteriormente.
+Los paquetes ROS incorporan un archivo \textit{CMakeLists.txt} para la compilación de los nodos que se hayan desarrollado así como sus mensajes y un archivo Package Manifest (\textit{package.xml}), como hemos indicado anteriormente.
 
-Para el desarrollo de este proyecto es necesario clonar el repositorio GitHub \hypersetup{urlcolor=black} \href{https://github.com/danimtb/pioneer3at_ETSIDI}{\textit{ pioneeer3at\_ETSIDI}} \hypersetup{urlcolor=blue}en nuestra carpeta \textit{$\sim$/catkin\_ws/src}:
+Para el desarrollo de este proyecto es necesario clonar el repositorio GitHub \hypersetup{urlcolor=black} \href{https://github.com/danimtb/pioneer3at_ETSIDI}{\textit{ pioneeer3at\_ETSIDI}} \hypersetup{urlcolor=blue}en nuestra carpeta \textit{$\sim$/catkin\_ws/src}. Este repositorio contiene todos los paquetes necesarios en nuestro entorno:
 
 \begin{code}[htp]
 \begin{lstlisting}[style=consola]
@@ -143,24 +145,4 @@ Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI}{\textit{https://gith
 \caption{Clonado del repositorio \textit{pioneer3at\_ETSIDI}}
 \end{code}
 
-
-Junto con el repositorio de desarrollo también es preciso instalar las siguientes funcionalidades adicionales de ROS y gestionar algunas dependencias de librerías, para lo cual nos serviremos de la herramienta rosdep **referencia** creada por los desarrolladores de ROS para este propósito.
-
-Inicializamos rosdep y actualizamos las pedendencias:
-
-\begin{code}[htp]
-\begin{lstlisting}[style=consola]
-$ sudo rosdep init
-$ rosdep update
-\end{lstlisting}
-\hypersetup{urlcolor=black}
-\caption{Inicializando la heamienta \textit{rosdep}.}
-\end{code}
-
-\begin{itemize}
-\item Navegación: Instalamos los paquetes adicionales para realizar la navegación (se hablará de cada uno en el capítulo \ref{chapter:navegacion}).
-\item Rosaria
-\item pocketsphinx
-\item rosdeps
-\item mirar cuaderno
-\end{itemize}
+Junto con el repositorio de desarrollo también es preciso instalar funcionalidades adicionales de ROS. Toda esta configuración puede consultarse con más detalle en el apéndice \ref{chapter:configuracion_sistema}.

@@ -326,14 +326,14 @@ Su función principal es la de percibir el entorno captando una serie de puntos q
 
 En primer lugar, el laser infrarrojo es emitido por Kinect con un patrón determinado (Projected textures **REFERENCIA**), el cual no es simétrico sino que tiene puntos aleatorios que se dispersa gracias a unas lentes de proyección. Estos puntos aleatorios se reflejan en los objetos, los cuales sería posible verlos con una cámara externa.
 
-A continuación, al sensor de Kinect MT9M001C12STM, que no es más que el sensor CMOS de una cámara en la que se le trata para que observe solo el infrarrojo, obteniendo los puntos infrarrojos en el plano 2D. El motivo por el que podemos medir la profundidad de los objetos (su distancia) es porque sabemos el patrón de cómo emite el laser emisor \cite{konolige2010projected}, por tanto sabremos que si un punto no está en el sitio que corresponde, se ha trasladado respecto al punto inicial y se le aplica la correspondiente transformación (Figura \ref{fig:proyecciones_kinect}), obteniendo finalmente los puntos de toda la nube en coordenadas cartesianas XYZ.\\
-
-\begin{figure}[htp]
+\begin{figure}[!htp]
 \centering
 \includegraphics[width=0.8\textwidth]{figuras/proyecciones_kinect.png}
 \caption{Proyección de infrarrojos y obtención de la nube de puntos}
 \label{fig:proyecciones_kinect}
 \end{figure}
+
+A continuación, al sensor de Kinect MT9M001C12STM, que no es más que el sensor CMOS de una cámara en la que se le trata para que observe solo el infrarrojo, obteniendo los puntos infrarrojos en el plano 2D. El motivo por el que podemos medir la profundidad de los objetos (su distancia) es porque sabemos el patrón de cómo emite el laser emisor \cite{konolige2010projected}, por tanto sabremos que si un punto no está en el sitio que corresponde, se ha trasladado respecto al punto inicial y se le aplica la correspondiente transformación (Figura \ref{fig:proyecciones_kinect}), obteniendo finalmente los puntos de toda la nube en coordenadas cartesianas XYZ.
 
 La siguiente tabla (Tabla \ref{tabla_kinect}) muestra las especificaciones del sensor Kinect.
 
@@ -373,7 +373,7 @@ Acelerómetro & KXSD9-2050\\ \hline
 
 Aunque el planteamiento incial del proyecto planteaba la navegación basada únicamente en el sensor kinect, debemos mencionar el uso del sensor láser Sick LMS100 (Figura \ref{fig:sensor_sicklms100}).
 
-\begin{figure}[htp]
+\begin{figure}[!h]
 \centering
 \includegraphics[width=0.6\textwidth]{figuras/SICK_LMS100.jpg}
 \caption{Sensor escaner láser Sick LMS100}
@@ -394,7 +394,7 @@ En la siguiente tabla (Tabla \ref{tabla_sicklms100}) se recogen sus característi
 
 \begin{table}[!h]
 \centering
-\resizebox{\textwidth}{!}{
+\resizebox{0.8\textwidth}{!}{
 \begin{tabular}{c c}
 \hline
 {\bf Especificaciones} & {\bf Sick LMS100} \\ \hline
@@ -441,11 +441,12 @@ Frecuencia de reloj & 3.1 GHz hasta 3.4 GHz \\
 Memoria RAM & DDR3L1 **DATO** \\
 Disco duro & M.2 SSD **DATO** \\
 Gráficos & Iris Graphics 6100 \\
-Conectividad de periféricos & 2 x USB 3.0 en el panel posterior\\
- & 2 x USB 3.0 en el panel frontal\\
+ & 2 x USB 3.0 en el panel posterior\\
+ Conectividad de periféricos & 2 x USB 3.0 en el panel frontal\\
  & 2 x USB 2.0 internos vía colector\\
-Conectividad de red & Intel 10/100/1000 Mbps\\
- & Intel® Wireless-AC 7265 M.2, antenas inalámbricas (IEEE 802.11ac)\\
+ & Intel 10/100/1000 Mbps\\
+ Conectividad de red & Intel® Wireless-AC 7265 M.2\\
+ & Antenas inalámbricas (IEEE 802.11ac)\\
 Alimentación & 12-19V DC \\
 Consumo & 65 W \\
 Dimensiones & 115mm x 111mm x 48.7mm\\ \hline

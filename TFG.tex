@@ -29,6 +29,11 @@
 
 \DeclareCaptionType{code}[Código][Índice de códigos]
 
+%para el anexo en español
+\renewcommand{\appendixname}{Apéndice}
+\renewcommand{\appendixtocname}{Apéndice}
+\renewcommand{\appendixpagename}{Apéndice}
+
 %para mostrar fragmentos de codigo fuente
 \lstset{ frame=Ltb,
      framerule=0pt,
@@ -156,13 +161,12 @@
 
 \include{capitulos/conclusion}
 
+\include{capitulos/apendice}
 %genera doble hoja en blanco
 \cleardoublepage
 %se incluye la bibliografía. Archivo de tipo .bib (bibtex)
 \bibliographystyle{alpha}
 \bibliography{bibliografia/bibliografia}
-
-\include{capitulos/apendice}
 
 \backmatter
 
