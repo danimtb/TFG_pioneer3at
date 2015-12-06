@@ -6,7 +6,7 @@ En este capítulo se realiza una primera aproximación al control del robot y a lo
 
 Los nodos necesarios para el control del robot requieren el acceso a los motores y a la lectura de la odometría. También es necesario disponer de controladores para ambos sensores utilizados y que su información se publique en tipos de datos reconocibles por ROS. Los nodos utilizados para estos dispositivos hardware se describen a continuación. 
 
-\subsection{Control del robot: Rosaria y p2os}
+\subsection{Control del robot: Rosaria y p2os} \label{subsection:rosaria}
 
 Como hemos indicado anteriormente, la librería que nos proporciona el acceso a la placa controladora de nuestro robot Pioneer es Aria. Esta librería es la que proporciona Adept Mobile Robots para realizar el control completo del robot y acceder a sus parámetros con figurables.
 
@@ -165,6 +165,50 @@ laser & & Centro del haz láser\\
 
 \url{http://wiki.ros.org/LMS1xx}
 
+\subsection{Integración del hardware}
+
+Una vez disponemos de todos los paquetes necesarios para poner en funcionamiento todo el hardware en el robot, necesitamos integrar todos los nodos bajo una misma configuración y definir mediante transformadas la posición de los sensores en el robot.
+
+Es necesario por tanto crear un nuevo archivo launchfile (Código \ref{code:pioneer3at-rosaria})desde el cual lanzar cada nodo con las configuraciones del hardware y definir transformadas estáticas entre cada uno de los \textit{frames}.
+
+\begin{code}[htp]
+\begin{lstlisting}[style=launch]
+<launch>
+
+<!-- Launching p2os RobotModel --> OJO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  <include file="$(find p2os_urdf)/launch/pioneer3at_urdf.launch"/>
+
+<!-- Launching LMS1xx_node for laser Sick LMS100 via ethernet -->
+  <include file="$(find pioneer_utils)/sensors/LMS1xx.launch"/>
+
+<!-- start sensor-->
+<include file="$(find freenect_launch)/launch/freenect.launch"/>
+
+<!-- Launch kinect and depthimage_to_laser node -->
+  <include file="$(find pioneer_utils)/sensors/kinect_to_laser_low.launch"/>
+
+<!-- Launch kinect and depthimage_to_laser node -->
+  <include file="$(find pioneer_utils)/sensors/kinect_to_laser.launch"/>
+
+<!-- Starting rosaria driver for motors and encoders -->
+  <include file="$(find pioneer_utils)/sensors/rosaria.launch"/>
+
+  <node pkg="tf" type="static_transform_publisher" name="base_to_laser_broadcaster" args="-0.2 0 0.390 3.141592 0 0 base_link laser 1" />
+  <node pkg="tf" type="static_transform_publisher" name="base_to_camera_broadcaster" args="0.020 0 0.375 0 0 0 base_link camera_link 1" />
+
+</launch>
+\end{lstlisting}
+\hypersetup{urlcolor=black}
+Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/sensors/pioneer3at-rosaria.launch}{\textit{pioneer\_utils/sensors/pioneer3at-rosaria.launch}}
+\hypersetup{urlcolor=blue}
+\caption{Launchfile creado para robot Pioneer 3 AT.}
+\label{code:pioneer3at-rosaria}
+\end{code}
+
+Como resultado, obtenemos una relación entre cada sistema de coordenadas (\textit{frame}) y podemos realizar cálculos entre cada uno de ellos. Esto también sirve para que el robot "sea consciente" de su configuración.
+
+FIGURA VIEW FRAMES****
+
 \section{Nodo de teleoperación}
 
 Uno de los primeros objetivos de este proyecto es realizar el control teleoperado del robot. Utilizando ROS y sus características para operar de manera distribuida en diferentes máquinas, esta tarea se vuelve inmediata para el usuario.
@@ -251,7 +295,7 @@ El nodo de guiado se basa en el procesamiento de la nube de puntos obtenida a tr
 
 El nodo está originalmente desarrollado para el robot Turtlebot pero es fácil adaptable a otros robots.
 
-Requiere un rostopic de tipo pointcloud2 al que suscribirse para leer la nube de puntos y un rospotic de tipo **VELOCIDAD** al que publicar los movimeintos de giro, avance y retroceso.
+Requiere un Topic de tipo \textit{sensor\_msgs/PointCloud2} al que suscribirse para leer la nube de puntos y un topic de tipo \textit{geometry\_msgs/Twist} al que publicar los movimientos de giro, avance y retroceso.
 
 \begin{table}[!h]
 \centering
@@ -264,23 +308,31 @@ camera/depth/points & sensor\_msgs/PointCloud2 & Recibe la nube de puntos\\
 cmd\_vel & geometry\_msgs/Twist & Publica comandos de velocidad\\
 {\bf Parámetros} & {\bf Tipo} & {\bf Descripción}\\
 \hline
-min\_y & double & Minimum y position of points\\
-max\_y & double & Maximum y position of points\\
-min\_x & double & Minimum x position of points\\
-max\_x & double & Maximum x position of points\\
-max\_z & double & Maximum z position of points\\
-goal\_z & double & Distance away from the robot\\
-z\_scale & double & Scaling factor for trans. speed\\
-x\_scale & double & Scaling factor for rot. speed\\
-enabled & bool & Enable/disable movement commands\\
+min\_y & double & Posición mínima de puntos en Y\\
+max\_y & double & Posición máxima de puntos en Y\\
+min\_x & double & Posición mínima de puntos en X\\
+max\_x & double & Posición máxima de puntos en Y\\
+max\_z & double & Posición máxima de puntos en Y\\
+goal\_z & double & Distancia mantenida en el seguimiento\\
+z\_scale & double & Factor de escala velocidad trans.\\
+x\_scale & double & Factor de escala en velocidad de rot.\\
+enabled & bool & Hanilita los movimientos\\
 \end{tabular}
 }
 \caption{API de turtlebot\_follower}
 \label{tabla_rosaria}
 \end{table}
 
+El tratamiento de la nube de puntos se realiza con la librería PCL (PointCloud Library \cite{PCL}) y su funcionamiento es el siguiente:
 
-\begin{code}[htp]
+\begin{enumerate}[1.-]
+\item Busca puntos dentro de los límites establecidos.
+\item Calcula las dimensiones de los puntos encontrados.
+\item Calcula el centroide del la zona destacada.
+\item Mueve el robot de manera acorde hasta que alcanza la distancia establecida.
+\end{enumerate}
+
+\begin{code}[!htp]
 \begin{lstlisting}[style=launch]
 <launch>
     
@@ -303,14 +355,5 @@ enabled & bool & Enable/disable movement commands\\
 \hypersetup{urlcolor=black}
 Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/follower/simple-follower.launch}{\textit{pioneer\_utils/follower/simple-follower.launch}}
 \hypersetup{urlcolor=blue}
-\caption{Launchfile para turtlebot\_follower.}
+\caption{Launchfile para turtlebot\_follower en el robot Pioneer 3 AT.}
 \end{code}
-
-EL tratamiento de la nube de puntos se realiza con la librería PCL (PointCloud Library \cite{PCL}) y su funcionamiento es el siguiente:
-
-\begin{enumerate}[1.-]
-\item Busca puntos dentro de los límites establecidos.
-\item Calcula las dimensiones de los puntos encontrados.
-\item Calcula el centroide del la zona destacada.
-\item Mueve el robot de manera acorde hasta que alcanza la distancia establecida.
-\end{enumerate}
