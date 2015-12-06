@@ -70,7 +70,7 @@ odom & & Referencia odométrica
 \label{tabla_rosaria}
 \end{table}
 
-\subsection{Sensor Kinect}
+\subsection{Sensor Kinect}\label{subsection:kinect}
 
 Para la puesta en marcha del sensor Kinect existen en ROS diferentes paquetes que utilizan una u otra librería de código en función de quién haya lo haya desarrollado.
 
@@ -103,8 +103,9 @@ En la tabla \ref{tabla_freenect} se muestra parte de la API utilizada.
 & {\bf libfreenect\_stack API} & \\
 {\bf Topics publicados} & {\bf Mensaje} & {\bf Descripción}\\
 \hline
-/camera/depth/image\_raw & sensor\_msgs/Image & Imagen captada\\
-/camera/depth/camera\_info & sensor\_msgs/CameraInfo & Información de la cámara\\
+camera/depth/points & sensor\_msgs/PointCloud2 & Publica la nube de puntos\\
+camera/depth/image\_raw & sensor\_msgs/Image & Imagen captada\\
+camera/depth/camera\_info & sensor\_msgs/CameraInfo & Información de la cámara\\
 {\bf Frames} &  & {\bf Descripción}\\
 \hline
 camera\_link & & Referencia base de Kinect\\
@@ -116,7 +117,7 @@ camera\_depth\_frame & & Referencia cámara IR\\
 \label{tabla_freenect}
 \end{table}
 
-\subsection{Sensor Láser Sick LMS100}
+\subsection{Sensor Láser Sick LMS100}\label{subsection:sicklms100}
 
 Existe un amplio soporte para sensores láser de la marca Sick, entre ellos el más popular es la familia Sick LMS200 ya que se utiliza en muchos desarrollos relacionados con la robótica móvil **referencia**. Esa familia de sensores utiliza una interfaz de comunicación en serie a través de puerto RS-232, sin embargo, la familia de dispositivos Sick LMS100 utiliza interfaz ethernet y requiere un tratamiento de datos diferente.
 
@@ -141,7 +142,7 @@ Fuente: \href{https://github.com/clearpathrobotics/LMS1xx/blob/master/launch/LMS
 \caption{Launchfile para el sensor Láser Sick LMS100.}
 \end{code}
 
-Pueden precisarse algunos ajustes previos con la herramienta que ofrece el fabricante "SOPAS Engineering tool", los cuales pueden encontrarse en el apéndice de este trabajo (Sección \ref{subsection:sicklms100}).
+Pueden precisarse algunos ajustes previos con la herramienta que ofrece el fabricante "SOPAS Engineering tool", los cuales pueden encontrarse en el apéndice de este trabajo (Sección \ref{subsection:sicklms100_apendice}).
 
 \begin{table}[!h]
 \centering
@@ -165,7 +166,7 @@ laser & & Centro del haz láser\\
 
 \url{http://wiki.ros.org/LMS1xx}
 
-\subsection{Integración del hardware}
+\subsection{Integración del hardware}\label{subsection:integracion_hardware}
 
 Una vez disponemos de todos los paquetes necesarios para poner en funcionamiento todo el hardware en el robot, necesitamos integrar todos los nodos bajo una misma configuración y definir mediante transformadas la posición de los sensores en el robot.
 

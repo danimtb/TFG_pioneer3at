@@ -1,14 +1,149 @@
 \chapter{Navegación} \label{chapter:navegacion}
 
+En este capítulo se expone todo el desarrollo referente a la navegación del robot Pioneer 3 AT, desde el aspecto teórico, pasando por los aspectos de configuración y por el modo funcionamiento en el robot móvil.
+
 \section{Navigation Stack}
+Dentro de las funcionalidades de ROS ya hemos comentado que existen los metapaquetes o "Stacks", que son grupos de paquetes de software que todos juntos ofrece una funcionalidad.
+
+El paquete de navegación de ROS \cite{navigation-ros} se define como un paquete de navegación en dos dimensiones que toma información dela odometría, de los sensores y de un punto de meta y dirige el robot mediante comandos de velocidad seguros.
+
+La navegación se basa en el uso de "Mapas de coste'' y planificación global y local de trayectorias.
+
+Por un lado, el sistema hace un mapa de coste global que tiene encuentra información de los sensores y la posibilidad de cargar un mapa previo. A este mapa se incorporan los obstáculos que permanecen estáticos durante más tiempo y en base a este se realizan los cálculos de trayectoria global.
+
+Por otro lado, el sistema realiza un mapa de coste local, que analiza los obstáculos más cercanos al robot en cada momento. A este mapa se incorpora la información de los sensores sobre cualquier tipo de obstáculo detectado. En base a este mapa se realizan los cálculos de trayectoria local que llevará el control de la navegación reactiva del robot.
+
+RELLENAR ALGO MAS
+
+\subsection{Funcionamiento}
+
+El paquete de navegación se basa en diferentes nodos que interactúan para dirigir el robot hasta un punto en el mapa indicado como meta.
+
+Este sistema utiliza un mapa de obstáculos estáticos (global\_costmap), un mapa de obstáculo locales (local\_costmap), un nodo de cálculo de trayectoria global (globa\_planner), un nodo de cálculo de trayectoria local (local\_planner) y mecanismos de recuperación de trayectoria (recovery\_behaviors).
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=\textwidth]{figuras/navigation-ros.png}
+\caption{Diagrama de funcionamiento del Navigation Stack \cite{navigationsetup}}
+\label{fig:navigation-ros}
+\end{figure}
+
+En el diagrama mostrado en la figura \ref{fig:navigation-ros} podemos ver una representación de los nodos y mensajes utilizados por el paquete de navegación así como la información externa y opcional que se precisa.
+
+Como puede apreciarse, los sensores, la odometría y el ajuste de las transfromadas entre cada uno de los sistemas de coordenadas son específicos de cada plataforma robótica.
+
+Por último indicar que el paquete de navegación no precisa de un mapa pregrabado para funcionar. Puede utilizarse un mapa si se precisa y cargarlo mediante un nodo externo como \textit{map\_server} o generarlo simultáneamente a la navegación mediante \textit{slam\_gmappig} (Subsección \ref{subsection:slam_gmapping}).
+
+El uso de un nodo de localización del robot en el mapa, como AMCL (Adaptive Monte Carlo Localization), será preciso cuando se utilice un mapa pregrabado para conocer la posición inicial del robot y posicionarlo correctamente dentro del mismo (Sección section:amcl).
 
 \subsection{Requisitos para la navegación}
-\subsection{SLAM mediante slam\_gmapping}
+El sistema de navegación de ROS está diseñado para ser flexible, altamente configurable y adaptable a muchos tipos de robots. Sin embargo requiere de ciertos requisitos para poder se integrado. A continuación se describe cada uno de los requisitos aplicados al robot Pioneer 3 AT utilizado en este trabajo.
 
-\section{Costmaps}
+\textbf{Odometría}\\
+El sistema de navegación requiere de un robot que publique información sobre la odometría del robot en mensajes de tipo \textit{nav\_msgs/Odometry}.
+
+En el robot Pioneer 3 AT y gracias al paquete RosAria (Subsección \ref{subsection:rosaria}) obtenemos la información de los enconders del robot convertida en datos de odometría a través del topic \textit{pose}.
+
+\textbf{Movimientos}\\
+El sistema de navegación requiere que el robot sea controlable a través de comandos de velocidad de tipo \textit{geometry\_msgs/Twist}.
+
+En el robot Pioneer 3 AT y gracias al paquete RosAria (Subsección \ref{subsection:rosaria}) podemos mover nuestro robot con comandos de velocidad publicandolos al topic \textit{cmd\_vel}.
+
+\textbf{Sensores}\\
+Los tipos de sensores que pueden utilizarse en la navegación son variados, el requisito que deben cumplir para poder integrarse en el sistema de navegación es que publiquen información de tipo \textit{sensor\_msgs/LaserScan} o \textit{sensor\_msgs/PointCloud2}.
+
+Con los nodos descritos anteiormente, podemos obtener información de este tipo para el sensor Kinect (Subsección \ref{subsection:kinect})y para el sensor Láser (Subsección \ref{subsection:sicklms100}). El nodo \textit{freenect\_stack} publica infomación de la nube de puntos a través del topic \textit{camera/depth/points} y el nodo \textit{LMS1xx} lo hace a través del topic \textit{scan}.
+
+\textbf{Transformadas}\\
+Es necesario que toda la información esté estructurada geométricamente para que el sistema de navegación pueda realizar los cálculos pertinentes. Se requiere información de los sistemas de coordenadas de cada sensor, de la base del robot y de la odometría.
+
+Cada uno de los nodos descritos con anterioridad publican diferentes \textit{frames} que sirven para este propósito. Estos \textit{frames} (\textit{odom, base\_link, laser, camera\_link}) relacionados mediante transformadas estáticas como se describió en la subsección \ref{subsection:integracion_hardware}, proporcionan la información necesaria.
+
+\subsection{Configuración de la navegación}
+Hablar sobre los archivos necesarios .yaml y los launchfiles. de momento navegación con mapa y explicación.
+
+\section{SLAM}
+La técnica de SLAM (Simultaneous Localization And Mapping) es una técnica muy utilizada en robótica para construir un mapa de un etorno que es desconocido al mismo tiempo que se estima la posición del robot en el mismo.
+
+Esta técnica presenta dificultades como la imperfección de los sensores, la imperfección del sistema de locomoción el robot, la repetitividad de las medidas... Es por ello que se utilizan modos probabilísticos como la relga de Bayes.
+
+\begin{equation}
+   p(x|d)=\frac{p(d|x)p(x)}{p(d)}
+\end{equation}
+
+\textbf{Principales algoritmos}\\
+Los principales algoritmos para realizar los cálculos pababilísticos en técnicas de SLAM son los sigientes:
+
+\begin{itemize}
+\item Filtro extendido de Kalman: Es uno de los métodos más extendidos en la técnica del SLAM por ofrecer resultados satisfactorios a pesar de sus problemas de estimación \cite{rodriguez2006consistency}. Esta ha sido la técnica utilizada de facto hasta a aparición del FastSLAM \cite{montemerlo2002fastslam}.
+
+\item Mapas de ocupación de celdillas: Se basa en discretizar el espacio dividiéndolo en unidades de tamaño predefinido que se clasifican como ocupadas o vacías con un determinado nivel de confianza o probabilidad. La precisión (mayor cuanto más fina es la división del espacio), permite que el algoritmo de localización empleado acumule errores reducidos a lo largo de intervalos prolongados de tiempo. Su mayor desventaja de estos métodos es la pérdida de potencia que se deriva de no tener en cuenta la incertidumbre asociada a la posición del robot, lo cual origina que su capacidad para cerrar bucles correctamente se vea mermada \cite{collins2007occupancy}.
+\end{itemize}
+
+\subsubsection{slam\_gmapping en ROS}\label{subsection:slam_gmapping}
+GMapping es una librería perteneciente al proyecto OpenSLAM \cite{openslam} que utiliza la técnica SLAM Grid Mapping, basada en la generación de mapas mediante la ocupación de celdillas utilizando un filtro de partículas \cite{grisetti2007improved}.
+
+En ROS se integra bajo el paquete gmapping \url{http://wiki.ros.org/gmapping} que no es más que un wrapper de OpenSLAM adaptando su interfaz.
+
+Para crear mapas utilizando slam\_gampping precisamos de nuestro robot configurado para leer su odmetría un sensor capaz de ofrecernos información de tipo \textit{sensor\_msgs/LaserScan}.
+
+En este caso nos servimos e la configuración utilizada por el paquete \textit{p2os}:
+
+\begin{code}[!htp]
+\begin{lstlisting}[style=launch]
+<launch>
+	<node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" args="/scan">
+		<param name="delta" type="double" value="0.05" />
+		<param name="temporalUpdate" type="double" value="2.5" />
+		<param name="xmin" type="double" value="-2" />
+		<param name="xmax" type="double" value="2" />
+		<param name="ymin" type="double" value="-2" />
+		<param name="ymax" type="double" value="2" />
+	</node>
+</launch>
+\end{lstlisting}
+\hypersetup{urlcolor=black}
+Fuente: \href{https://github.com/allenh1/p2os/blob/indigo-stable/p2os_launch/launch/gmapping.launch}{\textit{p2os/p2os\_launch/launch/gmapping.launch}}
+\hypersetup{urlcolor=blue}
+\caption{Launchfile slam\_gmaping}
+\end{code}
+
+Para visualizar la creación del mapa en RViz se ha creado un archivo específico:
+
+\begin{code}[!htp]
+\begin{lstlisting}[style=consola]
+$ roslaunch pioneer_utils rviz-gmapping.launch
+\end{lstlisting}
+\hypersetup{urlcolor=black}
+Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/rviz/rviz-gmapping.launch}{\textit{pioneer\_utils/rviz/rviz-gmapping.launch}}
+\hypersetup{urlcolor=blue}
+\caption{Launchfile para visualizar slam\_gmaping en RViz}
+\end{code}
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=0.8\textwidth]{figuras/pantalla_rviz_gmapping.png}
+\caption{slam\_gmapping visualizado en RViz}
+\label{fig:slam_gmapping_rviz}
+\end{figure}
+
+Finalmente, para guardar los mapas generados nos servimos de la herramienta map\_server que nos ofrece guardar mapas que se estén publicando en el topic \textit{map} así como publicar estos mapas para utilizarlos en la navegación.
+
+\begin{code}[!htp]
+\begin{lstlisting}[style=consola]
+$ rosrun map_server map_saver
+\end{lstlisting}
+\caption{Ejecución del nodo map\_saver para guardar el mapa}
+\end{code}
+
+\section{AMCL}\label{section:amcl}
+
+\section{Mapas de coste: Costmaps}
 
 \section{Planificador de trayectoria global}
+Construir o planificar la ruta que lleve al robot a cada una de las submetas determinadas por el control de misión, según las especificaciones del problema que debe resolverse. Esta planificación es una aproximación al camino final que se va a seguir, ya que en la realización de esta acción no se consideran los detalles del entorno local al vehículo.
 
 \section{Planificador de trayectoria local}
-
+Resolver las obstrucciones sobre la ruta global en el
+entorno local al robot para determinar la ruta real que será seguida. El modelo del entorno local se construye mediante la fusión de la información proporcionada por los sensores externos del robot móvil.
 \section{Navegacion global y local}

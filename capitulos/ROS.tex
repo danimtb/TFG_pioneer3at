@@ -63,7 +63,7 @@ tipo de mensaje (MiMensaje.msg)
 \item Tipos de servicios: Son archivos con la estructura de un tipo de servicio tanto para los datos de solicitud como los de respuesta (MiServicio.srv)
 \end{itemize}
 
-Por último, es necesario conocer algunos tipos de archivos y su uso dentro de ROS para comprender el trabajo de este proyecto:
+Tmabién es necesario conocer algunos tipos de archivos y su uso dentro de ROS para comprender el trabajo de este proyecto:
 
 \begin{itemize}
 \item Launchfiles: ROS ofrece la herramienta "roslaunch" para ejecutar varios nodos con un solo comando y configurar sus parámetros. Es una forma cómoda de organizar la puesta en marcha de todos los nodos y enlazar unos launchfiles con otros. Los archivos suelen tener la extensión \textit{.launch} y su estructura es similar a la sintaxis xml **referencia**.
@@ -79,7 +79,16 @@ Por último, es necesario conocer algunos tipos de archivos y su uso dentro de RO
 \item world: Los archivos \textit{.world} definen en sintaxis xml mundos virtuales para cargar en el simulador Gazebo. Pueden definirse los objetos a incorporar, las luces y la posición del punto de vista.
 \end{itemize}
 
-TRANSFORMACIONES paquete tf, frames.*******
+Por último, cabe destacarr la importancia de uno de los paquetes integrados en ROS que más beneficios nos aporta, el paquete de transformadas \textit{tf}.
+
+\textit{tf} **referencia** es uno de los paquetes de geometría dentro de ROS que nos permite realizar transformadas de los datos a un sistema de coordenadas concreto, estos sistemas de coordenadas son denominados como \textit{frames}. Muchas funcionalidades de ROS se basan en este tipo de transformadas para realizar los cálculos matemáticos oportunos así como para determinar la posición de nuestro robot y sus articulaciones.
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.6\textwidth]{figuras/frames.png}
+\caption{Frames utilizados en el robot PR2}
+\label{fig:esquema_ros}
+\end{figure}
 
 \section{Configuración de ROS}
 Para la instalación de ROS es necesario seguir ciertos pasos bien explicados en la wiki de su página **referencia**. Al ser un sistema fuertemente basado en sistemas UNIX y con mayor soporte para Ubuntu, las instalaciones se realizan principalmente a través de herramientas como apt (Advanced Packaging Tool) **referencia**.

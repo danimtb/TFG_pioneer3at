@@ -7,24 +7,29 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {code}{\numberline {6.1}{\ignorespaces Mandato de consola para instalar la versi\'on completa de ROS Indigo.\relax }}{44}{code.caption.49}
-\contentsline {code}{\numberline {6.2}{\ignorespaces Source al setup de ROS Indigo\relax }}{44}{code.caption.50}
-\contentsline {code}{\numberline {6.3}{\ignorespaces Instalaci\'on y workspace de Catkin\relax }}{44}{code.caption.51}
-\contentsline {code}{\numberline {6.4}{\ignorespaces Source al setup de nuestro entorno Catkin\relax }}{45}{code.caption.52}
-\contentsline {code}{\numberline {6.5}{\ignorespaces Clonado del repositorio \textit {pioneer3at\_ETSIDI}\relax }}{45}{code.caption.53}
+\contentsline {code}{\numberline {6.1}{\ignorespaces Mandato de consola para instalar la versi\'on completa de ROS Indigo.\relax }}{45}{code.caption.50}
+\contentsline {code}{\numberline {6.2}{\ignorespaces Source al setup de ROS Indigo\relax }}{45}{code.caption.51}
+\contentsline {code}{\numberline {6.3}{\ignorespaces Instalaci\'on y workspace de Catkin\relax }}{45}{code.caption.52}
+\contentsline {code}{\numberline {6.4}{\ignorespaces Source al setup de nuestro entorno Catkin\relax }}{45}{code.caption.53}
+\contentsline {code}{\numberline {6.5}{\ignorespaces Clonado del repositorio \textit {pioneer3at\_ETSIDI}\relax }}{46}{code.caption.54}
 \addvspace {10\p@ }
-\contentsline {code}{\numberline {7.1}{\ignorespaces Launchfile para RosAria.\relax }}{48}{code.caption.54}
-\contentsline {code}{\numberline {7.2}{\ignorespaces Launchfile para Kinect en el paquete freenect\_launch.\relax }}{49}{code.caption.56}
-\contentsline {code}{\numberline {7.3}{\ignorespaces Launchfile para el sensor L\'aser Sick LMS100.\relax }}{50}{code.caption.58}
-\contentsline {code}{\numberline {7.4}{\ignorespaces L\IeC {\'\i }neas del archivo \textit {.bashrc} en el ordenador de abordo.\relax }}{51}{code.caption.60}
-\contentsline {code}{\numberline {7.5}{\ignorespaces Ejemplo \textit {.bashrc} en un ordenador externo para realizar comunicaci\'on con el m\'aster.\relax }}{51}{code.caption.61}
-\contentsline {code}{\numberline {7.6}{\ignorespaces Ejemplo \textit {.bashrc} en un ordenador externo para realizar comunicaci\'on con el m\'aster.\relax }}{51}{code.caption.62}
-\contentsline {code}{\numberline {7.7}{\ignorespaces Launchfile para turtlebot\_follower.\relax }}{53}{code.caption.66}
+\contentsline {code}{\numberline {7.1}{\ignorespaces Launchfile para RosAria.\relax }}{48}{code.caption.55}
+\contentsline {code}{\numberline {7.2}{\ignorespaces Launchfile para Kinect en el paquete freenect\_launch.\relax }}{49}{code.caption.57}
+\contentsline {code}{\numberline {7.3}{\ignorespaces Launchfile para el sensor L\'aser Sick LMS100.\relax }}{50}{code.caption.59}
+\contentsline {code}{\numberline {7.4}{\ignorespaces Launchfile creado para robot Pioneer 3 AT.\relax }}{51}{code.caption.61}
+\contentsline {code}{\numberline {7.5}{\ignorespaces L\IeC {\'\i }neas del archivo \textit {.bashrc} en el ordenador de abordo.\relax }}{52}{code.caption.62}
+\contentsline {code}{\numberline {7.6}{\ignorespaces Ejemplo \textit {.bashrc} en un ordenador externo para realizar comunicaci\'on con el m\'aster.\relax }}{52}{code.caption.63}
+\contentsline {code}{\numberline {7.7}{\ignorespaces Ejemplo \textit {.bashrc} en un ordenador externo para realizar comunicaci\'on con el m\'aster.\relax }}{52}{code.caption.64}
+\contentsline {code}{\numberline {7.8}{\ignorespaces Launchfile para turtlebot\_follower en el robot Pioneer 3 AT.\relax }}{54}{code.caption.68}
+\addvspace {10\p@ }
+\contentsline {code}{\numberline {8.1}{\ignorespaces Launchfile slam\_gmaping\relax }}{59}{code.caption.71}
+\contentsline {code}{\numberline {8.2}{\ignorespaces Launchfile para visualizar slam\_gmaping en RViz\relax }}{59}{code.caption.72}
+\contentsline {code}{\numberline {8.3}{\ignorespaces Ejecuci\'on del nodo map\_saver para guardar el mapa\relax }}{59}{code.caption.74}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {code}{\numberline {A.1}{\ignorespaces Inicializando la herramienta \textit {rosdep}.\relax }}{69}{code.caption.76}
+\contentsline {code}{\numberline {A.2}{\ignorespaces Instalando los paquetes de navegaci\'on mapeo.\relax }}{69}{code.caption.77}
+\contentsline {code}{\numberline {A.3}{\ignorespaces Instalando las dependencias de rosaria.\relax }}{70}{code.caption.78}
 \addvspace {10\p@ }
-\contentsline {code}{\numberline {A.1}{\ignorespaces Inicializando la herramienta \textit {rosdep}.\relax }}{65}{code.caption.68}
-\contentsline {code}{\numberline {A.2}{\ignorespaces Instalando los paquetes de navegaci\'on mapeo.\relax }}{65}{code.caption.69}
-\contentsline {code}{\numberline {A.3}{\ignorespaces Instalando los paquetes de navegaci\'on mapeo.\relax }}{66}{code.caption.70}
