@@ -1,6 +1,10 @@
-\chapter{Navegación} \label{chapter:navegacion}
+\chapter{Navegación}\label{chapter:navegacion}
 
-En este capítulo se expone todo el desarrollo referente a la navegación del robot Pioneer 3 AT, desde el aspecto teórico, pasando por los aspectos de configuración y por el modo funcionamiento en el robot móvil.
+En este capítulo se expone el desarrollo referente a la navegación dentro del ecosistema ROS. En él se describen las características de navegación del paquete de navegación y sus posibilidades.
+
+Este capítulo trata de abordar el aspecto de la navegación desde el punto de vista de la utilidad, pasando por su fundamento teórico y sin dejar de lado su aplicación en el robot Pioneer 3 AT.
+
+Por tanto, se exponen algunos ejemplos de configuraciones para la navegación, sin embargo, la configuración final del robot y la discusión sobre la misma se abordará en el capítulo \ref{chapter:implementacion}, donde hablaremos de su implementación más en detalle.
 
 \section{Navigation Stack}
 Dentro de las funcionalidades de ROS ya hemos comentado que existen los metapaquetes o "Stacks", que son grupos de paquetes de software que todos juntos ofrece una funcionalidad.
@@ -339,10 +343,65 @@ El funcionamiento de este tipo de mapas se basa en la incorporación o el borrado
 
 La principal ventaja de utilizar este tipo de mapas en navegación es la de crear mapas dinámicos locales en el que guardar información de los obstáculos alrededor del robot sin que necesariamente dispongamos de un sensor captando el mismo continuamente. Esto nos permite, por ejemplo, realizar navegación con un sensor con un rango horizontal de pocos grados, como el sensor Kinect, y aún así permitir al robot conocer información de obstáculos que han quedado fuera del rango del sensor.
 
+El nodo encargado de la creación de estos costmaps es \textit{costmap\_2d} y su funcionamiento está basado en diferentes capas que manejan la infomración de los sensores y generan cálculos a partir de los mismos.
+
+Las denominadas capas de las que hace uso \textit{costmap\_2d} son las siguientes:
+
+\begin{itemize}
+\item Satic Map: Esta capa es la encargada de tener el cuenta los obstáculos que aporta un mapa pregrabado en caso de utilizarse en la navegación. Está ligado al parámetro \textit{static\_map} y normalmente se utiliza con nodos de localización en un mapa como \textit{amcl}.
+
+\item Obstacle Map: Esta capa es la encargada de incorporar o borrar obstáculos obteniendo la información de los sensores declarados en su archivo de configuración. Destaca la facilidad para incorporar varios sensores a la vez.
+
+\item Inflation: En esta capa se realizan los cálculos de coste de cada celda a partir de la información que aportan las capas anteriores. Este gradiente de valores clasifica cada celda del mapa en diferentes tipos:
+
+\begin{enumerate}[1.]
+\item Letal: Existe un obstáculo real en esa celda del mapa
+\item Inscrito: Las celdas con este valor se encuentran a una distancia de un obstáculo que es menor o igual al radio de la circunferencia inscrita en el área que ocupa el robot.
+\item Posiblemente circunscrito: Celdas que se encuentran a una distancia de un obstáculo que es mayor que el radio de la circunferencia inscrita en el área que ocupa el robot pero menor que el radio de la circunferencia circunscrita. Esta información como "posible" debido que la orientación del robot puede no ser exacta.
+\item Espacio libre: El coste de este tipo de celdas es cero e indica que no existe ningun obstáculo cercano que impida o limite el movimiento del robot.
+\item Desconocido: No existe información sobre el estado de esa celda.
+
+\end{enumerate}
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=\textwidth]{figuras/inflation_layer.png}
+\caption{Esquema sobre el cálculo del coste de cada celda en el mapa.}
+\label{fig:inflation_layer}
+\end{figure}
+
+Esta capa indica a los planeadores las zonas optimas por las que trazar su ruta, es la más importante y donde reside gran parte de la funcionalidad de los costmaps. Existen parámetros configurables por el usuario como el radio de inflado (\textit{inflation\_radius}) o el valor de escala (\textit{cost\_scaling\_factor}).
+\end{itemize}
+
+A parte de estas capas, existe una API que nos permite crear nuestras propias capas para el nodo \textit{costmap\_2d} para darles la funcionalidad que se desee.
+
+Existe una configuración por defecto que de estos costmaps que genera una sola capa de obstáculos, una capa de inflado y adcionalmente una capa de mapa estático siempre y cuando pongamos el parámetro \textit{static\_map} a TRUE. Sin embargo, existe la posibilidad de crear costmaps con las capas que consideremos oportunas, siendo de especial interés poder incorporar diferentes capas de obstáculos.
+
+Este último enfoque es el que ha sido adoptado en la implementación final de navegación y será descrito en el apartado **APARTADO**.
+
 \section{Planificador de trayectoria global}\label{section:global_planner}
-Construir o planificar la ruta que lleve al robot a cada una de las submetas determinadas por el control de misión, según las especificaciones del problema que debe resolverse. Esta planificación es una aproximación al camino final que se va a seguir, ya que en la realización de esta acción no se consideran los detalles del entorno local al vehículo.
+La planificación de trayectoria es una de las áreas que más interés suscita entre los investigadores relacionados con la robótica móvil o la navegación autónoma, no en vano, existe una gran variedad de algoritmos que realizan cálculos apoyándose en distintos enfoques matemáticos.
+
+Los planificadores de trayectoria tratan de construir o planificar la ruta que lleve al robot desde su posición a un punto en un mapa o en un entorno que pudiera ser desconocido. Esta planificación es calculada en un ámbito que denominamos "global" ya que se realiza en función al mapa global (\textit{global\_costmap} en nuestro caso) y no se condideran los detalles del entorno local al robot. Es, por tanto, una aproximación al camino final que el robot va a seguir.
+
+**texto de transición**
+
+A continuación vamos a describir los planificadores de trayectoria disponibles en ROS, su fundamento teórico y su comportamiento en el cáculo de la trayectoria.
+
+Standard (Dijstra??)
+grid\_path
+simple potential
+A*
+navfn
+TEORÍA
+ALGORITMOS CON PRUEBAS
+PLANIFICADOR FINAL
 
 \section{Planificador de trayectoria local}
 Resolver las obstrucciones sobre la ruta global en el
 entorno local al robot para determinar la ruta real que será seguida. El modelo del entorno local se construye mediante la fusión de la información proporcionada por los sensores externos del robot móvil.
-\section{Navegacion global y local}
+
+TEORíA
+FUNCIONAMIENTO
+VALORACIÓN DE SEGUIMIENTO DE TRAYECTORIA GLOBAL
+PLANIFICADOR FINAL
