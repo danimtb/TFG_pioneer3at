@@ -30,11 +30,11 @@ Este sistema utiliza un mapa de obstáculos estáticos (global\_costmap), un mapa 
 
 En el diagrama mostrado en la figura \ref{fig:navigation-ros} podemos ver una representación de los nodos y mensajes utilizados por el paquete de navegación así como la información externa y opcional que se precisa.
 
-Como puede apreciarse, los sensores, la odometría y el ajuste de las transfromadas entre cada uno de los sistemas de coordenadas son específicos de cada plataforma robótica.
+Como puede apreciarse, los sensores, la odometría y el ajuste de las transfromadas entre cada uno de los sistemas de coordenadas son específicos de cada plataforma robótica. La ejecución principal se centra en el nodo \textit{move\_base} **referencia**, que es el ecargado de realizar los movimientos acorde a la información que aportan los mapas y los planificadores de trayectoria.
 
 Por último indicar que el paquete de navegación no precisa de un mapa pregrabado para funcionar. Puede utilizarse un mapa si se precisa y cargarlo mediante un nodo externo como \textit{map\_server} o generarlo simultáneamente a la navegación mediante \textit{slam\_gmappig} (Subsección \ref{subsection:slam_gmapping}).
 
-El uso de un nodo de localización del robot en el mapa, como AMCL (Adaptive Monte Carlo Localization), será preciso cuando se utilice un mapa pregrabado para conocer la posición inicial del robot y posicionarlo correctamente dentro del mismo (Sección section:amcl).
+El uso de un nodo de localización del robot en el mapa, como AMCL (Adaptive Monte Carlo Localization), será preciso cuando se utilice un mapa pregrabado para conocer la posición inicial del robot y posicionarlo correctamente dentro del mismo (Sección \ref{section:amcl}).
 
 \subsection{Requisitos para la navegación}
 El sistema de navegación de ROS está diseñado para ser flexible, altamente configurable y adaptable a muchos tipos de robots. Sin embargo requiere de ciertos requisitos para poder se integrado. A continuación se describe cada uno de los requisitos aplicados al robot Pioneer 3 AT utilizado en este trabajo.
@@ -61,6 +61,130 @@ Cada uno de los nodos descritos con anterioridad publican diferentes \textit{fra
 
 \subsection{Configuración de la navegación}
 Hablar sobre los archivos necesarios .yaml y los launchfiles. de momento navegación con mapa y explicación.
+
+Aunque se explicará más adelante, una vez explicados los requisitos para utilizar el paquete de navegación es necesario explicar cual es la configuración necesaria para hacer que el sistema funcione.
+
+En primer lugar, para facilitar la comprensión, suponemos que disponemos de un mapa del entorno en el que se va a desplazar nuestro robot y que disponemos de tan solo un sensor láser para realizar la navegación.
+
+Comenzamos por la configuración de los llamados Costmaps, esto es, mapas que van almacenar los obstáculos del entorno del robot. Disponemos de global\_costmap y local\_costmap como dijimos antes y parte de la configuración de estos será compartida, por tanto debemos crear un archivo de parámetros comunes \textit{costmap\_common\_params.yaml}.
+
+\begin{code}[!htp]
+\begin{lstlisting}[style=launch]
+obstacle_range: 6.0
+raytrace_range: 6.5
+footprint: [ [0.254, -0.230], [-0.254, -0.230], [-0.254, 0.230], [0.254, 0.230] ]
+inflation_radius: 0.5
+
+observation_sources: laser_scan_sensor
+
+laser_scan_sensor: {sensor_frame: laser, data_type: LaserScan, topic: /scan, marking: true, clearing: true}
+\end{lstlisting}
+\caption{Ejemplo de \textit{costmap\_common\_params.yaml}}
+\end{code}
+
+Como vemos, configuramos parámetros como la forma de nuestro robot, el radio de seguridad de los obstáculos, el rango de incorporación de obstáculos y los sensores.
+
+A continuación creamos el archivo e configuración de nuestro mapa global \textit{global\_costmap.yaml}.
+
+\begin{code}[!htp]
+\begin{lstlisting}[style=launch]
+global_costmap:
+  global_frame: /map
+  robot_base_frame: base_link
+  update_frequency: 5.0
+  static_map: true
+\end{lstlisting}
+\caption{Ejemplo de \textit{global\_costmap.yaml}}
+\end{code}
+
+En este archivo vemos como este "mapa de coste" permanece estático y anclado al eje de coordenadas del mapa.
+
+El mapa de navegación local o reactiva es similar, aunque ne este caso el mapa tendrá unas dimensiones preestablecidas y se moverá con el robot.
+
+\begin{code}[!htp]
+\begin{lstlisting}[style=launch]
+local_costmap:
+  global_frame: odom
+  robot_base_frame: base_link
+  update_frequency: 5.0
+  publish_frequency: 2.0
+  static_map: false
+  rolling_window: true
+  width: 6.0
+  height: 6.0
+  resolution: 0.05
+\end{lstlisting}
+\caption{Ejemplo de \textit{local\_costmap.yaml}}
+\end{code}
+
+La configuración básica del planificador local se guardará en un archivo  \textit{base\_local\_planner\_params.yaml}.
+
+\begin{code}[!htp]
+\begin{lstlisting}[style=launch]
+TrajectoryPlannerROS:
+  max_vel_x: 0.45
+  min_vel_x: 0.1
+  max_vel_theta: 1.0
+  min_in_place_vel_theta: 0.4
+
+  acc_lim_theta: 3.2
+  acc_lim_x: 2.5
+  acc_lim_y: 2.5
+
+  holonomic_robot: true
+\end{lstlisting}
+\caption{Ejemplo de \textit{local\_costmap.yaml}}
+\end{code}
+
+También debemos indicar la configuración del planificador global en \textit{global\_planner\_params.yaml}
+
+\begin{code}[!htp]
+\begin{lstlisting}[style=launch]
+GlobalPlanner:
+  old_navfn_behavior: false
+  use_quadratic: true
+  use_dijkstra: flase
+  use_grid_path: false
+\end{lstlisting}
+\caption{Ejemplo de \textit{global\_planner\_params.yaml}}
+\end{code}
+
+Aquí podemos definir el cálculo de trayectorias siguiendo aproximaciones cuadráticas, basadas en ocupación de celdas, tipo A* o Dijkstra (Se hablará de cada una en la sección \ref{section:global_planner}).
+
+Para finalizar, debemos ejecutar el nodo \textit{move\_base} con las configuraciones descritas anteriormente, así como el mapa y el nodo de localización AMCL.
+
+\begin{code}[!htp]
+\begin{lstlisting}[style=launch]
+<launch>
+    <!-- Run the map server -->
+    <node name="map_server" pkg="map_server" type="map_server" args="$(find pioneer_utils)/maps/floor_zero-map.yaml"/>
+
+    <!--- Run AMCL -->
+    <include file="$(find pioneer_utils)/navigation/common/amcl.launch"/>
+	
+	<node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+        <rosparam file="$(find pioneer_utils)/navigation/common/costmap_common_params_p3at.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find pioneer_utils)/navigation/common/costmap_common_params_p3at.yaml" command="load" ns="local_costmap" />
+        <rosparam file="$(find pioneer_utils)/navigation/common/local_costmap_params.yaml" command="load" />
+        <rosparam file="$(find pioneer_utils)/navigation/global_navigation/global_costmap_params.yaml" command="load" />
+        <rosparam file="$(find pioneer_utils)/navigation/common/base_local_planner_params.yaml" command="load"/>
+        <rosparam file="$(find pioneer_utils)/navigation/common/global_planner_params.yaml" command="load" />
+    </node>
+</launch>false
+\end{lstlisting}
+\caption{Ejemplo de \textit{robot\_navigation.launch}}
+\end{code}
+
+La representación visual de ambos costmaps, el área del robot (footprint), el haz láser y el modelo de robot pueden observarse mediante RViz, tal y como muestra la figura \ref{fig:rviz_navigation}.
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=0.8\textwidth]{figuras/rviz_navigation.png}
+\caption{Visualización de costmaps, sensor láser y modelo del robot en RViz.}
+\label{fig:rviz_navigation}
+\end{figure}
+
+Este primer ajuste no tiene en cuenta muchos factores concretos de la navegación en el robot Pioneer 3 AT, como pueda ser la disposición correcta de los sensores, los ajustes de actualización de los mapas, el rango de los sensores o las interferencias de información que se incorporan o borran en los costmaps. Estos detalles se presentarán en la implementación del sistema (Capítulo \ref{chapter:implementacion}).
 
 \section{SLAM}
 La técnica de SLAM (Simultaneous Localization And Mapping) es una técnica muy utilizada en robótica para construir un mapa de un etorno que es desconocido al mismo tiempo que se estima la posición del robot en el mismo.
@@ -137,10 +261,85 @@ $ rosrun map_server map_saver
 \end{code}
 
 \section{AMCL}\label{section:amcl}
+''Adaptative Monte Carlo Localizaion", también conocida por localización mediante filtro de partículas, es un algoritmo utilizado en robótica para determinar la posición de un robot en un mapa \cite{fox1999monte}.
+
+El algoritmo emplea un filtro de partículas para representar una distribución de posibles estados dentro del mapa. A medida que los sensores detectan el entorno y el robot se desplaza dentro de este se van otorgando mayor peso a aquellas partículas que se encuentran más cercanas a la positicón correcta y se van descartando otras.
+
+La idea de esta técnica es conseguir que toas las partículas converjan en una sola (a efectos prácticos, unas pocas partículas) para determinar la posición del robot en el mapa.
+
+Esta técnica se encuentra en ROS bajo un paquete llamado \textit{amcl} \cite{amcl-ros} y utiliza las técnicas descritas en el libro Probabilistic Robotics \cite{thrun2005probabilistic}.
+
+Transladado a la filosofía de funcionamiento de ROS, esta técnica nos ofrece la posibilidad de situar al robot en un mapa pregrabado, aportándonos la transformada entre el sistema de referencia (\textit{frame}) del mapa y el sistema de la odometría (Figura \ref{fig:amcl-ros}).
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=0.9\textwidth]{figuras/amcl-ros.png}
+\caption{Esquema de la labor del nodo AMCL entre los \textit{frames} map y base.}
+\label{fig:amcl-ros}
+\end{figure}
+
+\textbf{Configuración}
+
+Como es habitual en ROS, esta funcionalidad nos aparece empaquetada en forma de nodo configurable a través de parámetros.
+
+Para funcionar requiere el uso de un mapa, el árbol de transformadas de nuestro robot e información de tipo \textit{sensor\_msgs/LaserScan}.
+
+La lista de parámetros configurables es amplia ya que debemos encontrar un modelo que se comporte bien con nuestro robot y sensor láser. Son especialmente importantes los parámetros del modelo de la odometría y los referentes al haz láser de nuestro sensor.
+
+\begin{code}[!htp]
+\begin{lstlisting}[style=launch]
+<launch>
+	<node pkg="amcl" type="amcl" name="amcl">
+		<param name="odom_model_type" value="diff"/>
+		<param name="odom_alpha5" value="0.1"/>
+		<param name="transform_tolerance" value="0.2" />
+		<param name="gui_publish_rate" value="10.0"/>
+		<param name="laser_max_beams" value="30"/>
+		<param name="min_particles" value="500"/>
+		<param name="max_particles" value="5000"/>
+		<param name="kld_err" value="0.05"/>
+		<param name="kld_z" value="0.99"/>
+		<param name="odom_alpha1" value="0.2"/>
+		<param name="odom_alpha2" value="0.2"/>
+		<param name="odom_alpha3" value="0.8"/>
+		<param name="odom_alpha4" value="0.2"/>
+		<param name="laser_z_hit" value="0.5"/>
+		<param name="laser_z_short" value="0.05"/>
+		<param name="laser_z_max" value="0.05"/>
+		<param name="laser_z_rand" value="0.5"/>
+		<param name="laser_sigma_hit" value="0.2"/>
+		<param name="laser_lambda_short" value="0.1"/>
+		<param name="laser_lambda_short" value="0.1"/>
+		<param name="laser_model_type" value="likelihood_field"/>
+		<param name="laser_likelihood_max_dist" value="2.0"/>
+		<param name="update_min_d" value="0.2"/>
+		<param name="update_min_a" value="0.5"/>
+		<param name="odom_frame_id" value="odom"/>
+		<param name="resample_interval" value="1"/>
+		<param name="transform_tolerance" value="0.1"/>
+		<param name="recovery_alpha_slow" value="0.0"/>
+		<param name="recovery_alpha_fast" value="0.0"/>
+	</node>
+</launch>
+\end{lstlisting}
+\hypersetup{urlcolor=black}
+Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/navigation/common/amcl.launch}{\textit{pioneer\_utils/navigation/common/amcl.launch}}
+\hypersetup{urlcolor=blue}
+\caption{Launchfile del nodo amcl utilizado.}
+\end{code}
 
 \section{Mapas de coste: Costmaps}
+Como ya se ha referido con anterioridad, el modelo de navegación que sigue el Navigation Stack de ROS se basa en el concepto de Costmaps.
 
-\section{Planificador de trayectoria global}
+Un costmap es un mapa  generado a partir de los obstáculos detectados por sensores que son representados en forma de mapa de celdas y sobre los que se calcula un gradiente de "coste" desde los obstáculos hasta las zonas despejadas. Este tipo de mapas pretenden disponer de la información necesaria para que el robot pueda navegar.
+
+Generalmente, este enfoque solo tiene en cuenta navegación en un solo plano o navegación en dos dimensiones, ya que todos los objetos son incorporados al mapa sin importar su altura. Existe una variante que pseudo-3D que tiene en cuenta la altura a la que se sitúan los sensores, aunque no es el modelo típico de aplicación.
+
+El funcionamiento de este tipo de mapas se basa en la incorporación o el borrado de obstáculos al mapa. Cada sensor puede utilizarse de manera independiente para incorporar o borrar obstáculos en estos mapas. Esto permite a nuestro sistema robótico abstraerse de la información directa de los sensores y obtener información más completa de todos los obstáculos su alrededor.
+
+La principal ventaja de utilizar este tipo de mapas en navegación es la de crear mapas dinámicos locales en el que guardar información de los obstáculos alrededor del robot sin que necesariamente dispongamos de un sensor captando el mismo continuamente. Esto nos permite, por ejemplo, realizar navegación con un sensor con un rango horizontal de pocos grados, como el sensor Kinect, y aún así permitir al robot conocer información de obstáculos que han quedado fuera del rango del sensor.
+
+\section{Planificador de trayectoria global}\label{section:global_planner}
 Construir o planificar la ruta que lleve al robot a cada una de las submetas determinadas por el control de misión, según las especificaciones del problema que debe resolverse. Esta planificación es una aproximación al camino final que se va a seguir, ya que en la realización de esta acción no se consideran los detalles del entorno local al vehículo.
 
 \section{Planificador de trayectoria local}
