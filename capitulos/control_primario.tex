@@ -263,9 +263,9 @@ cmd\_vel & geometry\_msgs/Twist & Publica comandos de velocidad\\
 
 \section{Nodo de navegación estimada}
 
-La navegación estimada, más conocida en inglés como Dead Reckoning **referencia**, es la capacidad para realizar navegación en un entorno basándonos solamente en la información que aportan los sensores de la odometría.
+La navegación estimada, más conocida en inglés como Dead Reckoning \cite{deadreckoning}, es la capacidad para realizar navegación en un entorno basándonos solamente en la información que aportan los sensores de la odometría.
 
-Es un método estimado, ya que solo se basa en la información de los encoders y no tiene en cuenta el tipo de superficie, la inclinación, el rozamiento o incluso obstáculos que puedan frenar o modificar el desplazamiento del robot (a pesar de que sus ruedas giren).
+Es un método estimado de localización que se basa en la información de los encoders y no tiene en cuenta aspectos como el tipo de superficie, la inclinación, el rozamiento o incluso obstáculos que puedan frenar o modificar el desplazamiento del robot (a pesar de que sus ruedas giren).
 
 Este nodo de navegación puede utilizarse para indicar al robot que avance cierta cantidad de metros y que realice giros a derecha o izquierda en un determinado ángulo.
 

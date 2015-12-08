@@ -22,14 +22,21 @@
 \contentsline {code}{\numberline {7.7}{\ignorespaces Ejemplo \textit {.bashrc} en un ordenador externo para realizar comunicaci\'on con el m\'aster.\relax }}{52}{code.caption.64}
 \contentsline {code}{\numberline {7.8}{\ignorespaces Launchfile para turtlebot\_follower en el robot Pioneer 3 AT.\relax }}{54}{code.caption.68}
 \addvspace {10\p@ }
-\contentsline {code}{\numberline {8.1}{\ignorespaces Launchfile slam\_gmaping\relax }}{59}{code.caption.71}
-\contentsline {code}{\numberline {8.2}{\ignorespaces Launchfile para visualizar slam\_gmaping en RViz\relax }}{59}{code.caption.72}
-\contentsline {code}{\numberline {8.3}{\ignorespaces Ejecuci\'on del nodo map\_saver para guardar el mapa\relax }}{59}{code.caption.74}
+\contentsline {code}{\numberline {8.1}{\ignorespaces Ejemplo de \textit {costmap\_common\_params.yaml}\relax }}{58}{code.caption.70}
+\contentsline {code}{\numberline {8.2}{\ignorespaces Ejemplo de \textit {global\_costmap.yaml}\relax }}{58}{code.caption.71}
+\contentsline {code}{\numberline {8.3}{\ignorespaces Ejemplo de \textit {local\_costmap.yaml}\relax }}{59}{code.caption.72}
+\contentsline {code}{\numberline {8.4}{\ignorespaces Ejemplo de \textit {local\_costmap.yaml}\relax }}{59}{code.caption.73}
+\contentsline {code}{\numberline {8.5}{\ignorespaces Ejemplo de \textit {global\_planner\_params.yaml}\relax }}{59}{code.caption.74}
+\contentsline {code}{\numberline {8.6}{\ignorespaces Ejemplo de \textit {robot\_navigation.launch}\relax }}{60}{code.caption.75}
+\contentsline {code}{\numberline {8.7}{\ignorespaces Launchfile slam\_gmaping\relax }}{62}{code.caption.78}
+\contentsline {code}{\numberline {8.8}{\ignorespaces Launchfile para visualizar slam\_gmaping en RViz\relax }}{62}{code.caption.79}
+\contentsline {code}{\numberline {8.9}{\ignorespaces Ejecuci\'on del nodo map\_saver para guardar el mapa\relax }}{63}{code.caption.81}
+\contentsline {code}{\numberline {8.10}{\ignorespaces Launchfile del nodo amcl utilizado.\relax }}{64}{code.caption.83}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {code}{\numberline {A.1}{\ignorespaces Inicializando la herramienta \textit {rosdep}.\relax }}{69}{code.caption.76}
-\contentsline {code}{\numberline {A.2}{\ignorespaces Instalando los paquetes de navegaci\'on mapeo.\relax }}{69}{code.caption.77}
-\contentsline {code}{\numberline {A.3}{\ignorespaces Instalando las dependencias de rosaria.\relax }}{70}{code.caption.78}
+\contentsline {code}{\numberline {A.1}{\ignorespaces Inicializando la herramienta \textit {rosdep}.\relax }}{77}{code.caption.86}
+\contentsline {code}{\numberline {A.2}{\ignorespaces Instalando los paquetes de navegaci\'on mapeo.\relax }}{77}{code.caption.87}
+\contentsline {code}{\numberline {A.3}{\ignorespaces Instalando las dependencias de rosaria.\relax }}{78}{code.caption.88}
 \addvspace {10\p@ }
