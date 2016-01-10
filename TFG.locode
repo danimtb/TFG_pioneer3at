@@ -30,13 +30,13 @@
 \contentsline {code}{\numberline {8.6}{\ignorespaces Ejemplo de \textit {robot\_navigation.launch}\relax }}{60}{code.caption.75}
 \contentsline {code}{\numberline {8.7}{\ignorespaces Launchfile slam\_gmaping\relax }}{62}{code.caption.78}
 \contentsline {code}{\numberline {8.8}{\ignorespaces Launchfile para visualizar slam\_gmaping en RViz\relax }}{62}{code.caption.79}
-\contentsline {code}{\numberline {8.9}{\ignorespaces Ejecuci\'on del nodo map\_saver para guardar el mapa\relax }}{63}{code.caption.81}
+\contentsline {code}{\numberline {8.9}{\ignorespaces Ejecuci\'on del nodo map\_saver para guardar el mapa\relax }}{62}{code.caption.81}
 \contentsline {code}{\numberline {8.10}{\ignorespaces Launchfile del nodo amcl utilizado.\relax }}{64}{code.caption.83}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {code}{\numberline {A.1}{\ignorespaces Inicializando la herramienta \textit {rosdep}.\relax }}{77}{code.caption.86}
-\contentsline {code}{\numberline {A.2}{\ignorespaces Instalando los paquetes de navegaci\'on mapeo.\relax }}{77}{code.caption.87}
-\contentsline {code}{\numberline {A.3}{\ignorespaces Instalando las dependencias de rosaria.\relax }}{78}{code.caption.88}
+\contentsline {code}{\numberline {A.1}{\ignorespaces Inicializando la herramienta \textit {rosdep}.\relax }}{79}{code.caption.91}
+\contentsline {code}{\numberline {A.2}{\ignorespaces Instalando los paquetes de navegaci\'on mapeo.\relax }}{79}{code.caption.92}
+\contentsline {code}{\numberline {A.3}{\ignorespaces Instalando las dependencias de rosaria.\relax }}{80}{code.caption.93}
 \addvspace {10\p@ }
