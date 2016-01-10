@@ -193,11 +193,12 @@ Este primer ajuste no tiene en cuenta muchos factores concretos de la navegación
 \section{SLAM}
 La técnica de SLAM (Simultaneous Localization And Mapping) es una técnica muy utilizada en robótica para construir un mapa de un etorno que es desconocido al mismo tiempo que se estima la posición del robot en el mismo.
 
-Esta técnica presenta dificultades como la imperfección de los sensores, la imperfección del sistema de locomoción el robot, la repetitividad de las medidas... Es por ello que se utilizan modos probabilísticos como la relga de Bayes.
+Esta técnica presenta dificultades como la imperfección de los sensores, la imperfección del sistema de locomoción el robot, la repetitividad de las medidas... Además de que la localización y el mapeado simultáneo de un entorno son dos problemas que están intrínsecamente acoplados \cite{puente2012probabilistic}. Es por ello que se utilizan modos probabilísticos como la relga de Bayes.
 
 \begin{equation}
    p(x|d)=\frac{p(d|x)p(x)}{p(d)}
 \end{equation}
+**REVISAR EQCUACIÓN**
 
 \textbf{Principales algoritmos}\\
 Los principales algoritmos para realizar los cálculos pababilísticos en técnicas de SLAM son los sigientes:
@@ -213,9 +214,9 @@ GMapping es una librería perteneciente al proyecto OpenSLAM \cite{openslam} que 
 
 En ROS se integra bajo el paquete gmapping \url{http://wiki.ros.org/gmapping} que no es más que un wrapper de OpenSLAM adaptando su interfaz.
 
-Para crear mapas utilizando slam\_gampping precisamos de nuestro robot configurado para leer su odmetría un sensor capaz de ofrecernos información de tipo \textit{sensor\_msgs/LaserScan}.
+Para crear mapas utilizando slam\_gampping precisamos de nuestro robot configurado para leer su odometría un sensor capaz de ofrecernos información de tipo \textit{sensor\_msgs/LaserScan}.
 
-En este caso nos servimos e la configuración utilizada por el paquete \textit{p2os}:
+Existen muchos parámetros para ajustar el proceso de SLAM en este nodo, sin embargo en este caso nos servimos de la configuración utilizada por el paquete \textit{p2os} por ofrecer unos resultados más que aceptables:
 
 \begin{code}[!htp]
 \begin{lstlisting}[style=launch]
@@ -382,20 +383,44 @@ Este último enfoque es el que ha sido adoptado en la implementación final de nav
 \section{Planificador de trayectoria global}\label{section:global_planner}
 La planificación de trayectoria es una de las áreas que más interés suscita entre los investigadores relacionados con la robótica móvil o la navegación autónoma, no en vano, existe una gran variedad de algoritmos que realizan cálculos apoyándose en distintos enfoques matemáticos.
 
-Los planificadores de trayectoria tratan de construir o planificar la ruta que lleve al robot desde su posición a un punto en un mapa o en un entorno que pudiera ser desconocido. Esta planificación es calculada en un ámbito que denominamos "global" ya que se realiza en función al mapa global (\textit{global\_costmap} en nuestro caso) y no se condideran los detalles del entorno local al robot. Es, por tanto, una aproximación al camino final que el robot va a seguir.
+Los planificadores de trayectoria tratan de construir la ruta que lleve al robot desde su posición a un punto en un mapa o en un entorno que pudiera ser desconocido. Esta planificación es calculada en un ámbito que denominamos "global" ya que se realiza en función al mapa global (\textit{global\_costmap} en nuestro caso) y no se consideran los detalles del entorno local al robot. Es, por tanto, una aproximación al camino final que el robot va a seguir.
 
-**texto de transición**
+Por tanto, los planificadores de trayectoria global deben basarse en información almacenada del entorno como un mapa estático y el cálculo se realiza mediante el análisis de sus características.
+
+En la figura \ref{fig:metodos_planificacion_trayectorias} se muestra una clasificación de los principales métodos de planificación de trayectorias
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=\textwidth]{figuras/metodos_planificacion_trayectorias.png}
+\caption{Clasificación de los diferentes métodos de planificación de trayectorias. Basado en \cite{pardeiro2015}.}
+\label{fig:metodos_planificacion_trayectorias}
+\end{figure}
 
 A continuación vamos a describir los planificadores de trayectoria disponibles en ROS, su fundamento teórico y su comportamiento en el cáculo de la trayectoria.
 
-Standard (Dijstra??)
-grid\_path
-simple potential
-A*
-navfn
-TEORÍA
+\subsection{Algoritmo de Dijkstra}
+El algoritmo de Dijkstra es un algoritmo para la determinación del camino más corto dado un vértice origen al resto de vértices de un grafo con pesos en cada arista. Este algoritmo debe su nombre a Edsger Dijstra, quien lo describió por primera vez en el año 1959.
+
+**teoría**
+
+\subsection{Algoritmo de A estrella}
+El algoritmo A estrella (denominado comúnmente A*) es un algoritmo para la busqueda del camino más corto entre vértices origen y objetivo dentro de un grafo con pesos en cada arista. Fue presentado por primera vez en 1968 por Peter E. Hart, Nils J. Nilsson y Bertram Raphael.
+
+**teoría**
+
+\subsection{Parámetros del global\_planner}
+En ROS, el nodo encargado de realizar el cálculo de la trayectoria global es el denominado global\_planner. Este nodo dispone de los algoritmos de planificación descritos anteriormente y algunos parámetros:
+
+\begin{itemize}
+\item \textbf{use\_dijkstra}:
+\item \textbf{use\_grid\_path}:
+\item \textbf{use\_quadratic}:
+\item \textbf{old\_navfn\_behavior}:
+\end{itemize}
+
 ALGORITMOS CON PRUEBAS
 PLANIFICADOR FINAL
+
 
 \section{Planificador de trayectoria local}
 Resolver las obstrucciones sobre la ruta global en el
