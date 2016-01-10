@@ -396,23 +396,76 @@ En la figura \ref{fig:metodos_planificacion_trayectorias} se muestra una clasifi
 \label{fig:metodos_planificacion_trayectorias}
 \end{figure}
 
-A continuación vamos a describir los planificadores de trayectoria disponibles en ROS, su fundamento teórico y su comportamiento en el cáculo de la trayectoria.
+Los algoritmos implementados en ROS se basan en métodos discretos mediante grafos, debido a que los mapas utilizados son mapas de celdillas. A continuación se describen los planificadores de trayectoria disponibles en ROS, su fundamento teórico y su comportamiento en el cálculo de la trayectoria.
 
 \subsection{Algoritmo de Dijkstra}
-El algoritmo de Dijkstra es un algoritmo para la determinación del camino más corto dado un vértice origen al resto de vértices de un grafo con pesos en cada arista. Este algoritmo debe su nombre a Edsger Dijstra, quien lo describió por primera vez en el año 1959.
+El algoritmo de Dijkstra es un algoritmo para la determinación del camino más corto dado un vértice origen al resto de vértices de un grafo con pesos en cada arista. Este algoritmo debe su nombre a Edsger Dijkstra, quien lo describió por primera vez en el año 1959.
 
-**teoría**
+El algoritmo de Dijkstra funciona visitando vértices partiendo desde el punto incial. Examina repetidamente los vértices próximos que aún no han sido examinados expandiéndose desde el punto de partida hasta el punto de meta. De esta forma el algoritmo garantiza que se encuentre uno de los caminos más cortos (pueden existir varios caminos igual de cortos).
+
+**teoría fórmulaaasss?¿?¿**
+
+En la figura \ref{fig:algoritmo_dijkstra_libre} se pueden observar la implementación del algoritmo de Dijkstra. El punto de color rosa es el punto incial y el azúl oscuro el punto de meta.
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=0.6\textwidth]{figuras/algoritmo_dijkstra_libre.png}
+\caption{Implementación del algoritmo de Dijkstra en un mapa sin obstáculos. Basado en \cite{AmitPathfinding}.}
+\label{fig:algoritmo_dijkstra_libre}
+\end{figure}
+
+Comparándolo con el algoritmo heurístico *Primero el mejor* "Greedy Best-First-Search algorithm", cuyo funcionamiento es similiar al algoritmo de Dijkstra aunque descarta los vértices que no se encuentren en dirección al punto de meta, vemos en la figura que el camino encontrado es similiar y que el número de vértices analizados se reduce considerablemente.
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=0.6\textwidth]{figuras/algoritmo_best-first-search_libre.png}
+\caption{Implementación del algoritmo Best-First-Search en un mapa sin obstáculos. Basado en \cite{AmitPathfinding}.}
+\label{fig:algoritmo_best-first-search_libre}
+\end{figure}
+
+Sin embargo, estamos analizando el mejor de los casos, cuando el mapa se encuentra libre de obstáculos. Situando un obstáculo cóncavo delante del punto inicial obtenemos el resultado de la figura \ref{fig:algoritmo_dijkstra_best-first-search}.
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=0.45\textwidth]{figuras/algoritmo_dijkstra.png}
+\includegraphics[width=0.45\textwidth]{figuras/algoritmo_best-first-search.png}
+\caption{Algoritmo de Dijkstra (Izq.) y algoritmo Best-First-Search (Dcha.) en un mapa con obstáculo cóncavo. Basado en \cite{AmitPathfinding}.}
+\label{fig:algoritmo_dijkstra_best-first-search}
+\end{figure}
+
+El algoritmo Best-First-Search realiza un análisis de vértices menor hasta llegar al punto de meta comparado con el algoritmo de Dijkstra, lo cual se significa un menor coste computacional, sin embargo el camino obtenido no es el menor, ya que Best-First-Search prioriza aquellos vértices que se encuentran más cerca del punto de meta.
+
+El algoritmo de Dijkstra garantiza que se encuentre el camino más corto entre los dos puntos a costa de realizar un análisis de vértices mayor. Como vemos, este algoritmo es más inmersivo expandiéndose por todos los vértices, sin embargo su resultado es el óptimo.
 
 \subsection{Algoritmo de A estrella}
-El algoritmo A estrella (denominado comúnmente A*) es un algoritmo para la busqueda del camino más corto entre vértices origen y objetivo dentro de un grafo con pesos en cada arista. Fue presentado por primera vez en 1968 por Peter E. Hart, Nils J. Nilsson y Bertram Raphael.
+El algoritmo A estrella (denominado comúnmente A*) es un algoritmo para la búsqueda del camino más corto entre vértices origen y objetivo dentro de un grafo con pesos en cada arista. Fue presentado por primera vez en 1968 por Peter E. Hart, Nils J. Nilsson y Bertram Raphael.
 
-**teoría**
+**teoría fórmulas?¿?¿???**
+
+El algoritmo A* combina el enfoque de algoritmos como Best-First-Search y Dijsktra. Este algoritmo favorece la creación de un camino por vértices que se encuentren cerca del punto incial, así como vértices que se encuentren en dirección al punto de meta. El cálculo del camino se realiza en los dos sentidos, partiendo del vértice inicial al final y partiendo del vértice final al inicial.
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=0.45\textwidth]{figuras/algoritmo_a-estrella_libre.png}
+\includegraphics[width=0.45\textwidth]{figuras/algoritmo_a-estrella.png}
+\caption{Algoritmo A* sin obstáculo (Izq.) y con obstáculo cóncavo (Dcha.). Basado en \cite{AmitPathfinding}.}
+\label{fig:algoritmo_a-estrella}
+\end{figure}
+
+En la figura \ref{fig:algoritmo_a-estrella} podemos observar el comportamiento del algoritmo en un mapa despejado y en otro con un obstáculo cóncavo. Los vértices en color amarillo muestran la transición partiendo desde el vértice incial y los de color azulado muestran la transición desde el vértice final.
+
+El algoritmo A estrella ofrece por tanto unos resultados similares al algoritmo de Dijsktra en cuanto al camino calculado. Sin embargo análisis de los vértices es similar e incluso menor Best-First-Search y por tanto menor que en el de Dijsktra.
 
 \subsection{Parámetros del global\_planner}
-En ROS, el nodo encargado de realizar el cálculo de la trayectoria global es el denominado global\_planner. Este nodo dispone de los algoritmos de planificación descritos anteriormente y algunos parámetros:
+En ROS, el nodo encargado de realizar el cálculo de la trayectoria global es el denominado global\_planner. Este nodo dispone de los algoritmos de planificación ya implementados que realizan los cáculos de trayectoria.
+
+La configuración del planificador global se realiza a través de parámetros que podemos configurar, distinguiendo entre el uso del algoritmo de Dijsktra o el de A*, utilizar un camino definido por rejilla, etc.
+
+A continuación podemos ver el comportamiento del planificador con diferente configuración en sus parámetros.
 
 \begin{itemize}
-\item \textbf{use\_dijkstra}:
+\item \textbf{Algoritmo de Dijsktra}:
+
 \item \textbf{use\_grid\_path}:
 \item \textbf{use\_quadratic}:
 \item \textbf{old\_navfn\_behavior}:
