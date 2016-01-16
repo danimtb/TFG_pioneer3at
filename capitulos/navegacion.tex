@@ -477,8 +477,9 @@ PLANIFICADOR FINAL
 
 
 \section{Planificador de trayectoria local}
-Resolver las obstrucciones sobre la ruta global en el
-entorno local al robot para determinar la ruta real que será seguida. El modelo del entorno local se construye mediante la fusión de la información proporcionada por los sensores externos del robot móvil.
+EL planificador de trayctoria local es el encargado de guiar al robot, según sus posibilidades de moimiento, hacia la ruta marcada por el planificador global. Este planificador de trayectoria se basa en el mapa de coste local, el cuál determina por la información de los sensores los obstáculos más próximos al robot.
+
+La filosofía del planificador de trayectoria local es servir de control reactivo del robot además de conducirlo hacia la ruta marcada por el planificador blobal. Su misión es resolver las obstrucciones sobre la ruta global en el entorno local al robot para determinar la ruta real que será seguida. El modelo del entorno local se construye mediante la fusión de la información proporcionada por los sensores externos del robot móvil.
 
 TEORíA
 FUNCIONAMIENTO
