@@ -67,6 +67,7 @@ El ordenador interno corría todos los nodos de ROS, de modo que se disponía de l
 
 Sin embargo, la primera implementación con los primeros ajustes a nuestro hardware de los sensores no fue posible debido a la sobrecarga de la CPU del ordenador interno del robot Pioneer y a problemas de memoria en la ejecución de nodos como AMCL.
 
+\subsubsection{config2}
 La siguiente opción fue utilizar un ordenador externo que realizase los cálculos de navegación y enviase al robot las consignas de movimiento a través de una red WLAN. Esta idea no era la solución más ideal, ya que desde el principio la idea era que el robot fuese lo más autónomo posible sin depender de una infraestructura, sin embargo era una posibilidad directa que no suponía mucho esfuerzo.
 
 **esquema configuración**
@@ -75,7 +76,10 @@ Gracias a la filosofía de ejecución distribuida de nodos de ROS, ejecutar nodos 
 
 Este ajuste fue puesto en marcha utilizando un ordenador portátil con suficiente capacidad de procesamiento y memoria como para ejecutar la navegación, sin embargo aparecieron algunos inconvenientes.
 
-El primero de ellos fueron las direcciones IP en el ordenador interno del Pioneer. Debido a que el sensor láser se conecta vía Ethernet a este ordenador, el nodo LMS1xx debe obtener información a través de la IP del láser y enviarla a través del adaptador Wifi a la IP del nodo máster. El problema residía en que el nodo se saturaba al tener que lidiar con ambas interfaces de conexión y provocaba su detención.
+El primero de ellos fueron las direcciones IP en el ordenador interno del Pioneer.
+
+\textbf{Problemas con el sensor Láser: LM1xx}\\
+Debido a que el sensor láser se conecta vía Ethernet a este ordenador, el nodo LMS1xx debe obtener información a través de la IP del láser y enviarla a través del adaptador Wifi a la IP del nodo máster. El problema residía en que el nodo se saturaba al tener que lidiar con ambas interfaces de conexión y provocaba su detención.
 
 Tras varias consultas a Clearpath Robotics a través de su repositorio de GitHub y preguntas en el foro ROS Answers **Enlaces de referencia**, la solución no estaba implementada en código y lo más inmediato era hacer un bridge en el ordenador del Pioneer 3 AT entre la interfaz Ethernet y la Wifi.
 
@@ -85,13 +89,22 @@ Trantando de resolver este problema, se hicieron pruebas generando una red Wifi 
 
 En la implementación final del sistema esta solución se sigue utilizando para conectarse desde un ordenador externo al ordenador que incorpora el robot Pioneer.
 
+**OJOOOO continua seccion**
+
 Una vez se pudo conectar el ordenador externo, la ejecución del nodo de navegación era la correcta y las consignas de movimiento se enviaban correctamente al robot, pudiendo realizar las primeras pruebas de navegación autónoma.
 
 **Imagen primeras navegaciones**
 
-Sin embargo en ocasiones la recepción y envío de datos era demasiado alta y esto provocaba que existiese demasiado retraso en la comunicación, provocando que el robot reaccionase tarde para esquivar los obstáculos y el control del robot fuera impracticable.
+Sin embargo en ocasiones la recepción y envío de datos era demasiado alta y esto provocaba que existiese mucho retraso en la comunicación, haciendo que el robot reaccionase tarde para esquivar los obstáculos y el control del robot fuera impracticable.
 
+\subsubsection{config3}
+Finalmente se optó por montar un ordenador más potente en el robot, para lo cual se utilizó un portátil externo al que se conectaba tanto e sensor Kinect como el sensor Láser y se utilizaba un convertidor de puesto USB a puerto serie RS-232 para controlar el movimiento del robot y leer la odometría. El ordenador del robot quedaba sustituido y así se mantuvo hasta la versión final.
 
+**imagen del robot con el portátil**
+
+Llegados a este punto, ahora sí disponíamos de la plataforma robótica completa sobre la que trabajar en la navegación del robot. Las primeras pruebas fueron satisfactorias, logrando correr todos los nodos en el portátil, el cual se incorporó de manera provisional al robot por medio de unos agarres realizados con una impresora 3D.
+
+**imagen de los agarres**
 
 \subsection{Segunda configuración}
 \subsubsection{Intel NUC}
