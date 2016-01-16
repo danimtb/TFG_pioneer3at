@@ -53,17 +53,16 @@ Sin embargo, es recomendable que si se desea realizar algún desarrollo posterior
 
 **Captura de pantalla del repo github**
 
-De esta forma podemos guardar los cambios realizados en el repositorio de la persona que hace la modificación, con la intención de incorporar los cambios más tarde al repositorio de desarrollo principal (\hypersetup{urlcolor=black} \href{https://github.com/danimtb/pioneer3at_ETSIDI}{\textit{https://github.com/danimtb/pioneer3at\_ETSIDI}}\hypersetup{urlcolor=blue}
-) mediante Pull Request.
+De esta forma podemos guardar los cambios realizados en el repositorio de la persona que hace la modificación, con la intención de incorporar los cambios más tarde al repositorio de desarrollo principal (\url{https://github.com/danimtb/pioneer3at_ETSIDI.git}) mediante Pull Request.
 
 **figura pull request**
 
 
 \subsection{Gestión de las dependencias}
 
- y gestionar algunas dependencias de librerías, para lo cual nos serviremos de la herramienta rosdep **referencia** creada por los desarrolladores de ROS para este propósito.
+ ROS se vale de la información almacenada en la definición de cada uno de sus paquetes en \textit{package.xml} y gestionar algunas dependencias de librerías, para lo cual se sirve de la herramienta rosdep **referencia** creada por los desarrolladores de ROS para este propósito.
 
-Inicializamos rosdep y actualizamos las dependencias:
+Para comenzar a utilizarla inicializamos rosdep y actualizamos las dependencias:
 
 \begin{code}[htp]
 \begin{lstlisting}[style=consola]
@@ -73,8 +72,10 @@ $ rosdep update
 \caption{Inicializando la herramienta \textit{rosdep}.}
 \end{code}
 
+A continuación se describen los pasos necesarios para instalar las dependencias de cada sección:
+
 \begin{itemize}
-\item Navegación: Instalamos los paquetes adicionales para realizar la navegación y mapeo (se hablará de cada uno en el capítulo \ref{chapter:navegacion}).
+\item Navegación: Instalamos los paquetes adicionales para realizar la navegación y mapeo (Capítulo \ref{chapter:navegacion}).
 \end{itemize}
 
 \begin{code}[!htp]
@@ -108,16 +109,67 @@ $ rosdep install rosaria
 
 \subsection{Calibración de la odometría}\label{subsection:odometria}
 
-\subsection{Ordenador de abordo}
+\subsection{Ordenador de abordo Intel NUC}
 
 \subsection{Sensor Kinect}
 
 \subsection{Láser SICK LMS100}\label{subsection:sicklms100_apendice}
 
+\chapter{Manual de uso del robot}
+
+\section{Encendido del robot}
+\section{Placa controladora}
+\section{Conexión mediante un ordenador externo vía Wifi}
+\section{Acceder a la placa de alimentación}
+Fusible
+\section{Cargar las baterías del robot}
+\section{Ordenador interno del Pioneer 3 AT}
+
 
 \chapter{Información y documentos ONLINE}
+ En este apéndice se muestra información adicional de todo tipo referente al proyecto y a los materiales utilizados.
+
+\section{Repositorio de código}
+Como se ha descrito anteriormente, el repositorio de código desarrollado en ente proyecto se encuentra almacenado en GitHub. Puede consultarse su linea de tiempos, commits e incluso realizar preguntas en el apartado de Issues.
+
+\url{https://github.com/danimtb/pioneer3at_ETSIDI}
+
+**Imágen del repositorio**
+
+En él podrá encontrar una pequeña guía actualizada con información sobre las utilidades que ofrece el repositorio y en concreto el desarrollo realizado en el paquete \textit{pioneer\_utils}, donde se encuentra la mayoría del desarrollo.
+
+\subsection{Readme}
+Copia del documento \textit{Readme} del repositiorio.
+
+**COPIA**
+
+\section{Preguntas en ROS Answers y Github referentes al proyeto}
+
 
 \section{Multimedia}
-\section{Repositorio de código}
-\subsection{Readme}
+Colección de vídeos:
+
+\begin{itemize}
+\item Vídeos de este proyecto:
+\item Vídeos de antiguos proyectos:
+\end{itemize}
+
+Imágenes:
+\begin{itemize}
+\item Imágenes de este proyecto:
+\item Imágenes de antiguos proyectos:
+\end{itemize}
+
 \section{Memoria del trabajo}
+
+La memoria del trabajo ha sido desarrollada en \LaTeX, bajo el editor \textit{TexStudio} en un ordenador con sistema operativo GNU/Linux Ubuntu 14.04 LTS.
+
+Su desarrollo ha sido puesto bajo un controlador de versiones y alojado en el siguiente repositorio de github:
+
+\url{https://github.com/danimtb/TFG_pioneer3at}
+
+En el propio repositorio se encuentran las figuras utilizadas y los archivos .tex, donde se ha escrito el mismo,  y la bibligrafía empleada.
+
+El documento PDF compilado de \LaTeX puede consultarse en el siguiente enlace:
+
+\url{https://github.com/danimtb/TFG_pioneer3at/TFG.pdf}
