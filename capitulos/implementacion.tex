@@ -62,12 +62,12 @@ La primera configuración del robot consistió en ambos sensores situados en la pa
 
 **Imagen del robot**
 
-\subsubsection{Config1}
+\subsubsection{Primera configuración del sistema}
 El ordenador interno corría todos los nodos de ROS, de modo que se disponía de la información de los sensores, el control sobre los motores y la lectura de la odometría para realizar las primeras pruebas con el paquete de navegación de ROS (Sección \label{section:navigation_stack}).
 
 Sin embargo, la primera implementación con los primeros ajustes a nuestro hardware de los sensores no fue posible debido a la sobrecarga de la CPU del ordenador interno del robot Pioneer y a problemas de memoria en la ejecución de nodos como AMCL.
 
-\subsubsection{config2}
+\subsubsection{Segunda configuración del sistema}
 La siguiente opción fue utilizar un ordenador externo que realizase los cálculos de navegación y enviase al robot las consignas de movimiento a través de una red WLAN. Esta idea no era la solución más ideal, ya que desde el principio la idea era que el robot fuese lo más autónomo posible sin depender de una infraestructura, sin embargo era una posibilidad directa que no suponía mucho esfuerzo.
 
 **esquema configuración**
@@ -97,7 +97,7 @@ Una vez se pudo conectar el ordenador externo, la ejecución del nodo de navegaci
 
 Sin embargo en ocasiones la recepción y envío de datos era demasiado alta y esto provocaba que existiese mucho retraso en la comunicación, haciendo que el robot reaccionase tarde para esquivar los obstáculos y el control del robot fuera impracticable.
 
-\subsubsection{config3}
+\subsubsection{Tercera configuración del sistema}
 Finalmente se optó por montar un ordenador más potente en el robot, para lo cual se utilizó un portátil externo al que se conectaba tanto e sensor Kinect como el sensor Láser y se utilizaba un convertidor de puesto USB a puerto serie RS-232 para controlar el movimiento del robot y leer la odometría. El ordenador del robot quedaba sustituido y así se mantuvo hasta la versión final.
 
 **imagen del robot con el portátil**
@@ -107,7 +107,10 @@ Llegados a este punto, ahora sí disponíamos de la plataforma robótica completa s
 **imagen de los agarres**
 
 \subsection{Segunda configuración}
-\subsubsection{Intel NUC}
+
+La segunda configuración hardware vino dada tras las pruebas satisfactorias con l
+\subsubsection{Configuración del sistema final}
+\textbf{Intel NUC}
 
 \section{Navegación}
 \subsection{Sensores}
