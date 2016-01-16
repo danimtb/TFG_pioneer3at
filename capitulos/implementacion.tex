@@ -39,8 +39,6 @@ Para conectarlo a través del puerto Ethernet fue necesario ajustar su dirección 
 
 El agarre mecánico del sensor se dejó tal y como había sido utilizado en ocasiones anteriores, situado en la parte frontal agarrado mediante un par de tornillos al chasis con tuercas de palometa para su fácil manipulación.
 
-**Imagen del sensor láser en el robot**.
-
 El sensor láser se conecta a la interfaz ROS mediante el paquete LMS1xx tal y como se describió en el apartado \ref{subsection:sicklms100}.
 
 \subsection{Sensor Kinect}
@@ -126,9 +124,20 @@ Llegados a este punto, ahora sí disponíamos de la plataforma robótica completa s
 
 \subsection{Segunda configuración}
 
-La segunda configuración hardware vino dada tras las pruebas satisfactorias con l
+La segunda configuración hardware vino dada tras las pruebas satisfactorias con el ordenador portátil como encargada e la ejecución del sistema ROS. Debido a ello se optó por utilizar el ordenador compacto Intel NUC de manera dedicada en el robot, sustituyendo al portátil, dejando más espacio para colocar los sensores y hacer un sistema más integrado.
+
+Una de las principales desventajas con las que contaba la primera configuración hardware era la posición tan adelantada del sensor Kinect, ya que debido a sus características, si un objeto se situa a medio metro o menos delante de la cámara infrarroja, las proyecciones de su emisor de infrarrojos no pueden ser captadas y por tanto obtenemos una nube de puntos vacía (la cámara Kinect se queda ''ciega"). Es por tanto que esta nueva configuración hardware del robot vino motivada por el hecho de retrasar la posición de la cámara y obtener cierta distancia de margen para evitar el efecto anterior.
+
+Tras varias pruebas en el simulador Gazebo (sección **TAL**) cambiando la posición del sensor Kinect, el ordenador Intel NUC y del sensor láser SICK, se aprovechó todo el área del robot de manera que ningún elemento estorbase a los haces de infrarrojos de los dos sensores. El sensor Kinect se situó más retrasado, hacia la mitad del robot, dejando tan solo sitio en la parte trasera para incorporar el resto de elementos. El sensor láser se situó en la parte trasera mirando hacia atrás ya que gracias a su amplio rango de 270º, podíamos obtener lecturas de prácticamente todo el perímetro del robot.
+
+**imagen de la disposición del robot**.
+
+El ordenador Intel NUC se situó al lado izquierdo del sensor láser dejando el lado derecho para situar el cableado de los sensores y del ordenador.
+
+Finalmente, para dejar todo el sistema integrado, se diseñaron unos paneles laterales, un sistema de varillas roscadas atornilladas a la base del robot y un panel superior para esconder el cableado interno. Se diseñó un modelo en 3D en el simulador Gazebo para comprobar su correcta compatibilidad con la disposición de los sensores
 \subsubsection{Configuración del sistema final}
 \textbf{Intel NUC}
+ Éste fue alimentado a 12 voltios de la misma forma que el se
 
 \section{Navegación}
 \subsection{Sensores}
