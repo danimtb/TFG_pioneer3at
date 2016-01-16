@@ -3,9 +3,61 @@
 \appendixpage
 \chapter{Configuración del sistema} \label{chapter:configuracion_sistema}
 
+En este apéndice se resume de manera simplificada y muy enfocada la configuración completa del sistema robótico objeto de este trabajo.
+
 \section{Configuración del espacio de trabajo}
+En ROS el espacio de trabajo es el lugar donde se realiza el desarrollo software de los paquetes ROS. Este en torno de trabajo es capaz de gestionar la correcta compilación de los nodos.
+
+El espacio de trabajo es el determinado por la herramienta Catkin. A partir de la versión Indigo de ROS, casi todos los paquetes se encuentran adaptados al entorno Catkin y funcionan de manera casi inmediata.
+
+A continuación se describen los pasos para crear un espacio de trabajo Catkin (extraídos del tutorial *TAL*) y los pasos para clonar el repositorio de GitHub que aloja el código.
+
+Tras instalar ROS en el equipo deseado, instalamos Catkin:
+
+\begin{code}[htp]
+\begin{lstlisting}[style=consola]
+$ sudo apt-get install ros-indigo-catkin
+$ mkdir -p ~/catkin_ws/src
+$ cd ~/catkin_ws/src
+$ catkin_init_workspace
+\end{lstlisting}
+\caption{Instalación y workspace de Catkin}
+\end{code}
+
+A continuación inncluimos el directorio de desarrollo para que sea reconocido por ROS a la hora de buscar dependencias:
+
+\begin{code}[!htp]
+\begin{lstlisting}[style=consola]
+$ cd ~/catkin_ws
+$ source devel/setup.bash
+\end{lstlisting}
+\caption{Source al setup de nuestro entorno Catkin}
+\end{code}
 
 \subsection{Instalación de las librerías}
+
+Para clonar el desarrollo software de este proyecto bastaría con clonar el repositorio de GitHUb en el que se ha trabajado en este proyecto \url{https://github.com/danimtb/pioneer3at_ETSIDI} en nuestra carpeta \textit{$\sim$/catkin\_ws/src}.
+
+\begin{code}[htp]
+\begin{lstlisting}[style=consola]
+$ cd ~/catkin_ws/src
+$ $ git clone --recursive https://github.com/danimtb/pioneer3at_ETSIDI.git .
+\end{lstlisting}
+\hypersetup{urlcolor=black}
+Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI}{\textit{https://github.com/danimtb/pioneer3at\_ETSIDI}}
+\hypersetup{urlcolor=blue}
+\caption{Clonado del repositorio \textit{pioneer3at\_ETSIDI}}
+\end{code}
+
+Sin embargo, es recomendable que si se desea realizar algún desarrollo posterior, se realice un fork en GitHub de este proyecto (Figura *TAL*) y se clone el repositorio propio.
+
+**Captura de pantalla del repo github**
+
+De esta forma podemos guardar los cambios realizados en el repositorio de la persona que hace la modificación, con la intención de incorporar los cambios más tarde al repositorio de desarrollo principal (\hypersetup{urlcolor=black} \href{https://github.com/danimtb/pioneer3at_ETSIDI}{\textit{https://github.com/danimtb/pioneer3at\_ETSIDI}}\hypersetup{urlcolor=blue}
+) mediante Pull Request.
+
+**figura pull request**
+
 
 \subsection{Gestión de las dependencias}
 
