@@ -58,9 +58,11 @@ Para anclar el sensor Kinect al robot se optó por situarlo en la parte superior 
 El sensor Kinect se conecta a la interfaz ROS mediante el paquete freenect\_stack tal y como se describió en el apartado \ref{subsection:kinect}.
 
 \subsection{Primera configuración hardware}
-La primera configuración del robot consistió en ambos sensores situados en la parte frontal del mismo. Ambos sensores de encontraba uno encima del otro, de tal forma que no existieran interferencias entre uno y otro.
+La primera configuración del robot consistió en ambos sensores situados en la parte frontal del mismo. Los sensores de encontraban colocados de manera vertical otro, de tal forma que no existieran interferencias entre uno y otro.
 
 **Imagen del robot**
+
+De esta forma conseguíamos una vista frontal despejada y contábamos con la información del láser para detectar obstáculos laterales.
 
 \subsubsection{Primera configuración del sistema}
 El ordenador interno corría todos los nodos de ROS, de modo que se disponía de la información de los sensores, el control sobre los motores y la lectura de la odometría para realizar las primeras pruebas con el paquete de navegación de ROS (Sección \label{section:navigation_stack}).
