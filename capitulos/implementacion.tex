@@ -14,13 +14,46 @@ IMAGEN ROBOT ESTADO INICIAL.
 
 El robot había sido utilizado anteriormente mediante el software MRCore en el proyecto **PROYECTO DE ALEJANDRO** y el sistema operativo del ordenador interno era Ubuntu Server 10.
 
-Para integrar ROS
-\subsection{Sensor Kinect}
+Para integrar la versión Indigo de ROS lo más recomendable era partir de la versión estable más actualizada de Ubuntu, por lo que se sustituyó el sistema operativo por Ubuntu 14.04 LTS en su versión de escritorio.
+
+Una vez integrado el sistema operativo, la primera toma de contacto con el robot fue a partir de la librería Aria **referencia** para controlar el movimiento de los motores y comprobar que el robot se encontraba en buen estado.
+
+**Añadir el puerto al grupo de dialout**
+
+A continuación, tras instalar ROS Indigo, se procedió a las pruebas mediante el paquete Rosaria de ROS. La conexión con el microcontrolador de la placa de motores fue exitosa y se comprobó que los valores de la odometría también funcionaban.
+
+**cambiar el puerto de conexion*?*
+
+
+Llegados a este punto, ya disponíamos del robot preparado para realizar las primeras pruebas.
+
 \subsection{Sensor Láser}
-\subsection{Intel NUC}
+El sensor láser Sick ya había sido integrado en un proyecto anterior y sus conexiones de alimentación y datos vía Ethernet ya estaban preparadas para utilizarlo.
+
+Para conectarlo a través del puerto Ethernet fue necesario ajustar su dirección IP a través del software del fabricante y ajustar la IP del ordenador del robot Pioneer (más información en el apéndice **TAL**).
+
+El agarre mecánico del sensor se dejó tal y como había sido utilizado en ocasiones anteriores, situado en la parte frontal agarrado mediante un par de tornillos al chasis con tuercas de palometa para su fácil manipulación.
+
+**Imagen del sensor láser en el robot**.
+
+El sensor láser se conecta a la interfaz ROS mediante el paquete LMS1xx tal y como se describió en el apartado \ref{subsection:sicklms100}
+
+\subsection{Sensor Kinect}
+La integración del sensor Kinect fue relativamente sencilla debido a que las entradas de los puestos USB del ordenador habían sido cableadas previamente. La adaptación a realizar era sobre la parte de alimentación, ya que este sensor trabaja a una tensión de 12 voltios.
+
+En el manual del robot se encuentra una descripción detallada de la placa de alimentación a la cual pueden conectarse diferentes periféricos. Esta placa ofrece tomas de conexión de 5 voltios controlados por unos botones auxiliares y tomas de 12 voltios (ver apéndice **TAL**).
+
+El sensor Kinect dispone de un adaptador USB, preparado para trabajar con la videoconsola XBOX 360, el cual suministra 12 voltios mediante un transformador conectado a una toma de corriente alterna de 220v e incorpora los cables de datos del propio sensor Kinect.
+
+**Esquema conexion usual**.
+
+Para integrar el sensor Kinect en el robot, se cortó el cable de alimentación del cable adaptador y se soldaron unas clavijas tipo Jack **REVISAR** macho-hembra para conectar el adaptador directamente a los 12 voltios de la placa del robot. También se realizaó lo oportuno en el adaptador de corriente, para poder usar el sensor Kinect de la manera habitual.
+
+**Imagen de los componentes**
 
 \subsection{Primera configuración}
 \subsection{Segunda configuración}
+\subsection{Intel NUC}
 
 \section{Navegación}
 \subsection{Sensores}
