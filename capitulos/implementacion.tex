@@ -32,7 +32,7 @@ A continuación, tras instalar ROS Indigo, se procedió a las pruebas mediante el 
 
 Llegados a este punto, ya disponíamos del robot preparado para realizar las primeras pruebas.
 
-\subsection{Sensor Láser}
+\subsection{Sensor Láser}\label{subsection:implementacion_laser}
 El sensor láser Sick ya había sido integrado en un proyecto anterior y sus conexiones de alimentación y datos vía Ethernet ya estaban preparadas para utilizarlo.
 
 Para conectarlo a través del puerto Ethernet fue necesario ajustar su dirección IP a través del software del fabricante y ajustar la IP del ordenador del robot Pioneer (más información en el apéndice **TAL**).
@@ -41,7 +41,7 @@ El agarre mecánico del sensor se dejó tal y como había sido utilizado en ocasion
 
 El sensor láser se conecta a la interfaz ROS mediante el paquete LMS1xx tal y como se describió en el apartado \ref{subsection:sicklms100}.
 
-\subsection{Sensor Kinect}
+\subsection{Sensor Kinect}\label{subsection:implementacion_kinect}
 La integración del sensor Kinect fue relativamente sencilla debido a que las entradas de los puestos USB del ordenador habían sido cableadas previamente. La adaptación a realizar era sobre la parte de alimentación, ya que este sensor trabaja a una tensión de 12 voltios.
 
 En el manual del robot se encuentra una descripción detallada de la placa de alimentación a la cual pueden conectarse diferentes periféricos. Esta placa ofrece tomas de conexión de 5 voltios controlados por unos botones auxiliares y tomas de 12 voltios (ver apéndice **TAL**).
@@ -130,14 +130,57 @@ Una de las principales desventajas con las que contaba la primera configuración 
 
 Tras varias pruebas en el simulador Gazebo (sección **TAL**) cambiando la posición del sensor Kinect, el ordenador Intel NUC y del sensor láser SICK, se aprovechó todo el área del robot de manera que ningún elemento estorbase a los haces de infrarrojos de los dos sensores. El sensor Kinect se situó más retrasado, hacia la mitad del robot, dejando tan solo sitio en la parte trasera para incorporar el resto de elementos. El sensor láser se situó en la parte trasera mirando hacia atrás ya que gracias a su amplio rango de 270º, podíamos obtener lecturas de prácticamente todo el perímetro del robot.
 
-**imagen de la disposición del robot**.
+**imagen de la disposición del robot en freecad y pruebas reales**.
 
 El ordenador Intel NUC se situó al lado izquierdo del sensor láser dejando el lado derecho para situar el cableado de los sensores y del ordenador.
 
-Finalmente, para dejar todo el sistema integrado, se diseñaron unos paneles laterales, un sistema de varillas roscadas atornilladas a la base del robot y un panel superior para esconder el cableado interno. Se diseñó un modelo en 3D en el simulador Gazebo para comprobar su correcta compatibilidad con la disposición de los sensores
+Finalmente, para dejar todo el sistema integrado, se diseñaron unos paneles laterales, un sistema de varillas roscadas atornilladas a la base del robot y un panel superior para esconder el cableado interno. Se diseñó un modelo en 3D en el simulador Gazebo para comprobar su correcta compatibilidad con la disposición de los sensores.
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=0.45\textwidth]{figuras/modelo_3D_1.png}
+\includegraphics[width=0.45\textwidth]{figuras/modelo_3D_2.png}
+\caption{Modelo 3D de la segunda configuración hardware hecho en Gazebo}
+\label{fig:modelo_3D}
+\end{figure}
+
+Tras comprobar que el diseño funcionaba y cumplía las caracteríticas necesarias se mecanizó la parte superior del robot para anclar el sensor láser y las varillas roscadas, como se ve en la figura TAL
+
+**figura de robot con varillas roscadas y láser**
+
+Para evitar las vibraciones y que el sensor Kinect permaneciese inmóvil y situado a la altura necesaria, se diseñaron e imprimieron en 3D unas piezas de soporte (figura TAL)
+
+**figura de las piezas y figura de su disposición**
+
+Los paneles laterales y el panel superior se mecanizaron en metacrilato de 3 y 4 milímetros respectivamente con una fresadora y se sujetaron al robot mediante remaches, tornillos y escuadras en forma de L, algunas de las cuales fueron diseñadas en 3D.
+
+**Imagen de los paneles laterales, remaches, escuadra 3D**
+
+El panel de control del robot quedó dividido en dos partes, la destinada al ordenador de abordo y la destinada al microcontrolador del robot. Ambas partes fueron resituadas en los laterales del robot.
+
+**imagenes de los paneles de control laterales**
+
+A continuación se muestran algunas imágenes del robot completo rediseñado.
+
+**Imágenes del robot**
+
+\textbf{Intel NUC}\\
+El ordenador compacto Intel NUC se eligió como unidad de procesamiento y ejecución del sistema ROS debido a sus altas capacidades de procesador y memoria y a su bajo consumo. Éste fue alimentado a 12 voltios de la misma forma que el sensor Kinect y se fijó al chasis del robot mediante tiras del velcro adhesivo.
+
+A él se conectaron el vía puerto USB el sensor Kinect y el cable convertidor de control del robot, el jack de auriculares al altavoz frontal del robot y vía ethernet el sensor láser.
+
+
 \subsubsection{Configuración del sistema final}
-\textbf{Intel NUC}
- Éste fue alimentado a 12 voltios de la misma forma que el se
+
+La configuración final del sistema quedó definida como se indica en la figura \ref{fig:esquema_robot_final}. El ordenador Intel NUC se configuró para que generase en su arranque una red Wifi ad-hoc propia, dentro del mismo subrango **revisar nomenclatura** que las direcciones IP del sensor láser para evitar el malfuncionamiento del mismo tal y como se ha indicado anteriormente.
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.8\textwidth]{figuras/esquema_robot.jpg}
+\caption{Esquema del sistema robótico final utilizado en el proyecto.} \label{fig:esquema_robot_final}
+\end{figure}
+
+El suministro de energía a todos los elementos que incorpora el robot se realiza a través de la placa de alimentación del robot, la cual se conecta al pack de 3 baterías alojado en su interior.
 
 \section{Navegación}
 \subsection{Sensores}
