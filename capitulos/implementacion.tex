@@ -53,10 +53,14 @@ Para integrar el sensor Kinect en el robot, se cortó el cable de alimentación de
 
 Para anclar el sensor Kinect al robot se optó por situarlo en la parte superior del sensor Láser, para lo cual se diseñó una pieza que encajase en la base de la Kinect y en el sensor láser (figura **REF**).
 
+**Imagen del diseño 3D**
 
 El sensor Kinect se conecta a la interfaz ROS mediante el paquete freenect\_stack tal y como se describió en el apartado \ref{subsection:kinect}.
 
 \subsection{Primera configuración}
+La primera configuración del robot consistió en ambos sensores situados en la parte frontal del mismo. Ambos sensores de encontraba uno encima del otro, de tal forma que no existieran interferencias entre uno y otro.
+
+El ordenador interno corría todos los nodos de ROS, de modo que se disponía de la información de los sensores, el control sobre los motores y la lectura de la odometría para realizar las primeras pruebas con el paquete de navegación de ROS (Sección \label{section:navigation_stack}).
 \subsection{Segunda configuración}
 \subsection{Intel NUC}
 
