@@ -107,23 +107,108 @@ $ rosdep install rosaria
 
 \section{Configuración del hardware}
 
+En este apéndice se describen algunos ajustes útiles del hardware que se ha utilizado en el proyecto. Esta información es importante para que el sistema robótico desarrollado funcione pero no ha sido incluida dentro del cuerpo de la memoria para no alargar las explicaciones.
+
+En cualquier caso, los procemientos que a continuación se describen es probable que no sea necesarioz volver a realizarlos en futuros usos del robot si se mantiene la configuración descrita en este trabajo.
+
 \subsection{Calibración de la odometría}\label{subsection:odometria}
+La lectura de la posición de los motores del robot se realiza mediante unos encoders situados en el eje de cada motor.
+
+El firmware ARCOS de la placa controladora del robot es actualizable y gestiona os parámetros de calibración de la odometría. Este firmware es actualizable aunque para ello es necesario ponerse en contacto con el fabricante Adept.
+
+Estos parámetros referentes a la odometría son configurables a través de la librería Aria en caso de que no se desee acceder a modificar el firmware del robot.
+
+Los parámetros a considerar son los siguientes:
+
+\begin{itemize}
+\item TicksMM
+\item DriftFactor
+\item RevCount
+\end{itemize}
+
+**Completar MANUAL**
 
 \subsection{Ordenador de abordo Intel NUC}
 
 \subsection{Sensor Kinect}
+El sensor Kinect utilizado en el proyecto no dispone de ninguna moficiación específica o modo de funcionamiento especial. Lo referente a su conexionado ha sido descrito anteriormente en la sección \label{subsection:implementacion_kinect}.
+
+Tan solo indicar que puede realizarse una primera toma de contacto a través de la librería \textit{libfreenect}. Una manera rápida de hacerlo es utilizando el gestor de depencencias en C++ biicode **LINK A BIICODE**, en un sistema operativo Ubuntu siguiendo esta guía **URL DE BIICODE**.
 
 \subsection{Láser SICK LMS100}\label{subsection:sicklms100_apendice}
 
 \chapter{Manual de uso del robot}
+Este apéndice es una guía de funcionamiento del robot Pioneer 3 AT (Petrois) utilizado e implementado al acabar este proyecto fin de grado.
 
 \section{Encendido del robot}
-\section{Placa controladora}
+El robot se enciende mediante un interruptor situado en su parte trasera, el cual proporciona alimentación general a todos los sistemas.
+
+Adicionalmente es necesario encender el ordenador de abordo Intel NUC mediante su correspondiente botón y el altavoz frontal del robot, para lo cual será necesario tener activada la alimentación auxiliar 2 (AUX 2) en el panel de control.
+
+**DESCRIPCION ENCENDIDO INTEL NUC**
+
+\section{Panel de control y parada de emergencia}
+El panel de control del robot se sitúa en su lateral derecho. Aquí disponemos de una serie de botones, indicadores luminosos, acústicos y conexiones.
+
+**FIGURA DEL PANEL**
+
+A continuación se describe cada uno de los elementos:
+\begin{itemize}
+\item Pulsador MOTORS: Encargado de habilitar y deshabilitar los motores del robot. La activación de los mismos puede realizarse a través de software. Es necesario pulsar este botón para rearmar el robot cuando se pulsa la seta de emergencia. Si se pulsa una vez más el robot realiza una secuencia de movimientos para comprobar que los motores funcionan correctamente.
+\item Pulsador RESET: Resetea la placa controladora del robot. El robot queda su estado inicial, tal y como si lo acabásemos de encender. Al pulsar este botón se interrumpe cualquier comunicación con la placa de control.
+\item Pulsador AUX 1: Habilita la alimentación 1 de la placa de alimentación. No se encuentra en uso.
+\item Pulsador AUX 2: Habilita la alimentación 2 de la placa de alimentación. Es necesario tenerlo habilitado para que el altavoz frontal del robot funcione.
+\item LED MOTORS: Indica el estado de los motores.
+\item LED STATUS: Indica el estado del robot.
+\item LED BATERY: Indica el estado de carga de la batería.
+\item LEDs AUX 1 y AUX 2: Indica si las alimentaciones auxiliares se encuentran activas.
+\item LEDs RX y TX: Muestran el estado de la comunicación con la placa de control.
+\item SERIAL: Puerto RS-232 que comunica con la placa de control. Puede ser utilizado para conectar un ordeandor externo directamente la la placa de control del robot.
+\end{itemize}
+
+Muchos de los estados anteriores se indican mediante una señal acústica. El reseteo de la placa tiene un sonido característico al igual que cuando se pierde la conexión con la placa de control.
+
+El pulsador de emergencia se encuentra en la parte superior del robot y es de vital importancia cuando el robot se mueve de manera descontrolada, choca o está en peligro la integridad de una persona o del propio robot. Es por ello que se recomienda su uso siempre que se encuentre en una situación de las anteriores.
+
+**imagen de la seta de emergencia**
+
+Al pulsar la seta de emergencia ésta quedará enclavada y el robot dará una señal acústica continuada indicando que se encuentra en parada. En este punto los motores quedan deshabilitados y las ruedas del robot pueden moverse libremente.
+
+Para rearmar el robot basta con devolver la seta de emergencia a su posición original girando levemente la misma en el sentido de las flechas. Después es necesario pulsar el botón MOTORS para volver a habilitar los motores.
+
+Cabe indicar que la comunicación de cualquier ordenador con la placa de control del robot no se interrumpe, por lo que al rearmar el robot es posible que éste continúe con los movimientos previos a la parada de emergencia. Asegúrese de que las consignas de movimiento son las correctas y ponga especial precaución cuando realice el rearmado del robot.
+
+Para información más extensa y detallada se recomienda leer la guía de usuario ofrecida por el fabricante **REFERENCIA**.
+
 \section{Conexión mediante un ordenador externo vía Wifi}
 \section{Acceder a la placa de alimentación}
 Fusible
 \section{Cargar las baterías del robot}
+El robot Pioneer 3 AT dispone de un pack de 3 baterías estáncas de plomo-ácido a 12 voltios. Estas baterías suministran alimentación a todos los sistemas del robot y proporcionan una autonomía aproximada de 2 horas de funcionamiento.
+
+El acceso a las baterías se encuentra en el interior del chasis del robot y son accesibles mediante una trampilla trasera.
+
+**IMAGEN**
+
+La carga de las baterías se realiza con el adaptador de la figura **TAL** a través del conector de carga situado junto al interruptor de alimentación general.
+
+No ha podido estimarse el tiempo de carga completo, sin embargo el propio cargador incorpora un indicador luminoso que muestra el estado de carga de las baterías.
+
 \section{Ordenador interno del Pioneer 3 AT}
+
+EL ordenador interno del robot Pioneer 3 AT se encuentra en desuso.
+
+Todos los controles necesarios para acceder al ordenador están disponibles a través del panel situado en el lateral izquierdo del robot.
+
+**IMAGEN DEL PANEL**
+
+En este lateral encontramos elementos adicionales como la antena de conexión wifi del ordenador interno y el acceso a los puertos USB y Jacks de micrófono y auriculares.
+
+\textbf{IMPORTANTE:}\\
+Originalmente este ordenador se encontraba conectado a la placa controladora del robot de manera interna a través el puerto COM1 (Accesible en el interior del robot). En su lugar se conectó el convertidor de RS-232 a USB utilizado con el ordeandor Intel NUC, por lo que el ordenador interno se encuentra desconectado del robot.
+
+\textbf{IMPORTANTE:}\\
+Uno de los ventiladores internos situado en la parte frontal derecha del robot fue desconectado debido a su elevado ruido y su encendido permanente. En caso de utilizar el ordenador interno del robot es posible que sea necesario volver a conectarlo. Sin embargo no existe riesgo de sobrecaentamiento ya que el propio ordenador dispone de un ventilador adicional que se pone en marcha al encencerlo.
 
 
 \chapter{Información y documentos ONLINE}
@@ -136,15 +221,18 @@ Como se ha descrito anteriormente, el repositorio de código desarrollado en ente
 
 **Imágen del repositorio**
 
-En él podrá encontrar una pequeña guía actualizada con información sobre las utilidades que ofrece el repositorio y en concreto el desarrollo realizado en el paquete \textit{pioneer\_utils}, donde se encuentra la mayoría del desarrollo.
+En él podrá encontrar una pequeña guía \textit{Readme} actualizada con información sobre las utilidades que ofrece el repositorio y en concreto el desarrollo realizado en el paquete \textit{pioneer\_utils}, donde se encuentra la mayoría del desarrollo.
 
 \subsection{Readme}
 Copia del documento \textit{Readme} del repositiorio.
 
 **COPIA**
 
-\section{Preguntas en ROS Answers y Github referentes al proyeto}
+\section{Preguntas en ROS Answers y Github}
+Pregunta del láser
+Preguntal del Intel Nuc
 
+Issue cleapath robotics
 
 \section{Multimedia}
 Colección de vídeos:
