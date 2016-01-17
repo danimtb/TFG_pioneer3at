@@ -168,8 +168,13 @@ Los parámetros a considerar son los siguientes:
 
 El nodo de ROS RosAria es capaz de pasar estos parámetros a la placa controladora del robot a través de Aria. Es por ello que podemos configurar dinámicamente estos parámetros del robot cada vez que ejecutamos el nodo. De esta forma evitamos tener que recurrir a Adept y a software específico para modificar los parámetros de ARCOS.
 
+Podemos ver la descripción de estos parámetros en el manual del robot Pioneer 3 AT **referencia**
 
-**Completar MANUAL**
+**IMAGEN DEL MANUAL**
+
+EL procedimiento para calcular cada uno de estos parámetros es el siguiente:
+
+
 
 \subsection{Ordenador de abordo Intel NUC}
 
@@ -179,6 +184,32 @@ El sensor Kinect utilizado en el proyecto no dispone de ninguna moficiación espe
 Tan solo indicar que puede realizarse una primera toma de contacto a través de la librería \textit{libfreenect}. Una manera rápida de hacerlo es utilizando el gestor de depencencias en C++ biicode **LINK A BIICODE**, en un sistema operativo Ubuntu siguiendo esta guía **URL DE BIICODE**.
 
 \subsection{Láser SICK LMS100}\label{subsection:sicklms100_apendice}
+
+El sensor láser LMS100 de la marca Sick es un sensor de ampli rango y largo alcance de tipo industrial.
+
+El fabricante Sick ofrece un software propietario llamado SOPAS Ingineering Tool que permite acceder a la configuración interna del sensor. Este software tan solo puede utilizarse bajo el sistema operativo Microsoft Windows, en concreto ha sido utilizado con Windows 7.
+
+Para instalarlo hay que recurrir a la web del fabricante: **COMPLETAR**
+
+Para configurar el dispositivo debemos enchufarlo a un puerto Ethernet de un ordenador con el software instalado y proporcionarle alimentación.
+
+El puerto ethernet del ordenador debe estar configurado para obtener una IP automática. Una vez aparezca la red como conectada procedemos a abrir el software SOPAS.
+
+**Imagen del programa**
+
+Automáticamente detectará el dispositivo pero seguramente no podamos acceder a él debido a una dirección IP errónea.
+
+Para ello abriremos el apartado de configuración y selecionamos ''Asignar IP automáticamente" para que nos asigne el rango adecuado.
+
+**IMAGEN DE DIRECCION IP**
+
+Si queremos una dirección IP de determinado rango, la mejor manera de proceder es asignar al adaptador de red del ordenador una IP manual del rango deseado y realizar el procedimiento anterior.
+
+A partir de aquí podremos conectarnos al láser con el nodo ROS LMS1xx, configurando una IP fija en el adaptador de red ethernet del ordenador al que lo conectemos, en este caso el ordenador Intel NUC del robot.
+
+
+
+Para más información conviene leer el manual que ofrece Sick **REFERENCIA**.
 
 \chapter{Manual de uso del robot}
 Este apéndice es una guía de funcionamiento del robot Pioneer 3 AT (Petrois) utilizado e implementado al acabar este proyecto fin de grado.
