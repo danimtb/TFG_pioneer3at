@@ -3,7 +3,7 @@
 \appendixpage
 \chapter{Configuración del sistema} \label{chapter:configuracion_sistema}
 
-En este apéndice se resume de manera simplificada y muy enfocada la configuración completa del sistema robótico objeto de este trabajo.
+En este apéndice se resume de manera simplificada y muy enfocada la configuración completa del sistema robótico objeto de este trabajo, tanto la parte referente al software de robot como la parte destinada a la configuración hardware de todos los equipos que incorpora.
 
 \section{Configuración del espacio de trabajo}
 En ROS el espacio de trabajo es el lugar donde se realiza el desarrollo software de los paquetes ROS. Este en torno de trabajo es capaz de gestionar la correcta compilación de los nodos.
@@ -87,7 +87,7 @@ $ sudo apt-get install ros-indigo-gmapping
 \end{code}
 
 \begin{itemize}
-\item Rosaria: Instalamos las dependencias de RosAria, principalmente la librería Aria
+\item Rosaria: Instalamos las dependencias de RosAria, principalmente la librería Aria.
 \end{itemize}
 
 \begin{code}[!htp]
@@ -97,12 +97,52 @@ $ rosdep install rosaria
 \caption{Instalando las dependencias de rosaria.}
 \end{code}
 
+
+Para el reconocimiento de los comandos de voz utilizamos el paquete \textit{pocketsphinx}:
+
 \begin{itemize}
-\item pocketsphinx
-\item rosdeps
-\item mirar cuaderno
+\item pocketsphinx: Instalamos los paquetes de conversion a texto y buscamos las dependencias del paquete.
 \end{itemize}
 
+\begin{code}[!htp]
+\begin{lstlisting}[style=consola]
+$ sudo apt-get install gstreamer0.10-gconf
+$ rosdep install pocketsphinx
+\end{lstlisting}
+\caption{Instalando las dependencias de \textit{pocketsphinx} y \textit{gstreamer}.}
+\end{code}
+
+Es posible que necesitemos las dependencias añadidar de \textit{audio\_capture}.
+
+\begin{code}[!htp]
+\begin{lstlisting}[style=consola]
+$ rosdep install audio_capture
+\end{lstlisting}
+\caption{Instalando las dependencias de \textit{audio\_capture}.}
+\end{code}
+
+Para el audio (sintetizado de voz) utilizamos el nodo \textit{sound\_play}, por lo que debemos instalar sus dependencias.
+
+\begin{itemize}
+\item sound\_play: Nodo para el sintetizado de voz y reproducir sonidos.
+\end{itemize}
+
+\begin{code}[!htp]
+\begin{lstlisting}[style=consola]
+$ rosdep install sound_play
+\end{lstlisting}
+\caption{Instalando las dependencias de \textit{sound\_play}.}
+\end{code}
+
+Una vez disponemos de todos los paquetes y sus respectivas dependencias no debemos olvidarnos de que es necesario compilarlos:
+
+\begin{code}[!htp]
+\begin{lstlisting}[style=consola]
+$ cd ~/catkin_ws
+$ catkin_make
+\end{lstlisting}
+\caption{Compilando los paquetes del espacio de trabajo Catkin.}
+\end{code}
 
 
 \section{Configuración del hardware}
@@ -125,6 +165,9 @@ Los parámetros a considerar son los siguientes:
 \item DriftFactor
 \item RevCount
 \end{itemize}
+
+El nodo de ROS RosAria es capaz de pasar estos parámetros a la placa controladora del robot a través de Aria. Es por ello que podemos configurar dinámicamente estos parámetros del robot cada vez que ejecutamos el nodo. De esta forma evitamos tener que recurrir a Adept y a software específico para modificar los parámetros de ARCOS.
+
 
 **Completar MANUAL**
 
@@ -181,6 +224,35 @@ Cabe indicar que la comunicación de cualquier ordenador con la placa de control 
 Para información más extensa y detallada se recomienda leer la guía de usuario ofrecida por el fabricante **REFERENCIA**.
 
 \section{Conexión mediante un ordenador externo vía Wifi}
+
+Al encender el ordenador Intel NUC, éste está configurado para generar directamente un HotSpot Wifi o red Ad-hoc con el nombre "P3AT". Esta red Wifi maneja direcciones IP en el rango 10.42.0.X por lo que es recomendable conectarse a ella con una IP fija que esté dentro de ese rango. SU contraseña es "pioneer3at"
+
+Si se está ejecutando el nodo MASTER en el ordenador Intel NUC, éste estará configurado con la IP 10.42.0.1. Para indicar que queremos conectarnos a un nodo MASTER que se ejecuta en otra máquina debemos editar el script \textit{.bashrc} del ordenador externo, que se ejecuta siempre que abrimos una terminal.
+
+Para editarlo, abrimos la terminal y escribimos:
+
+\begin{code}[htp]
+\begin{lstlisting}[style=consola]
+$ gedit ~/.bashrc
+\end{lstlisting}
+\caption{Abriendo el \textit{.bashrc}.}
+\end{code}
+
+Una vez abierto, al final del archivo añadimos las siguientes dos líneas:
+
+\begin{code}[htp]
+\begin{lstlisting}[style=consola]
+export ROS_IP=10.42.0.77
+export ROS_MASTER_URI=http://10.42.0.1:11311
+\end{lstlisting}
+\caption{Añadidendo las direcciones IP al \textit{.bashrc}.}
+\end{code}
+
+La primera línea indica la IP fija con la que el ordenador externo se conecta a la red Ad-hoc del Intel NUC. Modificar la IP y escribir la IP del ordeandor externo.
+La dirección IP del MASTER es la dirección que está configurada en el Intel NUC y a la que tratarán de conectarse los nodos cuando se lancen desde el ordenador externo.
+
+Este procedimiento está hecho igual en el Intel NUC pero indicando tan solo que la IP de ese equipo es \textbf{ROS\_IP=10.42.0.77}.
+
 \section{Acceder a la placa de alimentación}
 Fusible
 \section{Cargar las baterías del robot}
