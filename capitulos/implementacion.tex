@@ -86,15 +86,20 @@ Sin embargo, la primera implementación con los primeros ajustes a nuestro hardwa
 \subsubsection{Segunda configuración del sistema}
 La siguiente opción fue utilizar un ordenador externo que realizase los cálculos de navegación y enviase al robot las consignas de movimiento a través de una red WLAN. Esta idea no era la solución más ideal, ya que desde el principio la idea era que el robot fuese lo más autónomo posible sin depender de una infraestructura, sin embargo era una posibilidad directa que no suponía mucho esfuerzo.
 
-**esquema configuración**
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=\textwidth]{figuras/segunda_configuracion_sistema.png}
+\caption{Esquema de la segunda configuración del sistema. Basado en **REFERENCIA ALENJANDRO**.}
+\label{fig:segunda_configuracion_sistema}
+\end{figure}
 
 Gracias a la filosofía de ejecución distribuida de nodos de ROS, ejecutar nodos en máquinas diferentes y compartir la información entre procesos es una tarea sencilla. Para configurarlo, tan solo es necesario indicar a las máquinas la IP del nodo master. De esta forma, los nodos que se ejecuten en cada una de las máquinas tratarán de realizar la comunicación a través de IPs dentro de la misma red.
 
-Este ajuste fue puesto en marcha utilizando un ordenador portátil con suficiente capacidad de procesamiento y memoria como para ejecutar la navegación, sin embargo aparecieron algunos inconvenientes.
+Este ajuste fue puesto en marcha utilizando un ordenador portátil con suficiente capacidad de procesamiento y memoria como para ejecutar la navegación, sin embargo aparecieron algunos inconvenientes. El primero de ellos fueron las direcciones IP en el ordenador interno del Pioneer.
 
-El primero de ellos fueron las direcciones IP en el ordenador interno del Pioneer.
+\begin{itemize}
 
-\textbf{Problemas con el sensor Láser: LM1xx}\\
+\item \textbf{Problemas con el sensor Láser: LM1xx}\\\\
 Debido a que el sensor láser se conecta vía Ethernet a este ordenador, el nodo LMS1xx debe obtener información a través de la IP del láser y enviarla a través del adaptador Wifi a la IP del nodo máster. El problema residía en que el nodo se saturaba al tener que lidiar con ambas interfaces de conexión y provocaba su detención.
 
 Tras varias consultas a Clearpath Robotics a través de su repositorio de GitHub y preguntas en el foro ROS Answers **Enlaces de referencia**, la solución no estaba implementada en código y lo más inmediato era hacer un bridge en el ordenador del Pioneer 3 AT entre la interfaz Ethernet y la Wifi.
@@ -104,8 +109,7 @@ Los resultados de esta solución no fueron satisfactorios ya que el comportamient
 Trantando de resolver este problema, se hicieron pruebas generando una red Wifi Ad-hoc desde el ordenador del robot, a la cual se conectaba el ordenador externo. Los resultados fueron buenos siempre y cuando las IPs del nodo master y del sensor Láser se encontrasen en el mismo subrango **revisar nomenclatura**.
 
 En la implementación final del sistema esta solución se sigue utilizando para conectarse desde un ordenador externo al ordenador que incorpora el robot Pioneer.
-
-**OJOOOO continua seccion**
+\end{itemize}
 
 Una vez se pudo conectar el ordenador externo, la ejecución del nodo de navegación era la correcta y las consignas de movimiento se enviaban correctamente al robot, pudiendo realizar las primeras pruebas de navegación autónoma.
 
@@ -122,13 +126,13 @@ Llegados a este punto, ahora sí disponíamos de la plataforma robótica completa s
 
 **imagen de los agarres**
 
-\subsection{Segunda configuración}
+\subsection{Segunda configuración hardware}
 
-La segunda configuración hardware vino dada tras las pruebas satisfactorias con el ordenador portátil como encargada e la ejecución del sistema ROS. Debido a ello se optó por utilizar el ordenador compacto Intel NUC de manera dedicada en el robot, sustituyendo al portátil, dejando más espacio para colocar los sensores y hacer un sistema más integrado.
+La segunda configuración hardware vino dada tras las pruebas satisfactorias con el ordenador portátil como encargado de la ejecución del sistema ROS. Debido a ello se optó por utilizar el ordenador compacto Intel NUC de manera dedicada en el robot, sustituyendo al portátil, dejando más espacio para colocar los sensores y hacer un sistema más integrado.
 
 Una de las principales desventajas con las que contaba la primera configuración hardware era la posición tan adelantada del sensor Kinect, ya que debido a sus características, si un objeto se situa a medio metro o menos delante de la cámara infrarroja, las proyecciones de su emisor de infrarrojos no pueden ser captadas y por tanto obtenemos una nube de puntos vacía (la cámara Kinect se queda ''ciega"). Es por tanto que esta nueva configuración hardware del robot vino motivada por el hecho de retrasar la posición de la cámara y obtener cierta distancia de margen para evitar el efecto anterior.
 
-Tras varias pruebas en el simulador Gazebo (sección **TAL**) cambiando la posición del sensor Kinect, el ordenador Intel NUC y del sensor láser SICK, se aprovechó todo el área del robot de manera que ningún elemento estorbase a los haces de infrarrojos de los dos sensores. El sensor Kinect se situó más retrasado, hacia la mitad del robot, dejando tan solo sitio en la parte trasera para incorporar el resto de elementos. El sensor láser se situó en la parte trasera mirando hacia atrás ya que gracias a su amplio rango de 270º, podíamos obtener lecturas de prácticamente todo el perímetro del robot.
+Tras varias pruebas en el simulador Gazebo (Sección \ref{Gazebo}) cambiando la posición del sensor Kinect, el ordenador Intel NUC y del sensor láser SICK, se aprovechó todo el área del robot de manera que ningún elemento estorbase a los haces de infrarrojos de los dos sensores. El sensor Kinect se situó más retrasado, hacia la mitad del robot, dejando tan solo sitio en la parte trasera para incorporar el resto de elementos. El sensor láser se situó en la parte trasera mirando hacia atrás ya que gracias a su amplio rango de 270º, podíamos obtener lecturas de prácticamente todo el perímetro del robot.
 
 **imagen de la disposición del robot en freecad y pruebas reales**.
 
@@ -183,7 +187,54 @@ La configuración final del sistema quedó definida como se indica en la figura \r
 El suministro de energía a todos los elementos que incorpora el robot se realiza a través de la placa de alimentación del robot, la cual se conecta al pack de 3 baterías alojado en su interior.
 
 \section{Navegación}
-\subsection{Sensores}
+La navegación es el propósito central de este proyecto. Como ya se ha indicado anteriormente la navegación se centra en el Navigation Stack de ROS.
+
+En el capítulo \ref{chapter:navegacion} vimos una descripción de cada una de sus partes y unos ajustes generales para nuestro robot. En este apartado veremos unos ajustes más específicos y elaborados que son los ajustes finales para la navegación del robot.
+
+El robot ha sido adaptado y configurado de manera óptima basándonos en las características de la navegación en dos dimensiones que ofrece ROS, como hemos visto en el apartado anterior.
+
+\subsection{Configuración de los costmaps y los sensores}
+La navegación del robot se basa en la información recogida en los llamados "costmaps".
+
+Para realizar la navegación disponemos de dos costmaps, el llamado "global\_costmap'' y el llamado "local\_costmap". El primero sirve de base al planificador de trayectoria global y el segundo lo hace para el planificador de trayectoria local.
+
+Su comportamiento y posibilidades de configuración son las mismas con la excepción de que el mapa global toma información del mapa que se cargue para realizar navegación (en caso de utilizar uno) además de la información aportada por los sensores.
+
+La misión de los mapas de coste es la tomar la información de los sensores e incorporarla a un mapa de celdillas y marcar o borrar los obstáculos pertinentes. A partir de esa información se calcula un gradiente de coste que asigna un valor a cada una de ellas.
+
+Los mapas de coste tal y como está implementados en ROS integran la información de los sensores en una misma capa, de tal forma que no existe distinción entre el tipo de información que está tomando un sensor u otro. Esto supone un problema añadido en el caso de este proyecto, ya que se pretendía utilizar la información de los dos sensores: Kinect y láser.
+
+\begin{itemize}
+\item \textbf{La problemática de los dos sensores}\\\\
+El problema consiste en que el sensor Kinect es capaz de tomar información de la posición de os obstáculos a diferente altura pero con un alcance más reducido. Sin embargo, el sensor láser dispone de un alcance mayor, pero no puede detectar obstáculos que queden por encima o por debajo de su haz.
+
+Esto hacía que si se configuraban los mapas de coste con una sola capa de obstáculos, en caso de que el sensor Kinect incorporase un obstáculo al mapa que quedaba por debajo del haz láser, si ese obstáculo dejaba de ser visto por el sensor Kinect pero se encontraba dentro del rango del láser, al quedar por debajo del haz de este último no se detectaba ningún obstáculo y se borraba del mapa.
+
+Esta problemática se producía tanto para el mapa de coste global como para el local.
+
+Esta problemática es bien conocida dentro del mundo de la robótica y se denomina "Fusión sensorial" **referencia** donde una de las técnicas más conocidas es la de fusión mediante Filtro de Kalman **refrencia**.
+
+La solución a esta problemática más adecuada era realizar una composición de los puntos obtenidos por el sensor Láser y el sensor Kinect. Sin embargo, el coste computacional de crear una nueva nube de puntos a partir de dos tipos de datos diferentes a una frecuencia adecuada se antojaba elevado, por lo que la opción más adecuada consistió en utilizar capas de obstáculos diferentes para cada uno de los sensores.
+
+Así, cada sensor sería capaz de incorporar o borrar obstáculos del mapa solo si eran detectados o no por ese mismo sensor y no por el otro. Si bien es cierto que de esta forma existen duplicidades de los obstáculos al tener que ser incorporados o borrados del mapa por cada sensor de manera independiente, esto nos permite salvar el caso en el que exista un obstáculo y este no se tenga en cuenta por interferencias de los sensores.
+
+\item \textbf{La problemática de la nube de puntos}\\\\
+Otro de los problemas a solventar fue la manera en la que gestionar los obstáculos del sensor Kinect.
+
+El gran número de puntos disponibles incrementa mucho el cálculo de los obstáculos si se analiza toda la nube directamente, por lo que es mejor recurrir a analizarla por partes.
+
+Para hacer esta operación se probaron nodos de ros que realizaban la conversión del dato tipo PointCloud2 a tipo LaserScan definiendo parámetros como la altura, distancia...
+
+El nodo \textbf{\textit{PointCloud\_to\_LaserScan}} **referencia** realiza este filtrado y conversión de tipo de datos a partir del análisis de la nube de puntos basándose en la librería PCL \cite{PCL}. Su funcionamiento es correcto y el coste computacional se reduce, sin embargo no se consigue la frecuencia adecuada para que los datos se actualicen a tiempo a medida que el robot navega.
+
+Otro de los nodos utilizados para este propósito es \textbf{\textit{DepthImage\_to\_LaserScan}} **referencia**. En este caso su enfoque es diferente, ya que utiliza los píxeles de la imagen para analizar la nube de puntos de tal modo que solo analiza los puntos correspondientes a un determinado rango de píxeles. Este nodo es mucho más eficiente en el cálculo pero no tiene en cuenta aspectos como la inclinación del sensor o la detección del suelo como obstáculo.
+
+Las pruebas realizadas utilizando este nodo fueron correctas, ya que el procesado de la nube de puntos era más rápido y permitía realizar los cáculos a una frecuencia adecuada. Sin embargo requiere más de una instancia de estos nodos para poder detectar obstáculos bajos a corta (hasta 1.5 metros) y media distancia (hasta unos 3 metros) para que no se produzcan interferencias con el suelo.
+
+De este modo, se crearon 3 instancias diferentes de este nodo: uno para obstáculos situados a una distancia mayor, un segundo para obstáculos a distancias medias, y un tercero para obstáculos a distancias cortas.
+\end{itemize}
+
+\subsection{Configuración de los planificadores de trayectoria}
 \subsection{Navegación con mapa}
 \subsection{Navegación reactiva}
 \section{Nodo de navegación por puntos}
