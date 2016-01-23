@@ -187,9 +187,44 @@ Para esta prueba se utilizó el nodo de mapeado y el de teleoperación y se guió a
 Indicar que este fue el mapa base utilizado para la navegación de sucesivas pruebas con Gazebo en las cuales el nodo AMCL situó correctamente al robot en el entorno virtual, por lo que validación del mapa generado es correcta.
 
 \subsubsection{Navegación con mapa}
-Las navegaciones con mapa en el simulador fueron determinantes para realizar una configuración más elaborada de ambos costmaps.
-Debido a los problemas con el borrado de los obstáculos (ver Subsección \label{subsection:configuracion_costmaps_sensores})
+Las navegaciones con mapa en el simulador fueron determinantes para realizar una configuración más elaborada de ambos costmaps debido a los problemas con el borrado de los obstáculos (ver Subsección \label{subsection:configuracion_costmaps_sensores}).
+
+En un principio se valoró la posibilidad de utilizar el sensor Kinect tan solo para obstáculos locales y el sensor láser para obstáculos globales, sin embargó se descartó ya que el robot trataba de seguir una trayectoria global incorrecta que no contemplaba los obstáculos bajos (Figura), con las complicaciones de control que eso supone para el planificador de trayectoria local.
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=0.8\textwidth]{figuras/discrepancia_costmaps_gazebo.png}
+\caption{Trayectoria global erronea.}
+\label{fig:discrepancia_costmaps_gazebo}
+\end{figure}
+
+Esto determinó, junto con las características especiales del sensor Kinect, que los sensores fueran recolocados para la configuración final del robot y que se añadiesen capas de obstáculos diferenciadas para cada sensor.
+
+Pruebas posteriores con la nueva configuración y obstáculos bajos determinaron la configuración correcta. Además se configuró un cálculo de trayectoria global repetitivo, de tal modo que el planificador global genera trayectorias actualizadas a medida que el robot incorpora los obstáculos al mapa. Esto ayuda al planificador local de taryectoria y en definitiva a que el robot realice menos maniobras.
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=0.8\textwidth]{figuras/navegacion_global_gazebo.png}
+\caption{Navegación con mapa final.}
+\label{fig:navegacion_global_gazebo}
+\end{figure}
+
 \subsubsection{Navegación reactiva}
+La nagación reactiva es una configuración menor de la anterior, por lo que no supuso un desarrollo más elaborado en las pruebas realizadas.
+
+Consistieron en realizar navegación mandando al robot hacia varios puntos de meta y comprobar si se quedaba atascado en algún momento.
+
+Las pruebas determinaron que el robot mostraba el mismo comportamiento en la navegación pero existían limitaciones como la distancia a la que pueden encontrarse los puntos de meta (puntos más cercanos al robot debido a la ausencia de mapa) o solapamientos y giros en el mapa global si este era demasiado grande.
+
+Como es normal en una navegación reactiva, el robot se desplaza siguiendo la trayectoria más corta en base a la información que sus sensores captan en ese momento, por lo que suceden casos como en la figura *TAL*. A pesar de ello, gracias a la información de los obstáculos que queda retenida en el mapa global, el planificador recalcula.
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=0.40\textwidth]{figuras/navegacion_local1_gazebop.png}
+\includegraphics[width=0.45\textwidth]{figuras/navegacion_local2_gazebop.png}
+\caption{Navegación con mapa final.}
+\label{fig:navegacion_local_gazebo}
+\end{figure}
 \subsubsection{Prueba de resistencia}
 
 \section{Pruebas reales}
