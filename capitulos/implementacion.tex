@@ -247,7 +247,7 @@ De este modo, se crearon 3 instancias diferentes de este nodo: uno para obstácul
     </node>
 </launch>
 \end{lstlisting}
-\caption{Launchfile \textit{DepthImage\_to\_LaserScan} para obstáculos lejanos\footnotemark.}
+\caption{Launchfile \textit{DepthImage\_to\_LaserScan} para obstáculos lejanos.}\footnotemark
 \end{code}
 \footnotetext{\hypersetup{urlcolor=black}
 Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/sensors/kinect_to_laser_long.launch}{\textit{pioneer\_utils/sensors/kinect\_to\_laser\_long.launch}}
@@ -267,7 +267,7 @@ Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_u
     </node>
 </launch>
 \end{lstlisting}
-\caption{Launchfile \textit{DepthImage\_to\_LaserScan} para obstáculos lejanos\footnotemark.}
+\caption{Launchfile \textit{DepthImage\_to\_LaserScan} para obstáculos lejanos.}\footnotemark
 \end{code}
 \footnotetext{\hypersetup{urlcolor=black}
 Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/sensors/kinect_to_laser_long.launch}{\textit{pioneer\_utils/sensors/kinect\_to\_laser\_long.launch}}
@@ -287,7 +287,7 @@ Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_u
     </node>
 </launch>
 \end{lstlisting}
-\caption{Launchfile \textit{DepthImage\_to\_LaserScan} para obstáculos lejanos\footnotemark.}
+\caption{Launchfile \textit{DepthImage\_to\_LaserScan} para obstáculos lejanos.}\footnotemark
 \end{code}
 \footnotetext{\hypersetup{urlcolor=black}
 Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/sensors/kinect_to_laser_long.launch}{\textit{pioneer\_utils/sensors/kinect\_to\_laser\_long.launch}}
@@ -296,7 +296,7 @@ Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_u
 
 Una vez solventados los problemas anteriores el ajuste de ambos costmaps se realizó mediante ensayos prueba error con el propio robot y con su modelo creado en el simulador Gazebo.
 
-La configuración de los mismos se expone a continuación \ref{.
+La configuración de los mismos se expone a continuación.
 
 \begin{code}[!htp]
 \begin{lstlisting}[style=launch]
@@ -328,7 +328,7 @@ global_costmap:
     inflation_radius: 0.55
     cost_scaling_factor: 4.0
 \end{lstlisting}
-\caption{Configuración del \textit{global\_costmap}\footnotemark.}
+\caption{Configuración del \textit{global\_costmap}.}\footnotemark
 \end{code}
 \footnotetext{\hypersetup{urlcolor=black}
 Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/navigation/global_navigation/global_costmap_params.yaml}{\textit{pioneer\_utils/navigation/global\_navigation/global\_costmap\_params.yaml}}
@@ -374,7 +374,7 @@ local_costmap:
   inflation_layer:
     inflation_radius: 0.3
 \end{lstlisting}
-\caption{Configuración del \textit{local\_costmap}\footnotemark.}
+\caption{Configuración del \textit{local\_costmap}.}\footnotemark
 \end{code}
 \footnotetext{\hypersetup{urlcolor=black}
 Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/navigation/common/local_costmap_params.yaml}{\textit{pioneer\_utils/navigation/common/local\_costmap\_params.yaml}}
@@ -402,8 +402,21 @@ A continuación podemos ver el comportamiento del planificador con diferente conf
 ALGORITMOS CON PRUEBAS
 PLANIFICADOR FINAL
 
-\subsubsection{\subsection{Parámetros del local\_planner}}
+\subsubsection{Parámetros del local\_planner}
+
 \subsection{Navegación con mapa}
+Usualmente cuando hablamos de navegación nos referimos a una navegación basada en un mapa previo que se carga en la memoria del robot.
+
+Los mapas utilizados para la navegación han sido todos creados utilizando el paquete \textit{gmapping} de ROS, utilizando el sensor láser del robot para obtener un rango y precisión mayor (Figura \ref{fig:creacion_mapa}).
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.4\textwidth]{figuras/creacion_mapa.png}
+\caption{Creación de un mapa mediante SLAM.}
+\label{fig:creacion_mapa}
+\end{figure}
+
+
 \subsection{Navegación reactiva}
 \section{Nodo de navegación por puntos}
 \section{Nodo de comandos por voz}
