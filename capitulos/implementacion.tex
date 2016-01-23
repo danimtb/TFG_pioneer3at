@@ -451,6 +451,52 @@ Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_u
 \hypersetup{urlcolor=blue}}
 
 \subsection{Navegación reactiva}
+La navegación reactiva es la que se conoce por carecer de un mapa previo cargado en la memoria del robot. En su caso el robot percibe el entorno a medida que navega construyendo un mapa global de manera dinámica al igual que sucede con la configuración del mapa local.
+
+En este caso la configuración del mapa global carece una capa estática, por lo que el mapa se desplaza junto con el robot.
+y se confía en la odometría del robot para realizar la orientación.
+
+\begin{code}[!htp]
+\begin{lstlisting}[style=launch]
+global_costmap:
+  global_frame: /odom
+  robot_base_frame: /base_link
+  update_frequency: 2.0
+  publish_frequency: 2.0
+  static_map: false
+  rolling_window: true
+  track_unknown_space: true
+  width: 15.0
+  height: 15.0
+  origin_x: 0.0
+  origin_y: 0.0
+
+  plugins:
+      - {name: obstacle_layer_kinect,        type: "costmap_2d::VoxelLayer"}
+      - {name: obstacle_layer_laser,       type: "costmap_2d::VoxelLayer"}
+      - {name: inflation_layer,       type: "costmap_2d::InflationLayer"}
+
+  obstacle_layer_kinect:
+    observation_sources: kinect_laser kinect_laser_low kinect_laser_long
+    kinect_laser: {sensor_frame: camera_link, data_type: LaserScan, topic: camera/scan_depth, marking: true, clearing: true, obstacle_range: 3.0, raytrace_range: 6.5, inf_is_valid: true}
+    kinect_laser_low: {sensor_frame: camera_link, data_type: LaserScan, topic: camera/scan_depth_low, marking: true, clearing: true, obstacle_range: 3.0, raytrace_range: 6.5, inf_is_valid: true}
+    kinect_laser_long: {sensor_frame: camera_link, data_type: LaserScan, topic: camera/scan_depth_long, marking: true, clearing: true, obstacle_range: 3.0, raytrace_range: 6.5, inf_is_valid: true}
+
+  obstacle_layer_laser:
+    observation_sources: sick_lms1xx
+    sick_lms1xx: {sensor_frame: laser, data_type: LaserScan, topic: scan, marking: true, clearing: true, obstacle_range: 5.0, raytrace_range: 12.5, inf_is_valid: true}
+
+  inflation_layer:
+    inflation_radius: 0.55
+\end{lstlisting}
+\caption{Configuración de navegación global.}\footnotemark
+\end{code}
+\footnotetext{\hypersetup{urlcolor=black}
+Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/navigation/local_navigation/global_costmap_params.yaml}{\textit{pioneer\_utils/navigation/local\_navigation/global\_costmap\_params.yaml}}
+\hypersetup{urlcolor=blue}}
+
+y se confía en la odometría del robot para realizar la orientación.
+
 \section{Nodo de navegación por puntos}
 \section{Nodo de comandos por voz}
 \subsection{Reconocimiento de comandos de voz}
