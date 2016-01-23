@@ -339,7 +339,7 @@ Esto determina en gran medida el cálculo de trayectoria global, permitiendo tray
 
 **IMAGEN GLOBAL COSTMAP**
 
-Para el mapa local la configuración es muy similar y lo más importante es una frecuencia de actualización del mapa mayor.
+Para el mapa local la configuración es muy similar y lo más importante es una frecuencia de actualización del mapa mayor y la ausencia de la capa estática.
 
 \begin{code}[!htp]
 \begin{lstlisting}[style=launch]
@@ -372,7 +372,8 @@ local_costmap:
     sick_lms1xx: {sensor_frame: laser, data_type: LaserScan, topic: scan, marking: true, clearing: true, obstacle_range: 10.0, raytrace_range: 12.0, inf_is_valid: true}
 
   inflation_layer:
-    inflation_radius: 0.3
+    inflation_radius: 0.55
+    cost_scaling_factor: 4.0
 \end{lstlisting}
 \caption{Configuración del \textit{local\_costmap}.}\footnotemark
 \end{code}
@@ -453,8 +454,7 @@ Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_u
 \subsection{Navegación reactiva}
 La navegación reactiva es la que se conoce por carecer de un mapa previo cargado en la memoria del robot. En su caso el robot percibe el entorno a medida que navega construyendo un mapa global de manera dinámica al igual que sucede con la configuración del mapa local.
 
-En este caso la configuración del mapa global carece una capa estática, por lo que el mapa se desplaza junto con el robot.
-y se confía en la odometría del robot para realizar la orientación.
+En este caso la configuración del mapa global carece de capa estática, por lo que el mapa se desplaza junto con el robot.
 
 \begin{code}[!htp]
 \begin{lstlisting}[style=launch]
@@ -488,14 +488,39 @@ global_costmap:
 
   inflation_layer:
     inflation_radius: 0.55
+    cost_scaling_factor: 4.0
 \end{lstlisting}
-\caption{Configuración de navegación global.}\footnotemark
+\caption{Configuración de \textit{global\_costmap} para navegación reactiva.}\footnotemark
 \end{code}
 \footnotetext{\hypersetup{urlcolor=black}
 Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/navigation/local_navigation/global_costmap_params.yaml}{\textit{pioneer\_utils/navigation/local\_navigation/global\_costmap\_params.yaml}}
 \hypersetup{urlcolor=blue}}
 
-y se confía en la odometría del robot para realizar la orientación.
+La configuración de la navegación carece mapa y por tanto tampoco es preciso el nodo AMCL para situar al robot en el mismo. La orientación y posición del robot queda determinada por su odometría.
+
+\begin{code}[!htp]
+\begin{lstlisting}[style=launch]
+<launch>
+	<node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+        <rosparam file="$(find pioneer_utils)/navigation/common/costmap_common_params_p3at.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find pioneer_utils)/navigation/common/costmap_common_params_p3at.yaml" command="load" ns="local_costmap" />
+        <rosparam file="$(find pioneer_utils)/navigation/common/local_costmap_params.yaml" command="load" />
+        <rosparam file="$(find pioneer_utils)/navigation/local_navigation/global_costmap_params.yaml" command="load" />
+        <rosparam file="$(find pioneer_utils)/navigation/common/base_local_planner_params.yaml" command="load"/>
+        <rosparam file="$(find pioneer_utils)/navigation/common/global_planner_params.yaml" command="load" />
+        <rosparam file="$(find pioneer_utils)/navigation/common/recovery_behaviors.yaml" command="load" />
+        <rosparam>
+            planner_frequency: 1.0 
+        </rosparam>
+        <param name="base_global_planner" value="global_planner/GlobalPlanner"/>
+    </node>
+</launch>
+\end{lstlisting}
+\caption{Configuración del launchfile para navegación reactiva.}\footnotemark
+\end{code}
+\footnotetext{\hypersetup{urlcolor=black}
+Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/navigation/local_navigation/local_navigation_p3at.launch}{\textit{pioneer\_utils/navigation/local\_navigation/local\_navigation\_p3at.launch}}
+\hypersetup{urlcolor=blue}}
 
 \section{Nodo de navegación por puntos}
 \section{Nodo de comandos por voz}
