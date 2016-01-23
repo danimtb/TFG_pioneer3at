@@ -1,6 +1,8 @@
 \chapter{Pruebas del sistema}
 En este capítulo se describen las principales pruebas realizadas con el robot de tal modo que sirva para validar el trabajo realizado y exponer a los resultados obtenidos.
 
+Dividimos este capítulo en dos partes, pruebas del robot en simulación y pruebas en el entorno real, centrándonos exclusivamente en la creación de mapas mediante SLAM y los tests de navegación.
+
 \section{Simulación con MobileSim}\label{MobileSim}
 Una de las ventajas de utilizar el nodo rosaria para controlar el robot y obtener los datos de odometría es que las herramientas ofrecidas por el fabricante siguen pudiendo utilizarse. Este es el caso del simulador MobileSim.
 
@@ -163,16 +165,36 @@ Las pruebas con Gazebo fueron realizadas gracias a la correcta configuración de 
 
 \pagebreak
 
-\subsubsection{Pruebas simuladas}
+\subsection{Pruebas simuladas}
 La ventaja de disponer del simulador Gazebo funcionando con el modelo de nuestro robot permitió que el robot evolucionase más rápido debido a que los cambios se probaban de manera inmediata y que puedieran probarse otras configuraciones del robot, validarlas y finalmente implementarlo en el robot real.
 
-Con la ayuda de Gazebo se han podido pobar todas las configuraciones de navegación, el funcionamiento de cada nodo y el intercambio de datos entre ellos.
+Con la ayuda de Gazebo se han podido probar todas las configuraciones de navegación, el funcionamiento de cada nodo y el intercambio de datos entre ellos.
 
-\subsection{SLAM}
-\subsection{Datos de navegacion}
+\subsubsection{SLAM}
+Las pruebas de SLAM se realizaron con el ya mencionado paquete \textit{gmapping}, funcionando de la manera habitual.
+
+Para comprobar su validez, se utilizó dispuso al robot en el mundo "Willow Garage" que simula un entorno de oficinas, similar al entorno real del laboratorio. El objetivo principal fue comprobar que el algoritmo de mapeado funcionaba correctamente y si se conseguía cerrar el mapa realizando un bucle completo.
+
+Para esta prueba se utilizó el nodo de mapeado y el de teleoperación y se guió al robot por una parte del entorno realizando diversos bucles (Figura \ref{fig:slam_gazebo}), en los que se observa que no existe distorsión en paredes paralelas y que el mapa no se encuentra solapado.
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=0.8\textwidth]{figuras/slam_gazebo.png}
+\caption{Prueba de SLAM en el simulador Gazebo.}
+\label{fig:slam_gazebo}
+\end{figure}
+
+Indicar que este fue el mapa base utilizado para la navegación de sucesivas pruebas con Gazebo en las cuales el nodo AMCL situó correctamente al robot en el entorno virtual, por lo que validación del mapa generado es correcta.
+
+\subsubsection{Navegación con mapa}
+Las navegaciones con mapa en el simulador fueron determinantes para realizar una configuración más elaborada de ambos costmaps.
+Debido a los problemas con el borrado de los obstáculos 
+\subsubsection{Navegación reactiva}
+\subsubsection{Prueba de resistencia}
 
 \section{Pruebas reales}
 \subsection{SLAM}
-\subsection{Datos de navegacion}
-Test de resistencia
+\subsection{Navegación con mapa}
+\subsection{Navegación reactiva}
+\subsection{Prueba de resistencia}
 \subsection{Ascpectos de la navegación}
