@@ -381,6 +381,28 @@ Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_u
 \hypersetup{urlcolor=blue}}
 
 \subsection{Configuración de los planificadores de trayectoria}
+Los planificadores de trayectoria por defecto en ROS utilizan algoritmos como Dijsktra o A* además de algunos ajustes para el cálculo y parámetros especiales en el caso del planificador de trayectoria local.
+
+\subsubsection{Parámetros del global\_planner}
+En ROS, el nodo encargado de realizar el cálculo de la trayectoria global es el denominado global\_planner. Este nodo dispone de los algoritmos de planificación ya implementados que realizan los cáculos de trayectoria.
+
+La configuración del planificador global se realiza a través de parámetros que podemos configurar, distinguiendo entre el uso del algoritmo de Dijsktra o el de A*, utilizar un camino definido por rejilla, etc.
+
+A continuación podemos ver el comportamiento del planificador con diferente configuración en sus parámetros.
+
+\begin{itemize}
+\item \textbf{Algoritmo de Dijsktra}:
+\\La configuración por defecto del planeador realiza el cálculo de trayectoria mediante el algoritmo de Dijsktra.
+
+\item \textbf{use\_grid\_path}:
+\item \textbf{use\_quadratic}:
+\item \textbf{old\_navfn\_behavior}:
+\end{itemize}
+
+ALGORITMOS CON PRUEBAS
+PLANIFICADOR FINAL
+
+\subsubsection{\subsection{Parámetros del local\_planner}}
 \subsection{Navegación con mapa}
 \subsection{Navegación reactiva}
 \section{Nodo de navegación por puntos}
