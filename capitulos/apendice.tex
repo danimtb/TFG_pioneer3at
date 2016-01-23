@@ -212,7 +212,7 @@ A partir de aquí podremos conectarnos al láser con el nodo ROS LMS1xx, configura
 \item Dirección IP del adaptador ethernet del ordenador Intel NUC: 
 \end{itemize}
 
-Para más información conviene leer el manual que ofrece Sick **REFERENCIA**.
+Para más información conviene leer el manual que ofrece Sick \cite{sicklms100}.
 
 \chapter{Manual de uso del robot}
 Este apéndice es una guía de funcionamiento del robot Pioneer 3 AT (Petrois) utilizado e implementado al acabar este proyecto fin de grado.
@@ -227,9 +227,14 @@ Adicionalmente es necesario encender el ordenador de abordo Intel NUC mediante s
 \section{Panel de control y parada de emergencia}
 El panel de control del robot se sitúa en su lateral derecho. Aquí disponemos de una serie de botones, indicadores luminosos, acústicos y conexiones.
 
-**FIGURA DEL PANEL**
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=0.6\textwidth]{figuras/panel_derecho.jpg}
+\caption{Panel de control del robot Petrois.}
+\label{fig:panel_derecho}
+\end{figure}
 
-A continuación se describe cada uno de los elementos:
+A continuación se describe cada uno de los elementos de la figura \ref{fig:panel_derecho}:
 \begin{itemize}
 \item Pulsador MOTORS: Encargado de habilitar y deshabilitar los motores del robot. La activación de los mismos puede realizarse a través de software. Es necesario pulsar este botón para rearmar el robot cuando se pulsa la seta de emergencia. Si se pulsa una vez más el robot realiza una secuencia de movimientos para comprobar que los motores funcionan correctamente.
 \item Pulsador RESET: Resetea la placa controladora del robot. El robot queda su estado inicial, tal y como si lo acabásemos de encender. Al pulsar este botón se interrumpe cualquier comunicación con la placa de control.
@@ -240,7 +245,7 @@ A continuación se describe cada uno de los elementos:
 \item LED BATERY: Indica el estado de carga de la batería.
 \item LEDs AUX 1 y AUX 2: Indica si las alimentaciones auxiliares se encuentran activas.
 \item LEDs RX y TX: Muestran el estado de la comunicación con la placa de control.
-\item SERIAL: Puerto RS-232 que comunica con la placa de control. Puede ser utilizado para conectar un ordeandor externo directamente la la placa de control del robot.
+\item SERIAL: Puerto RS-232 que comunica con la placa de control. Puede ser utilizado para conectar un ordeandor externo directamente la placa de control del robot.
 \end{itemize}
 
 Muchos de los estados anteriores se indican mediante una señal acústica. El reseteo de la placa tiene un sonido característico al igual que cuando se pierde la conexión con la placa de control.
@@ -298,6 +303,8 @@ El acceso a las baterías se encuentra en el interior del chasis del robot y son 
 
 La carga de las baterías se realiza con el adaptador de la figura **TAL** a través del conector de carga situado junto al interruptor de alimentación general.
 
+**Imagen del cargador**
+
 No ha podido estimarse el tiempo de carga completo, sin embargo el propio cargador incorpora un indicador luminoso que muestra el estado de carga de las baterías.
 
 \section{Ordenador interno del Pioneer 3 AT}
@@ -306,7 +313,12 @@ EL ordenador interno del robot Pioneer 3 AT se encuentra en desuso.
 
 Todos los controles necesarios para acceder al ordenador están disponibles a través del panel situado en el lateral izquierdo del robot.
 
-**IMAGEN DEL PANEL**
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=0.5\textwidth]{figuras/panel_izquierdo.png}
+\caption{Panel del ordenador interno (lateral izquierdo) del robot Petrois.}
+\label{fig:panel_izquierdo}
+\end{figure}
 
 En este lateral encontramos elementos adicionales como la antena de conexión wifi del ordenador interno y el acceso a los puertos USB y Jacks de micrófono y auriculares.
 

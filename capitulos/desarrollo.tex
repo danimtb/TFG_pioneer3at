@@ -58,7 +58,7 @@ Cuarta fase: Incorporación del sistema de navegación y ajuste de los parámetros
   
   \item Navegación utilizando el sensor Kinect y el sensor Sick y generado de mapas mediante "slam\_gmapping".
   
-  \item Ajuste de los planeadores de trayectoria del robot y parámetros de giro y control.
+  \item Ajuste de los planificadores de trayectoria del robot y parámetros de giro y control.
 \end{enumerate}
 
 Quinta fase: Ajuste de la navegación y simulación mediante Gazebo
@@ -240,9 +240,18 @@ También puede utilizarse para interactuar con nuestro robot, utilizando marcador
 
 Al uso, RViz es un nodo más dentro de ROS que se suscribe o publica mensajes a otros nodos.
 
-Su uso está muy extendido en ROS ya que nos permite entender lo que ocurre alrededor del robot y la información que manejan los nodos dentro del sistema.
+Su uso está muy extendido en ROS ya que nos permite entender lo que ocurre alrededor del robot y la información que manejan los nodos dentro del sistema de una manera intuitiva.
 
 \subsection{Impresión 3D}
+La impresión 3D es un grupo de tecnologías de fabricación por adición donde un objeto tridimensional es creado mediante la superposición de capas sucesivas de materia.
+
+Las impresoras 3D de uso popular utilizan un extrusor preparado para plásticos procesados en forma de filamento de pocos milímetros de grosor que deposita material capa a capa hasta que el objeto deseado alcanza su forma final.
+
+EL diseño de los objetos se realiza mediante una herramienta de diseño asistido por ordenador y los objetos deseados se exportan en formato de mallas.
+
+En este proyecto la impresión 3D ha servido de ayuda para crear piezas específicas para colocar los sensores del robot, anclar elementos de la estructura del robot o servir de soporte a equipos provisionales.
+
+El software utilizado para el modelado 3D ha sido la herramienta FreeCAD y la impresora 3D Makerbot thing-o-matic con su software ReplicatorG para generar las capas y controlar la impresora.
 
 \section{Hardware}
 En esta parte se explica detalladamente el hardware empleado en el desarrollo del proyecto.
@@ -288,11 +297,11 @@ Distancia al suelo & 80 mm \\
 Peso & 12 kg \\
 Carga útil & 32 kg \\
 Cuerpo & Aluminio de 1.6 mm \\
-Baterías & 3 de 12 V ~Ah, estancas, plomo-ácido \\
+Baterías & 3 de 12 V, estancas, plomo-ácido \\
 Autonomía & 4-8 horas \\
 Sistema motriz & 4 ruedas motrices \\
 Ruedas & Neumáticos de Nylon \\
-Diámetro de rueda & 222 mm \\
+Diámetro de rueda & 222 mm (Ruedas todoterreno) / 190 mm (Ruedas interior)\\
 Ancho de rueda & 88 mm \\
 Sistema de giro & Diferencial \\
 radio máxima curvatura & 40 cm \\

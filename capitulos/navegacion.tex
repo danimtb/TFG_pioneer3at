@@ -6,7 +6,7 @@ Este capítulo trata de abordar el aspecto de la navegación desde el punto de vis
 
 Por tanto, se exponen algunos ejemplos de configuraciones para la navegación, sin embargo, la configuración final del robot y la discusión sobre la misma se abordará en el capítulo \ref{chapter:implementacion}, donde hablaremos de su implementación más en detalle.
 
-\section{Navigation Stack}\label{section:navegacion}
+\section{Navigation Stack}\label{section:navigation_stack}
 Dentro de las funcionalidades de ROS ya hemos comentado que existen los metapaquetes o "Stacks", que son grupos de paquetes de software que todos juntos ofrece una funcionalidad.
 
 El paquete de navegación de ROS \cite{navigation-ros} se define como un paquete de navegación en dos dimensiones que toma información dela odometría, de los sensores y de un punto de meta y dirige el robot mediante comandos de velocidad seguros.
@@ -455,25 +455,6 @@ El algoritmo A* combina el enfoque de algoritmos como Best-First-Search y Dijskt
 En la figura \ref{fig:algoritmo_a-estrella} podemos observar el comportamiento del algoritmo en un mapa despejado y en otro con un obstáculo cóncavo. Los vértices en color amarillo muestran la transición partiendo desde el vértice incial y los de color azulado muestran la transición desde el vértice final.
 
 El algoritmo A estrella ofrece por tanto unos resultados similares al algoritmo de Dijsktra en cuanto al camino calculado. Sin embargo análisis de los vértices es similar e incluso menor Best-First-Search y por tanto menor que en el de Dijsktra.
-
-\subsection{Parámetros del global\_planner}
-En ROS, el nodo encargado de realizar el cálculo de la trayectoria global es el denominado global\_planner. Este nodo dispone de los algoritmos de planificación ya implementados que realizan los cáculos de trayectoria.
-
-La configuración del planificador global se realiza a través de parámetros que podemos configurar, distinguiendo entre el uso del algoritmo de Dijsktra o el de A*, utilizar un camino definido por rejilla, etc.
-
-A continuación podemos ver el comportamiento del planificador con diferente configuración en sus parámetros.
-
-\begin{itemize}
-\item \textbf{Algoritmo de Dijsktra}:
-\\La configuración por defecto del planeador realiza el cálculo de trayectoria mediante el algoritmo de Dijsktra.
-
-\item \textbf{use\_grid\_path}:
-\item \textbf{use\_quadratic}:
-\item \textbf{old\_navfn\_behavior}:
-\end{itemize}
-
-ALGORITMOS CON PRUEBAS
-PLANIFICADOR FINAL
 
 
 \section{Planificador de trayectoria local}

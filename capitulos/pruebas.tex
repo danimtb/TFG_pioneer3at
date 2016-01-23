@@ -200,7 +200,7 @@ En un principio se valoró la posibilidad de utilizar el sensor Kinect tan solo p
 
 Esto determinó, junto con las características especiales del sensor Kinect, que los sensores fueran recolocados para la configuración final del robot y que se añadiesen capas de obstáculos diferenciadas para cada sensor.
 
-Pruebas posteriores con la nueva configuración y obstáculos bajos determinaron la configuración correcta. Además se configuró un cálculo de trayectoria global repetitivo, de tal modo que el planificador global genera trayectorias actualizadas a medida que el robot incorpora los obstáculos al mapa. Esto ayuda al planificador local de taryectoria y en definitiva a que el robot realice menos maniobras.
+Pruebas posteriores con la nueva configuración y obstáculos bajos determinaron la configuración correcta. Además se configuró un cálculo de trayectoria global repetitivo, de tal modo que el planificador global genera trayectorias actualizadas a medida que el robot incorpora los obstáculos al mapa. Esto ayuda al planificador local de trayectoria y en definitiva a que el robot realice menos maniobras.
 
 \begin{figure}[!htp]
 \centering
@@ -226,50 +226,162 @@ Como es normal en una navegación reactiva, el robot se desplaza siguiendo la tra
 \label{fig:navegacion_local_gazebo}
 \end{figure}
 \subsubsection{Pruebas de resistencia}
-Para las pruebas de resistencia utilizamos un nodo desarrollado en Python especñificamente creado para el caso.
+Para las pruebas de resistencia utilizamos un nodo desarrollado en Python específicamente creado para el caso.
 
-Las pruebas de resistencia se realizaron en el modo de navegación con mapa y en ellas se utilizaron un total de 9 puntos de meta.
+En estas pruebas se consideraron los siguientes aspectos:
+\begin{itemize}
+\item Puntos de meta: Puntos totales repartidos por el mapa que serviran como puntos objetivo a alcanzar por el robot.
+\item Tiempo total: Tiempo total de la prueba.
+\item Metas enviadas: Número total de puntos de meta que se han enviado como objetivo al robot durante la prueba.
+\item Metas alcanzadas: Número de metas a las que ha conseguido llegar el robot.
+\item Tasa de metas alcanzadas: Tanto por ciento de las metas alcanzadas respecto de las enviadas.
+\item Distancia total: Distancia total recorrida, considerando obstáculos intermedios y maniobras o replanificación de trayectorias del robot.
+\item Nº de choques: Número de obstáculos con los que el robot ha chocado (si los hubiera).
+\end{itemize}
+
+Las pruebas de resistencia se realizaron en el modo de navegación con mapa, el entorno virtual fue el mundo "Willow Garage" y se utilizaron un total de 9 puntos de meta como objetivo, distribuidos de manera aleatoria (dentro de habitaciones, pasillos, salas grandes...) a distancias largas. Cabe señalar que no existe ningún tipo de obstáculo móvil implicado en estas pruebas.
 
 \textbf{Primera prueba}\\
-
-\begin{table}[]
-\centering
-\caption{Resultados de la primera prueba}
-\label{table:primera_prueba_simulada}
-\begin{tabular}{ll}
-\hline
-Puntos de meta &  \\
-Tiempo total&  \\
-Nº metas &  \\
-Nº metas alcanzadas &  \\
-Tasa metas alcanzadas &  \\
-Distancia total&  \\
-Nº de choques &  \\
-\end{tabular}
-\end{table}
+Prueba inicial sin obstáculos adicionales en el entorno.
 
 \begin{table}[!h]
 \centering
-\resizebox{\textwidth}{!}{%
+\resizebox{0.5\textwidth}{!}{
 \begin{tabular}{c c}
 \hline
-Puntos de meta &  9\\
-Tiempo total & 508 mm \\
-Nº metas & 497 mm \\
-Nº metas alcanzadas & 277 mm \\
-Tasa metas alcanzadas & 80 mm \\
-Distancia total & 12 kg \\
-Nº de choques & 32 kg \\
+Puntos de meta &  9 \\
+Tiempo total & 20 minutos \\
+Metas enviadas & 18 \\
+Metas alcanzadas & 18 \\
+Tasa metas alcanzadas & 100\% \\
+Distancia total & 275.2 metros \\
+Nº de choques & 0 \\
 \hline
 \end{tabular}
 }
-\caption{Especificaciones del robot Pioneer 3 AT}
-\label{tabla_pioneer3at}
-
+\caption{Primera prueba de resistencia simulada.}
+\label{tabla:primera_prueba_simulada}
 \end{table}
+La navegación del robot fue correcta durante toda la prueba.
+
+\pagebreak
+
+\textbf{Segunda prueba}\\
+Segunda prueba más larga y con obstáculos adicionales en el entorno.
+
+\begin{table}[!h]
+\centering
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{c c}
+\hline
+Puntos de meta &  9 \\
+Tiempo total & 56 minutos \\
+Metas enviadas & 29 \\
+Metas alcanzadas & 22 \\
+Tasa metas alcanzadas & 75\% \\
+Distancia total & 354.6 metros \\
+Nº de choques & 0 \\
+\hline
+\end{tabular}
+}
+\caption{Segunda prueba de resistencia simulada.}
+\label{tabla:segunda_prueba_simulada}
+\end{table}
+La prueba finalizó debido a que el robot quedó inmobilizado por encontrarse demasiado cerca de una pared frontal y otra lateral. El incremento de tiempo a pesar de no haber recorrido muchos más metros respecto de la prueba anterior se debe a las esperas por reintento en alcanzar las metas fallidas.
+
+A pesar de todo el robot no colisiona con ningún obstáculo.
+
+\textbf{Tercera prueba}\\
+Tercera prueba con las mismas características que la anterior. El objetivo de esta prueba era recorrer una distancia total más larga sin colisión.
+
+\begin{table}[!h]
+\centering
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{c c}
+\hline
+Puntos de meta &  9 \\
+Tiempo total & 23 minutos \\
+Metas enviadas & 18 \\
+Metas alcanzadas & 15 \\
+Tasa metas alcanzadas & 83\% \\
+Distancia total & 488.8 metros \\
+Nº de choques & 0 \\
+\hline
+\end{tabular}
+}
+\caption{Tercera prueba de resistencia simulada.}
+\label{tabla:tercera_prueba_simulada}
+\end{table}
+Las metas no alcanzadas se produjeron por un exceso de tiempo en alcanzarlas, saltando el timeout y abortando la meta objetivo.
+
+Esta prueba nos ofrece resultados de que los planificadores responden bien en el cálculo de trayectorias hacia puntos de meta alejados.
+
 \section{Pruebas reales}
+Las pruebas reales se llevaron a cabo en el robot con su configuración hardware y configuración del sistema final. Todos los nodos se ejecutan en el ordenador integrado Intel NUC y se utiliza un ordenador cliente para visualizar datos o teleoperar el robot en caso necesario.
+
+Las pruebas de navegación con y sin mapa se han omitido debido a que los resultados fueron correctos y no se observaron grandes diferencias respecto a los resultados obtenidos en el simulador.
+
 \subsection{SLAM}
-\subsection{Navegación con mapa}
-\subsection{Navegación reactiva}
 \subsection{Prueba de resistencia}
+Las pruebas de resistencia se llevaron a cabo en las instalaciones de la planta baja de la universidad.
+
+Se han llevado a cabo mediante el nodo de resistencia creado para el caso y utilizando diversos puntos dentro del mapa "floor\_zero-map"\footnote{\hypersetup{urlcolor=black}Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/maps/floor_zero-map.pgm}{\textit{pioneer\_utils/maps/floor\_zero-map.pgm}}
+\hypersetup{urlcolor=blue}} que abarca las zonas indicadas.
+
+El objetivo primordial de las pruebas es que el robot sea capaz de navegar sin ningún tipo de intervención humana, ya que invalidaría el concepto de robot autónomo.
+
+\textbf{Primera prueba}\\
+Primera prueba real desarrollada en el laboratorio con obstáculos y personas en movimiento.
+
+\begin{table}[!h]
+\centering
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{c c}
+\hline
+Puntos de meta &  7 \\
+Tiempo total & 44 minutos \\
+Metas enviadas & 91 \\
+Metas alcanzadas & 56 \\
+Tasa metas alcanzadas & 61\% \\
+Distancia total & - \\
+Nº de choques & 0 \\
+\hline
+\end{tabular}
+}
+\caption{Primera prueba de resistencia real\protect\footnotemark.}
+\label{tabla:primera_prueba_real}
+\end{table}
+\footnotetext{La distancia total recorrida no pudo contabilizarse debido a un error en la configuración del nodo.}
+
+Los resultados de la primera prueba no reflejan una navegación buena del robot, sin embargo esto es debido a la existencia de obstáculos prominentes no incluidos en el mapa del laboratorio que generaban distorsión en AMCL provocando que el robot quedase mal situado en el mapa. Estos obstáculos generaban a su vez un pasillo estrecho a través del cuál el planificador en ocasiones no era capaz de trazar una trayectoria correcta hasta la meta.
+
+A pesar de ello el robot no colisionó con ningún tipo de obstáculo.
+
+\textbf{Segunda prueba}\\
+Segunda prueba de mayor recorrido, con obstáculos adicionales en el entorno y personas en movimiento. El objetivo de la prueba era medir la total movilidad del robot en el laboratorio.
+
+\begin{table}[!h]
+\centering
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{c c}
+\hline
+Puntos de meta &  7 \\
+Tiempo total & 57 minutos \\
+Metas enviadas & 141 \\
+Metas alcanzadas & 114 \\
+Tasa metas alcanzadas & 80\% \\
+Distancia total & 1119.5 metros \\
+Nº de choques & 4 \\
+\hline
+\end{tabular}
+}
+\caption{Segunda prueba de resistencia real.}
+\label{tabla:segunda_prueba_real}
+\end{table}
+La prueba finalizó por falta de batería en el robot, sin embargo no puede considerarse que ese tiempo sea la duración de la misma en navegación con el robot ya que no se encontraba al 100\% (aproximadamente la duración es de 2 horas y media).
+
+Las metas no alcanzadas se produjeron por obstáculos móviles (personas en movimiento) bloqueando el paso del robot (imposible llegar a la meta físicamente). También se produjeron metas abordadas por riesgo de colisión (el robot había quedado situado muy cerca de las patas de una mesa).
+
+Los choques fueron roces leves de las ruedas con obstáculos bajos. Esto es debido a que el planificador ajusta mucho la trayectoria para que el robot pueda navegar por lugares estrechos.
+
 \subsection{Ascpectos de la navegación}

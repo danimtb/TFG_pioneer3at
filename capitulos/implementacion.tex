@@ -50,7 +50,7 @@ El sensor Kinect dispone de un adaptador USB, preparado para trabajar con la vid
 
 **Esquema conexion usual**.
 
-Para integrar el sensor Kinect en el robot, se cortó el cable de alimentación del cable adaptador y se soldaron unas clavijas tipo Jack **REVISAR** macho-hembra para conectar el adaptador directamente a los 12 voltios de la placa del robot. También se realizaó lo oportuno en el adaptador de corriente, para poder usar el sensor Kinect de la manera habitual (Figura \ref{fig:cables_kinect}).
+Para integrar el sensor Kinect en el robot, se cortó el cable de alimentación del cable adaptador y se soldaron unas clavijas tipo Jack **REVISAR** macho-hembra para conectar el adaptador directamente a los 12 voltios de la placa del robot. También se realizó lo oportuno en el adaptador de corriente, para poder usar el sensor Kinect de la manera habitual (Figura \ref{fig:cables_kinect}).
 
 \begin{figure}[!htp]
 \centering
@@ -67,7 +67,7 @@ Para anclar el sensor Kinect al robot se optó por situarlo en la parte superior 
 El sensor Kinect se conecta a la interfaz ROS mediante el paquete freenect\_stack tal y como se describió en el apartado \ref{subsection:kinect}.
 
 \subsection{Primera configuración hardware}
-La primera configuración del robot consistió en ambos sensores situados en la parte frontal del mismo. Los sensores de encontraban colocados de manera vertical otro, de tal forma que no existieran interferencias entre uno y otro.
+La primera configuración del robot consistió en ambos sensores situados en la parte frontal del mismo. Los sensores se encontraban colocados de manera vertical otro, de tal forma que no existieran interferencias entre uno y otro.
 
 \begin{figure}[!htp]
 \centering
@@ -148,7 +148,7 @@ Finalmente, para dejar todo el sistema integrado, se diseñaron unos paneles late
 \label{fig:modelo_3D}
 \end{figure}
 
-Tras comprobar que el diseño funcionaba y cumplía las caracteríticas necesarias se mecanizó la parte superior del robot para anclar el sensor láser y las varillas roscadas, como se ve en la figura TAL
+Tras comprobar que el diseño funcionaba y cumplía las características necesarias se mecanizó la parte superior del robot para anclar el sensor láser y las varillas roscadas, como se ve en la figura TAL
 
 **figura de robot con varillas roscadas y láser**
 
@@ -193,7 +193,7 @@ En el capítulo \ref{chapter:navegacion} vimos una descripción de cada una de sus
 
 El robot ha sido adaptado y configurado de manera óptima basándonos en las características de la navegación en dos dimensiones que ofrece ROS, como hemos visto en el apartado anterior.
 
-\subsection{Configuración de los costmaps y los sensores}
+\subsection{Configuración de los costmaps y los sensores}\label{subsection:configuracion_costmaps_sensores}
 La navegación del robot se basa en la información recogida en los llamados "costmaps".
 
 Para realizar la navegación disponemos de dos costmaps, el llamado "global\_costmap'' y el llamado "local\_costmap". El primero sirve de base al planificador de trayectoria global y el segundo lo hace para el planificador de trayectoria local.
