@@ -273,7 +273,65 @@ Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_u
 Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/sensors/kinect_to_laser_long.launch}{\textit{pioneer\_utils/sensors/kinect\_to\_laser\_long.launch}}
 \hypersetup{urlcolor=blue}}
 
-**COMPLETAAARRRR**
+\begin{code}[!htp]
+\begin{lstlisting}[style=launch]
+<launch>
+    <node pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" name="depthimage_to_laserscan_long">
+        <remap from="image" to="/camera/depth/image_raw"/>
+        <remap from="camera_info" to="/camera/depth/camera_info"/>
+        <remap from="scan" to="camera/scan_depth_long"/>
+        <rosparam>
+            scan_height: 10
+            scan_time: 0.167
+        </rosparam>
+    </node>
+</launch>
+\end{lstlisting}
+\caption{Launchfile \textit{DepthImage\_to\_LaserScan} para obstáculos lejanos\footnotemark.}
+\end{code}
+\footnotetext{\hypersetup{urlcolor=black}
+Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/sensors/kinect_to_laser_long.launch}{\textit{pioneer\_utils/sensors/kinect\_to\_laser\_long.launch}}
+\hypersetup{urlcolor=blue}}
+
+Una vez solventados los problemas anteriores el ajuste de ambos costmaps se realizó mediante ensayos prueba error con el propio robot y con su modelo creado en el simulador Gazebo.
+
+La configuración de los mismos se expone a continuación.
+
+\begin{code}[!htp]
+\begin{lstlisting}[style=launch]
+global_costmap:
+  global_frame: /map
+  robot_base_frame: /base_link
+  update_frequency: 2.0
+  publish_frequency: 2.0
+  static_map: true
+  rolling_window: false
+  track_unknown_space: true
+  plugins:
+      - {name: static_layer,       type: "costmap_2d::StaticLayer"}
+      - {name: obstacle_layer_kinect,        type: "costmap_2d::VoxelLayer"}
+      - {name: obstacle_layer_laser,       type: "costmap_2d::VoxelLayer"}
+      - {name: inflation_layer,       type: "costmap_2d::InflationLayer"}
+
+  obstacle_layer_kinect:
+    observation_sources: kinect_laser kinect_laser_low kinect_laser_long
+    kinect_laser: {sensor_frame: camera_link, data_type: LaserScan, topic: camera/scan_depth, marking: true, clearing: true, obstacle_range: 3.0, raytrace_range: 6.5, inf_is_valid: true}
+    kinect_laser_low: {sensor_frame: camera_link, data_type: LaserScan, topic: camera/scan_depth_low, marking: true, clearing: true, obstacle_range: 3.0, raytrace_range: 6.5, inf_is_valid: true}
+    kinect_laser_long: {sensor_frame: camera_link, data_type: LaserScan, topic: camera/scan_depth_long, marking: true, clearing: true, obstacle_range: 3.0, raytrace_range: 6.5, inf_is_valid: true}
+
+  obstacle_layer_laser:
+    observation_sources: sick_lms1xx
+    sick_lms1xx: {sensor_frame: laser, data_type: LaserScan, topic: scan, marking: true, clearing: true, obstacle_range: 5.0, raytrace_range: 10.5, inf_is_valid: true}
+
+  inflation_layer:
+    inflation_radius: 0.55
+    cost_scaling_factor: 4.0
+\end{lstlisting}
+\caption{Configuración del \textit{global\_costmap}\footnotemark.}
+\end{code}
+\footnotetext{\hypersetup{urlcolor=black}
+Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/navigation/global_navigation/global_costmap_params.yaml}{\textit{pioneer\_utils/navigation/global\_navigation/global\_costmap\_params.yaml}}
+\hypersetup{urlcolor=blue}}
 \end{itemize}
 
 \subsection{Configuración de los planificadores de trayectoria}
