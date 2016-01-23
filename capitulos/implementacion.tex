@@ -214,7 +214,7 @@ Esta problemática se producía tanto para el mapa de coste global como para el lo
 
 Esta problemática es bien conocida dentro del mundo de la robótica y se denomina "Fusión sensorial" **referencia** donde una de las técnicas más conocidas es la de fusión mediante Filtro de Kalman **refrencia**.
 
-La solución a esta problemática más adecuada era realizar una composición de los puntos obtenidos por el sensor Láser y el sensor Kinect. Sin embargo, el coste computacional de crear una nueva nube de puntos a partir de dos tipos de datos diferentes a una frecuencia adecuada se antojaba elevado, por lo que la opción más adecuada consistió en utilizar capas de obstáculos diferentes (\textit{costmap\_2d::StaticLayer})para cada uno de los sensores.
+La solución a esta problemática más adecuada era realizar una composición de los puntos obtenidos por el sensor Láser y el sensor Kinect. Sin embargo, el coste computacional de crear una nueva nube de puntos a partir de dos tipos de datos diferentes a una frecuencia adecuada se antojaba elevado, por lo que la opción más adecuada consistió en utilizar capas de obstáculos diferentes (\textit{costmap\_2d::VoxelLayer}) para cada uno de los sensores.
 
 Así, cada sensor sería capaz de incorporar o borrar obstáculos del mapa solo si eran detectados o no por ese mismo sensor y no por el otro. Si bien es cierto que de esta forma existen duplicidades de los obstáculos al tener que ser incorporados o borrados del mapa por cada sensor de manera independiente, esto nos permite salvar el caso en el que exista un obstáculo y este no se tenga en cuenta por interferencias de los sensores.
 
