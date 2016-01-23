@@ -334,6 +334,52 @@ global_costmap:
 Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/navigation/global_navigation/global_costmap_params.yaml}{\textit{pioneer\_utils/navigation/global\_navigation/global\_costmap\_params.yaml}}
 \hypersetup{urlcolor=blue}}
 
+De especial interés la configuración de los parámetros de la capa \textit{costmap\_2d::InflationLayer} donde se ajusta el radio de "inflado" de los obstáculos así como un valor de escala en el cálculo del coste de cada celda.
+Esto determina en gran medida el cálculo de trayectoria global, permitiendo trayectorias más suaves y alejadas de los obstáculos **referencia Imagen**.
+
+**IMAGEN GLOBAL COSTMAP**
+
+Para el mapa local la configuración es muy similar y lo más importante es una frecuencia de actualización del mapa mayor.
+
+\begin{code}[!htp]
+\begin{lstlisting}[style=launch]
+local_costmap:
+  global_frame: /odom
+  robot_base_frame: /base_link
+  update_frequency: 10.0
+  publish_frequency: 10.0
+  static_map: false
+  rolling_window: true
+  width: 6.0
+  height: 6.0
+  resolution: 0.05
+  max_obstacle_height: 0.5
+  plugins:
+      - {name: obstacle_layer_laser, type: "costmap_2d::VoxelLayer"}
+      - {name: obstacle_layer_kinect, type: "costmap_2d::VoxelLayer"}
+      - {name: inflation_layer, type: "costmap_2d::InflationLayer"}
+
+  obstacle_layer_kinect:
+    observation_sources: kinect_laser kinect_laser_low kinect_laser_long
+    kinect_laser: {sensor_frame: camera_link, data_type: LaserScan, topic: camera/scan_depth, marking: true, clearing: true, obstacle_range: 9.0, raytrace_range: 9.5, inf_is_valid: false}
+    kinect_laser_low: {sensor_frame: camera_link, data_type: LaserScan, topic: camera/scan_depth_low, marking: true, clearing: true, obstacle_range: 9.0, raytrace_range: 9.5, inf_is_valid: false}
+    kinect_laser_long: {sensor_frame: camera_link, data_type: LaserScan, topic: camera/scan_depth_long, marking: true, clearing: true, obstacle_range: 9.0, raytrace_range: 9.5, inf_is_valid: false}
+    kinect: {sensor_frame: camera_link, data_type: PointCloud2, topic: camera/depth/points, marking: true, clearing: true, inf_is_valid: true}
+
+
+  obstacle_layer_laser:
+    observation_sources: sick_lms1xx
+    sick_lms1xx: {sensor_frame: laser, data_type: LaserScan, topic: scan, marking: true, clearing: true, obstacle_range: 10.0, raytrace_range: 12.0, inf_is_valid: true}
+
+  inflation_layer:
+    inflation_radius: 0.3
+\end{lstlisting}
+\caption{Configuración del \textit{global\_costmap}\footnotemark.}
+\end{code}
+\footnotetext{\hypersetup{urlcolor=black}
+Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/navigation/common/local_costmap_params.yaml}{\textit{pioneer\_utils/navigation/common/local\_costmap\_params.yaml}}
+\hypersetup{urlcolor=blue}}
+
 \subsection{Configuración de los planificadores de trayectoria}
 \subsection{Navegación con mapa}
 \subsection{Navegación reactiva}
