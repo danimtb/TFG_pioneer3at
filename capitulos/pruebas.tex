@@ -1,6 +1,24 @@
 \chapter{Pruebas del sistema}
-\section{Visualización mediante RViz}
+En este capítulo se describen las principales pruebas realizadas con el robot de tal modo que sirva para validar el trabajo realizado y exponer a los resultados obtenidos.
+
 \section{Simulación con MobileSim}\label{MobileSim}
+Una de las ventajas de utilizar el nodo rosaria para controlar el robot y obtener los datos de odometría es que las herramientas ofrecidas por el fabricante siguen pudiendo utilizarse. Este es el caso del simulador MobileSim.
+
+MobileSim es un simulador robótico en dos dimensiones creado para los robots de Adpet Mobile Robots que puede utilizarse con robots controlados mediante la librería Aria.
+
+Su funcionamiento es el siguiente: El simulador abre un puerto de comunicación local en el ordenador y al ejecutar la conexión con el robot de Aria, si el robot no se encuentra se procede a conectarse a dicho puerto de comunicación. Esto nos permite utilizar MobileSim con RosAria de la misma manera y sin cambiar nuestra configuración.
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.5\textwidth]{figuras/mobilesim.png}
+\caption{MobileSim junto con RViz funcionando con teleoperación.}
+\label{fig:mobilesim}
+\end{figure}
+
+Las pruebas con este simulador sirvieron para comprobar que el nodo rosaria disponía de la funcionalidad adecuada, así como para realizar pruebas con el nodo de teleoperación y dead\_reckoning.
+
+Por otro lado, las limitaciones de este simulador son evidentes. No existe posibilidad de simular otros sensores incorporados al robot, la integración de ROS se realiza con una librería intermedia y la más importante, no puede simularse un entorno en tres dimensiones.
+
 \section{Simulación con Gazebo}\label{Gazebo}
 \subsection{SLAM}
 \subsection{Datos de navegacion}
