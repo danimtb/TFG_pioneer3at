@@ -193,7 +193,7 @@ En un principio se valoró la posibilidad de utilizar el sensor Kinect tan solo p
 
 \begin{figure}[!htp]
 \centering
-\includegraphics[width=0.8\textwidth]{figuras/discrepancia_costmaps_gazebo.png}
+\includegraphics[width=0.65\textwidth]{figuras/discrepancia_costmaps_gazebo.png}
 \caption{Trayectoria global erronea.}
 \label{fig:discrepancia_costmaps_gazebo}
 \end{figure}
@@ -204,7 +204,7 @@ Pruebas posteriores con la nueva configuración y obstáculos bajos determinaron l
 
 \begin{figure}[!htp]
 \centering
-\includegraphics[width=0.8\textwidth]{figuras/navegacion_global_gazebo.png}
+\includegraphics[width=0.7\textwidth]{figuras/navegacion_global_gazebo.png}
 \caption{Navegación con mapa final.}
 \label{fig:navegacion_global_gazebo}
 \end{figure}
@@ -221,12 +221,52 @@ Como es normal en una navegación reactiva, el robot se desplaza siguiendo la tra
 \begin{figure}[!htp]
 \centering
 \includegraphics[width=0.40\textwidth]{figuras/navegacion_local1_gazebop.png}
-\includegraphics[width=0.45\textwidth]{figuras/navegacion_local2_gazebop.png}
+\includegraphics[width=0.40\textwidth]{figuras/navegacion_local2_gazebop.png}
 \caption{Navegación con mapa final.}
 \label{fig:navegacion_local_gazebo}
 \end{figure}
-\subsubsection{Prueba de resistencia}
+\subsubsection{Pruebas de resistencia}
+Para las pruebas de resistencia utilizamos un nodo desarrollado en Python especñificamente creado para el caso.
 
+Las pruebas de resistencia se realizaron en el modo de navegación con mapa y en ellas se utilizaron un total de 9 puntos de meta.
+
+\textbf{Primera prueba}\\
+
+\begin{table}[]
+\centering
+\caption{Resultados de la primera prueba}
+\label{table:primera_prueba_simulada}
+\begin{tabular}{ll}
+\hline
+Puntos de meta &  \\
+Tiempo total&  \\
+Nº metas &  \\
+Nº metas alcanzadas &  \\
+Tasa metas alcanzadas &  \\
+Distancia total&  \\
+Nº de choques &  \\
+\end{tabular}
+\end{table}
+
+\begin{table}[!h]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{c c}
+\hline
+Puntos de meta &  9\\
+Tiempo total & 508 mm \\
+Nº metas & 497 mm \\
+Nº metas alcanzadas & 277 mm \\
+Tasa metas alcanzadas & 80 mm \\
+Distancia total & 12 kg \\
+Nº de choques & 32 kg \\
+\hline
+\end{tabular}
+}
+\caption{Especificaciones del robot Pioneer 3 AT}
+\label{tabla_pioneer3at}
+
+\end{table}
 \section{Pruebas reales}
 \subsection{SLAM}
 \subsection{Navegación con mapa}
