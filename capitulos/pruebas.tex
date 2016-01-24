@@ -385,3 +385,14 @@ Las metas no alcanzadas se produjeron por obstáculos móviles (personas en movimi
 Los choques fueron roces leves de las ruedas con obstáculos bajos. Esto es debido a que el planificador ajusta mucho la trayectoria para que el robot pueda navegar por lugares estrechos.
 
 \subsection{Ascpectos de la navegación}
+
+Tras las pruebas realizadas, analizando los resultados y observando el comportamiento general de todo el sistema robótico podemos decir que existen algunas limitaciones en la navegación y aspectos que no se tienen en cuenta por las características del robot.
+
+\begin{itemize}
+\item En cuanto a la navegación:\\
+Existen limitaciones en cuanto a rampas, ya que este modo de navegación no tiene en cuenta la inclinación del robot para saber si este se encuentra desplazándose por un plano inclinado. Por otro lado tampoco es posible distinguir cambios por debajo del plano de navegación como agujeros, escalones... Estos dos aspectos se deben principalmente a que la navegación se realiza puramente en dos dimensiones.
+
+No obstante, el sistema sí es capaz de absorber pequeñas rampas en las que los sensores no reciban excesivas interferencias con el cambio de plano y siempre que el robot no realice muchos giros para no comprometer la localización debido a una mala lectura de la odometría.
+\end{itemize}
+En cuanto a la navegación:
+existen limitaciones en cuanto agujeros o rampas, ya que este modo de navegación no tiene en cuenta la inclinación del robot para saber si este se encuentra desplazándose por un plano inclinado.
