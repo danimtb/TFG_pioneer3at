@@ -173,7 +173,7 @@ Con la ayuda de Gazebo se han podido probar todas las configuraciones de navegac
 \subsubsection{SLAM}
 Las pruebas de SLAM se realizaron con el ya mencionado paquete \textit{gmapping}, funcionando de la manera habitual.
 
-Para comprobar su validez, se utilizó dispuso al robot en el mundo "Willow Garage" que simula un entorno de oficinas, similar al entorno real del laboratorio. El objetivo principal fue comprobar que el algoritmo de mapeado funcionaba correctamente y si se conseguía cerrar el mapa realizando un bucle completo.
+Para comprobar su validez, se dispuso al robot en el mundo "Willow Garage" que simula un entorno de oficinas, similar al entorno real del laboratorio. El objetivo principal fue comprobar que el algoritmo de mapeado funcionaba correctamente y si se conseguía cerrar el mapa realizando un bucle completo.
 
 Para esta prueba se utilizó el nodo de mapeado y el de teleoperación y se guió al robot por una parte del entorno realizando diversos bucles (Figura \ref{fig:slam_gazebo}), en los que se observa que no existe distorsión en paredes paralelas y que el mapa no se encuentra solapado.
 
@@ -322,6 +322,38 @@ Las pruebas reales se llevaron a cabo en el robot con su configuración hardware 
 Las pruebas de navegación con y sin mapa se han omitido debido a que los resultados fueron correctos y no se observaron grandes diferencias respecto a los resultados obtenidos en el simulador.
 
 \subsection{SLAM}
+Las pruebas reales de SLAM se realiazron en la planta baja y el aparcamiento de la universidad, ya que era de los pocos lugares donde podía realizar un bucle completo.
+
+Para realizar estas pruebas se utilizó al robot en modo de seguimiento y al mismo se realizó el mapeado. Indicar que no existe interferencias en este modo ya que la persona que sirve de guía se encuentra frente al robot y solo es detectada por el sensor Kinect, de tal modo que el sensor láser es el encargado de mapear el entorno sin perturbaciones.
+
+En la figura \ref{fig:slam_real1} se muestra el resultado de la primera prueba.
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=0.9\textwidth]{figuras/slam_real1.png}
+\caption{Mapa con la primera prueba de SLAM\footnotemark.}
+\label{fig:slam_real1}
+\end{figure}
+\footnotetext{\hypersetup{urlcolor=black}
+Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/maps/slam_real1.pgm}{\textit{pioneer\_utils/maps/slam\_real1.pgm}}
+\hypersetup{urlcolor=blue}}
+
+El área recuadrada en color rojo indica la zona donde se cerró el bucle y se aprecian ciertas discrepancias en las paredes y un ligero desvío hacia la derecha. Parte de este efecto es debido a que el bucle a cerrar es demasiado grande para esta prueba y a que el robot se desplazó realizando un recorrido sinuoso por el área del parking (se aprecia que se cubrió gran parte del mismo sin ser algo necesario para la prueba), con lo que el error de la odometría pudo haberse visto incrementado.
+
+Debido a estos resultados se decidió realizar una segunda prueba de SLAM en las mismas condiciones pero guiando al robot de una manera más directa a lo largo del bucle (sin giros adicionales).
+
+En la figura \ref{fig:slam_real2} puede apreciarse el resultado de la segunda prueba con el cierre del bucle en la zona recuadrada en rojo. Esta vez el resultado es mejor, ya que no existen grandes discrepancias y el robot es capaz de situarse sin problemas. Tan solo se aprecia una pared exterior duplicada en ángulo, fruto del cierre del mapa.
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=\textwidth]{figuras/slam_real2.png}
+\caption{Mapa tras la segunda prueba de SLAM\footnotemark.}
+\label{fig:slam_real2}
+\end{figure}
+\footnotetext{\hypersetup{urlcolor=black}
+Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/maps/slam_real1.pgm}{\textit{pioneer\_utils/maps/slam\_real1.pgm}}
+\hypersetup{urlcolor=blue}}
+
 \subsection{Prueba de resistencia}
 Las pruebas de resistencia se llevaron a cabo en las instalaciones de la planta baja de la universidad.
 
@@ -394,8 +426,8 @@ Existen limitaciones en cuanto a rampas, ya que este modo de navegación no tiene
 
 No obstante, el sistema sí es capaz de absorber pequeñas rampas en las que los sensores no reciban excesivas interferencias con el cambio de plano y siempre que el robot no realice muchos giros para no comprometer la localización debido a una mala lectura de la odometría.
 
-\item textbf{En cuanto a las características del robot:}\\
+\item \textbf{En cuanto a las características del robot:}\\
 Ciertos obstáculos bajos no son detectados por los sensores debido a que el robot es capaz de superarlos sin problemas, es por ello que no se ha incidido en detectarlos.
 
-Obstáculos de materiales transparentes no son visibles por ninguno de los dos sensores debido a su naturaleza infrarroja, por tanto se definen este tipo de obstáculos como caso límite para el sistema robótico.
+Obstáculos de materiales transparentes, como puertas de cristal, no son detectadas por ninguno de los dos sensores debido a su naturaleza infrarroja, por tanto se definen este tipo de obstáculos como caso límite para el sistema robótico.
 \end{itemize}
