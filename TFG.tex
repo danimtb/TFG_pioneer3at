@@ -23,6 +23,11 @@
 \usepackage{caption}
 \usepackage{epigraph}
 \usepackage{color}
+
+
+\usepackage[bookmarks=true]{hyperref}
+\usepackage{bookmark}
+
 \definecolor{gray97}{gray}{.97}
 \definecolor{gray75}{gray}{.75}
 \definecolor{gray45}{gray}{.45}
@@ -124,6 +129,7 @@
 \include{capitulos/resumen}
 
 %genera índice
+\pdfbookmark{\contentsname}{Índice general}
 \tableofcontents
 
 %índice de figuras.
@@ -160,6 +166,7 @@
 \cleardoublepage
 %se incluye la bibliografía. Archivo de tipo .bib (bibtex)
 \bibliographystyle{alpha}
+\addcontentsline{toc}{chapter}{Bibliografía}
 \bibliography{bibliografia/bibliografia}
 
 \backmatter
