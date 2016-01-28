@@ -145,7 +145,7 @@ Los sensores de velocidad son similares a los encoders pero miden la velocidad d
 
 Los sensores acelerómetros o inclinómetros, permiten conocer la inclinación del robot en cada uno de sus ejes, así como las aceleraciones producidas por su propio desplazamiento.
 
-Existen otros sensores más sofisticados como las Unidades de medida inercial (IMU) (Figura \ref{fig:sensor_imu}). Son disposiivos que combinan las medidas de un giróscopo y varios acelerómetros para determinar la posición relativa (x, y, z) y la orientación (roll, pitch, yaw), velocidad y aceleración respecto a un sistema de referencia.
+Existen otros sensores más sofisticados como las Unidades de medida inercial (IMU) (Figura \ref{fig:sensor_imu}). Son dispositivos que combinan las medidas de un giróscopo y varios acelerómetros para determinar la posición relativa (x, y, z) y la orientación (roll, pitch, yaw), velocidad y aceleración respecto a un sistema de referencia.
 
 \begin{figure}[htp]
 \centering
@@ -154,9 +154,9 @@ Existen otros sensores más sofisticados como las Unidades de medida inercial (IM
 \end{figure}
 
 Debido  a  que  la  aceleración  se  ha  de  integrar  dos  veces  para  obtener  la 
-posición,  el  error  crece  de  forma  cuadrática.  Luego  para  largos  periodos  de operación las unidades IMU se deben de resetear con otros sensores tipo GPS.
+posición,  el  error  crece  de  forma  cuadrática.  Luego  para  largos  periodos  de operación las unidades IMU se deben de resetear con sensores de posicionamiento absoluto.
 
-\subsection{Sensores externos}
+\subsection{Sensores exteroceptivos}
 
 Los sensores externos son aquellos que nos aportan información sobre el estado del robot respecto al entorno o que nos da información sobre lo que ocurre alrededor de este.
 
@@ -164,15 +164,19 @@ Los sensores externos son aquellos que nos aportan información sobre el estado d
 
 \item \textbf{Sensores de presencia:} Son sensores de tipo inductivo, capacitivo, óptico o mecánico. Sea cual sea la naturaleza del sensor, su función es la de detectar presencia. Un ejemplo de aplicación a un robot móvil sería una serie de sensores de presencia mecánicos, denominados "fin de carrera", colocados en la parte delantera, de modo que al tocar algún obstáculo se tuviera conocimiento de su presencia.
 
-Sensores de posicionamiento global GPS (Global Positioning System) que permiten determinar la posición de un objeto en todo el mundo, normalmente con una precisión de metros. El GPS funciona con una red de satélites con trayectorias sincronizadas que cobren toda la superficie de la tierra. El GPS lanza señales a los satélites y calculando el tiempoq ue tarda éstos en responder, se obtiene la posición por trianguación.
+\item \textbf{Sensores de posicionamiento absoluto:} El sensor más conocido de este tipo es el GPS (Global Positioning System) que permiten determinar la posición de un objeto en todo el mundo, normalmente con una precisión de metros. El GPS funciona con una red de satélites con trayectorias sincronizadas que cobren toda la superficie de la tierra. El GPS recibe señales de los satélites y calcula el intervalo de tiempo entre cada una de ellas, de esta forma obtiene la posición por triangulación.
 
 Los sensores GPS se utilizan en robots móviles que operan en el exterior y suelen combinarse con otros sensores que ofrezcan una mayor precisión.
 
-Los sensores de distancia son aquellos que nos dan una referencia de la longitud que existe a los objetos cercanos. Es el caso de los sensores e ultrasonidos, donde un emisor emite una onda ultrasónica y cuando es reflejada por un objeto se puede determinar la distancia a la que se encuentra midiendo el tiempo que tarda el sonido en ir y volver. Los sensores de distancia también pueden ser infrarrojos, funcionando de la misma manera.
+Existen otros sensores de posicionamiento absoluto como los sistemas IPS (Indoor Positioning System) que sirven para la localización en interiores y puede utilizar ondas de radio, campos magnéticos, señales acústicas... Dentro de esta categoría no existe un estándar y coexisten diferentes sitemas como el sistema Bat, basado en utrasonidos o el sistema Symeo, basado en radiofrecuencia por citar algunos de de ellos **
 
-Existen sensores de distancia que utilizan tecnología láser para determinar la longitud de un punto a otro, se denominan Scanners láser. Estos sensores emiten rayos láser en un plano de 2 dimensiones y en un rango determinado, y midiendo el tiempo de vuelo del haz láser son capaces de obtener una medida muy precisa de la distancia.
+\item \textbf{Sensores de distancia}: Son aquellos que nos dan una referencia de la longitud que existe a los objetos cercanos. Es el caso de los sensores e ultrasonidos, donde un emisor emite una onda ultrasónica y cuando es reflejada por un objeto se puede determinar la distancia a la que se encuentra midiendo el tiempo que tarda el sonido en ir y volver. Los sensores de distancia también pueden ser infrarrojos, funcionando de la misma manera.
 
-Existen otro tipo de sensores de distancia que permiten obtener distancias a puntos de manera tridimensional. Algunos utilizan un sistema de doble cámara conocidos como cámara estereoscópica (Figura \ref{fig:camara_estereoscopica}). Estos sensores son capaces de obtener imágenes 3D con la información de dos imágenes tomadas a cierta distancia una de otra. Es el sensor más parecido a la visión humana.
+Existen sensores de distancia que utilizan tecnología láser para determinar la longitud de un punto a otro, se denominan Scanners láser o LIDAR. Estos sensores emiten rayos láser en un plano de 2 dimensiones y en un rango determinado, y midiendo el tiempo de vuelo del haz láser son capaces de obtener una medida muy precisa de la distancia.
+
+También existen los sensores de ultrasonidos, los cuales emiten una señal ultrasónica en forma de pulso para posteriormente recibir el reflejo de la misma al rebotar en un objeto. En robótica móvil es común colocar varios sensores de este tipo alrededor del robot.
+
+\item \textbf{Sensores de distancia basados en visión:} Existen otro tipo de sensores de distancia que permiten obtener distancias a puntos de manera tridimensional. Los pasivos, como las cámaras estereoscópicas, que utilizan un sistema de doble cámara (Figura \ref{fig:camara_estereoscopica}). Estos sensores son capaces de obtener imágenes 3D con la información de dos imágenes tomadas a cierta distancia una de otra. Es el sensor más parecido a la visión humana.
 
 \begin{figure}[htp]
 \centering
@@ -180,7 +184,7 @@ Existen otro tipo de sensores de distancia que permiten obtener distancias a pun
 \caption{Cámara estereoscópica del robot PR2} \label{fig:camara_estereoscopica}
 \end{figure}
 
-Otros sensores de distancia en 3 dimensiones, son los sensores de tipo infrarrojo, como es el sensor Kinect, que ha se ha vuelto muy popular debido a su bajo coste y su buena respuesta.
+Por otro lado están los sensores activos, como las cámaras por tiempo de vuelo (Time-of-flight) que obtienen distancias a los puntos de una imagen basándose en el tiempo que tarda la luz en alcanzar los objetos, o los sensores de tipo infrarrojo, como es el sensor Kinect, de gran interés debido a su bajo coste y su buena respuesta.
 
 Kinect es un dispositivo desarrollado por PrimeSense y distribuido por Microsoft para la videoconsola Xbox 360 (Figura \ref{fig:sensor_kinect}).
 
@@ -193,6 +197,7 @@ Inicialmente permitía controlar e interactuar con la consola XBOX sin necesidad 
 \end{figure}
 
 Para captar el entorno en 3 dimensiones, Kinect incluye una cámara de vídeo RGB, un emisor de haz infrarrojo y una cámara infrarroja.
+\end{itemize}
 
 \section{Control en la robótica móvil actual}
 
