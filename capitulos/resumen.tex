@@ -3,11 +3,11 @@
 %chapter introduce un nuevo capítulo
 \chapter{Resumen}
 
-Realizar la navegación y guiado de un robot móvil surge como herramienta para acceder a lugares donde el ser humano no puede o se encontraría en riesgo, para realizar tareas repetitivas o que conllevasen algún tipo de desgaste.
+Muchos robots autónomos surgen como herramienta para acceder a lugares donde el ser humano no puede o no conviene que acceda porque se encontraría en riesgo, para realizar tareas repetitivas o que conllevasen algún tipo de desgaste.
 
-Un robot autónomo es por tanto una pieza fundamental en tareas de rescate, salvamento, inspección, exploración de entornos peligrosos o inaccesibles, como la exploración en la superficie de otros planetas. Además, las tareas sociales cada vez están tomando más relevancia en nuestro día a día, como la asistencia a humanos en entornos públicos, la interacción con el entorno o una navegación más segura, como es el caso de los coches autónomos.
+Un robot autónomo es por tanto una pieza fundamental en tareas de rescate, salvamento, inspección, exploración de entornos peligrosos o inaccesibles, como la exploración en la superficie de otros planetas. Además, las tareas sociales cada vez están tomando más relevancia en nuestro día a día, como por ejemplo la asistencia a humanos en entornos públicos, la interacción con el entorno o una navegación más segura, como es el caso de los coches autónomos.
 
-Este proyecto de fin de grado trata sobre el guiado y control de un robot móvil de cuatro ruedas, con un sistema motriz en configuración diferencial, equipado con una serie de sensores que permiten su orientación y posicionado en el entorno así como un sensor capaz de captar este en tres dimensiones y un sensor adicional que lo haría tan solo en dos dimensiones.
+Este proyecto de fin de grado trata sobre el guiado y control de un robot móvil de cuatro ruedas, con un sistema motriz en configuración diferencial, equipado con una serie de sensores que permiten su orientación y posicionado en el entorno así como un sensor capaz de captar este en tres dimensiones y un sensor adicional que lo hace tan solo en dos dimensiones.
 
 Los datos de los sensores sirven tanto para construir mapas en dos dimensiones del entorno del robot como para navegar por él evitando obstáculos de manera dinámica. El robot es capaz de generar mapas de celdas en los que situar tanto los objetos estáticos como los móviles, calcular una trayectoria adecuada y dirigirse hasta un punto indicado evitando obstáculos interpuestos en su camino.
 
@@ -17,7 +17,7 @@ El proceso de navegación se realiza de dos formas conjuntamente. Por un lado el 
 
 Finalmente, un algoritmo de cálculo de movimientos realiza el control de los motores para que el robot realice el movimiento adecuado en base a las trayectorias definidas anteriormente. De esta forma el robot puede avanzar, retroceder, darse la vuelta o realizar tareas de recuperación de trayectoria en caso de encontrarse bloqueado en algún punto.
 
-A parte de la navegación autónoma, también dispone de un sistema de telecontrol del robot mediante otro ordenador  externo y de un algoritmo de detección frontal de objetos en 3 dimensiones (nubes de puntos) que puedan servirle como guía. De esta forma, el robot es capaz de navegar siguiendo el movimiento de una persona o de un robot que le preceda.
+A parte de la navegación autónoma, también se ha incluido un sistema de telecontrol del robot mediante otro ordenador  externo y de un algoritmo de detección frontal de objetos en 3 dimensiones (nubes de puntos) que puedan servirle como guía. De esta forma, el robot es capaz de navegar siguiendo el movimiento de una persona o de un robot que le preceda.
 
 El robot Pioneer 3 AT es el robot móvil que se ha empleado en este proyecto (Figura \ref{fig:esquema_robot1}) y sobre el que se ha trabajado de manera específica para realizar las pruebas reales de este proyecto. A este robot se le incorporan un sensor láser de dos dimensiones (sensor Sick LMS100) y un sensor de tres dimensiones (sensor Kinect). El cómputo de la navegación se realiza en un ordenador compacto incorporado en el robot (Intel NUC NUC5i7RYH).
 
