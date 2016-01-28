@@ -1,42 +1,8 @@
 \chapter{Introducción}
 
-Esta primera sección será un apartado previo para poner en contexto al lector sobre la robótica móvil en general y a todo el desarrollo del proyecto ''Guiado de un robot móvil basado en ROS y Kinect'' en particular.
+Este proyecto surge como una manera de actualizar y poner en funcionamiento el robot móvil de investigación Pioneer 3 AT, actualizarlo a una nueva plataforma robótica como es ROS e implementar la navegación autónoma del robot basada en sensores de percepción del entorno como el sensor Kinect y un sensor láser tipo LIDAR.
 
-En esta sección explicaremos qué consiste y cuáles son los principales problemas de la robótica móvil así como las motivaciones para el desarrollo del proyecto.
-
-\section{Robótica}
-
-a historia de la robótica tiene su precursor en la mecánica y los mecanismos desarrollados para imitar el movimiento y funciones de los seres vivos. Los antiguos egipcios ya empleaban mecanismos para mover los brazos de las estatuas y los griegos utilizaban sistemas hidráulicos para adornar sus templos.
-
-Podemos decir que en torno al siglo XVII es cuando se inicia la historia de la robótica actual. En concreto, cuando Jacques de Vaucanson en 1745 inventó el primer telar automático de la historia. También construyó lo que se denominó como autómatas en la época, con obras como El flautista, El tamborilero o El pato, obra conocida como una de las pioneras en la historia de la robótica \cite{rojas2007historia}.
-
-Más tarde, Joseph Jacquard inventa en 1801 una máquina textil programable mediante tarjetas perforadas refinando la tecnología empleada por Vaucason \cite{martinez2000breve}. Años más tarde, la Revolución Industrial impulsó el desarrollo de máquinas que automatizaban tareas que antes realizaban las personas dando paso a la hisotiria de la automatización industrial.
-
-Antes ya se habían desarrollado algunos mecanismos automáticos como el León mecánico creado por Leonardo Da Vinci en el siglo XVI \cite{duliep2012leonardo}, que abría su pecho mostrando el escudo del rey Luis XII, o el Hombre de palo, un autómata de madera construido por Juanelo Turriano que andaba y movía la cabeza, ojos, boca y brazos.
-
-La palabra ``robot'' comenzó a utilizarse en el mundo del teatro y de la ciencia ficción. Una obra checoslovaca publicada en 1917 por Karel Kapek, denominada Rossum's Universal Robots, dio lugar al término robot. La palabra checa ``Robota'' significa servidumbre o trabajador forzado, y cuando se tradujo al ingles se convirtió en el término robot. Como ejemplo de ciencia ficción se podría mencionar al escritor Isaac Asimov por la publicación sobre las tres leyes de la robótica \cite{asimov1987robots}.
-
-Los primeros robots llamados como tal fueron creados en 1958 y eran de tipo teleoperados, con el objetivo de manipular elementos sin riesgo para el operario. Este tipo de robots consisten en un sistema maestro-esclavo en el que los movimientos realizados por el maestro son transmitidos mecánicamente a cierta distancia y reproducidos por el robot esclavo.
-
-Años más tarde, se comenzó a utilizar la tecnología electrónica y el uso del servocontrol, sustituyendo la transmisión mecánica por otra eléctrica. Ejemplos de estos manipuladores fue el realizado por Ralph Mosher, Handy-Man, consistente en dos brazos mecánicos teleoperados mediante un maestro del tipo denominado exoesqueleto.
-
-La sustitución del operador en este tipo de sistemas por un programa de ordenador que controlase los movimientos del manipulador dio paso al concepto de robot \cite{barrientos2007}.
-
-\section{Robótica Móvil}
-
-Prácticalmente cualquier robot consta de alguna parte móvil que le permite realizar algún tipo de tarea, sin embargo nos referimos a la <<robótica móvil>> como el área de la robótica que estudia los robots con capacidad para trasladarse en un ambiente dado.
-
-Los robots móviles son aquellos que tienen la capacidad de desplazarse utilizando algún sistema locomoción como pueden ser ruedas, patas, girar sobre sí mismos... Estos robots se diferencian respecto a los robots fijos que permanecen anclados a una superficie, como un brazo robótico industrial. Tampoco debe confundirse con los robots destinados a desplazarse por otros medios como agua o aire, ya que estaríamos entrando en el área de la robótica acuática/submarina o robótica aérea respectivamente. Podemos decir por tanto que la robótica móvil se refiere a robots que se mueven en el entorno terrestre.
-
-Las aplicaciones dentro de la robótica móvil pueden ser múltiples: exploración de entornos peligrosos, exploración espacial o minera, misiones e búsqueda y rescate de personas, telepresencia, automatización de procesos, transporte autónomo, vigilancia, inspección y reconocimiento del terreno o utilizados como plataformas móviles que incorporan otros sistemas robóticos como podrían ser un brazo manipulador.
-
-La robótica móvil surgió como manera extender el campo de la robótica hacia robots que anclados a un punto fijo. La capacidad de estos robots para desenvolverse en entornos diferentes ofrecía la posibilidad de abrir nuevas lineas de investigación y automatizar tareas que estaban asociadas con la navegación y localización.
-
-Los primeros pasos dentro de la robótica móvil eran motivados por la idea de introducir la mayor autonomía posible a los robots, tanto en terminos de suministro de energía como en computación para realizar las tareas de planificación, percepción y control.
-
-Ampliar **REFERENCIAS A LIBROS**
-
-
+En este proyecto se desarrolla e implementa un sistema robótico tomando como base al robot Pioneer y sobre la plataforma ROS desde su inicio de forma que todos los sensores queden integrados dentro del robot y este se encuentre operativo para resolver tareas de navegación. Todo ello con el propósito de servir como plataforma de navegación en futuros proyectos relacionados con la robótica móvil o con el entorno ROS en concreto.
 
 \section{Motivación del proyecto}
 Dotar a un robot de la capacidad de navegar autónomamente puede ser una alternativa imprescindible en el caso de que se necesite explorar un entorno que no sea fácilmente accesible para el ser humano o que conlleve cierto riesgo.
@@ -46,7 +12,7 @@ Cualquier proyecto que desarrolle la automatización de un proceso es ya una moti
 Este proyecto también viene motivado por la integración de ROS dentro de una plataforma móvil. Con esta plataforma de desarrollo software podemos explorar un concepto diferente de programación en robótica, que ofrece características como:
 \begin{itemize}
     \item Abstraerse de la programación a bajo nivel.
-    \item Reutilizar software ya desarrollado (nodos).
+    \item Reutilizar software ya desarrollado.
     \item Interfaz de comunicación común.
     \item Escalabilidad del sistema.
     \item Simulación mediante Gazebo.
@@ -54,42 +20,40 @@ Este proyecto también viene motivado por la integración de ROS dentro de una pla
     \item Transformación entre los diferentes sistemas de coordenadas.
 \end{itemize}
 
-Utilizar sensor de bajo coste Kinect es otra de las motivaciones de este proyecto debido a que este sensor de bajo coste permite obtener información en tres dimensiones del entorno, pudiéndose realizar una navegación basada solamente en este sensor además de reconocer objetos por su forma y realizar el guiado del robot detectando objetos.
+Estas características hacen que adoptar ROS como plataforma de desarrollo robótico sea una ventaja en cuanto a la facilidad para integrar diferentes dispositivos de un robot, comunicarnos con él a través de TCP/IP, utilizar desarrollos ya existentes... Al ser ROS una plataforma muy viva y dinámica, con muchas personas utilizándolo en universidades y empresas de muchos lugares del mundo, permite que el sistema evolucione e incorpore nuevas características que pueden ser fácilmente integrables en futuras actualizaciones del robot.
 
-De las aplicaciones que más han servido como motivación para el desarrollo de este proyecto ha sido la automatización de las tareas de conducción de automóviles \cite{cocheautonomo}, un sector que se encuentra en auge y que comienza a dar sus primeros pasos en el mundo real \cite{nevadagoogle}.
+Utilizar el sensor Kinect es otra de las motivaciones de este proyecto debido al bajo coste del mismo frente al gran aporte de información que supone percibir el entorno en tres dimensiones. Se puede realizar una navegación basada solamente en este sensor además de reconocer objetos por su forma y realizar el guiado del robot esquivando estos.
+
+La aplicación que más ha servido como motivación para el desarrollo de este proyecto ha sido la automatización de las tareas de conducción de automóviles \cite{cocheautonomo}, un sector que se encuentra en auge y que comienza a dar sus primeros pasos en el mundo real \cite{nevadagoogle}.
 
 También los robots de exploración espacial de la NASA, en especial a su último rover en Marte, Curiosity \cite{marsNASA}, que permite explorar el entorno árido de la superficie marciana con un alto grado de autonomía en las labores de inspección y análisis de elementos.
 
-\section{Alcance y objetivos del proyecto}
+\section{Objetivos del proyecto}
 
-En esta sección se define el alcance y los objetivos de este proyecto, es decir, lo que se pretende conseguir con este proyecto y hasta donde puede llegar.
+El objetivo de este proyecto es realizar el control de un robot móvil para que sea un robot autónomo, basándose en la información que da la odometría, en la nube de puntos que proporciona un sensor que captura el entorno en 3 dimensiones como el sensor Kinect y en el sensor láser LIDAR. Este control debe realizarse con la ayuda del software ROS, integrándolo como parte del sistema robótico para que sirva de soporte al desarrollo del proyecto.
 
-\subsection{Propósito y alcance}
+El robot debe ser capaz de localizarse y situarse en el entorno, el sensor Kinect ofrecerá información sobre los objetos alrededor del robot, y el software desarrollado para ROS deberá ser capaz de hacer un control reactivo sobre los movimientos para permitir al robot moverse por interiores y guiarlo hacia un punto indicado.
 
-El propósito de este proyecto es el control automático de un robot móvil utilizando ROS. Lo que se pretende es implementar la navegación autónoma del robot basándose en un control reactivo a partir de la información obtenida a través del sensor Kinect.
+A la finalización del proyecto, el sistema robótico debe quedar integrado de tal forma que en futuros desarrollos pueda utilizarse como plataforma móvil y permita abstraerse de las tareas de orientación y navegación.
 
-El alcance del proyecto requiere múltiples elementos de trabajo:
+El alcance del proyecto requiere múltiples fases de trabajo:
 
-En primer lugar, requiere un conocimiento previo del sistema hardware, como es el robot Pioneer 3 AT así como el sensor Kinect. Cómo integrar estos elementos y acceder a la información que aportan sus sensores y comandar al robot para que realice movimientos.
+En primer lugar, se necesita un conocimiento previo del sistema hardware, como es el robot Pioneer 3 AT así como el sensor Kinect y el sensor láser. Cómo integrar estos elementos y acceder a la información que aportan sus sensores y comandar al robot para que realice movimientos.
 
 En segundo lugar, requiere un conocimiento del entorno de desarrollo ROS. Las herramientas software de las que dispone, el funcionamiento interno y la manera de programar e interaccionar con los diferentes elementos, el aprendizaje y comprensión.
 
 En tercer lugar, incorporar los sensores pertinentes para obtener la información que permita al robot posicionarse en el entorno.
 
-En cuarto lugar, implementar los ajustes necesarios para que el robot pueda operar utilizando el entorno de navegación ofrecido por ROS. Realizar una configuración óptima de los sensores y realizar las pruebas reales para el cáculo de trayectorias y el control reactivo del robot.
+En cuarto lugar, implementar los ajustes necesarios para que el robot pueda operar utilizando el entorno de navegación ofrecido por ROS. Realizar una configuración óptima de los sensores y realizar las pruebas reales para el cálculo de trayectorias y el control reactivo del robot.
 
-Por último, realizar la integración del sistema dentro de la plataforma robótica. Disponer de todo lo necesario para que el robot quede totalmente adaptado al sistema ROS e integrado con el sensor Kinect y los sensores pertinentes.
+Por último, realizar la integración del sistema dentro de la plataforma robótica. Disponer de todo lo necesario para que el robot quede totalmente adaptado al sistema ROS e integrado con el sensor Kinect y el sensor láser.
 
-\subsection{Objetivos}
+\subsubsection{Objetivos específicos}
 
-El objetivo de este proyecto es realizar el control de un robot móvil para que sea un robot autónomo, basándose en la información que da la odometría y la nube de puntos que proporciona un sensor que captura el entorno en 3 dimensiones como el sensor Kinect. Este control debe realizarse con la ayuda del software ROS, integrándolo como parte del sistema robótico para que sirva de soporte al desarrollo del proyecto.
-
-El robot debe ser capaz de localizarse y situarse en el entorno, el sensor Kinect ofrecerá información sobre los objetos alrededor del robot, y el software desarrollado para ROS deberá ser capaz de hacer un control reactivo sobre los movimientos para permitir al robot moverse por interiores y guiarlo hacia un punto indicado.
-
-Los objetivos principales de este proyecto serán los siguientes:
+A continuación se citan los puntos más importantes para cumplir con el objetivo de este proyecto:
 \newcounter{enum2} % creamos un contador par la enumeración. 
 \begin{enumerate}[a)]
-\item El primer objetivo es familiarizarse con el control de los robots móviles y más concretamente en el control del robot Pioneer 3 AT. Familiarizarse con el sensor Kinect y con el software necesario para su uso. Y familiarizarse con el framework ROS y sus herramientas para el desarrollo de sistemas robóticos.
+\item Familiarizarse con el control de los robots móviles y más concretamente en el control del robot Pioneer 3 AT. Familiarizarse con el sensor Kinect y con el software necesario para su uso. Y familiarizarse con el framework ROS y sus herramientas para el desarrollo de sistemas robóticos.
 \setcounter{enum2}{\value{enumi}}
 \end{enumerate}
 
@@ -111,7 +75,7 @@ Los objetivos principales de este proyecto serán los siguientes:
 \setcounter{enum2}{\value{enumi}}
 \end{enumerate}
 
-De los objetivos anteriores podemos desgranar algunos objetivos intermedios:
+De los puntos anteriores podemos desgranar algunas fases intermedias como son:
 
 \newcounter{enum3}
 \begin{enumerate}[a)]
