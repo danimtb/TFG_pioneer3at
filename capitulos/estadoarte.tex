@@ -10,7 +10,7 @@ Este capítulo trata de hacer un recorrido por la historia de la robótica y un re
 
 \section{Robótica Móvil}
 
-Prácticalmente cualquier robot consta de alguna parte móvil que le permite realizar algún tipo de tarea, sin embargo nos referimos a la <<robótica móvil>> como el área de la robótica que estudia los robots con capacidad para trasladarse.
+Prácticamente cualquier robot consta de alguna parte móvil que le permite realizar algún tipo de tarea, sin embargo nos referimos a la <<robótica móvil>> como el área de la robótica que estudia los robots con capacidad para trasladarse.
 
 Los robots móviles son aquellos que tienen la capacidad de desplazarse utilizando algún sistema locomoción como pueden ser ruedas, patas, orugas... Estos robots se diferencian respecto a los robots fijos que permanecen anclados a una superficie, como un brazo robótico industrial. Tampoco debe confundirse con los robots destinados a desplazarse por otros medios como agua o aire, ya que estaríamos entrando en el área de la robótica acuática/submarina o robótica aérea respectivamente. Podemos decir en ete proyecto que la robótica móvil se refiere a robots que se mueven en el entorno terrestre.
 
@@ -131,9 +131,9 @@ Para que un robot pueda realizar tareas con una determinada precisión y velocida
 
 Existen dos tipos de sensores, los sensores internos, que aportan información sobre la posición orientación del robot, y los externos, que aportan información del entorno alrededor del robot.
 
-\subsection{Sensores internos}
+\subsection{Sensores propioceptivos}
 
-Dentro de los sensores internos, los sensores de posción primordiales son los encoders, tanto los de tipo incremental como los de tipo absoluto (Figura \ref{fig:esquema_encoder}). Su funcionamiento se basa en un foto-emisor y un foto-receptor que detectanel paso o no de luz a través de un disco con ciertas marcas acoplado al eje de giro del actuador.
+Dentro de los sensores propioceptivos, los sensores de posción primordiales son los encoders, tanto los de tipo incremental como los de tipo absoluto (Figura \ref{fig:esquema_encoder}). Su funcionamiento se basa en un foto-emisor y un foto-receptor que detectanel paso o no de luz a través de un disco con ciertas marcas acoplado al eje de giro del actuador.
 
 \begin{figure}[htp]
 \centering
@@ -141,7 +141,7 @@ Dentro de los sensores internos, los sensores de posción primordiales son los en
 \caption{Esquema de un encoder absoluto} \label{fig:esquema_encoder}
 \end{figure}
 
-Los sensores de velocidad son similares a los encoders pero miden la velocidad de giro del eje del actuador. La tacogeneratriz proporciona una tensión proporcional a la velocidd de giro.
+Los sensores de velocidad son similares a los encoders pero miden la velocidad de giro del eje del actuador. La tacogeneratriz proporciona una tensión proporcional a la velocidad de giro.
 
 Los sensores acelerómetros o inclinómetros, permiten conocer la inclinación del robot en cada uno de sus ejes, así como las aceleraciones producidas por su propio desplazamiento.
 
@@ -160,11 +160,11 @@ posición,  el  error  crece  de  forma  cuadrática.  Luego  para  largos  period
 
 Los sensores externos son aquellos que nos aportan información sobre el estado del robot respecto al entorno o que nos da información sobre lo que ocurre alrededor de este.
 
-Los sensores de presencia, como son los sensores de tipo inductivo, capacitivo, óptico o mecánico. Sea cual sea la naturaleza del sensor, su función es la de detectar presencia. Un ejemplo de aplicación a un robot móvil sería una serie de sensores de presencia mecánicos, denominados "fin de carrera", colocados en la parte delantera, de modo que al tocar algún obstáculo se tuviera conciencia de la presencia de un obstáculo.
+Los sensores de presencia, como son los sensores de tipo inductivo, capacitivo, óptico o mecánico. Sea cual sea la naturaleza del sensor, su función es la de detectar presencia. Un ejemplo de aplicación a un robot móvil sería una serie de sensores de presencia mecánicos, denominados "fin de carrera", colocados en la parte delantera, de modo que al tocar algún obstáculo se tuviera conocimiento de su presencia.
 
 Sensores de posicionamiento global GPS (Global Positioning System) que permiten determinar la posición de un objeto en todo el mundo, normalmente con una precisión de metros. El GPS funciona con una red de satélites con trayectorias sincronizadas que cobren toda la superficie de la tierra. El GPS lanza señales a los satélites y calculando el tiempoq ue tarda éstos en responder, se obtiene la posición por trianguación.
 
-Los sensores GPS se utilizan en robots móviles que operan en el exterior y suen combinarse con otros sensores que ofrezcan una mayor precisión.
+Los sensores GPS se utilizan en robots móviles que operan en el exterior y suelen combinarse con otros sensores que ofrezcan una mayor precisión.
 
 Los sensores de distancia son aquellos que nos dan una referencia de la longitud que existe a los objetos cercanos. Es el caso de los sensores e ultrasonidos, donde un emisor emite una onda ultrasónica y cuando es reflejada por un objeto se puede determinar la distancia a la que se encuentra midiendo el tiempo que tarda el sonido en ir y volver. Los sensores de distancia también pueden ser infrarrojos, funcionando de la misma manera.
 
