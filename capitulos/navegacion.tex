@@ -371,7 +371,7 @@ Las denominadas capas de las que hace uso \textit{costmap\_2d} son las siguiente
 \label{fig:inflation_layer}
 \end{figure}
 
-Esta capa indica a los planeadores las zonas optimas por las que trazar su ruta, es la más importante y donde reside gran parte de la funcionalidad de los costmaps. Existen parámetros configurables por el usuario como el radio de inflado (\textit{inflation\_radius}) o el valor de escala (\textit{cost\_scaling\_factor}).
+Esta capa indica a los planificadores las zonas optimas por las que trazar su ruta, es la más importante y donde reside gran parte de la funcionalidad de los costmaps. Existen parámetros configurables por el usuario como el radio de inflado (\textit{inflation\_radius}) o el valor de escala (\textit{cost\_scaling\_factor}).
 \end{itemize}
 
 A parte de estas capas, existe una API que nos permite crear nuestras propias capas para el nodo \textit{costmap\_2d} para darles la funcionalidad que se desee.
@@ -383,7 +383,7 @@ Este último enfoque es el que ha sido adoptado en la implementación final de nav
 \section{Planificador de trayectoria global}\label{section:global_planner}
 La planificación de trayectoria es una de las áreas que más interés suscita entre los investigadores relacionados con la robótica móvil o la navegación autónoma, no en vano, existe una gran variedad de algoritmos que realizan cálculos apoyándose en distintos enfoques matemáticos.
 
-Los planificadores de trayectoria tratan de construir la ruta que lleve al robot desde su posición a un punto en un mapa o en un entorno que pudiera ser desconocido. Esta planificación es calculada en un ámbito que denominamos "global" ya que se realiza en función al mapa global (\textit{global\_costmap} en nuestro caso) y no se consideran los detalles del entorno local al robot. Es, por tanto, una aproximación al camino final que el robot va a seguir.
+Los planificadores de trayectoria tratan de construir la ruta que lleve al robot desde su posición a un punto en un mapa o en un entorno que pudiera ser desconocido. Esta planificación es calculada en un ámbito que denominamos ''global'' ya que se realiza en función al mapa global (\textit{global\_costmap} en nuestro caso) y no se consideran los detalles del entorno local al robot. Es, por tanto, una aproximación al camino final que el robot va a seguir.
 
 Por tanto, los planificadores de trayectoria global deben basarse en información almacenada del entorno como un mapa estático y el cálculo se realiza mediante el análisis de sus características.
 
@@ -396,14 +396,19 @@ En la figura \ref{fig:metodos_planificacion_trayectorias} se muestra una clasifi
 \label{fig:metodos_planificacion_trayectorias}
 \end{figure}
 
-Los algoritmos implementados en ROS se basan en métodos discretos mediante grafos, debido a que los mapas utilizados son mapas de celdillas. A continuación se describen los planificadores de trayectoria disponibles en ROS, su fundamento teórico y su comportamiento en el cálculo de la trayectoria.
+Los algoritmos implementados en ROS se basan en métodos discretos mediante grafos, debido a que los mapas utilizados son mapas de celdillas que pueden transformarse en un grafo por medio de la propiedad de vecindad. A continuación se describen los planificadores de trayectoria disponibles en ROS, su fundamento teórico y su comportamiento en el cálculo de la trayectoria.
 
 \subsection{Algoritmo de Dijkstra}
-El algoritmo de Dijkstra es un algoritmo para la determinación del camino más corto dado un vértice origen al resto de vértices de un grafo con pesos en cada arista. Este algoritmo debe su nombre a Edsger Dijkstra, quien lo describió por primera vez en el año 1959.
+El algoritmo de Dijkstra es un algoritmo para la determinación del camino más corto dado un vértice origen al resto de vértices de un grafo con costes en cada arista. Este algoritmo debe su nombre a Edsger Dijkstra, quien lo describió por primera vez en el año 1959.
 
 El algoritmo de Dijkstra funciona visitando vértices partiendo desde el punto incial. Examina repetidamente los vértices próximos que aún no han sido examinados expandiéndose desde el punto de partida hasta el punto de meta. De esta forma el algoritmo garantiza que se encuentre uno de los caminos más cortos (pueden existir varios caminos igual de cortos).
 
-**teoría fórmulaaasss?¿?¿**
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=\textwidth]{figuras/pseudo_dijkstra.png}
+\caption{Pseudo-código del algoritmo de Dijkstra.}
+\label{fig:pseudo_dijkstra}
+\end{figure}
 
 En la figura \ref{fig:algoritmo_dijkstra_libre} se pueden observar la implementación del algoritmo de Dijkstra. El punto de color rosa es el punto incial y el azúl oscuro el punto de meta.
 
@@ -414,7 +419,7 @@ En la figura \ref{fig:algoritmo_dijkstra_libre} se pueden observar la implementa
 \label{fig:algoritmo_dijkstra_libre}
 \end{figure}
 
-Comparándolo con el algoritmo heurístico *Primero el mejor* "Greedy Best-First-Search algorithm", cuyo funcionamiento es similiar al algoritmo de Dijkstra aunque descarta los vértices que no se encuentren en dirección al punto de meta, vemos en la figura que el camino encontrado es similiar y que el número de vértices analizados se reduce considerablemente.
+Comparándolo con el algoritmo heurístico "Greedy Best-First-Search algorithm", cuyo funcionamiento es similiar al algoritmo de Dijkstra aunque explora primero qué vertices se encuentran en dirección al punto de meta, vemos en la figura que el camino encontrado es similiar y que el número de vértices analizados se reduce considerablemente.
 
 \begin{figure}[!htp]
 \centering
@@ -438,11 +443,11 @@ El algoritmo Best-First-Search realiza un análisis de vértices menor hasta llega
 El algoritmo de Dijkstra garantiza que se encuentre el camino más corto entre los dos puntos a costa de realizar un análisis de vértices mayor. Como vemos, este algoritmo es más inmersivo expandiéndose por todos los vértices, sin embargo su resultado es el óptimo.
 
 \subsection{Algoritmo de A estrella}
-El algoritmo A estrella (denominado comúnmente A*) es un algoritmo para la búsqueda del camino más corto entre vértices origen y objetivo dentro de un grafo con pesos en cada arista. Fue presentado por primera vez en 1968 por Peter E. Hart, Nils J. Nilsson y Bertram Raphael.
+El algoritmo A estrella (denominado comúnmente A*) es un algoritmo para la búsqueda del camino más corto entre vértices origen y objetivo dentro de un grafo con costes en cada arista. Fue presentado por primera vez en 1968 por Peter E. Hart, Nils J. Nilsson y Bertram Raphael.
 
 **teoría fórmulas?¿?¿???**
 
-El algoritmo A* combina el enfoque de algoritmos como Best-First-Search y Dijsktra. Este algoritmo favorece la creación de un camino por vértices que se encuentren cerca del punto incial, así como vértices que se encuentren en dirección al punto de meta. El cálculo del camino se realiza en los dos sentidos, partiendo del vértice inicial al final y partiendo del vértice final al inicial.
+El algoritmo A* combina el enfoque de algoritmos como Best-First-Search y Dijsktra. Este algoritmo favorece la creación de un camino por vértices que se encuentren cerca del punto incial, así como vértices que se encuentren en dirección al punto de meta. El cálculo del camino se basa en considerar tanto el coste de llegada hasta un nodo como en la estimación de la distancia que falta para alcanzarlo. SI la estimación es menor que el coste real, el resultado es óptimo.
 
 \begin{figure}[!htp]
 \centering
