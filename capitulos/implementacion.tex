@@ -699,11 +699,12 @@ int main(int argc, char** argv){
   return 0;
 }
 \end{lstlisting}
-\caption{Nodo \textit{nav-waypoints}.}\footnotemark
+\caption{Nodo \textit{nav-waypoints}.}
 \end{code}
-\footnotetext{\hypersetup{urlcolor=black}
-Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/navigation/local_navigation/local_navigation_p3at.launch}{\textit{pioneer\_utils/navigation/local\_navigation/local\_navigation\_p3at.launch}}
-\hypersetup{urlcolor=blue}}
+
+Este nodo se encuentra separado del directorio habitual \textit{pioneer\_utils} debido a dependencias adicionales que pueden causar conflicto. Por ello, se aloja en el paquete \textit{navigation\_goals}.
+
+
 
 \section{Nodo de guiado (follower)}
 
