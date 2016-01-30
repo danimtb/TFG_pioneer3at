@@ -195,11 +195,6 @@ La técnica de SLAM (Simultaneous Localization And Mapping) es una técnica muy ut
 
 Esta técnica presenta dificultades como la imperfección de los sensores, la imperfección del sistema de locomoción el robot, la repetitividad de las medidas... Además de que la localización y el mapeado simultáneo de un entorno son dos problemas que están intrínsecamente acoplados \cite{puente2012probabilistic}. Es por ello que se utilizan modos probabilísticos como la relga de Bayes.
 
-\begin{equation}
-   p(x|d)=\frac{p(d|x)p(x)}{p(d)}
-\end{equation}
-**REVISAR EQCUACIÓN**
-
 \textbf{Principales algoritmos}\\
 Los principales algoritmos para realizar los cálculos pababilísticos en técnicas de SLAM son los sigientes:
 
@@ -405,8 +400,8 @@ El algoritmo de Dijkstra funciona visitando vértices partiendo desde el punto in
 
 \begin{figure}[!htp]
 \centering
-\includegraphics[width=\textwidth]{figuras/pseudo_dijkstra.png}
-\caption{Pseudo-código del algoritmo de Dijkstra.}
+\includegraphics[width=\textwidth]{figuras/pseudo-dijkstra.png}
+\caption{Pseudo-código del algoritmo de Dijkstra. Basado en \cite{tomovicpath}.}
 \label{fig:pseudo_dijkstra}
 \end{figure}
 
@@ -445,7 +440,13 @@ El algoritmo de Dijkstra garantiza que se encuentre el camino más corto entre lo
 \subsection{Algoritmo de A estrella}
 El algoritmo A estrella (denominado comúnmente A*) es un algoritmo para la búsqueda del camino más corto entre vértices origen y objetivo dentro de un grafo con costes en cada arista. Fue presentado por primera vez en 1968 por Peter E. Hart, Nils J. Nilsson y Bertram Raphael.
 
-**teoría fórmulas?¿?¿???**
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=\textwidth]{figuras/pseudo-astar.png}
+\caption{Pseudo-código del algoritmo A*. Basado en \cite{tomovicpath}.}
+\label{fig:pseudo_dijkstra}
+\end{figure}
+
 
 El algoritmo A* combina el enfoque de algoritmos como Best-First-Search y Dijsktra. Este algoritmo favorece la creación de un camino por vértices que se encuentren cerca del punto incial, así como vértices que se encuentren en dirección al punto de meta. El cálculo del camino se basa en considerar tanto el coste de llegada hasta un nodo como en la estimación de la distancia que falta para alcanzarlo. SI la estimación es menor que el coste real, el resultado es óptimo.
 
@@ -467,7 +468,15 @@ EL planificador de trayctoria local es el encargado de guiar al robot, según sus
 
 La filosofía del planificador de trayectoria local es servir de control reactivo del robot además de conducirlo hacia la ruta marcada por el planificador global. Su misión es resolver las obstrucciones sobre la ruta global en el entorno local al robot para determinar la ruta real que será seguida. El modelo del entorno local se construye mediante la fusión de la información proporcionada por los sensores externos del robot móvil.
 
-TEORíA
-FUNCIONAMIENTO
-VALORACIÓN DE SEGUIMIENTO DE TRAYECTORIA GLOBAL
-PLANIFICADOR FINAL
+EL planificador de trayectoria local ya implementado en ROS utiliza los algoritmos \textit{Trajectory Rollout} y \textit{Dynamic Window} para realizar la navegación reactiva basada en un solo plano. Los pasos que realizan estos algoritmos son los siguientes:
+
+\begin{enumerate}
+\item Muestreo discreto del espacio de control del robot según sus velocidades en cada eje.
+\item Para cada velocidad, realizar una simulación desde el estado actual del robot para predecir la posición del robot durante un periodo corto de tiempo.
+\item Evaluar cada unoa de las trayectorias resultantes del paso anterior utilizando características como la proximidad a los obstáculos, proximidad a la meta, proximidad a la ruta global y la velocidad.
+\item Repetir los pasos anteriores hasta alcanzar el punto final de meta.
+\end{enumerate}
+
+La diferencia entre los algoritmos \textit{Trajectory Rollout} y \textit{Dynamic Window} es el modo en el que se realiza el muestreo del espacio de control del robot. \textit{Trajectory Rollout} muestrea todas las trayectorias alcanzables variando la velocidad en todo el periodo de simulación, mientras que \textit{Dynamic Window} realiza la evaluación de las trayectorias en cada uno de los pasos, evaluando la velocidad  comparándola con las capacidades de aceleración del robot.
+
+\textit{Dynamic Window} es un algoritmo más eficiente pero que se comporta peor en robots con bajos límites de aceleración por lo que en ocasiones el algoritmo \textit{Trajectory Rollout} realiza trayectorias locales más adecuadas.
