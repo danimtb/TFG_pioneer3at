@@ -195,15 +195,34 @@ Para configurar el dispositivo debemos enchufarlo a un puerto Ethernet de un ord
 
 El puerto ethernet del ordenador debe estar configurado para obtener una IP automática. Una vez aparezca la red como conectada procedemos a abrir el software SOPAS.
 
-**Imagen del programa**
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=0.8\textwidth]{figuras/sopas1.png}
+\caption{Software Sick SOPAS con el sensor detectado.}
+\label{fig:sopas1}
+\end{figure}
 
 Automáticamente detectará el dispositivo pero seguramente no podamos acceder a él debido a una dirección IP errónea.
 
 Para ello abriremos el apartado de configuración y selecionamos ''Asignar IP automáticamente" para que nos asigne el rango adecuado.
 
-**IMAGEN DE DIRECCION IP**
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=0.8\textwidth]{figuras/sopas2.png}
+\caption{Configurando la dirección IP del dispositivo.}
+\label{fig:sopas2}
+\end{figure}
 
 Si queremos una dirección IP de determinado rango, la mejor manera de proceder es asignar al adaptador de red del ordenador una IP manual del rango deseado y realizar el procedimiento anterior.
+
+También podemos acceder a los parámetros del sensor y visualizar en un gráfico la información que está captando en el momento.
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=0.8\textwidth]{figuras/sopas3.png}
+\caption{Gráfico de la información captada por el sensor en el software SOPAS.}
+\label{fig:sopas3}
+\end{figure}
 
 A partir de aquí podremos conectarnos al láser con el nodo ROS LMS1xx, configurando una IP fija en el adaptador de red ethernet del ordenador al que lo conectemos, en este caso el ordenador Intel NUC del robot.
 
