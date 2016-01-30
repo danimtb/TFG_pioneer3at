@@ -1,24 +1,25 @@
-\chapter{Control primario}
+\chapter{Control a bajo nivel}
 
 En este capítulo se realiza una primera aproximación al control del robot y a los nodos básicos que deben ejecutarse para controlarlo y acceder a la información de los sensores.
 
-\section{Nodos de bajo nivel}
+\section{Nodos Hardware}
 
 Los nodos necesarios para el control del robot requieren el acceso a los motores y a la lectura de la odometría. También es necesario disponer de controladores para ambos sensores utilizados y que su información se publique en tipos de datos reconocibles por ROS. Los nodos utilizados para estos dispositivos hardware se describen a continuación. 
 
 \subsection{Control del robot: Rosaria y p2os} \label{subsection:rosaria}
 
-Como hemos indicado anteriormente, la librería que nos proporciona el acceso a la placa controladora de nuestro robot Pioneer es Aria. Esta librería es la que proporciona Adept Mobile Robots para realizar el control completo del robot y acceder a sus parámetros con figurables.
+Como hemos indicado anteriormente, la librería que nos permite el acceso a la placa controladora de nuestro robot Pioneer es Aria. Esta librería es la que proporciona Adept Mobile Robots para realizar el control completo del robot y acceder a sus parámetros configurables.
 
 Los paquetes disponibles en ROS para el control de los robots de la familia Pioneer son dos, por un lado tenemos Rosaria y por otro p2os.
 
-p2os **referencia** es un paquete que agrupa conjunto de utilidades y nodos desarrollados para controlar el robot. Su característica principal es que accede de manera nativa a la placa controladora del robot y no dependen de la librería Aria. Además incorpora funcionalidades configuradas como modelos 3D de robot, simulación con Gazebo o la configuración de la navegación.
+\begin{itemize}
+\item \textbf{p2os} **referencia** es un paquete que agrupa un conjunto de utilidades y nodos desarrollados para controlar el robot. Su característica principal es que accede de manera nativa a la placa controladora del robot y no dependen de la librería Aria. Además incorpora funcionalidades configuradas como modelos 3D de robot, simulación con Gazebo o la configuración de la navegación.
 
-Sin embargo, p2os no integra todas las funcionalidades a las que tiene acceso Aria como son la reconfiguración de los parámetros de la odometría.
+Sin embargo, \textit{p2os} no integra todas las funcionalidades a las que tiene acceso Aria como son la reconfiguración de los parámetros de la odometría.
 
-Rosaria **referencia** es un nodo de interfaz entre ROS y Aria, por tanto incluye todas prácticamente todas las funcionalidades de esta. Podemos acceder a la calibración de los encoders de la odometría así como conectar con el simulador MobileSim (ver sección \ref{MobileSim})
+\item \textbf{Rosaria} **referencia** es un nodo de interfaz entre ROS y Aria, por tanto incluye todas prácticamente todas las funcionalidades de esta. Podemos acceder a la calibración de los encoders de la odometría así como conectar con el simulador \textit{MobileSim} (ver sección \ref{MobileSim}).
 
-A continuación se muestra el launchfile para ejecutar el nodo RosAria:
+A continuación se muestra el \textit{launchfile} para ejecutar el nodo \textit{RosAria}:
 
 \begin{code}[htp]
 \begin{lstlisting}[style=launch]
@@ -69,6 +70,8 @@ odom & & Referencia odométrica
 \caption{API de rosaria utilizada. Basado en \cite{rosaria}}
 \label{tabla_rosaria}
 \end{table}
+
+\end{itemize}
 
 \subsection{Sensor Kinect}\label{subsection:kinect}
 
