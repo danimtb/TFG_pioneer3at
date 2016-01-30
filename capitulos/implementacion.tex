@@ -397,7 +397,7 @@ A continuación podemos ver el comportamiento del planificador con diferente conf
 
 \begin{figure}[htp]
 \centering
-\includegraphics[width=0.9\textwidth]{figuras/rviz-astar.png}
+\includegraphics[width=0.7\textwidth]{figuras/rviz-astar.png}
 \caption{Planificador de trayectoria A* visualizado en RViz.}
 \label{fig:rviz-astar}
 \end{figure}
@@ -410,17 +410,81 @@ El espacio analizado es menor que en el caso de Dijkstra, sin embargo el camino 
 
 \begin{figure}[htp]
 \centering
-\includegraphics[width=0.9\textwidth]{figuras/rviz-dijkstra.png}
+\includegraphics[width=0.7\textwidth]{figuras/rviz-dijkstra.png}
 \caption{Planificador de trayectoria Dijkstra visualizado en RViz.}
 \label{fig:rviz-dijkstra}
 \end{figure}
 
+Como se ve en la imagen, el comportamiento de este planificador es más adecuado, trazando una trayectoria que se mantiene equidistante a los obstáculos y mucho más suavizada respecto a A* a pesar de su exploración mucho más masiva del espacio.
+
 \end{itemize}
 
-ALGORITMOS CON PRUEBAS
-PLANIFICADOR FINAL
+El algoritmo que se ha utilizado finalmente es el de Dijkstra debido a las pruebas anteriores y a su buen comportamiento en pruebas con el robot.
+
+\begin{code}[!htp]
+\begin{lstlisting}[style=launch]
+GlobalPlanner:
+  old_navfn_behavior: false
+  use_quadratic: true
+  use_dijkstra: true
+  use_grid_path: false
+  
+  allow_unknown: true 
+                      
+  planner_window_x: 0.0 
+  planner_window_y: 0.0
+  default_tolerance: 0.1
+  
+  publish_scale: 100
+  planner_costmap_publish_frequency: 0.0
+\end{lstlisting}
+\caption{Configuración del \textit{global\_planner}.}\footnotemark
+\end{code}
+\footnotetext{\hypersetup{urlcolor=black}
+Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/navigation/common/global_planner_params.yaml}{\textit{pioneer\_utils/navigation/common/global\_planner\_params.yaml}}
+\hypersetup{urlcolor=blue}}
 
 \subsubsection{Parámetros del local\_planner}
+EL planificador de trayectoria local que se ha utilizado es \textit{Trajectory Rollout} por sus buenos resultados en robot con bajas capacidades de aceleración.
+
+Las pruebas realizadas tanto en el simulador como en el propio robot han servido para ajustar los parámetros de velocidad y aceleración así como para mantener un compromiso entre la correcta reacción ante obstáculos locales y el ajuste a la trayectoria global.
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.5\textwidth]{figuras/rviz-local.png}
+\caption{Planificador de trayectoria local \textit{Trajectory Rollout} en RViz.}
+\label{fig:rviz-dijkstra}
+\end{figure}
+
+Los parámetros utilizados son los que se presentan a continuación.
+
+\begin{code}[!htp]
+\begin{lstlisting}[style=launch]
+TrajectoryPlannerROS:
+  max_vel_x: 0.6
+  min_vel_x: 0.1
+  max_vel_theta: 0.8
+  min_in_place_vel_theta: 0.4
+
+  acc_lim_theta: 3.2
+  acc_lim_x: 2.5
+  acc_lim_y: 2.5
+
+  holonomic_robot: false
+
+  yaw_goal_tolerance: 3.1415
+
+  sim_granularity: 0.025
+  sim_time: 2.0
+  meter_scoring: true
+  pdist_scale: 0.9
+  gdist_scale: 0.6
+\end{lstlisting}
+\caption{Configuración de \textit{base\_local\_planner}.}\footnotemark
+\end{code}
+\footnotetext{\hypersetup{urlcolor=black}
+Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/navigation/common/base_local_planner_params.yaml}{\textit{pioneer\_utils/navigation/common/base\_local\_planner\_params.yaml}}
+\hypersetup{urlcolor=blue}}
 
 \subsection{Navegación con mapa}
 Usualmente cuando hablamos de navegación nos referimos a una navegación basada en un mapa previo que se carga en la memoria del robot.
@@ -540,9 +604,106 @@ Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_u
 \hypersetup{urlcolor=blue}}
 
 \section{Nodo de navegación por puntos}
-\section{Nodo de ejecución automática de nodos}
-\subsection{Reconocimiento de comandos de voz}
-\subsection{Feedback mediante text-to-speech}
+El nodo de navegación por puntos ofrece a posibilidad de enviar diferentes puntos de meta al robot tanto en el modo global como en el modo local. esto quiere decir, que ofrece unas funciones capaces de manda al robot a un punto deseado del mapa o hacer que este avance cierta distancia determinada.
+
+El nodo de navegación por puntos \textit{nav-waypoints} está desarrollado en C++ y ofrece un ejemplo de las posibilidades de uso de la navegación del robot. Este nodo se subscribe al estado del nodo de navegación del robot y publica puntos de meta en el \textit{frame} apropiado dependiendo de si es una meta global o local.
+
+\begin{code}[!htp]
+\begin{lstlisting}[style=C++]
+#include <ros/ros.h>
+#include <move_base_msgs/MoveBaseAction.h>
+#include <actionlib/client/simple_action_client.h>
+#include <tf/tf.h>
+
+typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
+
+bool setLocalGoal(const float &x, const float &angle)
+{
+	 //tell the action client that we want to spin a thread by default
+  MoveBaseClient ac("move_base", true);
+
+  //wait for the action server to come up
+  while(!ac.waitForServer(ros::Duration(5.0))){
+    ROS_INFO("Waiting for the move_base action server to come up");
+  }
+
+  move_base_msgs::MoveBaseGoal goal;
+
+  //we'll send a goal to the robot to move 1 meter forward
+  goal.target_pose.header.frame_id = "/odom";
+  goal.target_pose.header.stamp = ros::Time::now();
+
+  goal.target_pose.pose.position.x = x;
+  goal.target_pose.pose.orientation.w = angle;
+
+  ROS_INFO("Sending goal");
+  ac.sendGoal(goal);
+
+  ac.waitForResult();
+
+  if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
+  {
+	  ROS_INFO("Hooray, the base moved 1 meter forward");
+	  return true;
+  }
+  else
+  {
+	  ROS_INFO("The base failed to move forward 1 meter for some reason");
+	  return false;
+  }	
+}
+
+
+bool setGlobalGoal(const float &x, const float &y, const float &angle)
+{
+	//tell the action client that we want to spin a thread by default
+	MoveBaseClient ac("move_base", true);
+	
+	//wait for the action server to come up
+	while(!ac.waitForServer(ros::Duration(5.0)))
+	{
+		ROS_INFO("Waiting for the move_base action server to come up");
+	}
+	
+	move_base_msgs::MoveBaseGoal goal;
+	goal.target_pose.header.frame_id = "/map";
+	goal.target_pose.header.stamp = ros::Time::now();
+	
+	goal.target_pose.pose.position.x = x;
+	goal.target_pose.pose.position.y = y;
+	goal.target_pose.pose.orientation = tf::createQuaternionMsgFromYaw(angle);
+	ROS_INFO("Sending GLOBAL goal");
+	ac.sendGoal(goal);
+	
+	ac.waitForResult();
+	
+	if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
+	{
+		ROS_INFO("Hooray, the base moved 1 meter forward");
+		return true;
+	}
+    else
+    {
+		ROS_INFO("The base failed to move forward 1 meter for some reason");
+		return false;
+	}
+}
+
+int main(int argc, char** argv){
+  ros::init(argc, argv, "simple_navigation_goals");
+  setGlobalGoal(-0.671, 1.938, 1.0); //rosa
+  setGlobalGoal(0.193, -1.520, 1.0); //invernadero
+  setGlobalGoal(2.118, -8.223, 1.0); //comau
+  setGlobalGoal(-1.073, -9.271, 1.0); //puerta principal
+  
+  return 0;
+}
+\end{lstlisting}
+\caption{Nodo \textit{nav-waypoints}.}\footnotemark
+\end{code}
+\footnotetext{\hypersetup{urlcolor=black}
+Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/navigation/local_navigation/local_navigation_p3at.launch}{\textit{pioneer\_utils/navigation/local\_navigation/local\_navigation\_p3at.launch}}
+\hypersetup{urlcolor=blue}}
 
 \section{Nodo de guiado (follower)}
 
@@ -613,3 +774,7 @@ Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_u
 \caption{Launchfile para turtlebot\_follower en el robot Pioneer 3 AT.}
 \end{code}
 
+
+\subsection{Feedback mediante text-to-speech}
+\subsection{Reconocimiento de comandos de voz}
+\section{Nodo de ejecución automática de nodos}
