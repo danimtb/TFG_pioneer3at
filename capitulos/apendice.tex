@@ -49,14 +49,16 @@ Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI}{\textit{https://gith
 \caption{Clonado del repositorio \textit{pioneer3at\_ETSIDI}}
 \end{code}
 
-Sin embargo, es recomendable que si se desea realizar algún desarrollo posterior, se realice un fork en GitHub de este proyecto (Figura *TAL*) y se clone el repositorio propio.
+Sin embargo, es recomendable que si se desea realizar algún desarrollo posterior, se realice un fork en GitHub de este proyecto (Figura \ref{fig:pioneer3at_ETDSIDI}) y se clone el repositorio propio.
 
-**Captura de pantalla del repo github**
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=0.8\textwidth]{figuras/pioneer3at_ETSIDI.png}
+\caption{Vista del repositorio de GitHub de este proyecto.}
+\label{fig:pioneer3at_ETDSIDI}
+\end{figure}
 
 De esta forma podemos guardar los cambios realizados en el repositorio de la persona que hace la modificación, con la intención de incorporar los cambios más tarde al repositorio de desarrollo principal (\url{https://github.com/danimtb/pioneer3at_ETSIDI.git}) mediante Pull Request.
-
-**figura pull request**
-
 
 \subsection{Gestión de las dependencias}
 
@@ -189,7 +191,7 @@ El sensor láser LMS100 de la marca Sick es un sensor de ampli rango y largo alca
 
 El fabricante Sick ofrece un software propietario llamado SOPAS Ingineering Tool que permite acceder a la configuración interna del sensor. Este software tan solo puede utilizarse bajo el sistema operativo Microsoft Windows, en concreto ha sido utilizado con Windows 7.
 
-Para instalarlo hay que recurrir a la web del fabricante: **COMPLETAR**
+Para instalarlo hay que recurrir a la web del fabricante: \url{https://www.mysick.com/eCat.aspx?go=FinderSearch&Cat=Row&At=Fa&Cult=English&FamilyID=235&Category=Software&Selections=54195,54293}
 
 Para configurar el dispositivo debemos enchufarlo a un puerto Ethernet de un ordenador con el software instalado y proporcionarle alimentación.
 
@@ -271,11 +273,16 @@ Muchos de los estados anteriores se indican mediante una señal acústica. El rese
 
 El pulsador de emergencia se encuentra en la parte superior del robot y es de vital importancia cuando el robot se mueve de manera descontrolada, choca o está en peligro la integridad de una persona o del propio robot. Es por ello que se recomienda su uso siempre que se encuentre en una situación de las anteriores.
 
-**imagen de la seta de emergencia**
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=0.5\textwidth]{figuras/seta_emergencia.png}
+\caption{Botón de parada de emergencia del robot Petrois.}
+\label{fig:seta_emergencia}
+\end{figure}
 
 Al pulsar la seta de emergencia ésta quedará enclavada y el robot dará una señal acústica continuada indicando que se encuentra en parada. En este punto los motores quedan deshabilitados y las ruedas del robot pueden moverse libremente.
 
-Para rearmar el robot basta con devolver la seta de emergencia a su posición original girando levemente la misma en el sentido de las flechas. Después es necesario pulsar el botón MOTORS para volver a habilitar los motores.
+Para rearmar el robot basta con devolver la seta de emergencia a su posición DE reposo girando levemente la misma en el sentido de las flechas. Después es necesario pulsar el botón MOTORS para volver a habilitar los motores.
 
 Cabe indicar que la comunicación de cualquier ordenador con la placa de control del robot no se interrumpe, por lo que al rearmar el robot es posible que éste continúe con los movimientos previos a la parada de emergencia. Asegúrese de que las consignas de movimiento son las correctas y ponga especial precaución cuando realice el rearmado del robot.
 
@@ -328,7 +335,13 @@ El acceso a las baterías se encuentra en el interior del chasis del robot y son 
 
 La carga de las baterías se realiza con el adaptador de la figura **TAL** a través del conector de carga situado junto al interruptor de alimentación general.
 
-**Imagen del cargador**
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=0.45\textwidth]{figuras/puerto_carga.jpg}
+\includegraphics[width=0.45\textwidth]{figuras/cargador.jpg}
+\caption{Puerto de carga y cargador del robot Petrois.}
+\label{fig:seta_emergencia}
+\end{figure}
 
 No ha podido estimarse el tiempo de carga completo, sin embargo el propio cargador incorpora un indicador luminoso que muestra el estado de carga de las baterías.
 
