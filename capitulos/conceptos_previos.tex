@@ -28,7 +28,7 @@ En la figura \ref{fig:nodos_conectados} vemos un ejemplo para el robot simulado 
 Teniendo esta estructura en mente, es conveniente definir algunos conceptos sobre los que trabaja ROS **referencia**:
 
 \begin{itemize}
-\item Nodos (nodes): Los nodos son procesos que realizan algún tipo de cómputo. Un robot basado en ROS precisará de varios nodos ejecutándose al mismo tiempo e intercambiándose información.
+\item Nodos (nodes): Los nodos son procesos que realizan algún tipo de cómputo. Un robot basado en ROS precisará de varios nodos ejecutándose al mismo tiempo e intercambiándose información a través de Topics, Servicios y Parámetros.
 
 \item Máster (master): El nodo ROS master proporciona una vía comunicación para el intercambio de mensajes y un registro de cada nodo. También dispone de un registro de parámetros a los que pueden tener acceso cualquiera de los nodos.
 
@@ -83,7 +83,7 @@ Tmabién es necesario conocer algunos tipos de archivos y su uso dentro de ROS pa
 
 Por último, cabe destacarr la importancia de uno de los paquetes integrados en ROS que más beneficios nos aporta, el paquete de transformadas \textit{tf}.
 
-\textit{tf} **referencia** es uno de los paquetes de geometría dentro de ROS que nos permite realizar transformadas de los datos a un sistema de coordenadas concreto, estos sistemas de coordenadas son denominados como \textit{frames}. Muchas funcionalidades de ROS se basan en este tipo de transformadas para realizar los cálculos matemáticos oportunos así como para determinar la posición de nuestro robot y sus articulaciones.
+\textit{tf} **referencia** es uno de los paquetes de geometría dentro de ROS que nos permite realizar transformadas de los datos de un sistema de coordenadas concreto a otro. estos sistemas de coordenadas son denominados como \textit{frames} y realizan la transformación de los datos de manera periódica. Muchas funcionalidades de ROS se basan en este tipo de transformadas para realizar los cálculos matemáticos oportunos así como para determinar la posición de nuestro robot y sus articulaciones.
 
 \begin{figure}[htp]
 \centering
@@ -104,7 +104,7 @@ $ sudo apt-get install ros-indigo-desktop-full
 \caption{Mandato de consola para instalar la versión completa de ROS Indigo.}
 \end{code}
 
-Añadimos nuestra variable de entorno para que el sistema reconozca todas herramientas de ROS:
+Añadimos nuestra variable de entorno para que el sistema reconozca las herramientas de ROS:
 
 \begin{code}[htp]
 \begin{lstlisting}[style=consola]
