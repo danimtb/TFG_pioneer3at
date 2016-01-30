@@ -470,6 +470,13 @@ La filosofía del planificador de trayectoria local es servir de control reactivo
 
 EL planificador de trayectoria local ya implementado en ROS utiliza los algoritmos \textit{Trajectory Rollout} y \textit{Dynamic Window} para realizar la navegación reactiva basada en un solo plano. Los pasos que realizan estos algoritmos son los siguientes:
 
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=0.45\textwidth]{figuras/local_plan.png}
+\caption{Funcionamiento de los planificadores de trayectoria local.}
+\label{fig:local_plan}
+\end{figure}
+
 \begin{enumerate}
 \item Muestreo discreto del espacio de control del robot según sus velocidades en cada eje.
 \item Para cada velocidad, realizar una simulación desde el estado actual del robot para predecir la posición del robot durante un periodo corto de tiempo.
@@ -477,6 +484,6 @@ EL planificador de trayectoria local ya implementado en ROS utiliza los algoritm
 \item Repetir los pasos anteriores hasta alcanzar el punto final de meta.
 \end{enumerate}
 
-La diferencia entre los algoritmos \textit{Trajectory Rollout} y \textit{Dynamic Window} es el modo en el que se realiza el muestreo del espacio de control del robot. \textit{Trajectory Rollout} muestrea todas las trayectorias alcanzables variando la velocidad en todo el periodo de simulación, mientras que \textit{Dynamic Window} realiza la evaluación de las trayectorias en cada uno de los pasos, evaluando la velocidad  comparándola con las capacidades de aceleración del robot.
+La diferencia entre los algoritmos \textit{Trajectory Rollout} \cite{gerkey2008planningy} \textit{Dynamic Window} \cite{fox1997dynamic} es el modo en el que se realiza el muestreo del espacio de control del robot. \textit{Trajectory Rollout} muestrea todas las trayectorias alcanzables variando la velocidad en todo el periodo de simulación, mientras que \textit{Dynamic Window} realiza la evaluación de las trayectorias en cada uno de los pasos, evaluando la velocidad  comparándola con las capacidades de aceleración del robot.
 
 \textit{Dynamic Window} es un algoritmo más eficiente pero que se comporta peor en robots con bajos límites de aceleración por lo que en ocasiones el algoritmo \textit{Trajectory Rollout} realiza trayectorias locales más adecuadas.
