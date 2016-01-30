@@ -328,7 +328,6 @@ Para realizar estas pruebas se utilizó al robot en modo de seguimiento y al mism
 
 En la figura \ref{fig:slam_real1} se muestra el resultado de la primera prueba.
 
-\afterpage{
 \begin{figure}[!htp]
 \centering
 \includegraphics[width=0.9\textwidth]{figuras/slam_real1.png}
@@ -338,7 +337,6 @@ En la figura \ref{fig:slam_real1} se muestra el resultado de la primera prueba.
 \footnotetext{\hypersetup{urlcolor=black}
 Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/maps/slam_real1.pgm}{\textit{pioneer\_utils/maps/slam\_real1.pgm}}
 \hypersetup{urlcolor=blue}}
-}
 
 El área recuadrada en color rojo indica la zona donde se cerró el bucle y se aprecian ciertas discrepancias en las paredes y un ligero desvío hacia la derecha. Parte de este efecto es debido a que el bucle a cerrar es demasiado grande para esta prueba y a que el robot se desplazó realizando un recorrido sinuoso por el área del parking (se aprecia que se cubrió gran parte del mismo sin ser algo necesario para la prueba), con lo que el error de la odometría pudo haberse visto incrementado.
 
@@ -412,11 +410,25 @@ Nº de choques & 4 \\
 \caption{Segunda prueba de resistencia real.}
 \label{tabla:segunda_prueba_real}
 \end{table}
-La prueba finalizó por falta de batería en el robot, sin embargo no puede considerarse que ese tiempo sea la duración de la misma en navegación con el robot ya que no se encontraba al 100\% (aproximadamente la duración es de 2 horas y media).
+La prueba finalizó por falta de batería en el robot, sin embargo no puede considerarse que ese tiempo sea la duración de la misma en navegación con el robot ya que no se encontraba al 100\%.
 
 Las metas no alcanzadas se produjeron por obstáculos móviles (personas en movimiento) bloqueando el paso del robot (imposible llegar a la meta físicamente). También se produjeron metas abordadas por riesgo de colisión (el robot había quedado situado muy cerca de las patas de una mesa).
 
 Los choques fueron roces leves de las ruedas con obstáculos bajos. Esto es debido a que el planificador ajusta mucho la trayectoria para que el robot pueda navegar por lugares estrechos.
+
+\textbf{Primera prueba}\\
+La segunda prueba de resistencia se planteó como la prueba absoluta, midiendo parámetros como la autonomía de las baterías, con distancias entre puntos más largas, navegación por diferentes salas y pequeños desniveles.
+
+Los puntos de meta preestablecidos se distribuyen en el mapa tal y como se muestra en la figura \ref{Gazebo} y el root navega aleatoriamente de uno a otro.
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=\textwidth]{figuras/mapa_endurance.png}
+\caption{Distribución de puntos de meta en la segunda prueba de resistencia.}
+\label{fig:endurance_real2}
+\end{figure}
+}
+
 
 \subsection{Ascpectos de la navegación}
 
