@@ -385,19 +385,36 @@ Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_u
 Los planificadores de trayectoria por defecto en ROS utilizan algoritmos como Dijsktra o A* además de algunos ajustes para el cálculo y parámetros especiales en el caso del planificador de trayectoria local.
 
 \subsubsection{Parámetros del global\_planner}
-En ROS, el nodo encargado de realizar el cálculo de la trayectoria global es el denominado global\_planner. Este nodo dispone de los algoritmos de planificación ya implementados que realizan los cáculos de trayectoria.
+En ROS, el nodo encargado de realizar el cálculo de la trayectoria global es el denominado global\_planner. Este nodo dispone de los algoritmos de planificación ya implementados que realizan los cálculos de trayectoria.
 
 La configuración del planificador global se realiza a través de parámetros que podemos configurar, distinguiendo entre el uso del algoritmo de Dijsktra o el de A*, utilizar un camino definido por rejilla, etc.
 
 A continuación podemos ver el comportamiento del planificador con diferente configuración en sus parámetros.
 
 \begin{itemize}
-\item \textbf{Algoritmo de Dijsktra}:
+\item \textbf{Algoritmo A*}:
+\\El planificador de trayectoria A* ofrece los siguientes resultados.
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.9\textwidth]{figuras/rviz-astar.png}
+\caption{Planificador de trayectoria A* visualizado en RViz.}
+\label{fig:rviz-astar}
+\end{figure}
+
+El espacio analizado es menor que en el caso de Dijkstra, sin embargo el camino final no es el adecuado, ya que es sinuoso y se acerca demasiado a obstáculos y paredes. Eso a simple vista parece un mal funcionamiento del algoritmo, ya que el comportamiento es exagerado.
+
+
+\item \textbf{Algoritmo de Dijkstra}:
 \\La configuración por defecto del planeador realiza el cálculo de trayectoria mediante el algoritmo de Dijsktra.
 
-\item \textbf{use\_grid\_path}:
-\item \textbf{use\_quadratic}:
-\item \textbf{old\_navfn\_behavior}:
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.9\textwidth]{figuras/rviz-dijkstra.png}
+\caption{Planificador de trayectoria Dijkstra visualizado en RViz.}
+\label{fig:rviz-dijkstra}
+\end{figure}
+
 \end{itemize}
 
 ALGORITMOS CON PRUEBAS
@@ -526,3 +543,73 @@ Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_u
 \section{Nodo de ejecución automática de nodos}
 \subsection{Reconocimiento de comandos de voz}
 \subsection{Feedback mediante text-to-speech}
+
+\section{Nodo de guiado (follower)}
+
+El nodo de guiado se basa en el procesamiento de la nube de puntos obtenida a través de los nodos del paquete freenect\_stack.
+
+El nodo está originalmente desarrollado para el robot Turtlebot pero es fácil adaptable a otros robots.
+
+Requiere un Topic de tipo \textit{sensor\_msgs/PointCloud2} al que suscribirse para leer la nube de puntos y un topic de tipo \textit{geometry\_msgs/Twist} al que publicar los movimientos de giro, avance y retroceso.
+
+\begin{table}[!h]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{c c c}
+& {\bf turtlebot\_follower API} & \\
+{\bf Topics suscritos} & {\bf Mensaje} & {\bf Descripción}\\ \hline
+camera/depth/points & sensor\_msgs/PointCloud2 & Recibe la nube de puntos\\
+{\bf Topics publicados} & {\bf Mensaje} & {\bf Descripción}\\ \hline
+cmd\_vel & geometry\_msgs/Twist & Publica comandos de velocidad\\
+{\bf Parámetros} & {\bf Tipo} & {\bf Descripción}\\
+\hline
+min\_y & double & Posición mínima de puntos en Y\\
+max\_y & double & Posición máxima de puntos en Y\\
+min\_x & double & Posición mínima de puntos en X\\
+max\_x & double & Posición máxima de puntos en Y\\
+max\_z & double & Posición máxima de puntos en Y\\
+goal\_z & double & Distancia mantenida en el seguimiento\\
+z\_scale & double & Factor de escala velocidad trans.\\
+x\_scale & double & Factor de escala en velocidad de rot.\\
+enabled & bool & Hanilita los movimientos\\
+\end{tabular}
+}
+\caption{API de turtlebot\_follower}
+\label{tabla_rosaria}
+\end{table}
+
+El tratamiento de la nube de puntos se realiza con la librería PCL (PointCloud Library \cite{PCL}) y su funcionamiento es el siguiente:
+
+\begin{enumerate}[1.-]
+\item Busca puntos dentro de los límites establecidos.
+\item Calcula las dimensiones de los puntos encontrados.
+\item Calcula el centroide del la zona destacada.
+\item Mueve el robot de manera acorde hasta que alcanza la distancia establecida.
+\end{enumerate}
+
+\begin{code}[!htp]
+\begin{lstlisting}[style=launch]
+<launch>
+    
+<!--  Load turtlebot follower into the 3d sensors nodelet manager to avoid pointcloud serializing -->
+    <node pkg="nodelet" type="nodelet" name="turtlebot_follower" args="load turtlebot_follower/TurtlebotFollower camera/camera_nodelet_manager">
+      <remap from="turtlebot_follower/cmd_vel" to="/cmd_vel"/>
+      <remap from="depth/points" to="camera/depth/points"/>
+      <param name="enabled" value="true" />
+      <param name="x_scale" value="10.0" />
+      <param name="z_scale" value="10.0" />
+      <param name="min_x" value="-0.35" />
+      <param name="max_x" value="0.35" />
+      <param name="min_y" value="0.1" />
+      <param name="max_y" value="0.5" />
+      <param name="max_z" value="1.2" />
+      <param name="goal_z" value="0.6" />
+    </node>
+</launch>
+\end{lstlisting}
+\hypersetup{urlcolor=black}
+Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/follower/simple-follower.launch}{\textit{pioneer\_utils/follower/simple-follower.launch}}
+\hypersetup{urlcolor=blue}
+\caption{Launchfile para turtlebot\_follower en el robot Pioneer 3 AT.}
+\end{code}
+
