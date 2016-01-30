@@ -416,19 +416,46 @@ Las metas no alcanzadas se produjeron por obstáculos móviles (personas en movimi
 
 Los choques fueron roces leves de las ruedas con obstáculos bajos. Esto es debido a que el planificador ajusta mucho la trayectoria para que el robot pueda navegar por lugares estrechos.
 
-\textbf{Primera prueba}\\
+\textbf{Tercera prueba}\\
 La segunda prueba de resistencia se planteó como la prueba absoluta, midiendo parámetros como la autonomía de las baterías, con distancias entre puntos más largas, navegación por diferentes salas y pequeños desniveles.
 
-Los puntos de meta preestablecidos se distribuyen en el mapa tal y como se muestra en la figura \ref{Gazebo} y el root navega aleatoriamente de uno a otro.
+Los puntos de meta preestablecidos se distribuyen en el mapa tal y como se muestra en la figura \ref{fig:endurance_real2} y el root navega aleatoriamente de uno a otro.
 
 \begin{figure}[!htp]
 \centering
-\includegraphics[width=\textwidth]{figuras/mapa_endurance.png}
+\includegraphics[width=0.8\textwidth]{figuras/mapa_endurance.png}
 \caption{Distribución de puntos de meta en la segunda prueba de resistencia.}
 \label{fig:endurance_real2}
 \end{figure}
-}
 
+El entorno de la prueba presentó obstáculos altos y bajos (no detectables por el sensor láser), dos pequeñas rampas, personas en continuo movimiento e incluso elementos del entorno cambiados de posición. A continuación se muestran los resultados de la prueba.
+
+\begin{table}[!h]
+\centering
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{c c}
+\hline
+Puntos de meta &  17 \\
+Tiempo total & 2 horas y 38 minutos \\
+Metas enviadas & 164 \\
+Metas alcanzadas & 106 \\
+Tasa metas alcanzadas & 65\% \\
+Distancia total & 4000.5 metros \\
+Nº de choques & 2 \\
+\hline
+\end{tabular}
+}
+\caption{Tercera prueba de resistencia real.}
+\label{tabla:primera_prueba_real}
+\end{table}
+
+Sobre estos resultados cabe decir que el número de metas alcanzadas se ve reducido debido a que en ocasiones se necesita replanificar la ruta hasta el punto de meta y a que el robot a veces encontraba dificultades para conducir su trayectoria a través de pasos estrechos.
+
+La duración de la batería en navegación continua es superior a las dos horas y media. Al finalizar la prueba el voltaje de las baterías alcanzó un valor 10.5 voltios.
+
+En cuanto al número de choques, estos fueron un roce a un obstáculo bajo al tratar de esquivarlo y un choque con las ruedas de una silla.
+
+Destaca el alto valor de la distancia recorrida, que alcanza los 4 kilómetros sin la intervención de una persona, sin que se ponga en riesgo la integridad de ninguna de las personal involucradas en la prueba ni la del propio robot.
 
 \subsection{Ascpectos de la navegación}
 
