@@ -67,7 +67,7 @@ base\_link & & Referencia base del robot\\
 odom & & Referencia odométrica
 \end{tabular}
 }
-\caption{API de rosaria utilizada. Basado en \cite{rosaria}}
+\caption{API de \textit{rosaria} utilizada. Basado en \cite{rosaria}.}
 \label{tabla_rosaria}
 \end{table}
 
@@ -79,13 +79,13 @@ Para la puesta en marcha del sensor Kinect existen en ROS diferentes paquetes qu
 
 Existen dos paquetes destinados al control del sensor Kinect:
 
-Por un lado tenemos openni\_kinect **referencia**, que utiliza los drivers originales desarrollados por la empresa PrimeSense encargada de fabricar este dispositivo. Este paquete y en concreto los drivers del dispositivo han sido utilizados ampliamente tanto en desarrollos realizados con ROS como fuera de este entorno. Sus características principales son la total funcionalidad, aprovechamiento de toda la tecnología de este sensor y capacidad para monitorear la posición del esqueleto de una persona. Sin embargo, desarrollo del paquete openni\_kinect solo se mantuvo activo hasta a versión de ROS Fuerte **referencia** debido a la compra de PrimeSense por la conocida marca de informática Apple **referencia**.
+Por un lado tenemos \textit{openni\_kinect} **referencia**, que utiliza los drivers originales desarrollados por la empresa PrimeSense encargada de fabricar este dispositivo. Este paquete y en concreto los drivers del dispositivo han sido utilizados ampliamente tanto en desarrollos realizados con ROS como fuera de este entorno. Sus características principales son la total funcionalidad, aprovechamiento de toda la tecnología de este sensor y capacidad para monitorear la posición del esqueleto de una persona. Sin embargo, desarrollo del paquete \textit{openni\_kinect} solo se mantuvo activo hasta a versión de ROS Fuerte **referencia** debido a la compra de PrimeSense por la conocida marca de informática Apple **referencia**.
 
-Por otro lado, gracias al gran desarrollo software llevado a cabo por la comunidad OpenSource, disponemos de los divers libfreenect desarrollados por el proyecto OpenKinect \url{http://openkinect.org/wiki/Main_Page} que trata de ofrecer una vía alternativa para controlar el sensor de Microsoft. Estos drivers se encapsulan y adaptan su interfaz a ROS a través del paquete freenect\_stack **referencia** el cual nos ofrece acceso tan solo a la imagen y la nube de puntos del sensor. Su integración no es completa, no dispone de características adicionales como el monitoreo de la posición de una persona, sin embargo su funcionamiento es correcto y está adaptado a ROS en su versión Indigo y esto nos ofrece la posibilidad de integrarlo en nuestro sistema. Por estas razones ha sido el software utilizado para acceder al sensor Kinect en este proyecto.
+Por otro lado, gracias al gran desarrollo software llevado a cabo por la comunidad OpenSource, disponemos de los divers \textit{libfreenect} desarrollados por el proyecto OpenKinect \url{http://openkinect.org/wiki/Main_Page} que trata de ofrecer una vía alternativa para controlar el sensor de Microsoft. Estos drivers se encapsulan y adaptan su interfaz a ROS a través del paquete \textit{freenect\_stack} **referencia** el cual nos ofrece acceso tan solo a la imagen y la nube de puntos del sensor. Su integración no es completa, no dispone de características adicionales como el monitoreo de la posición de una persona, sin embargo su funcionamiento es correcto y está adaptado a ROS en su versión Indigo y esto nos ofrece la posibilidad de integrarlo en nuestro sistema. Por estas razones ha sido el software utilizado para acceder al sensor Kinect en este proyecto.
 
-freenect\_stack, al ser un paquete de terceros, debe clonarse desde su repositorio de código fuente e incorporarlo a nuestro entorno catkin.
+\textit{freenect\_stack}, al ser un paquete de terceros, debe clonarse desde su repositorio de código fuente e incorporarlo a nuestro entorno catkin.
 
-Su puesta en marcha es bastante inmediata y podemos hacer uso de los launch files que ofrece freenect\_launch desde consola de la siguiente forma:
+Su puesta en marcha es bastante inmediata y podemos hacer uso de los \textit{launchfiles} que ofrece \textit{freenect\_launch} desde consola de la siguiente forma:
 
 \begin{code}[htp]
 \begin{lstlisting}[style=consola]
@@ -126,9 +126,11 @@ Existe un amplio soporte para sensores láser de la marca Sick, entre ellos el má
 
 El láser Sick LMS100 ha sido integrado en ROS y utilizado en este proyecto ya que se había dado uso en proyectos anteriores **referencia alejandro** y se consideró conveniente incorporarlo y utilizarlo para obtener una navegación más precisa del robot.
 
-Para acceder al sensor Sick LMS100 utilizamos el paquekte LMS1xx desarrollado por Clearpath Robotics **referencia** que se basa en el trabajo de otros dos desarrolladores de la comunidad ROS, y en concreto en los drivers desarrollados por **referencia** https://github.com/konradb3/libLMS1xx
+Para acceder al sensor Sick LMS100 utilizamos el paquekte \textit{LMS1xx} desarrollado por Clearpath Robotics **referencia** que se basa en el trabajo de otros dos desarrolladores de la comunidad ROS, y en concreto en los drivers desarrollados por **referencia** https://github.com/konradb3/libLMS1xx
 
-El paquete LMS1xx consta de un solo nodo que se conecta a través de una IP indicada como parámetro. Su uso es sencillo mediante un archivo launchfile y tan solo debemos tener la precaución de configurar correctamente la IP manual del puerto ethernet de nuestro ordenador.
+El paquete \textit{LMS1xx} consta de un solo nodo que se conecta a través de una IP indicada como parámetro. Para conectarnos al sensor láser es necesario configurar el puerto del ordeandor con una IP fija dentro del mismo rango que la IP del sensor, la puerta de enlace queda vacía y utilizamos la máscara de subred por defecto.
+
+Seguidamente basta con indicar en el archivo \textit{launchfile} la IP del sensor.
 
 \begin{code}[htp]
 \begin{lstlisting}[style=launch]
