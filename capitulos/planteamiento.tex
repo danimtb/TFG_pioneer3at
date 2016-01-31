@@ -3,53 +3,55 @@
 En esta capítulo se expone cuál ha sido el planteamiento incial del proyecto, un análisis de tiempos, las tecnologías y equipos utilizados y el hardaware que forma parte del proyecto en sí mismo.
 
 \section{Planteamiento preliminar}
-El robot sobre el que se pretende trabajar es el Pioneer 3 AT, de la empresa Adept Mobile Robots, cuyas características se detallarán más adelante. La configuración del sistema motriz es de tipo skid-steer y será determinante a la hora de realizar el control del desplazamiento.
+El robot sobre el que se ha trabajadoes el Pioneer 3 AT, de la empresa Adept Mobile Robots, cuyas características se detallarán más adelante. La configuración del sistema motriz es de tipo skid-steer y será determinante a la hora de realizar el control del desplazamiento.
 
-Para realizar la teleoperación del robot, utilizaremos las herramientas de comunicación de ROS, que hacen que la ejecución de los diferentes nodos de forma distribuida entre equipos se realice de forma transparente para el usuario. Con esta característica podremos desarrollar con facilidad un sistema de telecontrol sin preocuparnos en exceso por la implementación de la comunicación entre equipos.
+Para realizar la teleoperación del robot, se han utilizado las herramientas de comunicación de ROS, que hacen que la ejecución de los diferentes nodos de forma distribuida entre equipos se realice de forma transparente para el usuario. Con esta característica es posible desarrollar con facilidad un sistema de telecontrol sin preocuparnos en exceso por la implementación de la comunicación entre equipos.
 
-Para la navegación se pretende que el robot base sus movimientos en un sistema reactivo, es decir, que el robot base su navegación principalmente en la información captada por sus sensores y no en un mapa preestablecido. El control en navegación del robot se basará en la funcionalidad "Navigation Stack" de ROS, que también será explicada en detalle más delante.
+Para la navegación se pretende que el robot base sus movimientos en un sistema reactivo, es decir, que el robot base su navegación principalmente en la información captada por sus sensores y no en un mapa preestablecido. El control en navegación del robot se basa en la funcionalidad ''Navigation Stack'' de ROS, que también será explicada en detalle más delante.
 
-El desarrollo principal para la navegación se basa en la información aportada por el sensor Kinect, sin embargo, el sensor láser proporciona una información muy potente para robots y también ha sido incluido en el dasarrollo de este proyecto, utilizándolo en conjunto con el sensor Kinect.
+El desarrollo principal para la navegación utiliza la información aportada por el sensor Kinect y el sensor láser, ya que ambos proporcionan información muy valiosa debido a sus diferentes características.
 
-Seguidamente, se han realizado los ajustes pertinentes en la navegación del robot, para la cual se ha seguido el concepto de mapas de coste y descomposición en celdas. También se ha valorado la disposición de ambos sensores para capturar el entorno, así como el tratamiento dispar de los datos capturados por cada uno de ellos. De esta forma logramos que no se produzcan detecciones de objetos de manera duplicada y que no haya discrepancias entre los obstáculos que detecta un sensor respecto al otro \footnote{De especial interés en la icorporación de obstáculos al mapa mediante el uso de Costmaps en el sistema de navegación de ROS}.
+Seguidamente, se han realizado los ajustes pertinentes en la navegación del robot, para la cual se ha seguido el concepto de mapas de coste y descomposición en mapas de celdillas. También se ha valorado la disposición de ambos sensores para capturar el entorno, así como el tratamiento dispar de los datos capturados por cada uno de ellos. De esta forma logramos que no se produzcan detecciones de objetos de manera duplicada y que no haya discrepancias entre los obstáculos que detecta un sensor respecto al otro \footnote{De especial interés en la icorporación de obstáculos al mapa mediante el uso de Costmaps en el sistema de navegación de ROS}.
 
 Finalmente, se han incorporado características adicionales que aportan valor al desarrollo del proyecto, como el uso del simulador Gazebo o la interacción con el robot mediante comandos de voz y sintetizado de voz.
 
 \section{Planificación del proyecto}
 
-En este apartado se desarrollan las fases por las que ha pasado este proyecto y realizaremos un análisis de tiempos.
+En este apartado se desarrollan las fases por las que ha pasado este proyecto y realizaremos un análisis de tiempos.\\
 
-Fase inicial: Familiarización con el entrono ROS y elección de herramientas.
-
-\begin{enumerate}[i.]
-  \item Utilizaremos las herramientas proporcionadas por ROS para evaluar los datos que pueda manejar el robot: RViz, rqt\_grapth, map\_server, rostopics...
-  
-  \item Para el control del movimiento del robot utilizaremos el nodo RoSAria debido a sus amplias posibilidades.
-  
-  \item Para acceder a la información de la Kinect utilizaremos los drivers libfreenect, por ser librerías de código libre y utilizadas ampliamente.
-\end{enumerate}
-
-Segunda fase: Realización del nodo de teleoperación y comunicación entre equipos conectados a la misma red.
+\textbf{Fases de desarrollo:}
+\begin{itemize}
+\item Fase inicial: Familiarización con el entrono ROS y elección de herramientas.
 
 \begin{enumerate}[i.]
-  \item Utilizamos la configuración de equipos en red para acceder a la información publicada por nodos que se ejecuten en varias máquinas \cite{network-ros}.
+  \item Herramientas proporcionadas por ROS para evaluar los datos que pueda manejar el robot: \textit{RViz}, \textit{rqt\_grapth}, \textit{map\_server}, \textit{Topics}...
   
-  \item Partiendo del nodo de teleoperacion de "Turtlesim" *refrencia*, realizamos un nodo similar para nuestro robot.
+  \item Para el control del movimiento del robot se ha utilizado el nodo RoSAria debido a sus posibilidades.
+  
+  \item Para acceder a la información de la Kinect se utilizan los drivers \textit{libfreenect} por ser librerías de código libre integradas en ROS y de las cuales se ha hecho uso extenso en otros proyectos.
 \end{enumerate}
 
-Tercera fase: Incorporación de los sensores al robot y acceso a los datos.
+\item Segunda fase: Realización del nodo de teleoperación y comunicación entre equipos conectados a la misma red.
 
 \begin{enumerate}[i.]
-  \item Para el sensor Kinect, realizamos un adaptador para conectarlo a la alimentación del robot. Utilizando el nodo "freenect\_stack" *REFERENCIA*, accedemos a la nube de puntos y la imagen.
+  \item Configuración de equipos en red para acceder a la información publicada por nodos que se ejecuten en varias máquinas \cite{network-ros}.
   
-  \item Utilizamos el nodo LMS1xx **Referencia** para la puesta en marcha del láser y el acceso a los datos.
-  
-  \item Incorporación de sistemas de referencia "base\_link", "laser", ''camera\_link'' y sus transformadas mediante el paquete "tf" **referencia**. 
-  
-  \item Visualización del conjunto de datos junto con los ejes de referencia en RViz.
+  \item Partiendo del nodo de teleoperacion de \textit{turtlesim} \cite{turtlesim}, se ha realizado un nodo similar para nuestro robot.
 \end{enumerate}
 
-Cuarta fase: Incorporación del sistema de navegación y ajuste de los parámetros
+\item Tercera fase: Incorporación de los sensores al robot y acceso a los datos.
+
+\begin{enumerate}[i.]
+  \item Para el sensor Kinect, se ha realizado un adaptador para conectarlo a la alimentación del robot. Utilizando el nodo \textit{freenect\_stack} \cite{freenect}, accedemos a la nube de puntos y la imagen.
+  
+  \item Se ha utilizado el nodo \textit{LMS1xx} \cite{lms1xx} para la puesta en marcha del láser y el acceso a los datos.
+  
+  \item Incorporación de sistemas de referencia \textit{"base\_link"}, \textit{"laser"}, \textit{''camera\_link''} y sus transformadas mediante el paquete \textit{tf} \cite{tf}. 
+  
+  \item Visualización del conjunto de datos junto con los ejes de referencia en \textit{RViz}.
+\end{enumerate}
+
+\item Cuarta fase: Incorporación del sistema de navegación y ajuste de los parámetros
 
 \begin{enumerate}[i.]
   \item Calibrado de los encoders de las ruedas del robot y ajuste de la odometría mediante RosAria.
@@ -61,7 +63,7 @@ Cuarta fase: Incorporación del sistema de navegación y ajuste de los parámetros
   \item Ajuste de los planificadores de trayectoria del robot y parámetros de giro y control.
 \end{enumerate}
 
-Quinta fase: Ajuste de la navegación y simulación mediante Gazebo
+\item Quinta fase: Ajuste de la navegación y simulación mediante Gazebo
 
 \begin{enumerate}[i.]
   \item Navegación en modo global (utilizando un mapa guardado) y en modo local (completamente reactivo).
@@ -71,7 +73,7 @@ Quinta fase: Ajuste de la navegación y simulación mediante Gazebo
   \item Disposición de los sensores de manera óptima y remodelado de la estructura física del robot.
 \end{enumerate}
 
-Sexta fase: Nuevas funcionalidades y toma de datos.
+\item Sexta fase: Nuevas funcionalidades y toma de datos.
 
 \begin{enumerate}[i.]
   \item Incorporación de la funcionalidad "follower", adaptada a partir del robot Turtlebot **Refeencia**, para el guiado del robot.
@@ -80,9 +82,9 @@ Sexta fase: Nuevas funcionalidades y toma de datos.
   
   \item Pruebas físicas, recogida y análisis de los datos.
 \end{enumerate}
+\end{itemize}
 
-
-Análisis de tiempos:
+\textbf{Análisis de tiempos:}
 
 Este proyecto fin de grado comenzó en Noviembre de 2014 y terminó en Febrero de 2015.
 
@@ -94,9 +96,11 @@ Duarante el mes de Enero se pudo avanzar menos debido a los exámenes y trabajos 
 
 En el mes de Febrero se retomó el trabajo, empezando por una primera toma de contacto con la librería Aria y la ejecución de movimientos desde un ordenador externo conectado vía puerto serie.
 
-Durante los meses de Marzo y Abril, el robot comenzó a funcionar con ROS, realizando los primeros movimientos con control por teclado. Seguidamente se realizó el nodo de telecontrol y un nodo para realizar movimientos basados tan solo en la odometría.
+Durante el mes de Marzo, el robot comenzó a funcionar con ROS, realizando los primeros movimientos con control por teclado. Seguidamente se realizó el nodo de telecontrol y un nodo para realizar movimientos basados tan solo en la odometría.
 
-En el mes de mayo, se comenzaron a probar la compatibilidad con ROS de la cámara Kinect y el sensor Láser. Acto seguido, comenzaron las primeras pruebas de navegación autónoma.
+En el mes de Abril, se comenzaron a probar la compatibilidad con ROS de la cámara Kinect y el sensor Láser. Acto seguido, comenzaron las primeras pruebas de navegación autónoma.
+
+En el mes de Mayo se realizaron las pruebas de navegación con el portátil incorporado en el cuerpo del robot. Durante ese mes se realizaron diferentes ajustes de navegación así como mapas mediante SLAM.
 
 En los meses de Junio y Julio, siguieron los ajustes en la navegación, tanto en el planificador de trayectoria como en los mapas de coste, así como en el sensor Kinect para la detección de obstáculos a diferente altura. Además se incorporó la funcionalidad de seguimiento.
 
@@ -106,41 +110,18 @@ Durante ese mes y el mes de Agosto, se comenzó a redactar gran parte del trabajo
 
 En el mes de Septiembre se decidió incorporar un ordenador más potente al robot y reestructurar su chasis para dejar el sistema desarrollado integrado de manera permanente. También se utilizó el array de micrófonos del sensor Kinect para los comandos de voz.
 
-Duante el mes de Octubre se organizó la estructura del proyecto y se puso en marcha el simulador Gazebo. A continuación se realizó el ajuste de los sensores y la optimización del sistema de navegación. En paralelo se realizaron las modificaciones mecánicas y estructurales para la integración de los sensores y el ordenador en el robot.
+Durante el mes de Octubre se organizó la estructura del proyecto y se puso en marcha el simulador Gazebo. A continuación se realizó el ajuste de los sensores y la optimización del sistema de navegación. En paralelo se realizaron las modificaciones mecánicas y estructurales para la integración de los sensores y el ordenador en el robot.
 
-Durante el mes de Novimebre se realizó un pequeño parón a nivel de software, se continuó con la parte mecánica y con la redacción de la memoria de este proyecto.
+Durante el mes de Noviembre se realizó un pequeño parón a nivel de software, se continuó con la parte mecánica y con la redacción de la memoria de este proyecto.
 
-A continuación, comenzaron a realizarse las pruebas reales con la nueva configuración en el robot.
+A continuación, comenzaron a realizarse las pruebas reales con la nueva configuración en el robot y la redacción de la memoria.
 
 A continuación se muestra un diagrama de Gantt con el análisis de tiempos de las diferentes tareas.
 
-\begin{landscape} 
-\begin{ganttchart}{1}{48}
-  \gantttitle{2014}{6}
-  \gantttitle{2015}{36}
-  \gantttitle{2016}{6} \\
-  \gantttitlelist{11,...,12}{3}
-  \gantttitlelist{1,...,12}{3}
-  \gantttitlelist{1,2}{3} \\
-  \ganttgroup{Entorno ROS}{1}{3} \\
-  \ganttbar{Recabar informacion}{1}{2} \\
-  \ganttlinkedbar{Realizar tutoriales}{2}{3} \\
-  \ganttgroup{Pruebas robot}{4}{12} \ganttnewline
-  \ganttbar{Sistema Operativo}{4}{4} \\
-  \ganttlinkedbar{Librería Aria}{7}{8} \\
-  \ganttlinkedbar{Primeros movimientos}{9}{12} \\
-  \ganttgroup{Pruebas ROS}{13}{18} \ganttnewline
-  \ganttbar{Instalacion ROS}{13}{14} \\
-  \ganttlinkedbar{Telecontrol}{15}{16} \\
-  \ganttlinkedbar{Movimientos odometría}{17}{19} \\
-  \ganttgroup{Navegacion}{19}{40} \ganttnewline
-  \ganttbar{Navegacion básica}{19}{20} \\
-  \ganttlinkedbar{Navegacion}{21}{28}{29}{30} \\
-  
-  %\ganttlink{elem2}{elem3}
-  %\ganttlink{elem3}{elem4}
-\end{ganttchart}
-\end{landscape}
+\begin{figure}[htp]
+\centering
+\includegraphics[width=\textwidth]{figuras/gantt.pgm}
+\end{figure}
 
 \section{Tecnologías y herramientas empleadas en el proyecto}
 
