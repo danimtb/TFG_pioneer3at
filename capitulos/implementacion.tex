@@ -13,24 +13,19 @@ El robot Pioneer 3 AT de Adept Mobile Robots es la base de la plataforma robótic
 \begin{figure}[!htp]
 \centering
 \includegraphics[width=0.8\textwidth]{figuras/robot_inicial.png}
-\caption{Estado del robot al comienzo del proyecto \cite{}.}
+\caption{Estado del robot al comienzo del proyecto \cite{herrero2013}.}
 \label{fig:robot_inicial}
 \end{figure}
 
-El robot había sido utilizado anteriormente mediante el software MRCore en el proyecto **PROYECTO DE ALEJANDRO** y el sistema operativo del ordenador interno era Ubuntu Server 10.
+El robot había sido utilizado anteriormente mediante el software MRCore en el proyecto \cite{herrero2013} y el sistema operativo del ordenador interno era Ubuntu Server 10.
 
 Para integrar la versión Indigo de ROS lo más recomendable era partir de la versión estable más actualizada de Ubuntu, por lo que se sustituyó el sistema operativo por Ubuntu 14.04 LTS en su versión de escritorio.
 
 Una vez integrado el sistema operativo, la primera toma de contacto con el robot fue a partir de la librería Aria **referencia** para controlar el movimiento de los motores y comprobar que el robot se encontraba en buen estado.
 
-**Añadir el puerto al grupo de dialout**
-
 A continuación, tras instalar ROS Indigo, se procedió a las pruebas mediante el paquete Rosaria de ROS. La conexión con el microcontrolador de la placa de motores fue exitosa y se comprobó que los valores de la odometría también funcionaban.
 
-**cambiar el puerto de conexion*?*
-
-
-Llegados a este punto, ya disponíamos del robot preparado para realizar las primeras pruebas.
+Llegados a este punto, el robot se encontraba en disposición para realizar las primeras pruebas.
 
 \subsection{Sensor Láser}\label{subsection:implementacion_laser}
 El sensor láser Sick ya había sido integrado en un proyecto anterior y sus conexiones de alimentación y datos vía Ethernet ya estaban preparadas para utilizarlo.
@@ -48,7 +43,12 @@ En el manual del robot se encuentra una descripción detallada de la placa de ali
 
 El sensor Kinect dispone de un adaptador USB, preparado para trabajar con la videoconsola XBOX 360, el cual suministra 12 voltios mediante un transformador conectado a una toma de corriente alterna de 220v e incorpora los cables de datos del propio sensor Kinect.
 
-**Esquema conexion usual**.
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.6\textwidth]{figuras/kinect_usual.png}
+\caption{Conexión usual del sensor Kinect a la consola Xbox.}
+\label{fig:kinect_usual}
+\end{figure}
 
 Para integrar el sensor Kinect en el robot, se cortó el cable de alimentación del cable adaptador y se soldaron unas clavijas tipo Jack **REVISAR** macho-hembra para conectar el adaptador directamente a los 12 voltios de la placa del robot. También se realizó lo oportuno en el adaptador de corriente, para poder usar el sensor Kinect de la manera habitual (Figura \ref{fig:cables_kinect}).
 
@@ -79,7 +79,7 @@ La primera configuración del robot consistió en ambos sensores situados en la pa
 De esta forma conseguíamos una vista frontal despejada y contábamos con la información del láser para detectar obstáculos laterales.
 
 \subsubsection{Primera configuración del sistema}
-El ordenador interno corría todos los nodos de ROS, de modo que se disponía de la información de los sensores, el control sobre los motores y la lectura de la odometría para realizar las primeras pruebas con el paquete de navegación de ROS (Sección \label{section:navigation_stack}).
+El ordenador interno corría todos los nodos de ROS, de modo que se disponía de la información de los sensores, el control sobre los motores y la lectura de la odometría para realizar las primeras pruebas con el paquete de navegación de ROS (Sección \ref{section:navigation_stack}).
 
 Sin embargo, la primera implementación con los primeros ajustes a nuestro hardware de los sensores no fue posible debido a la sobrecarga de la CPU del ordenador interno del robot Pioneer y a problemas de memoria en la ejecución de nodos como AMCL.
 
@@ -89,42 +89,51 @@ La siguiente opción fue utilizar un ordenador externo que realizase los cálculos
 \begin{figure}[!htp]
 \centering
 \includegraphics[width=\textwidth]{figuras/segunda_configuracion_sistema.png}
-\caption{Esquema de la segunda configuración del sistema. Basado en **REFERENCIA ALENJANDRO**.}
+\caption{Esquema de la segunda configuración del sistema. Basado en \cite{herrero2013}.}
 \label{fig:segunda_configuracion_sistema}
 \end{figure}
 
-Gracias a la filosofía de ejecución distribuida de nodos de ROS, ejecutar nodos en máquinas diferentes y compartir la información entre procesos es una tarea sencilla. Para configurarlo, tan solo es necesario indicar a las máquinas la IP del nodo master. De esta forma, los nodos que se ejecuten en cada una de las máquinas tratarán de realizar la comunicación a través de IPs dentro de la misma red.
+Gracias a la filosofía de ejecución distribuida de nodos de ROS, ejecutar nodos en máquinas diferentes y compartir la información entre procesos es una tarea sencilla. Para configurarlo, tan solo es necesario indicar a las máquinas la IP del nodo MASTER. De esta forma, los nodos que se ejecuten en cada una de las máquinas tratarán de realizar la comunicación a través de IPs dentro de la misma red.
 
 Este ajuste fue puesto en marcha utilizando un ordenador portátil con suficiente capacidad de procesamiento y memoria como para ejecutar la navegación, sin embargo aparecieron algunos inconvenientes. El primero de ellos fueron las direcciones IP en el ordenador interno del Pioneer.
 
 \begin{itemize}
 
 \item \textbf{Problemas con el sensor Láser: LM1xx}\\\\
-Debido a que el sensor láser se conecta vía Ethernet a este ordenador, el nodo LMS1xx debe obtener información a través de la IP del láser y enviarla a través del adaptador Wifi a la IP del nodo máster. El problema residía en que el nodo se saturaba al tener que lidiar con ambas interfaces de conexión y provocaba su detención.
+Debido a que el sensor láser se conecta vía Ethernet a este ordenador, el nodo \textit{LMS1xx} debe obtener información a través de la IP del láser y enviarla a través del adaptador Wifi a la IP del nodo máster. El problema residía en que el nodo se saturaba al tener que lidiar con ambas interfaces de conexión y provocaba su detención.
 
 Tras varias consultas a Clearpath Robotics a través de su repositorio de GitHub y preguntas en el foro ROS Answers **Enlaces de referencia**, la solución no estaba implementada en código y lo más inmediato era hacer un bridge en el ordenador del Pioneer 3 AT entre la interfaz Ethernet y la Wifi.
 
-Los resultados de esta solución no fueron satisfactorios ya que el comportamiento era el mismo: el nodo LMS1xx se saturaba e interrumpía a los pocos minutos de su ejecución.
+Los resultados de esta solución no fueron satisfactorios ya que el comportamiento era el mismo: el nodo \textit{LMS1xx} se saturaba e interrumpía a los pocos minutos de su ejecución.
 
-Trantando de resolver este problema, se hicieron pruebas generando una red Wifi Ad-hoc desde el ordenador del robot, a la cual se conectaba el ordenador externo. Los resultados fueron buenos siempre y cuando las IPs del nodo master y del sensor Láser se encontrasen en el mismo subrango **revisar nomenclatura**.
+Trantando de resolver este problema, se hicieron pruebas generando una red Wifi Ad-hoc desde el ordenador del robot, a la cual se conectaba el ordenador externo. Los resultados fueron buenos siempre y cuando las IPs del nodo master y del sensor Láser se encontrasen en el mismo subrango.
 
 En la implementación final del sistema esta solución se sigue utilizando para conectarse desde un ordenador externo al ordenador que incorpora el robot Pioneer.
 \end{itemize}
 
 Una vez se pudo conectar el ordenador externo, la ejecución del nodo de navegación era la correcta y las consignas de movimiento se enviaban correctamente al robot, pudiendo realizar las primeras pruebas de navegación autónoma.
 
-**Imagen primeras navegaciones**
-
 Sin embargo en ocasiones la recepción y envío de datos era demasiado alta y esto provocaba que existiese mucho retraso en la comunicación, haciendo que el robot reaccionase tarde para esquivar los obstáculos y el control del robot fuera impracticable.
 
 \subsubsection{Tercera configuración del sistema}
 Finalmente se optó por montar un ordenador más potente en el robot, para lo cual se utilizó un portátil externo al que se conectaba tanto e sensor Kinect como el sensor Láser y se utilizaba un convertidor de puesto USB a puerto serie RS-232 para controlar el movimiento del robot y leer la odometría. El ordenador del robot quedaba sustituido y así se mantuvo hasta la versión final.
 
-**imagen del robot con el portátil**
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=0.5\textwidth]{figuras/tercera_configuracion.png}
+\caption{Robot con portátil incorporado realizando navegación.}
+\label{fig:tercera_configuracion}
+\end{figure}
+
 
 Llegados a este punto, ahora sí disponíamos de la plataforma robótica completa sobre la que trabajar en la navegación del robot. Las primeras pruebas fueron satisfactorias, logrando correr todos los nodos en el portátil, el cual se incorporó de manera provisional al robot por medio de unos agarres realizados con una impresora 3D.
 
-**imagen de los agarres**
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=0.5\textwidth]{figuras/agarre_portatil.png}
+\caption{Soportes para el ordenador portátil.}
+\label{fig:agarre_portatil}
+\end{figure}
 
 \subsection{Segunda configuración hardware}
 
@@ -148,13 +157,24 @@ Finalmente, para dejar todo el sistema integrado, se diseñaron unos paneles late
 \label{fig:modelo_3D}
 \end{figure}
 
-Tras comprobar que el diseño funcionaba y cumplía las características necesarias se mecanizó la parte superior del robot para anclar el sensor láser y las varillas roscadas, como se ve en la figura TAL
+Tras comprobar que el diseño funcionaba y cumplía las características necesarias se mecanizó la parte superior del robot para anclar el sensor láser y las varillas roscadas, como se ve en la figura \ref{fig:petrois_laser1}.
 
-**figura de robot con varillas roscadas y láser**
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=0.6\textwidth]{figuras/petrois_laser1.jpg}
+\caption{Posición retrasada del láser y nuevas varillas de soporte.}
+\label{fig:petrois_laser1}
+\end{figure}
 
 Para evitar las vibraciones y que el sensor Kinect permaneciese inmóvil y situado a la altura necesaria, se diseñaron e imprimieron en 3D unas piezas de soporte (figura TAL)
 
-**figura de las piezas y figura de su disposición**
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=0.45\textwidth]{figuras/soporte_kinect.png}
+\includegraphics[width=0.45\textwidth]{figuras/petrois_kinect.jpg}
+\caption{Pieza 3D para el soporte del sensor Kinect y su posición final.}
+\label{fig:kinect_final}
+\end{figure}
 
 Los paneles laterales y el panel superior se mecanizaron en metacrilato de 3 y 4 milímetros respectivamente con una fresadora y se sujetaron al robot mediante remaches, tornillos y escuadras en forma de L, algunas de las cuales fueron diseñadas en 3D.
 
@@ -166,7 +186,14 @@ El panel de control del robot quedó dividido en dos partes, la destinada al orde
 
 A continuación se muestran algunas imágenes del robot completo rediseñado.
 
-**Imágenes del robot**
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.8\textwidth]{figuras/petrois1.jpg}
+\includegraphics[width=0.45\textwidth]{figuras/petrois2.jpg}
+\includegraphics[width=0.45\textwidth]{figuras/petrois3.jpg}
+\caption{Petrois.}
+\label{fig:petrois}
+\end{figure}
 
 \textbf{Intel NUC}\\
 El ordenador compacto Intel NUC se eligió como unidad de procesamiento y ejecución del sistema ROS debido a sus altas capacidades de procesador y memoria y a su bajo consumo. Éste fue alimentado a 12 voltios de la misma forma que el sensor Kinect y se fijó al chasis del robot mediante tiras del velcro adhesivo.
@@ -453,7 +480,7 @@ Las pruebas realizadas tanto en el simulador como en el propio robot han servido
 \centering
 \includegraphics[width=0.5\textwidth]{figuras/rviz-local.png}
 \caption{Planificador de trayectoria local \textit{Trajectory Rollout} en RViz.}
-\label{fig:rviz-dijkstra}
+\label{fig:rviz-local}
 \end{figure}
 
 Los parámetros utilizados son los que se presentan a continuación.
@@ -610,50 +637,7 @@ El nodo de navegación por puntos \textit{nav-waypoints} está desarrollado en C++
 
 \begin{code}[!htp]
 \begin{lstlisting}[style=C++]
-#include <ros/ros.h>
-#include <move_base_msgs/MoveBaseAction.h>
-#include <actionlib/client/simple_action_client.h>
-#include <tf/tf.h>
-
-typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
-
-bool setLocalGoal(const float &x, const float &angle)
-{
-	 //tell the action client that we want to spin a thread by default
-  MoveBaseClient ac("move_base", true);
-
-  //wait for the action server to come up
-  while(!ac.waitForServer(ros::Duration(5.0))){
-    ROS_INFO("Waiting for the move_base action server to come up");
-  }
-
-  move_base_msgs::MoveBaseGoal goal;
-
-  //we'll send a goal to the robot to move 1 meter forward
-  goal.target_pose.header.frame_id = "/odom";
-  goal.target_pose.header.stamp = ros::Time::now();
-
-  goal.target_pose.pose.position.x = x;
-  goal.target_pose.pose.orientation.w = angle;
-
-  ROS_INFO("Sending goal");
-  ac.sendGoal(goal);
-
-  ac.waitForResult();
-
-  if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
-  {
-	  ROS_INFO("Hooray, the base moved 1 meter forward");
-	  return true;
-  }
-  else
-  {
-	  ROS_INFO("The base failed to move forward 1 meter for some reason");
-	  return false;
-  }	
-}
-
-
+...
 bool setGlobalGoal(const float &x, const float &y, const float &angle)
 {
 	//tell the action client that we want to spin a thread by default
@@ -699,10 +683,56 @@ int main(int argc, char** argv){
   return 0;
 }
 \end{lstlisting}
-\caption{Nodo \textit{nav-waypoints}.}
+\caption{Fragmento de código del nodo \textit{nav-waypoints}.}
 \end{code}
 
 Este nodo se encuentra separado del directorio habitual \textit{pioneer\_utils} debido a dependencias adicionales que pueden causar conflicto. Por ello, se aloja en el paquete \textit{navigation\_goals}.
+
+\subsubsection{Endurance test}
+El nodo \textit{endurance\_test} es un nodo de navegación similar al descrito en el apartado anterior pero desarrollado con la API de Python.
+
+Este nodo sirve para realizar un test de resistencia en la navegación del robot con un mapa, mandando al robot diferentes puntos de meta y llevando un registro de las metas alcanzadas, el tiempo transcurrido y los metros recorridos.
+
+Los puntos de meta son leídos desde un archivo de texto plano donde se indica el nombre del punto de meta y las coordenadas X, Y del mismo en el mapa utilizado. Adicionalmente y para dotarlo de utilidad a otros robots es posible configurar el Topic de la odometría, el Topic de velocidad y el tiempo de esperas entre metas.
+
+\begin{table}[!h]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{c c c}
+& {\bf endurance\_test API} & \\
+{\bf Topics suscritos} & {\bf Mensaje} & {\bf Descripción}\\ \hline
+odom & nav\_msgs/Odometry & Odometría del robot\\
+{\bf Topics publicados} & {\bf Mensaje} & {\bf Descripción}\\ \hline
+cmd\_vel & geometry\_msgs/Twist & Publica comandos de velocidad \\
+{\bf Parámetros} & {\bf Tipo} & {\bf Descripción}\\
+\hline
+rest\_time & int & Tiempo de espera (segundos)\\
+map\_locations & file & Archivo con los puntos de meta\\
+odometry\_topic & string & Nombre del Topic de odometría\\
+cmd\_vel\_topic & string & Nombre del Topic de velocidad\\
+\end{tabular}
+}
+\caption{API de endurance\_test}
+\label{tabla:endurance_test}
+\end{table}
+
+Para lanzar este nodo se utiliza un archivo \textit{launchfile} en el que se indican los parámetros.
+
+\begin{code}[!htp]
+\begin{lstlisting}[style=C++]
+<launch>
+  <node name="endurance_test" pkg="pioneer_utils" type="endurance_test.py" output="screen">
+    <param name="map_locations" value="$(find pioneer_utils)/main/locations_lab.txt"/>
+    <rosparam>
+       odometry_topic: rosaria/pose
+       cmd_vel_topic: cmd_vel
+       rest_time: 1
+     </rosparam>
+  </node>
+</launch>
+\end{lstlisting}
+\caption{Archivo \textit{launchfile} para el nodo \textit{endurance\_test}.}
+\end{code}
 
 
 
@@ -737,7 +767,7 @@ enabled & bool & Hanilita los movimientos\\
 \end{tabular}
 }
 \caption{API de turtlebot\_follower}
-\label{tabla_rosaria}
+\label{tabla:tabla_follower}
 \end{table}
 
 El tratamiento de la nube de puntos se realiza con la librería PCL (PointCloud Library \cite{PCL}) y su funcionamiento es el siguiente:
@@ -775,7 +805,6 @@ Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_u
 \caption{Launchfile para turtlebot\_follower en el robot Pioneer 3 AT.}
 \end{code}
 
-
-\subsection{Feedback mediante text-to-speech}
-\subsection{Reconocimiento de comandos de voz}
+\section{Feedback mediante text-to-speech}
+\section{Reconocimiento de comandos de voz}
 \section{Nodo de ejecución automática de nodos}
