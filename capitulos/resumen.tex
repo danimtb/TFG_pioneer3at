@@ -3,19 +3,15 @@
 %chapter introduce un nuevo capítulo
 \chapter{Resumen}
 
-Muchos robots autónomos surgen como herramienta para acceder a lugares donde el ser humano no puede o no conviene que acceda porque se encontraría en riesgo, para realizar tareas repetitivas o que conllevasen algún tipo de desgaste.
+Muchos robots autónomos surgen como herramienta para acceder a lugares donde el ser humano no puede o no conviene que acceda porque se encontraría en riesgo.
 
-Un robot autónomo es por tanto una pieza fundamental en tareas de rescate, salvamento, inspección, exploración de entornos peligrosos o inaccesibles, como la exploración en la superficie de otros planetas. Además, las tareas sociales cada vez están tomando más relevancia en nuestro día a día, como por ejemplo la asistencia a humanos en entornos públicos, la interacción con el entorno o una navegación más segura, como es el caso de los coches autónomos.
+Un robot autónomo es por tanto una pieza fundamental en tareas de rescate, salvamento, inspección, exploración de entornos peligrosos o inaccesibles, como la exploración en la superficie de otros planetas. Además, tareas sociales como la asistencia a humanos en entornos públicos, la interacción con el entorno o una navegación más segura, como es el caso de los coches autónomos, cada vez están tomando más relevancia en nuestro día a día.
 
-Este proyecto de fin de grado trata sobre el guiado y control de un robot móvil de cuatro ruedas, con un sistema motriz en configuración diferencial, equipado con una serie de sensores que permiten su orientación y posicionado en el entorno así como un sensor capaz de captar este en tres dimensiones y un sensor adicional que lo hace tan solo en dos dimensiones.
+Este proyecto de fin de grado trata sobre el guiado y control de un robot móvil de cuatro ruedas, con un sistema motriz en configuración skid-steer, equipado con una serie de sensores que permiten su orientación y posicionado en el entorno así como un sensor capaz de captar este en tres dimensiones y un sensor adicional que lo hace tan solo en dos dimensiones.
 
 Los datos de los sensores sirven tanto para construir mapas en dos dimensiones del entorno del robot como para navegar por él evitando obstáculos de manera dinámica. El robot es capaz de generar mapas de celdas en los que situar tanto los objetos estáticos como los móviles, calcular una trayectoria adecuada y dirigirse hasta un punto indicado evitando obstáculos interpuestos en su camino.
 
 Todo esta información, procesado de datos, cálculo de trayectorias y ejecución de movimientos se realiza en un ordenador de abordo integrado en el propio robot utilizando el software Robot Operating System (conocido en robótica por sus siglas ROS), que nos ofrece una interfaz común para interconectar nuestro robot con los sensores y con los algoritmos de navegación.
-
-El proceso de navegación se realiza de dos formas conjuntamente. Por un lado el robot realiza un mapa global con obstáculos que permanecen inmóviles y calcula la trayectoria más adecuada, es lo que denominamos navegación global. Por otro lado, el robot genera un mapa dinámico a su alrededor e identifica la información de los sensores como obstáculos, a continuación, el robot calcula continuamente una trayectoria que se ajuste todo lo posible a la trayectoria global pero que evite los obstáculos cercanos, es lo que se denomina navegación reactiva o local.
-
-Finalmente, un algoritmo de cálculo de movimientos realiza el control de los motores para que el robot realice el movimiento adecuado en base a las trayectorias definidas anteriormente. De esta forma el robot puede avanzar, retroceder, darse la vuelta o realizar tareas de recuperación de trayectoria en caso de encontrarse bloqueado en algún punto.
 
 A parte de la navegación autónoma, también se ha incluido un sistema de telecontrol del robot mediante otro ordenador  externo y de un algoritmo de detección frontal de objetos en 3 dimensiones (nubes de puntos) que puedan servirle como guía. De esta forma, el robot es capaz de navegar siguiendo el movimiento de una persona o de un robot que le preceda.
 
@@ -41,7 +37,7 @@ Para concluir, podemos decir que este proyecto se encarga de integrar ROS como s
 
 Achieving navigation and guidance of mobile robot comes up as a tool for rescue purposes in places where humans can't access or that involve a high risk for life. Many of those repetitive and fatigating tasks could be done with a robust and capable mobile robot.
 
-An autonomous robot is, by the way, an essential part in rescue, inspection and exploration tasks developed in dangerous or non-reacheable places, such as the surface of other planets. Moreover, social tasks are taking more and more interest in our nowadays, such as assitance for humans in pubic places, interaction with the environment or a safer navigation in the cities. Autonomous car navigtion is a good example of this.
+An autonomous robot is, an essential part in rescue, inspection and exploration tasks developed in dangerous or non-reacheable places, such as the surface of other planets. Moreover, social tasks such as assitance for humans in pubic places, interaction with the environment or a safer navigation in the cities. Autonomous cars are a good example of this.
 
 This final degree project is about guidance and control of a four-wheel mobile robot with a skid-steer configuration. It is equipped with a sort of sensors, allowing it to make positioning and orientation in the environment. There is also a main sensor capturing the enviaronment in three dimensions and an additional one doing it in two dimensions.
 
@@ -49,13 +45,9 @@ Sensor data is used to build two dimensional maps of the exploration place as we
 
 All this information, data processing, trajectory calculation and movement execution is done in an onboard computer inside the robot. It uses the Robot Operating System software (known as ROS), which offers a commmon interface to communicate the robot with sensors and navigation algorithms.
 
-The navigation process is divided in two parts. Firstly, a global obstacle map is done and static objects are addded, then the most suitable trajectory is planned. This is called global navigation. Secondly, a dynamic map is done and sensor data incorpores obstacles near the robot. Immediatly, a possible trajectory is planned following the original trajectory of the global navigation but avoiding the obstacles. This is called reactive or local navigation.
-
-Finally, a movement algorithm does the control over the robot. It calculates movements to make the robot go forward, backward, turn around or make recovery tasks to recover if the robot has lost the trajectory path or it is stucked at any point.
-
 Apart from autonomous navigation, the robot also has a telecontrol system from an outside computer and an algorithm to detect frontal objects in three dimensions (pointclouds) that can guide the robot. This is how it can navigate following a person when it is walking or another robot in front of it.
 
-Pioneer 3 AT robot is the one used in this project (Figure \ref{fig:esquema_robot2}). It is the specific platform and all real tests have been made with it. This robots is equipped with a two dimension laser scanner (Sick LMS100 sensor) and a three dimensional sensor (Kinect sensor). The navigation computation is done in an onboard compact computer (Intel NUC NUC5i7RYH computer).
+Pioneer 3 AT robot is the one used in this project (Figure \ref{fig:esquema_robot2}). It has been the specific platform for all real tests. This robot is equipped with a two dimension laser scanner (Sick LMS100 sensor) and a three dimensional sensor (Kinect sensor). The navigation computation is done in an onboard compact computer (Intel NUC NUC5i7RYH computer).
 
 \begin{figure}[htp]
 \centering
@@ -63,11 +55,11 @@ Pioneer 3 AT robot is the one used in this project (Figure \ref{fig:esquema_robo
 \caption{Diagram of the robotic system used for this project} \label{fig:esquema_robot2}
 \end{figure}
 
-The navigation commands are sent from an outside computer connected to the same wireless network or from voice navigatin commands speaking directly to the robot (go forward, backward, turn right...) or a point in the map to move forward.
+The navigation commands are sent from an outside computer connected to the same wireless network or from voice navigation commands speaking directly to the robot (go forward, backward, turn right...) or pointing a goal in the map.
 
 All those implementations are developed under ROS framework. This is why additional features can be added in a faster and effortless way. Tha is the case of the robot simlator Gazebo, which integrates as an add-on in ROS. Gazebo has been used to perform tests in navigation and to check theorical concepts to lately incorporate them in the real robotic system.
 
-To conclude, it can be said that this project integrates ROS as a robotic system in an onboard computer and connects to sensors to perform tasks such as building maps or navigation from one point to other. The system calculates local and global maps and trajectories, makes movements according to them, as well as recognises voice or teleoperation commands.
+To conclude, it can be said that this project integrates ROS as a robotic system in an onboard computer and connects to sensors to perform tasks such as building maps or navigation from one point to another. The system calculates local and global maps and trajectories, makes movements according to them, as well as recognises voice or teleoperation commands.
 
 \paragraph{Keywords:} mobile robot, ROS, reactive navigation, trajectory calculation.
 
