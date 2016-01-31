@@ -10,13 +10,13 @@ ROS realiza funciones similares a un sistema operativo, como la comunicación e i
 
 ROS también proporciona herramientas y librerías para crear código, compilarlo y ejecutarlo en diferentes máquinas.
 
-El concepto más importante dentro de ROS son los nodos, que no son más que un proceso que se ejecuta y conecta al proceso principal, llamado máster, para comunicarse con otros nodos. Existen diferentes conceptos rostopics, rosservices, nodelets... que serán explicados en el siguiente punto.
+El concepto más importante dentro de ROS son los nodos, que no son más que un proceso que se ejecuta y conecta al proceso principal, llamado MASTER, para comunicarse con otros nodos. Existen diferentes conceptos rostopics, rosservices, nodelets... que serán explicados en el siguiente punto.
 
 \subsection{Funcionamiento de ROS}
 
-Como hemos dicho, en ROS las acciones del robot se llevan a cabo mediante la interacción de diferentes nodos que se conectan entre sí en forma de grafo. Cada nodo se conecta a un nodo principal llamado máster (roscore) que se encarga de abrir un canal de comunicación entre cada nodo o proceso.
+Como hemos dicho, en ROS las acciones del robot se llevan a cabo mediante la interacción de diferentes nodos que se conectan entre sí en forma de grafo. Cada nodo se conecta a un nodo principal llamado MASTER (roscore) que se encarga de abrir un canal de comunicación entre cada nodo o proceso.
 
-En la figura \ref{fig:nodos_conectados} vemos un ejemplo para el robot simulado "turtlesim", al cual le envía comandos el nodo de teleoperación "teleop\_turtle" y ambos publican información a través del nodo "rosout".
+En la figura \ref{fig:nodos_conectados} vemos un ejemplo para el robot simulado \textit{turtlesim}, al cual le envía comandos el nodo de teleoperación \textit{teleop\_turtle} y ambos publican información a través del nodo \textit{rosout}.
 
 \begin{figure}[htp]
 \centering
@@ -25,7 +25,7 @@ En la figura \ref{fig:nodos_conectados} vemos un ejemplo para el robot simulado 
 \label{fig:nodos_conectados}
 \end{figure}
 
-Teniendo esta estructura en mente, es conveniente definir algunos conceptos sobre los que trabaja ROS **referencia**:
+Teniendo esta estructura en mente, es conveniente definir algunos conceptos sobre los que trabaja ROS:
 
 \begin{itemize}
 \item Nodos (nodes): Los nodos son procesos que realizan algún tipo de cómputo. Un robot basado en ROS precisará de varios nodos ejecutándose al mismo tiempo e intercambiándose información a través de Topics, Servicios y Parámetros.
@@ -38,7 +38,7 @@ Teniendo esta estructura en mente, es conveniente definir algunos conceptos sobr
 
 \item Servicios (services): Los servicios son similares a los topics pero son mucho más apropiados para realizar comunicaciones del tipo solicitud / respuesta.
 
-\item Bags: El concepto de "bag" puede entenderse como un almacen de mensajes. Los mensajes de cierto topic pueden guardarse para analizar los datos más tarde o reproducir cierta situación.
+\item Bags: El concepto de "bag" puede entenderse como un almacén de mensajes. Los mensajes de cierto topic pueden guardarse para analizar los datos más tarde o reproducir cierta situación.
 \end{itemize}
 
 \begin{figure}[htp]
@@ -68,13 +68,13 @@ tipo de mensaje (MiMensaje.msg)
 Tmabién es necesario conocer algunos tipos de archivos y su uso dentro de ROS para comprender el trabajo de este proyecto:
 
 \begin{itemize}
-\item Launchfiles: ROS ofrece la herramienta "roslaunch" para ejecutar varios nodos con un solo comando y configurar sus parámetros. Es una forma cómoda de organizar la puesta en marcha de todos los nodos y enlazar unos launchfiles con otros. Los archivos suelen tener la extensión \textit{.launch} y su estructura es similar a la sintaxis xml **referencia**.
+\item Launchfiles: ROS ofrece la herramienta \textit{"roslaunch"} para ejecutar varios nodos con un solo comando y configurar sus parámetros. Es una forma cómoda de organizar la puesta en marcha de todos los nodos y enlazar unos launchfiles con otros. Los archivos suelen tener la extensión \textit{.launch} y su estructura es similar a la sintaxis xml.
 
 \item yaml: Es un formato de serialización de datos legible para los humanos de tal modo que se enfoca más en los datos que en el marcado de los archivos. Su formato es \textit{.yaml} y se utiliza para definir parámetros en cada nodo.
 
-\item xacro: Son archivos que combinan el lenguaje xml con macros de tal modo que podemos mantener los archivos más legibles y ordenados **referencia**. Estos archivos se utilizan principalmente para definir un modelo de nuestro robot en URDF (Unified Robot Description Format) y su extensión es \textit{.xacro}.
+\item xacro: Son archivos que combinan el lenguaje xml con macros de tal modo que podemos mantener los archivos más legibles y ordenados. Estos archivos se utilizan principalmente para definir un modelo de nuestro robot en URDF (Unified Robot Description Format) y su extensión es \textit{.xacro}.
 
-\item URDF (Unified Robot Description Format): Es un tipo de formato utilizado para describir la estructura de un objeto en forma de eslabones y articulaciones de distinto tipo **refrencia**. En ROS se utilizan para generar modelos del robot en Gazebo y en RViz y conocer de manera gráfica el estado de los eslabones del robot. La extensión de estos archivos es \textit{.urdf}.
+\item URDF (Unified Robot Description Format): Es un tipo de formato utilizado para describir la estructura de un objeto en forma de eslabones y articulaciones de distinto tipo \cite{urdf}. En ROS se utilizan para generar modelos del robot en Gazebo y en RViz y conocer de manera gráfica el estado de los eslabones del robot. La extensión de estos archivos es \textit{.urdf}.
 
 \item gazebo: Los archivos \textit{.gazebo} definen características concretas para utilizar robots definidos mediante URDF. Estos archivos permiten desacoplar las características utilizadas en Gazebo del modelo original.
 
