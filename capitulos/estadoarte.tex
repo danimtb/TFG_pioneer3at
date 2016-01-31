@@ -1,6 +1,6 @@
 \chapter{Estado del arte}
 
-La robótica móvil vive actualmente un momento de gran desarrollo para multitud de aplicaciones en entornos diversos, desde espacios abiertos con orografía accidentada y condiciones climáticas adversas \cite{rescuerobots} \cite{playter2006bigdog}, entornos controlados y espacios interiores conocidos como la automatización de tareas de almacenaje de productos \cite{amazonKiva}, hasta orientación y exploración de espacios interiores desconocidos con robots usados para la creacion de mapas de edificios.
+La robótica móvil vive actualmente un momento de gran desarrollo para multitud de aplicaciones en entornos diversos, desde espacios abiertos con orografía accidentada y condiciones climáticas adversas \cite{rescuerobots} \cite{playter2006bigdog}, entornos controlados y espacios interiores conocidos como la automatización de tareas de almacenaje de productos \cite{amazonKiva}, hasta orientación y exploración de espacios interiores desconocidos con robots usados para la creación de mapas de edificios.
 
 De la misma forma, el interés en robots que sea capaces de reproducir las capacidades de un ser humano e incluso que pueda dar asistencia ya sea en entornos conocidos o no abre un área de posibilidades en las que los robots móviles cobran importancia.
 
@@ -12,7 +12,7 @@ Este capítulo trata de hacer un recorrido por la historia de la robótica y un re
 
 Prácticamente cualquier robot consta de alguna parte móvil que le permite realizar algún tipo de tarea, sin embargo nos referimos a la <<robótica móvil>> como el área de la robótica que estudia los robots con capacidad para trasladarse.
 
-Los robots móviles son aquellos que tienen la capacidad de desplazarse utilizando algún sistema locomoción como pueden ser ruedas, patas, orugas... Estos robots se diferencian respecto a los robots fijos que permanecen anclados a una superficie, como un brazo robótico industrial. Tampoco debe confundirse con los robots destinados a desplazarse por otros medios como agua o aire, ya que estaríamos entrando en el área de la robótica acuática/submarina o robótica aérea respectivamente. Podemos decir en ete proyecto que la robótica móvil se refiere a robots que se mueven en el entorno terrestre.
+Los robots móviles son aquellos que tienen la capacidad de desplazarse utilizando algún sistema locomoción como pueden ser ruedas, patas, orugas... Estos robots se diferencian respecto a los robots fijos que permanecen anclados a una superficie, como un brazo robótico industrial. Tampoco debe confundirse con los robots destinados a desplazarse por otros medios como agua o aire, ya que estaríamos entrando en el área de la robótica acuática/submarina o robótica aérea respectivamente. Podemos decir en este proyecto que la robótica móvil se refiere a robots que se mueven en el entorno terrestre.
 
 Las aplicaciones dentro de la robótica móvil pueden ser múltiples: exploración de entornos peligrosos, exploración espacial o minera, misiones e búsqueda y rescate de personas, telepresencia, automatización de procesos, transporte autónomo, vigilancia, inspección y reconocimiento del terreno o utilizados como plataformas móviles que incorporan otros sistemas robóticos como podrían ser un brazo manipulador.
 
@@ -32,12 +32,14 @@ Los actuadores eléctricos son, por tanto, los más utilizados. En concreto, los m
 
 Existen otros tipos de actuadores eléctricos que se utilizan en robótica, como puede ser el caso de los motores paso a paso, sin embargo su baja velocidad de giro no los hacen adecuados para robots móviles.
 
-La disposición de los actuadores determina la configuración del robot. Centrándonos en robots que se desplazan mediante ruedas y descartando a los robots con patas, podemos distinguir las siguientes configuraciones: Ackerman, triciclo clásico, tracción diferencial, skid-steer, síncrona y omnidireccional.
+La disposición de los actuadores determina la configuración del robot. Centrándonos en robots que se desplazan mediante ruedas y descartando los robots con patas, podemos distinguir las siguientes configuraciones: Ackerman, triciclo clásico, tracción diferencial, skid-steer, síncrona y omnidireccional.
+
+\pagebreak
 
 \begin{figure}[htp]
 \centering
 \includegraphics[width=0.8\textwidth]{figuras/configuraciones_hardware.png}
-\caption{Configuraciones hardware. Basado en \cite{silva2010panoramica}} \label{fig:configuraciones_hardware}
+\caption{Configuraciones hardware. Basado en \cite{silva2010panoramica}.} \label{fig:configuraciones_hardware}
 \end{figure}
 
 \newcounter{enum1} % creamos un contador par la enumeración. 
@@ -54,7 +56,7 @@ Consta de cuatro ruedas. Las ruedas motrices son las traseras o delanteras, y és
 \setcounter{enum1}{\value{enumi}}
 \end{enumerate}
 
-Consta de tres ruedas. Las ruedas motrices pueden ser las dos ruedas traseras o solo la delantera, que se encarga de la dirección. Este es el caso de los triciclos y de algunas bicicletas. Esta configuración ofrece alto grado de maniobrabilidad penalizando la estabilidad del conjunto y realizar giros den 90º.
+Consta de tres ruedas. Las ruedas motrices pueden ser las dos ruedas traseras o solo la delantera, que se encarga de la dirección. Este es el caso de los triciclos y de algunas bicicletas. Esta configuración ofrece alto grado de maniobrabilidad penalizando la estabilidad del conjunto y realizar giros de 90º.
 
 \begin{enumerate}[a.]
 \setcounter{enumi}{\value{enum1}}
@@ -76,14 +78,14 @@ Consta de dos ruedas colocadas en el eje perpendicular a la dirección de desplaz
 \setcounter{enum1}{\value{enumi}}
 \end{enumerate}
 
-Consta de cuatro ruedas, todas ellas motrices, y su principio de funcionamiento es el mismo que el utilizado en la configuración diferencial. Esta configuración presenta las ventajas de la configuración diferencial, pudiendo realizar giros sobre el eje del robot, pero presenta la desventaja de que las ruedas deben deslizarse lateralmente, por tanto existe un rozamiento que varía en función de la inclinación el tipo de terreno que dificulta realizar un modelo cinemático.
+Consta de cuatro o más ruedas, todas ellas motrices, y su principio de funcionamiento es el mismo que el utilizado en la configuración diferencial. Esta configuración presenta las ventajas de la configuración diferencial, pudiendo realizar giros sobre el eje del robot, pero presenta la desventaja de que las ruedas deben deslizarse lateralmente, por tanto existe un rozamiento que varía en función de la inclinación el tipo de terreno.
 
 Proporciona mucha tracción y estabilidad y suele encontrarse en aplicaciones relacionadas con la exploración, vehículos obra o vehículos todo terreno (Figura \ref{fig:ejemplos_skid-steer}).
 
 \begin{figure}[htp]
 \centering
 \includegraphics[width=0.7\textwidth]{figuras/skid-steer_examples.png}
-\caption{Ejemplos de configuración skid-steer: Cargador frontal, Robotnik Guardian, Pioneer 3 AT} \label{fig:ejemplos_skid-steer}
+\caption{Ejemplos de configuración skid-steer: Cargador frontal, Robotnik Guardian, Pioneer 3 AT.} \label{fig:ejemplos_skid-steer}
 \end{figure}
 
 Este sistema es el que se utiliza también en los tanques de guerra, aunque en vez de neumáticos se utilizan orugas, denominado configuración por deslizamiento de cintas \cite{locomocionRobots}.
@@ -94,12 +96,12 @@ Este sistema es el que se utiliza también en los tanques de guerra, aunque en ve
 \setcounter{enum1}{\value{enumi}}
 \end{enumerate}
 
-Conformado por tres o más ruedas acopladas mecánicamente y dotadas de tracción, este sistema permite que todas las ruedas roten en la misma dirección y giren a la misma velocidad (Figura \ref{fig:configuracion_sincrona}). Es utilizada ampliamente en robótica para robots móviles de interior, aunque está siendo desplazada por la configuración omnidireccional.
+Conformado por tres o más ruedas acopladas mecánicamente y dotadas de tracción, este sistema permite que todas las ruedas roten en la misma dirección y giren a la misma velocidad (Figura \ref{fig:configuracion_sincrona}) manteniendo al cuerpo del robot con una orientación fija. Es utilizada ampliamente en robots móviles de interior, aunque está siendo desplazada por la configuración omnidireccional.
 
 \begin{figure}[htp]
 \centering
 \includegraphics[width=0.4\textwidth]{figuras/configuracion_sincrona.png}
-\caption{Configuración síncrona} \label{fig:configuracion_sincrona}
+\caption{Configuración síncrona.} \label{fig:configuracion_sincrona}
 \end{figure}
 
 \begin{enumerate}[a.]
@@ -108,7 +110,7 @@ Conformado por tres o más ruedas acopladas mecánicamente y dotadas de tracción, 
 \setcounter{enum1}{\value{enumi}}
 \end{enumerate}
 
-Consta de 3 ruedas cada una con un motor independiente, que permiten el desplazamiento en cualquier direción (Figura \ref{fig:configuracion_omnidireccional}). Las ruedas omnidireccionaes constan de una serie de rodillos con el eje de rotación perpendicular a la direccioón de avance.
+Consta de 3 ruedas cada una con un motor independiente, que permiten el desplazamiento en cualquier direción (Figura \ref{fig:configuracion_omnidireccional}). Las ruedas omnidireccionaes constan de una serie de rodillos con el eje de rotación perpendicular a la dirección de avance.
 
 \begin{figure}[htp]
 \centering
@@ -129,7 +131,7 @@ Esta configuración diferencial empieza a utilizarse en sistemas de 4 ruedas con 
 
 Para que un robot pueda realizar tareas con una determinada precisión y velocidad debe conocer el entorno del sistema en el que se quiera actuar así como el estado del robot en ese sistema.
 
-Existen dos tipos de sensores, los sensores internos, que aportan información sobre la posición orientación del robot, y los externos, que aportan información del entorno alrededor del robot.
+Existen dos tipos de sensores, los sensores propioceptivos, que aportan información sobre el estado del robot, y los exteroceptivos, que aportan información del entorno en el que se encuentra el robot.
 
 \subsection{Sensores propioceptivos}
 
@@ -168,7 +170,7 @@ Los sensores externos son aquellos que nos aportan información sobre el estado d
 
 Los sensores GPS se utilizan en robots móviles que operan en el exterior y suelen combinarse con otros sensores que ofrezcan una mayor precisión.
 
-Existen otros sensores de posicionamiento absoluto como los sistemas IPS (Indoor Positioning System) que sirven para la localización en interiores y puede utilizar ondas de radio, campos magnéticos, señales acústicas... Dentro de esta categoría no existe un estándar y coexisten diferentes sitemas como el sistema Bat, basado en utrasonidos o el sistema Symeo, basado en radiofrecuencia por citar algunos de de ellos **
+Existen otros sensores de posicionamiento absoluto como los sistemas IPS (Indoor Positioning System) que sirven para la localización en interiores y puede utilizar ondas de radio, campos magnéticos, señales acústicas... Dentro de esta categoría no existe un estándar y coexisten diferentes sitemas como el sistema Bat, basado en utrasonidos o el sistema Symeo, basado en radiofrecuencia \cite{cuenca2010} por citar algunos de ellos.
 
 \item \textbf{Sensores de distancia}: Son aquellos que nos dan una referencia de la longitud que existe a los objetos cercanos. Es el caso de los sensores e ultrasonidos, donde un emisor emite una onda ultrasónica y cuando es reflejada por un objeto se puede determinar la distancia a la que se encuentra midiendo el tiempo que tarda el sonido en ir y volver. Los sensores de distancia también pueden ser infrarrojos, funcionando de la misma manera.
 
@@ -193,7 +195,8 @@ Inicialmente permitía controlar e interactuar con la consola XBOX sin necesidad 
 \begin{figure}[htp]
 \centering
 \includegraphics[width=0.4\textwidth]{figuras/kinect.jpg}
-\caption{Sensor de 3 dimensiones Kinect para Xbox 360} \label{fig:sensor_kinect}
+\caption{Sensor de 3 dimensiones Kinect para Xbox 360.}
+\label{fig:sensor_kinect}
 \end{figure}
 
 Para captar el entorno en 3 dimensiones, Kinect incluye una cámara de vídeo RGB, un emisor de haz infrarrojo y una cámara infrarroja.
