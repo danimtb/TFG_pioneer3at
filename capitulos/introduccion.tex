@@ -1,6 +1,6 @@
 \chapter{Introducción}
 
-Este proyecto surge como una manera de actualizar y poner en funcionamiento el robot móvil de investigación Pioneer 3 AT, actualizarlo a una nueva plataforma robótica como es ROS e implementar la navegación autónoma del robot basada en sensores de percepción del entorno como el sensor Kinect y un sensor láser tipo LIDAR.
+Este proyecto surge como una manera de actualizar y poner en funcionamiento el robot móvil de investigación Pioneer 3 AT, integrarlo en una nueva plataforma robótica como es ROS e implementar la navegación autónoma del robot basada en sensores de percepción del entorno como el sensor Kinect y un sensor láser tipo LIDAR.
 
 En este proyecto se desarrolla e implementa un sistema robótico tomando como base al robot Pioneer y sobre la plataforma ROS desde su inicio de forma que todos los sensores queden integrados dentro del robot y este se encuentre operativo para resolver tareas de navegación. Todo ello con el propósito de servir como plataforma de navegación en futuros proyectos relacionados con la robótica móvil o con el entorno ROS en concreto.
 
@@ -9,7 +9,7 @@ Dotar a un robot de la capacidad de navegar autónomamente puede ser una alternat
 
 Cualquier proyecto que desarrolle la automatización de un proceso es ya una motivación, puesto que se va a diseñar una máquina que sea capaz de realizar una tarea que antes solo podía realizarse por un ser humano. Además, dichas tareas realizadas por un robot pueden realizase, en principio, con una mayor precisión y con mayor repetibilidad debido a que se elimina el factor del cansancio.
 
-Este proyecto también viene motivado por la integración de ROS dentro de una plataforma móvil. Con esta plataforma de desarrollo software podemos explorar un concepto diferente de programación en robótica, que ofrece características como:
+Este proyecto viene motivado por la integración de ROS dentro de una plataforma móvil. Con esta plataforma de desarrollo software podemos explorar un concepto diferente de programación en robótica, que ofrece características como:
 \begin{itemize}
     \item Abstraerse de la programación a bajo nivel.
     \item Reutilizar software ya desarrollado.
@@ -35,6 +35,7 @@ El objetivo de este proyecto es realizar el control de un robot móvil para que s
 El robot debe ser capaz de localizarse y situarse en el entorno, el sensor Kinect ofrecerá información sobre los objetos alrededor del robot, y el software desarrollado para ROS deberá ser capaz de hacer un control reactivo sobre los movimientos para permitir al robot moverse por interiores y guiarlo hacia un punto indicado.
 
 A la finalización del proyecto, el sistema robótico debe quedar integrado de tal forma que en futuros desarrollos pueda utilizarse como plataforma móvil y permita abstraerse de las tareas de orientación y navegación.
+
 
 El alcance del proyecto requiere múltiples fases de trabajo:
 
@@ -100,3 +101,21 @@ De los puntos anteriores podemos desgranar algunas fases intermedias como son:
 \item Valorar el uso de sensores adicionales y buscar una disposición óptima de los mismos para integrarlos en el sistema de navegación y en la arquitectura hardware del propio robot.
 \setcounter{enum3}{\value{enumi}}
 \end{enumerate}
+
+\section{Estructura del documento}
+A continuación y para facilitar la ectura del documento se detalla el contenido que consta en cada uno de los caítulos.
+
+\begin{itemize}
+\item En el capítulo 1 se realiza una introducción del proyecto, un análisis de las motivaciones y objetivos del mismo.
+\item En el capítulo 2 se hace un repaso del estado del arte de la robótica móvil, los tipos de robots y principales sensores utilizados así como las aplicaciones de la robótica móvil.
+\item En el capítulo 3 se expone el planteamiento del proyecto, los pasos seguidos junto con un análisis de tiempos y las tecnologías utilizadas.
+\item En el capítulo 4 se habla de los conceptos relacionados con ROS, su filosofía de funcionamientoy sus herramientas así como la estructura del desarrollo software llevado a cabo en este proyecto.
+\item En el capítulo 5 se abordan los conceptos relacionados con la navegación, su enfoque teórico y las particularidades de funcionamiento de la navegación en ROS.
+\item En el capítulo 6 se exponen los primeros nodos de control a bajo nivel, el nodo de teleoperación y el de navegación estimada.
+\item En el capítulo 7 se expone la implementación del sistema pasando por todas sus fases de desarrollo y las soluciones que se han llevado a cabo.
+\item En el capítulo 8 se exponen las configuraciones y el uso de los simuladores robóticos utilizados para dar apoyo al desarrollo del proyecto. 
+\item En el capítulo 9 se exponen las pruebas del sistema en navegación real y simulada, se exponen los resultados y se discuten los mismos.
+\item En el capítulo 10 se exponen las conclusiones y se plantean los futuros desarrollos a implementar en el robot móvil.
+\end{itemize}
+
+Adicionalmente existen 3 anexos que sirven de apoyo a las explicaciones del proyecto y donde se realiza un manual aclaratorio del funcionamiento del sistema robótico objeto de este proyecto.
