@@ -9,7 +9,7 @@ Para realizar la teleoperación del robot, utilizaremos las herramientas de comun
 
 Para la navegación se pretende que el robot base sus movimientos en un sistema reactivo, es decir, que el robot base su navegación principalmente en la información captada por sus sensores y no en un mapa preestablecido. El control en navegación del robot se basará en la funcionalidad "Navigation Stack" de ROS, que también será explicada en detalle más delante.
 
-El desarrollo principal para la navegación se basa en la infomación aportada por el sensor Kinect, sin embargo, el sensor láser proporciona una información muy potente para robots y también ha sido incluido en el dasarrollo de este proyecto, utilizándolo en conjunto con el sensor Kinect.
+El desarrollo principal para la navegación se basa en la información aportada por el sensor Kinect, sin embargo, el sensor láser proporciona una información muy potente para robots y también ha sido incluido en el dasarrollo de este proyecto, utilizándolo en conjunto con el sensor Kinect.
 
 Seguidamente, se han realizado los ajustes pertinentes en la navegación del robot, para la cual se ha seguido el concepto de mapas de coste y descomposición en celdas. También se ha valorado la disposición de ambos sensores para capturar el entorno, así como el tratamiento dispar de los datos capturados por cada uno de ellos. De esta forma logramos que no se produzcan detecciones de objetos de manera duplicada y que no haya discrepancias entre los obstáculos que detecta un sensor respecto al otro \footnote{De especial interés en la icorporación de obstáculos al mapa mediante el uso de Costmaps en el sistema de navegación de ROS}.
 
@@ -17,7 +17,7 @@ Finalmente, se han incorporado características adicionales que aportan valor al 
 
 \section{Planificación del proyecto}
 
-En este apartado se desarrollan las fase por las que ha pasado ete proyecto y realizaremos un análisis de tiempos.
+En este apartado se desarrollan las fases por las que ha pasado este proyecto y realizaremos un análisis de tiempos.
 
 Fase inicial: Familiarización con el entrono ROS y elección de herramientas.
 
@@ -423,7 +423,7 @@ Peso & 1.1 Kg \\
 Dimensiones & 105mm x 102mm x 152mm\\ \hline
 \end{tabular}
 }
-\caption{Características del sensor láser Sick LMS100. Basado en \cite{sicklms100}}
+\caption{Características del sensor láser Sick LMS100. Basado en \cite{sicklms100}.}
 \label{tabla_sicklms100}
 \end{table}
 
