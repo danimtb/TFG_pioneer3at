@@ -688,7 +688,7 @@ int main(int argc, char** argv){
 
 Este nodo se encuentra separado del directorio habitual \textit{pioneer\_utils} debido a dependencias adicionales que pueden causar conflicto. Por ello, se aloja en el paquete \textit{navigation\_goals}.
 
-\subsubsection{Endurance test}
+\subsection{Endurance test}
 El nodo \textit{endurance\_test} es un nodo de navegación similar al descrito en el apartado anterior pero desarrollado con la API de Python.
 
 Este nodo sirve para realizar un test de resistencia en la navegación del robot con un mapa, mandando al robot diferentes puntos de meta y llevando un registro de las metas alcanzadas, el tiempo transcurrido y los metros recorridos.
@@ -738,11 +738,11 @@ Para lanzar este nodo se utiliza un archivo \textit{launchfile} en el que se ind
 
 \section{Nodo de guiado (follower)}
 
-El nodo de guiado se basa en el procesamiento de la nube de puntos obtenida a través de los nodos del paquete freenect\_stack.
+El nodo de guiado consiste en el análisis de la nube de puntos que capta el sensor Kinect para detectar un objeto delante y dirigir al robot ajustando sus velocidades para que mantenga la posición hacia ese objeto. Su funcionamiento se basa en el procesamiento de la nube de puntos obtenida a través de los nodos del paquete \textit{freenect\_stack}.
 
-El nodo está originalmente desarrollado para el robot Turtlebot pero es fácil adaptable a otros robots.
+El nodo está originalmente desarrollado para el robot Turtlebot pero es fácil adaptable a otros robots con el propósito de que el robot siga a personas, a otros robot o a objetos en movimiento.
 
-Requiere un Topic de tipo \textit{sensor\_msgs/PointCloud2} al que suscribirse para leer la nube de puntos y un topic de tipo \textit{geometry\_msgs/Twist} al que publicar los movimientos de giro, avance y retroceso.
+Requiere un Topic de tipo \textit{sensor\_msgs/PointCloud2} al que suscribirse para leer la nube de puntos y un Topic de tipo \textit{geometry\_msgs/Twist} al que publicar los movimientos de giro, avance y retroceso.
 
 \begin{table}[!h]
 \centering
@@ -799,12 +799,62 @@ El tratamiento de la nube de puntos se realiza con la librería PCL (PointCloud L
     </node>
 </launch>
 \end{lstlisting}
-\hypersetup{urlcolor=black}
-Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/follower/simple-follower.launch}{\textit{pioneer\_utils/follower/simple-follower.launch}}
-\hypersetup{urlcolor=blue}
-\caption{Launchfile para turtlebot\_follower en el robot Pioneer 3 AT.}
+\caption{Launchfile para \textit{turtlebot\_follower} en el robot Pioneer 3 AT\footnotemark.}
 \end{code}
+\footnotetext{\hypersetup{urlcolor=black}
+Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/follower/simple-follower.launch}{\textit{pioneer\_utils/follower/simple-follower.launch}}
+\hypersetup{urlcolor=blue}}
 
 \section{Feedback mediante text-to-speech}
+Como ya se ha visto, la variedad de paquetes de software robótico en ROS es notable y ofrece una amplia variedad de características gracias a los aportes de la comunidad. A medida que evolucionaba este proyecto y debido a que el robot lleva incorporado su propio altavoz, apareció la idea de dotar de sonidos al robot de tal manera que existiera un feedback hacia las personas que se encuentren en su entorno.
+
+Existe un nodo en ROS llamado \textit{sound\_play} \cite{soundplay} que permite, mediante la publicación de mensajes, reproducir sonidos preincorporados, archivos de sonido OGG/WAV o incluso realizar síntesis de voz a partir de un texto, conocido como \textit{text-to-speech} (TTS), utilizando voces del \textit{Festival Speech Synthesis System} desarrollado por \textit{The Centre for Speech Technology Research} de la Universidad de Edinburgo \cite{festival2014}.
+
+En este caso se ha utilizado la API de Python para interactuar con el nodo de tal modo que tan solo es necesario intercambiar mensajes con el nodo \textit{soundplay\_node}. Para ponerlo en marcha se incia el nodo desde el archivo de \textit{launch}.
+
+\begin{code}[!htp]
+\begin{lstlisting}[style=launch]
+  <node name="sound_play" pkg="sound_play" type="soundplay_node.py"/>
+\end{lstlisting}
+\caption{Nodo soundplay\_node para reproducir sonidos.}
+\end{code}
+
+Para reproducir sonidos se utiliza un ''handle'' de sonido que facilita e paso de mensajes en caso de reproducir sonidos o voz con las funciones \textit{.play()} y \textit{.say()} respectivamente.
+A continuación se presenta un fragmento del nodo \textit{voice\_cmd} de desarrollo propio y que se describirá más adelante
+
+\begin{code}[!htp]
+\begin{lstlisting}[style=launch]
+  from sound_play.libsoundplay import SoundClient
+  
+   # Create the sound client object
+          self.soundhandle = SoundClient()
+         
+          rospy.sleep(1)
+          self.soundhandle.stopAll()
+          
+           # Subscribe to the move_base action server
+          self.move_base = actionlib.SimpleActionClient("move_base", MoveBaseAction)
+          
+          rospy.loginfo("Waiting for move_base action server...")
+          self.soundhandle.play(1)
+          
+          # Wait 60 seconds for the action server to become available
+          self.move_base.wait_for_server(rospy.Duration(60))
+          
+          rospy.loginfo("Connected to move base server")
+         
+          # Announce that we are ready for input
+          rospy.sleep(1)
+          self.soundhandle.say('Hi, my name is Petrois')
+          rospy.sleep(2)
+          self.soundhandle.say("Say one of the navigation commands")
+\end{lstlisting}
+\caption{Fragmento del nodo \textit{voice\_cmd} utilizando el cliente de sonido de \textit{soundplay\_node}.}
+\end{code}
+
 \section{Reconocimiento de comandos de voz}
+Siguiendo con la idea de utilizar todos los elementos que incorpora el robot y de manera adicional a los objetivos del proyecto, se exploró la idea de la interacción con el robot mediante comandos de voz, gracias una vez más a los paquetes de ROS.
+
+\textit{pocketsphinx} \cite{pocketsphinx2012} es un paquete que actúa como \textit{wrapper} del motor de reconocimiento de voz del mismo nombre, que utiliza el framework multimedia \textit{GStreamer} \cite{gstreamer2001}. La implementación de este nodo está basada en los estudios e investigaciones sobre reconocimiento de voz y patrones en el habla de la Universidad de Carnegie Mellon dentro del proyecto CMU Sphinx \cite{sphinx}.
+
 \section{Nodo de ejecución automática de nodos}
