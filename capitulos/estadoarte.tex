@@ -117,7 +117,7 @@ Consta de 3 ruedas cada una con un motor independiente, que permiten el desplaza
 \centering
 \includegraphics[width=0.4\textwidth]{figuras/configuracion_omnidireccional.png}\hspace{2cm}
 \includegraphics[width=0.3\textwidth]{figuras/rueda_omnidireccional.png}
-\caption{Configuración síncrona y rueda omnidireccional} \label{fig:configuracion_omnidireccional}
+\caption{Configuración síncrona y rueda omnidireccional.} \label{fig:configuracion_omnidireccional}
 \end{figure}
 
 \pagebreak
@@ -127,7 +127,7 @@ Esta configuración diferencial empieza a utilizarse en sistemas de 4 ruedas con 
 \begin{figure}[htp]
 \centering
 \includegraphics[width=0.4\textwidth]{figuras/mecanum-wheels_uranus.png}
-\caption{Robot Uranus con ruedas tipo Mecanum} \label{fig:ruedas_mecanum}
+\caption{Robot Uranus con ruedas tipo Mecanum.} \label{fig:ruedas_mecanum}
 \end{figure}
 
 \section{Sensores en robótica móvil}\label{sec:sensores}
@@ -138,7 +138,9 @@ Existen dos tipos de sensores, los sensores propioceptivos, que aportan informac
 
 \subsection{Sensores propioceptivos}
 
-Dentro de los sensores propioceptivos, los sensores de posción primordiales son los encoders, tanto los de tipo incremental como los de tipo absoluto (Figura \ref{fig:esquema_encoder}). Su funcionamiento se basa en un foto-emisor y un foto-receptor que detectanel paso o no de luz a través de un disco con ciertas marcas acoplado al eje de giro del actuador.
+Dentro de los sensores propioceptivos, los sensores de posición primordiales son los encoders, tanto los de tipo incremental como los de tipo absoluto (Figura \ref{fig:esquema_encoder}). Su funcionamiento se basa en un foto-emisor y un foto-receptor que detectan el paso o no de luz a través de un disco con ciertas marcas acoplado al eje de giro del actuador.
+
+\pagebreak
 
 \begin{figure}[htp]
 \centering
@@ -163,7 +165,7 @@ posición,  el  error  crece  de  forma  cuadrática.  Luego  para  largos  period
 
 \subsection{Sensores exteroceptivos}
 
-Los sensores externos son aquellos que nos aportan información sobre el estado del robot respecto al entorno o que nos da información sobre lo que ocurre alrededor de este.
+Los sensores externos son aquellos que nos aportan información sobre el estado del robot respecto al entorno o que nos dan información sobre lo que ocurre alrededor de este.
 
 \begin{itemize}
 
@@ -175,18 +177,16 @@ Los sensores GPS se utilizan en robots móviles que operan en el exterior y suele
 
 Existen otros sensores de posicionamiento absoluto como los sistemas IPS (Indoor Positioning System) que sirven para la localización en interiores y puede utilizar ondas de radio, campos magnéticos, señales acústicas... Dentro de esta categoría no existe un estándar y coexisten diferentes sitemas como el sistema Bat, basado en utrasonidos o el sistema Symeo, basado en radiofrecuencia \cite{cuenca2010} por citar algunos de ellos.
 
-\item \textbf{Sensores de distancia}: Son aquellos que nos dan una referencia de la longitud que existe a los objetos cercanos. Es el caso de los sensores e ultrasonidos, donde un emisor emite una onda ultrasónica y cuando es reflejada por un objeto se puede determinar la distancia a la que se encuentra midiendo el tiempo que tarda el sonido en ir y volver. Los sensores de distancia también pueden ser infrarrojos, funcionando de la misma manera.
+\item \textbf{Sensores de distancia}: Son aquellos que nos dan una referencia de la longitud que existe a los objetos cercanos. Es el caso de los sensores de ultrasonidos, donde un emisor emite una onda ultrasónica y cuando es reflejada por un objeto se puede determinar la distancia a la que se encuentra midiendo el tiempo que tarda el sonido en ir y volver. Los sensores de distancia también pueden ser infrarrojos, funcionando de manera análoga. En robótica móvil es común colocar varios sensores de este tipo alrededor del robot.
 
 Existen sensores de distancia que utilizan tecnología láser para determinar la longitud de un punto a otro, se denominan Scanners láser o LIDAR. Estos sensores emiten rayos láser en un plano de 2 dimensiones y en un rango determinado, y midiendo el tiempo de vuelo del haz láser son capaces de obtener una medida muy precisa de la distancia.
-
-También existen los sensores de ultrasonidos, los cuales emiten una señal ultrasónica en forma de pulso para posteriormente recibir el reflejo de la misma al rebotar en un objeto. En robótica móvil es común colocar varios sensores de este tipo alrededor del robot.
 
 \item \textbf{Sensores de distancia basados en visión:} Existen otro tipo de sensores de distancia que permiten obtener distancias a puntos de manera tridimensional. Los pasivos, como las cámaras estereoscópicas, que utilizan un sistema de doble cámara (Figura \ref{fig:camara_estereoscopica}). Estos sensores son capaces de obtener imágenes 3D con la información de dos imágenes tomadas a cierta distancia una de otra. Es el sensor más parecido a la visión humana.
 
 \begin{figure}[htp]
 \centering
 \includegraphics[width=0.4\textwidth]{figuras/pr2_stereocam.jpg}
-\caption{Cámara estereoscópica del robot PR2} \label{fig:camara_estereoscopica}
+\caption{Cámara estereoscópica del robot PR2.} \label{fig:camara_estereoscopica}
 \end{figure}
 
 Por otro lado están los sensores activos, como las cámaras por tiempo de vuelo (Time-of-flight) que obtienen distancias a los puntos de una imagen basándose en el tiempo que tarda la luz en alcanzar los objetos, o los sensores de tipo infrarrojo, como es el sensor Kinect, de gran interés debido a su bajo coste y su buena respuesta.
