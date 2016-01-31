@@ -23,11 +23,11 @@
 \usepackage{caption}
 \usepackage{epigraph}
 \usepackage{color}
+\usepackage{setspace}  
 
 
 \usepackage[bookmarks=true]{hyperref}
 \usepackage{bookmark}
-\usepackage{afterpage}
 
 \definecolor{gray97}{gray}{.97}
 \definecolor{gray75}{gray}{.75}
@@ -129,6 +129,7 @@
 
 \include{capitulos/resumen}
 
+\spacing{0.1}
 %genera índice
 \cleardoublepage
 \pdfbookmark{\contentsname}{general}
@@ -149,6 +150,7 @@
 \pdfbookmark{Índice de códigos}{codigos}
 \listofcodes
 
+\singlespace
 %empieza la parte descriptiva del trabajo
 \mainmatter
 
