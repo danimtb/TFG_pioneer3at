@@ -3,12 +3,12 @@
 Este capítulo describe los cambios, ajustes y modificaciones que, basados en la información anterior expuesta, las características de ROS y el hardware del que disponemos, se han realizado para alcanzar los objetivos del proyecto.
 
 \section{Configuraciones hardware}
-Como ya se ha descrito, la navegación se basa en el sensor Kinect pero también se ha considerado integrar el sensor láser debido a la valiosa información que aporta y su disponibilidad.
+Como ya se ha descrito, la navegación se basa en el sensor Kinect y en el sensor láser Sick. Estos sensores han sido incorporados al robot de manera que disponen de alimentación desde las baterías del mismo y su interfaz de conexión es conexión la correspondiente en cada caso.
 
-Por ello, el robot deberá llevar incorporados estos sensores proporcionándoles alimentación y una interfaz de conexión adecuada.
+En esta sección se describen las implementaciones que se han llevado a cabo en el hardware utilizado en este proyecto.
 
 \subsection{Pioneer 3 AT}
-El robot Pioneer 3 AT de Adept Mobile Robots es la base de la plataforma robótica. El modelo disponible en el laborarotio de la Escuela Técnica Superior de Ingeniería y Diseño Industrial llevaba incorporado un ordenador de tipo **ORDENADOR PIONEER**. También, al comienzo de este proyecto ya existían algunas adaptaciones como la incorporación de un altavoz frontal, acceso a los puestos USB del ordenador interno y conexión para el sensor láser (Figura \ref{fig:robot_inicial}).
+El robot Pioneer 3 AT de Adept Mobile Robots es la base de la plataforma robótica. El modelo que ha sido utilizado en el laborarotio de la Escuela Técnica Superior de Ingeniería y Diseño Industrial llevaba incorporado un ordenador de tipo dual-core\footnote{Ordenadores integrados en los robots de Mobile Robots: \url{http://www.mobilerobots.com/Accessories/EmbeddedComputers.aspx}}. Al comienzo de este proyecto ya existían algunas adaptaciones como la incorporación de un altavoz frontal, acceso a los puestos USB del ordenador interno y conexión para el sensor láser (Figura \ref{fig:robot_inicial}).
 
 \begin{figure}[!htp]
 \centering
@@ -17,29 +17,29 @@ El robot Pioneer 3 AT de Adept Mobile Robots es la base de la plataforma robótic
 \label{fig:robot_inicial}
 \end{figure}
 
-El robot había sido utilizado anteriormente mediante el software MRCore en el proyecto \cite{herrero2013} y el sistema operativo del ordenador interno era Ubuntu Server 10.
+El robot había sido utilizado mediante el software MRCore \cite{mrcore} en el proyecto anterior \cite{herrero2013} y el sistema operativo del ordenador interno era Ubuntu Server 10.
 
 Para integrar la versión Indigo de ROS lo más recomendable era partir de la versión estable más actualizada de Ubuntu, por lo que se sustituyó el sistema operativo por Ubuntu 14.04 LTS en su versión de escritorio.
 
-Una vez integrado el sistema operativo, la primera toma de contacto con el robot fue a partir de la librería Aria **referencia** para controlar el movimiento de los motores y comprobar que el robot se encontraba en buen estado.
+Una vez integrado el sistema operativo, la primera toma de contacto con el robot fue a partir de la librería Aria para controlar el movimiento de los motores y comprobar que el robot se encontraba en buen estado.
 
 A continuación, tras instalar ROS Indigo, se procedió a las pruebas mediante el paquete Rosaria de ROS. La conexión con el microcontrolador de la placa de motores fue exitosa y se comprobó que los valores de la odometría también funcionaban.
 
 Llegados a este punto, el robot se encontraba en disposición para realizar las primeras pruebas.
 
 \subsection{Sensor Láser}\label{subsection:implementacion_laser}
-El sensor láser Sick ya había sido integrado en un proyecto anterior y sus conexiones de alimentación y datos vía Ethernet ya estaban preparadas para utilizarlo.
+El sensor láser Sick también había sido integrado en un proyecto anterior y sus conexiones de alimentación y datos vía Ethernet ya estaban preparadas para utilizarlo.
 
-Para conectarlo a través del puerto Ethernet fue necesario ajustar su dirección IP a través del software del fabricante y ajustar la IP del ordenador del robot Pioneer (más información en el apéndice **TAL**).
+Para conectarlo a través del puerto Ethernet fue necesario ajustar su dirección IP a través del software del fabricante y ajustar la IP del ordenador del robot Pioneer (más información en el apéndice \ref{subsection:sicklms100_apendice}).
 
 El agarre mecánico del sensor se dejó tal y como había sido utilizado en ocasiones anteriores, situado en la parte frontal agarrado mediante un par de tornillos al chasis con tuercas de palometa para su fácil manipulación.
 
-El sensor láser se conecta a la interfaz ROS mediante el paquete LMS1xx tal y como se describió en el apartado \ref{subsection:sicklms100}.
+El sensor láser se conecta a la interfaz ROS mediante el paquete \textit{LMS1xx} tal y como se describió en el apartado \ref{subsection:sicklms100}.
 
 \subsection{Sensor Kinect}\label{subsection:implementacion_kinect}
 La integración del sensor Kinect fue relativamente sencilla debido a que las entradas de los puestos USB del ordenador habían sido cableadas previamente. La adaptación a realizar era sobre la parte de alimentación, ya que este sensor trabaja a una tensión de 12 voltios.
 
-En el manual del robot se encuentra una descripción detallada de la placa de alimentación a la cual pueden conectarse diferentes periféricos. Esta placa ofrece tomas de conexión de 5 voltios controlados por unos botones auxiliares y tomas de 12 voltios (ver apéndice **TAL**).
+En el manual del robot se encuentra una descripción detallada de la placa de alimentación a la cual pueden conectarse diferentes periféricos. Esta placa ofrece tomas de conexión de 5 voltios controlados por unos botones auxiliares y tomas de 12 voltios (ver apéndice \label{section:placa_alimentacion}).
 
 El sensor Kinect dispone de un adaptador USB, preparado para trabajar con la videoconsola XBOX 360, el cual suministra 12 voltios mediante un transformador conectado a una toma de corriente alterna de 220v e incorpora los cables de datos del propio sensor Kinect.
 
@@ -50,7 +50,7 @@ El sensor Kinect dispone de un adaptador USB, preparado para trabajar con la vid
 \label{fig:kinect_usual}
 \end{figure}
 
-Para integrar el sensor Kinect en el robot, se cortó el cable de alimentación del cable adaptador y se soldaron unas clavijas tipo Jack **REVISAR** macho-hembra para conectar el adaptador directamente a los 12 voltios de la placa del robot. También se realizó lo oportuno en el adaptador de corriente, para poder usar el sensor Kinect de la manera habitual (Figura \ref{fig:cables_kinect}).
+Para integrar el sensor Kinect en el robot, se adaptó el cable de alimentación soldando unas clavijas de conexión para obtener directamente alimentación a 12 voltios de la placa del robot. También se realizó lo oportuno en el adaptador de corriente, para poder usar el sensor Kinect de la manera habitual (Figura \ref{fig:cables_kinect}).
 
 \begin{figure}[!htp]
 \centering
@@ -60,31 +60,31 @@ Para integrar el sensor Kinect en el robot, se cortó el cable de alimentación de
 \label{fig:cables_kinect}
 \end{figure}
 
-Para anclar el sensor Kinect al robot se optó por situarlo en la parte superior del sensor Láser, para lo cual se diseñó una pieza que encajase en la base de la Kinect y en el sensor láser (figura **REF**).
-
-**Imagen del diseño 3D**
+Para anclar el sensor Kinect al robot se optó por situarlo en la parte superior del sensor Láser, para lo cual se diseñó una pieza que encajase en la base de la Kinect y en el sensor láser (Figura )\ref{fig:primera_configuracion}).
 
 El sensor Kinect se conecta a la interfaz ROS mediante el paquete freenect\_stack tal y como se describió en el apartado \ref{subsection:kinect}.
 
 \subsection{Primera configuración hardware}
-La primera configuración del robot consistió en ambos sensores situados en la parte frontal del mismo. Los sensores se encontraban colocados de manera vertical otro, de tal forma que no existieran interferencias entre uno y otro.
+La primera configuración del robot consistió en ambos sensores situados en la parte frontal del mismo (Figura )\ref{fig:primera_configuracion}). Los sensores se encontraban colocados de manera vertical otro, de tal forma que no existieran interferencias en su rango de detección.
 
 \begin{figure}[!htp]
 \centering
 \includegraphics[width=\textwidth]{figuras/primera_configuracion.jpg}
-\caption{Primera configuración hardware del robot}
+\caption{Primera configuración hardware del robot: Kinect y láser en la parte frontal.}
 \label{fig:primera_configuracion}
 \end{figure}
 
-De esta forma conseguíamos una vista frontal despejada y contábamos con la información del láser para detectar obstáculos laterales.
+De esta forma se consigue una vista despejada y contamos con la información del láser para detectar obstáculos laterales.
 
 \subsubsection{Primera configuración del sistema}
 El ordenador interno corría todos los nodos de ROS, de modo que se disponía de la información de los sensores, el control sobre los motores y la lectura de la odometría para realizar las primeras pruebas con el paquete de navegación de ROS (Sección \ref{section:navigation_stack}).
 
-Sin embargo, la primera implementación con los primeros ajustes a nuestro hardware de los sensores no fue posible debido a la sobrecarga de la CPU del ordenador interno del robot Pioneer y a problemas de memoria en la ejecución de nodos como AMCL.
+Sin embargo, la primera implementación con los primeros ajustes de los sensores no fue posible debido a la sobrecarga de la CPU del ordenador interno del robot Pioneer y a problemas de memoria en la ejecución de nodos como \textit{amcl}.
 
 \subsubsection{Segunda configuración del sistema}
-La siguiente opción fue utilizar un ordenador externo que realizase los cálculos de navegación y enviase al robot las consignas de movimiento a través de una red WLAN. Esta idea no era la solución más ideal, ya que desde el principio la idea era que el robot fuese lo más autónomo posible sin depender de una infraestructura, sin embargo era una posibilidad directa que no suponía mucho esfuerzo.
+La siguiente opción ha consistido en utilizar un ordenador externo para realizar los cálculos de navegación y enviar al robot las consignas de movimiento a través de una red inalámbrica (Figura \ref{fig:segunda_configuracion_sistema}). Esta idea no era la solución más ideal, ya que desde el principio la idea era que el robot fuese lo más autónomo posible sin depender de una infraestructura, sin embargo esta configuración no suponía mucho esfuerzo debido a que los nodos pueden ejecutarse de manera distribuida.
+
+\pagebreak
 
 \begin{figure}[!htp]
 \centering
@@ -93,14 +93,12 @@ La siguiente opción fue utilizar un ordenador externo que realizase los cálculos
 \label{fig:segunda_configuracion_sistema}
 \end{figure}
 
-Gracias a la filosofía de ejecución distribuida de nodos de ROS, ejecutar nodos en máquinas diferentes y compartir la información entre procesos es una tarea sencilla. Para configurarlo, tan solo es necesario indicar a las máquinas la IP del nodo MASTER. De esta forma, los nodos que se ejecuten en cada una de las máquinas tratarán de realizar la comunicación a través de IPs dentro de la misma red.
-
-Este ajuste fue puesto en marcha utilizando un ordenador portátil con suficiente capacidad de procesamiento y memoria como para ejecutar la navegación, sin embargo aparecieron algunos inconvenientes. El primero de ellos fueron las direcciones IP en el ordenador interno del Pioneer.
+Esta configuración fue probada utilizando un ordenador portátil con suficiente capacidad de procesamiento y memoria como para ejecutar la navegación, sin embargo aparecieron algunos inconvenientes relacionados con la comunicación. Estos probelmas se detallan a continuación.
 
 \begin{itemize}
 
 \item \textbf{Problemas con el sensor Láser: LM1xx}\\\\
-Debido a que el sensor láser se conecta vía Ethernet a este ordenador, el nodo \textit{LMS1xx} debe obtener información a través de la IP del láser y enviarla a través del adaptador Wifi a la IP del nodo máster. El problema residía en que el nodo se saturaba al tener que lidiar con ambas interfaces de conexión y provocaba su detención.
+Debido a que el sensor láser se conecta vía Ethernet al ordenador del robot, el nodo \textit{LMS1xx} debe obtener información a través de la IP del láser y enviarla a través del adaptador Wifi a la IP del nodo MASTER. El problema reside en que el nodo se saturaba al tener que lidiar con ambas interfaces de conexión y provocaba su detención.
 
 Tras varias consultas a Clearpath Robotics a través de su repositorio de GitHub y preguntas en el foro ROS Answers **Enlaces de referencia**, la solución no estaba implementada en código y lo más inmediato era hacer un bridge en el ordenador del Pioneer 3 AT entre la interfaz Ethernet y la Wifi.
 
