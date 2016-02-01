@@ -4,26 +4,33 @@ En este capítulo se expone el desarrollo referente a la navegación dentro del ec
 
 Este capítulo trata de abordar el aspecto de la navegación desde el punto de vista de la utilidad, pasando por su fundamento teórico y sin dejar de lado su aplicación en el robot Pioneer 3 AT.
 
-Por tanto, se exponen algunos ejemplos de configuraciones para la navegación, sin embargo, la configuración final del robot y la discusión sobre la misma se abordará en el capítulo \ref{chapter:implementacion}, donde hablaremos de su implementación más en detalle.
+Por tanto, se exponen algunos ejemplos de configuraciones para la navegación, aunque la configuración final del robot y la discusión sobre la misma se abordará en el capítulo \ref{chapter:implementacion}, donde se hablará de su implementación más en detalle.
 
 \section{Navigation Stack}\label{section:navigation_stack}
 Dentro de las funcionalidades de ROS ya hemos comentado que existen los metapaquetes o "Stacks", que son grupos de paquetes de software que todos juntos ofrece una funcionalidad.
 
-El paquete de navegación de ROS \cite{navigation-ros} se define como un paquete de navegación en dos dimensiones que toma información dela odometría, de los sensores y de un punto de meta y dirige el robot mediante comandos de velocidad seguros.
+El paquete de navegación de ROS \cite{navigation-ros} se define como un paquete de navegación en dos dimensiones que toma información de la odometría, de los sensores y de un punto de meta y dirige el robot mediante comandos de velocidad seguros.
 
-La navegación se basa en el uso de "Mapas de coste'' y planificación global y local de trayectorias.
+La navegación se basa en el uso de ''Mapas de coste''\footnote{También denominados mapas de potencial, en esta memoria se hace referencia como mapa de coste o \textit{costmap}} y planificación global y local de trayectorias.
 
 Por un lado, el sistema hace un mapa de coste global que tiene encuentra información de los sensores y la posibilidad de cargar un mapa previo. A este mapa se incorporan los obstáculos que permanecen estáticos durante más tiempo y en base a este se realizan los cálculos de trayectoria global.
 
-Por otro lado, el sistema realiza un mapa de coste local, que analiza los obstáculos más cercanos al robot en cada momento. A este mapa se incorpora la información de los sensores sobre cualquier tipo de obstáculo detectado. En base a este mapa se realizan los cálculos de trayectoria local que llevará el control de la navegación reactiva del robot.
+Por otro lado, el sistema realiza un mapa de coste local, que analiza los obstáculos más cercanos al robot en cada momento. A este mapa se incorpora la información de los sensores sobre cualquier tipo de obstáculo detectado. En base a este mapa y de forma reactiva se realizan los cálculos de trayectoria local que llevará el control de la navegación reactiva del robot.
 
-RELLENAR ALGO MAS
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=0.6\textwidth]{figuras/mapadecoste.png}
+\caption{Ejemplo de mapas de coste en navegación.}
+\label{fig:mapadecoste}
+\end{figure}
+
+\pagebreak
 
 \subsection{Funcionamiento}
 
 El paquete de navegación se basa en diferentes nodos que interactúan para dirigir el robot hasta un punto en el mapa indicado como meta.
 
-Este sistema utiliza un mapa de obstáculos estáticos (global\_costmap), un mapa de obstáculo locales (local\_costmap), un nodo de cálculo de trayectoria global (globa\_planner), un nodo de cálculo de trayectoria local (local\_planner) y mecanismos de recuperación de trayectoria (recovery\_behaviors).
+Este sistema utiliza un mapa de obstáculos estáticos (\textit{global\_costmap}), un mapa de obstáculo locales (\textit{local\_costmap}), un nodo de cálculo de trayectoria global (\textit{globa\_planner}), un nodo de cálculo de trayectoria local (\textit{local\_planner}) y mecanismos de recuperación de trayectoria (\textit{recovery\_behaviors}).
 
 \begin{figure}[!htp]
 \centering
@@ -34,7 +41,7 @@ Este sistema utiliza un mapa de obstáculos estáticos (global\_costmap), un mapa 
 
 En el diagrama mostrado en la figura \ref{fig:navigation-ros} podemos ver una representación de los nodos y mensajes utilizados por el paquete de navegación así como la información externa y opcional que se precisa.
 
-Como puede apreciarse, los sensores, la odometría y el ajuste de las transfromadas entre cada uno de los sistemas de coordenadas son específicos de cada plataforma robótica. La ejecución principal se centra en el nodo \textit{move\_base} **referencia**, que es el ecargado de realizar los movimientos acorde a la información que aportan los mapas y los planificadores de trayectoria.
+Como puede apreciarse, los sensores, la odometría y el ajuste de las transformadas entre cada uno de los sistemas de coordenadas son específicos de cada plataforma robótica. La ejecución principal se centra en el nodo \textit{move\_base} , que es el encargado de realizar los movimientos acordes a la información que aportan los mapas y los planificadores de trayectoria.
 
 Por último indicar que el paquete de navegación no precisa de un mapa pregrabado para funcionar. Puede utilizarse un mapa si se precisa y cargarlo mediante un nodo externo como \textit{map\_server} o generarlo simultáneamente a la navegación mediante \textit{slam\_gmappig} (Subsección \ref{subsection:slam_gmapping}).
 
@@ -46,12 +53,12 @@ El sistema de navegación de ROS está diseñado para ser flexible, altamente confi
 \textbf{Odometría}\\
 El sistema de navegación requiere de un robot que publique información sobre la odometría del robot en mensajes de tipo \textit{nav\_msgs/Odometry}.
 
-En el robot Pioneer 3 AT y gracias al paquete RosAria (Subsección \ref{subsection:rosaria}) obtenemos la información de los enconders del robot convertida en datos de odometría a través del topic \textit{pose}.
+En el robot Pioneer 3 AT y gracias al paquete \textit{RosAria} (Subsección \ref{subsection:rosaria}) obtenemos la información de los enconders del robot convertida en datos de odometría a través del topic \textit{pose}.
 
 \textbf{Movimientos}\\
 El sistema de navegación requiere que el robot sea controlable a través de comandos de velocidad de tipo \textit{geometry\_msgs/Twist}.
 
-En el robot Pioneer 3 AT y gracias al paquete RosAria (Subsección \ref{subsection:rosaria}) podemos mover nuestro robot con comandos de velocidad publicandolos al topic \textit{cmd\_vel}.
+En el robot Pioneer 3 AT a través de \textit{RosAria} (Subsección \ref{subsection:rosaria}) podemos mover nuestro robot con comandos de velocidad publicandolos al topic \textit{cmd\_vel}.
 
 \textbf{Sensores}\\
 Los tipos de sensores que pueden utilizarse en la navegación son variados, el requisito que deben cumplir para poder integrarse en el sistema de navegación es que publiquen información de tipo \textit{sensor\_msgs/LaserScan} o \textit{sensor\_msgs/PointCloud2}.
@@ -64,13 +71,12 @@ Es necesario que toda la información esté estructurada geométricamente para que 
 Cada uno de los nodos descritos con anterioridad publican diferentes \textit{frames} que sirven para este propósito. Estos \textit{frames} (\textit{odom, base\_link, laser, camera\_link}) relacionados mediante transformadas estáticas como se describió en la subsección \ref{subsection:integracion_hardware}, proporcionan la información necesaria.
 
 \subsection{Configuración de la navegación}
-Hablar sobre los archivos necesarios .yaml y los launchfiles. de momento navegación con mapa y explicación.
 
-Aunque se explicará más adelante, una vez explicados los requisitos para utilizar el paquete de navegación es necesario explicar cual es la configuración necesaria para hacer que el sistema funcione.
+Aunque se explicará más adelante, una vez presentados los requisitos para utilizar el paquete de navegación es necesario entrar en detalle sobre la configuración necesaria para hacer que el sistema funcione.
 
 En primer lugar, para facilitar la comprensión, suponemos que disponemos de un mapa del entorno en el que se va a desplazar nuestro robot y que disponemos de tan solo un sensor láser para realizar la navegación.
 
-Comenzamos por la configuración de los llamados Costmaps, esto es, mapas que van almacenar los obstáculos del entorno del robot. Disponemos de global\_costmap y local\_costmap como dijimos antes y parte de la configuración de estos será compartida, por tanto debemos crear un archivo de parámetros comunes \textit{costmap\_common\_params.yaml}.
+Comenzamos por la configuración de los llamados \textit{Costmaps}, esto es, mapas que almacenan los obstáculos del entorno del robot. Disponemos de \textit{global\_costmap} y \textit{local\_costmap} como dijimos antes y parte de la configuración de estos será compartida, por tanto debemos crear un archivo de parámetros comunes \textit{costmap\_common\_params.yaml}.
 
 \begin{code}[!htp]
 \begin{lstlisting}[style=launch]
@@ -86,9 +92,9 @@ laser_scan_sensor: {sensor_frame: laser, data_type: LaserScan, topic: /scan, mar
 \caption{Ejemplo de \textit{costmap\_common\_params.yaml}}
 \end{code}
 
-Como vemos, configuramos parámetros como la forma de nuestro robot, el radio de seguridad de los obstáculos, el rango de incorporación de obstáculos y los sensores.
+Como vemos, configuramos parámetros como la forma de nuestro robot, el radio de seguridad de los obstáculos (\textit{inflation\_radius}), el rango de incorporación de obstáculos y los sensores.
 
-A continuación creamos el archivo e configuración de nuestro mapa global \textit{global\_costmap.yaml}.
+A continuación creamos el archivo de configuración de nuestro mapa global \textit{global\_costmap.yaml}.
 
 \begin{code}[!htp]
 \begin{lstlisting}[style=launch]
@@ -101,9 +107,11 @@ global_costmap:
 \caption{Ejemplo de \textit{global\_costmap.yaml}}
 \end{code}
 
-En este archivo vemos como este "mapa de coste" permanece estático y anclado al eje de coordenadas del mapa.
+En este archivo vemos como este mapa de coste permanece estático (\textit{static\_map: true}) y anclado al eje de coordenadas del mapa.
 
-El mapa de navegación local o reactiva es similar, aunque ne este caso el mapa tendrá unas dimensiones preestablecidas y se moverá con el robot.
+El mapa de navegación local o reactiva es similar, aunque en este caso el mapa tendrá unas dimensiones preestablecidas y se moverá con el robot.
+
+\pagebreak
 
 \begin{code}[!htp]
 \begin{lstlisting}[style=launch]
@@ -193,25 +201,27 @@ Este primer ajuste no tiene en cuenta muchos factores concretos de la navegación
 \section{SLAM}
 La técnica de SLAM (Simultaneous Localization And Mapping) es una técnica muy utilizada en robótica para construir un mapa de un etorno que es desconocido al mismo tiempo que se estima la posición del robot en el mismo.
 
-Esta técnica presenta dificultades como la imperfección de los sensores, la imperfección del sistema de locomoción el robot, la repetitividad de las medidas... Además de que la localización y el mapeado simultáneo de un entorno son dos problemas que están intrínsecamente acoplados \cite{puente2012probabilistic}. Es por ello que se utilizan modos probabilísticos como la relga de Bayes.
+Esta técnica presenta dificultades como la incertidumbre de los sensores, la imperfección del sistema de locomoción el robot, la repetitividad de las medidas... Además de que la localización y el mapeado simultáneo de un entorno son dos problemas que están intrínsecamente acoplados \cite{puente2012probabilistic}.
 
 \textbf{Principales algoritmos}\\
-Los principales algoritmos para realizar los cálculos pababilísticos en técnicas de SLAM son los sigientes:
+Los principales algoritmos para realizar los cálculos pababilísticos en técnicas de SLAM son los siguientes:
 
 \begin{itemize}
-\item Filtro extendido de Kalman: Es uno de los métodos más extendidos en la técnica del SLAM por ofrecer resultados satisfactorios a pesar de sus problemas de estimación \cite{rodriguez2006consistency}. Esta ha sido la técnica utilizada de facto hasta a aparición del FastSLAM \cite{montemerlo2002fastslam}.
+\item Filtro extendido de Kalman: Es uno de los métodos más extendidos en la técnica del SLAM por ofrecer resultados satisfactorios a pesar de sus problemas de convergencia \cite{rodriguez2006consistency}. Esta ha sido la técnica utilizada de facto hasta a aparición del FastSLAM \cite{montemerlo2002fastslam}.
 
 \item Mapas de ocupación de celdillas: Se basa en discretizar el espacio dividiéndolo en unidades de tamaño predefinido que se clasifican como ocupadas o vacías con un determinado nivel de confianza o probabilidad. La precisión (mayor cuanto más fina es la división del espacio), permite que el algoritmo de localización empleado acumule errores reducidos a lo largo de intervalos prolongados de tiempo. Su mayor desventaja de estos métodos es la pérdida de potencia que se deriva de no tener en cuenta la incertidumbre asociada a la posición del robot, lo cual origina que su capacidad para cerrar bucles correctamente se vea mermada \cite{collins2007occupancy}.
 \end{itemize}
 
-\subsubsection{slam\_gmapping en ROS}\label{subsection:slam_gmapping}
+\subsection{slam\_gmapping en ROS}\label{subsection:slam_gmapping}
 GMapping es una librería perteneciente al proyecto OpenSLAM \cite{openslam} que utiliza la técnica SLAM Grid Mapping, basada en la generación de mapas mediante la ocupación de celdillas utilizando un filtro de partículas \cite{grisetti2007improved}.
 
-En ROS se integra bajo el paquete gmapping \url{http://wiki.ros.org/gmapping} que no es más que un wrapper de OpenSLAM adaptando su interfaz.
+En ROS se integra bajo el paquete gmapping\footnote{Gmapping \url{http://wiki.ros.org/gmapping}} que no es más que un \textit{wrapper} de OpenSLAM adaptando su interfaz.
 
-Para crear mapas utilizando slam\_gampping precisamos de nuestro robot configurado para leer su odometría un sensor capaz de ofrecernos información de tipo \textit{sensor\_msgs/LaserScan}.
+Para crear mapas utilizando \textit{slam\_gampping} se necesita un robot configurado para leer su odometría y un sensor capaz de ofrecernos información de tipo \textit{sensor\_msgs/LaserScan}, así como la relación geométrica ente un sistema de referencia y otro.
 
 Existen muchos parámetros para ajustar el proceso de SLAM en este nodo, sin embargo en este caso nos servimos de la configuración utilizada por el paquete \textit{p2os} por ofrecer unos resultados más que aceptables:
+
+\pagebreak
 
 \begin{code}[!htp]
 \begin{lstlisting}[style=launch]
@@ -229,7 +239,7 @@ Existen muchos parámetros para ajustar el proceso de SLAM en este nodo, sin emba
 \hypersetup{urlcolor=black}
 Fuente: \href{https://github.com/allenh1/p2os/blob/indigo-stable/p2os_launch/launch/gmapping.launch}{\textit{p2os/p2os\_launch/launch/gmapping.launch}}
 \hypersetup{urlcolor=blue}
-\caption{Launchfile slam\_gmaping}
+\caption{Launchfile \textit{slam\_gmaping}.}
 \end{code}
 
 Para visualizar la creación del mapa en RViz se ha creado un archivo específico:
@@ -261,15 +271,15 @@ $ rosrun map_server map_saver
 \end{code}
 
 \section{AMCL}\label{section:amcl}
-''Adaptative Monte Carlo Localizaion", también conocida por localización mediante filtro de partículas, es un algoritmo utilizado en robótica para determinar la posición de un robot en un mapa \cite{fox1999monte}.
+''Adaptative Monte Carlo Localization", también conocida por localización mediante filtro de partículas, es un algoritmo utilizado en robótica para determinar la posición de un robot en un mapa \cite{fox1999monte}.
 
-El algoritmo emplea un filtro de partículas para representar una distribución de posibles estados dentro del mapa. A medida que los sensores detectan el entorno y el robot se desplaza dentro de este se van otorgando mayor peso a aquellas partículas que se encuentran más cercanas a la positicón correcta y se van descartando otras.
+El algoritmo emplea un filtro de partículas para representar una distribución de posibles estados dentro del mapa. A medida que los sensores detectan el entorno y el robot se desplaza dentro de este se van otorgando mayor peso a aquellas partículas que se encuentran en una posición más coherente con la información sensorial que se va obteniendo y se van descartando otras.
 
-La idea de esta técnica es conseguir que toas las partículas converjan en una sola (a efectos prácticos, unas pocas partículas) para determinar la posición del robot en el mapa.
+La idea de esta técnica es conseguir que todas las partículas converjan en una sola (a efectos prácticos, unas pocas partículas) para determinar la posición del robot en el mapa.
 
 Esta técnica se encuentra en ROS bajo un paquete llamado \textit{amcl} \cite{amcl-ros} y utiliza las técnicas descritas en el libro Probabilistic Robotics \cite{thrun2005probabilistic}.
 
-Transladado a la filosofía de funcionamiento de ROS, esta técnica nos ofrece la posibilidad de situar al robot en un mapa pregrabado, aportándonos la transformada entre el sistema de referencia (\textit{frame}) del mapa y el sistema de la odometría (Figura \ref{fig:amcl-ros}).
+Trasladado a la filosofía de funcionamiento de ROS, esta técnica nos ofrece la posibilidad de situar al robot en un mapa guardado previamente, aportándonos la transformada entre el sistema de referencia (\textit{frame}) del mapa y el sistema de la odometría (Figura \ref{fig:amcl-ros}).
 
 \begin{figure}[!htp]
 \centering
@@ -285,6 +295,8 @@ Como es habitual en ROS, esta funcionalidad nos aparece empaquetada en forma de 
 Para funcionar requiere el uso de un mapa, el árbol de transformadas de nuestro robot e información de tipo \textit{sensor\_msgs/LaserScan}.
 
 La lista de parámetros configurables es amplia ya que debemos encontrar un modelo que se comporte bien con nuestro robot y sensor láser. Son especialmente importantes los parámetros del modelo de la odometría y los referentes al haz láser de nuestro sensor.
+
+\pagebreak
 
 \begin{code}[!htp]
 \begin{lstlisting}[style=launch]
@@ -359,9 +371,11 @@ Las denominadas capas de las que hace uso \textit{costmap\_2d} son las siguiente
 
 \end{enumerate}
 
+\pagebreak
+
 \begin{figure}[!htp]
 \centering
-\includegraphics[width=\textwidth]{figuras/inflation_layer.png}
+\includegraphics[width=0.9\textwidth]{figuras/inflation_layer.png}
 \caption{Esquema sobre el cálculo del coste de cada celda en el mapa.}
 \label{fig:inflation_layer}
 \end{figure}
@@ -373,7 +387,9 @@ A parte de estas capas, existe una API que nos permite crear nuestras propias ca
 
 Existe una configuración por defecto que de estos costmaps que genera una sola capa de obstáculos, una capa de inflado y adcionalmente una capa de mapa estático siempre y cuando pongamos el parámetro \textit{static\_map} a TRUE. Sin embargo, existe la posibilidad de crear costmaps con las capas que consideremos oportunas, siendo de especial interés poder incorporar diferentes capas de obstáculos.
 
-Este último enfoque es el que ha sido adoptado en la implementación final de navegación y será descrito en el apartado **APARTADO**.
+Este último enfoque es el que ha sido adoptado en la implementación final de navegación y será descrito en la sección \ref{subsection:configuracion_costmaps_sensores}.
+
+\pagebreak
 
 \section{Planificador de trayectoria global}\label{section:global_planner}
 La planificación de trayectoria es una de las áreas que más interés suscita entre los investigadores relacionados con la robótica móvil o la navegación autónoma, no en vano, existe una gran variedad de algoritmos que realizan cálculos apoyándose en distintos enfoques matemáticos.
@@ -400,7 +416,7 @@ El algoritmo de Dijkstra funciona visitando vértices partiendo desde el punto in
 
 \begin{figure}[!htp]
 \centering
-\includegraphics[width=\textwidth]{figuras/pseudo-dijkstra.png}
+\includegraphics[width=0.65\textwidth]{figuras/pseudo-dijkstra.png}
 \caption{Pseudo-código del algoritmo de Dijkstra. Basado en \cite{tomovicpath}.}
 \label{fig:pseudo_dijkstra}
 \end{figure}
@@ -484,6 +500,6 @@ EL planificador de trayectoria local ya implementado en ROS utiliza los algoritm
 \item Repetir los pasos anteriores hasta alcanzar el punto final de meta.
 \end{enumerate}
 
-La diferencia entre los algoritmos \textit{Trajectory Rollout} \cite{gerkey2008planningy} \textit{Dynamic Window} \cite{fox1997dynamic} es el modo en el que se realiza el muestreo del espacio de control del robot. \textit{Trajectory Rollout} muestrea todas las trayectorias alcanzables variando la velocidad en todo el periodo de simulación, mientras que \textit{Dynamic Window} realiza la evaluación de las trayectorias en cada uno de los pasos, evaluando la velocidad  comparándola con las capacidades de aceleración del robot.
+La diferencia entre los algoritmos \textit{Trajectory Rollout} \cite{gerkey2008planning} y \textit{Dynamic Window} \cite{fox1997dynamic} es el modo en el que se realiza el muestreo del espacio de control del robot. \textit{Trajectory Rollout} muestrea todas las trayectorias alcanzables variando la velocidad en todo el periodo de simulación, mientras que \textit{Dynamic Window} realiza la evaluación de las trayectorias en cada uno de los pasos, evaluando la velocidad  comparándola con las capacidades de aceleración del robot.
 
 \textit{Dynamic Window} es un algoritmo más eficiente pero que se comporta peor en robots con bajos límites de aceleración por lo que en ocasiones el algoritmo \textit{Trajectory Rollout} realiza trayectorias locales más adecuadas.
