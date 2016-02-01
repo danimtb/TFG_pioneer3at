@@ -1,22 +1,25 @@
 \chapter{Conceptos previos}
+En este capítulo se exponen las particularidades de ROS y su funcionamiento así como la estructura del proyecto software desarrollado en este trabajo.
 
 \section{Entorno ROS}
 
-La versión del software ROS utilizada para el desarrollo del proyecto ha tratado de ser siempre la más actual posible, ya que eso nos asegura mantener la compatibilidad en futuros trabajos y que el software esté actualizado.
+La versión del software ROS que se ha utilizado para el desarrollo del proyecto ha tratado de ser siempre la más actual posible, ya que eso nos asegura mantener la compatibilidad en futuros trabajos y que el software esté actualizado.
 
-La versión utilizada fue ROS Indigo Igloo desde el comienzo del proyecto, bajo el sistema operativo Ubuntu 14.04. A fecha de entrega del proyecto existe una versión más actualizada del software ROS, sin embargo se desestimó su uso debido a que aún no era una versión estable y algunos paquetes no se encontraban disponibles para tal versión.
+El sistema se ha desarrollado bajo la versión ROS Indigo Igloo ,en el sistema operativo Ubuntu 14.04. A fecha de entrega del proyecto existe una versión más actualizada de ROS, sin embargo se desestimó su uso debido a que aún no era una versión estable y algunos paquetes no se encontraban disponibles para dicha versión.
 
-ROS realiza funciones similares a un sistema operativo, como la comunicación e interacción entre diferentes procesos, la distribución en hilos, comunicación distribuida entre máquinas, abstracción del hardware, control a bajo nivel...
+ROS realiza funciones similares a un sistema operativo, como la comunicación e interacción entre diferentes procesos, la distribución en hilos, comunicación distribuida entre máquinas, abstracción del hardware, control a bajo nivel, etc.
 
 ROS también proporciona herramientas y librerías para crear código, compilarlo y ejecutarlo en diferentes máquinas.
 
-El concepto más importante dentro de ROS son los nodos, que no son más que un proceso que se ejecuta y conecta al proceso principal, llamado MASTER, para comunicarse con otros nodos. Existen diferentes conceptos rostopics, rosservices, nodelets... que serán explicados en el siguiente punto.
+El concepto más importante dentro de ROS es el nodo, que no son más que un proceso que se ejecuta y conecta al proceso principal, llamado MASTER, para comunicarse con otros nodos. Existen diferentes modos de interacción entre ellos: rostopics, rosservices, nodelets, etc. Los más usuales se explican con más detalle a continuación..
 
 \subsection{Funcionamiento de ROS}
 
 Como hemos dicho, en ROS las acciones del robot se llevan a cabo mediante la interacción de diferentes nodos que se conectan entre sí en forma de grafo. Cada nodo se conecta a un nodo principal llamado MASTER (roscore) que se encarga de abrir un canal de comunicación entre cada nodo o proceso.
 
 En la figura \ref{fig:nodos_conectados} vemos un ejemplo para el robot simulado \textit{turtlesim}, al cual le envía comandos el nodo de teleoperación \textit{teleop\_turtle} y ambos publican información a través del nodo \textit{rosout}.
+
+\pagebreak
 
 \begin{figure}[htp]
 \centering
@@ -53,7 +56,7 @@ A nivel de sistema de ficheros ROS se estructura de la siguiente forma:
 \begin{itemize}
 \item Paquetes (packages): Es la unidad principal de organización de software en ROS. Un paquete puede contener nodos, tipos de datos, archivos de configuración.
 
-\item Metapaquetes (metapackages): Sirven para representar un conjunto de paquetes que tienen realción entre sí.
+\item Metapaquetes (metapackages): Sirven para representar un conjunto de paquetes que tienen relación entre sí.
 
 \item Package manifests: Son archivos de tipo xml donde se indican los metadatos de un paquete, como su nombre, su versión, una descripción, licencia, dependencias de otras librerías o paquetes...
 
@@ -65,10 +68,10 @@ tipo de mensaje (MiMensaje.msg)
 \item Tipos de servicios: Son archivos con la estructura de un tipo de servicio tanto para los datos de solicitud como los de respuesta (MiServicio.srv)
 \end{itemize}
 
-Tmabién es necesario conocer algunos tipos de archivos y su uso dentro de ROS para comprender el trabajo de este proyecto:
+También es necesario conocer algunos tipos de archivos y su uso dentro de ROS para comprender el trabajo de este proyecto:
 
 \begin{itemize}
-\item Launchfiles: ROS ofrece la herramienta \textit{"roslaunch"} para ejecutar varios nodos con un solo comando y configurar sus parámetros. Es una forma cómoda de organizar la puesta en marcha de todos los nodos y enlazar unos launchfiles con otros. Los archivos suelen tener la extensión \textit{.launch} y su estructura es similar a la sintaxis xml.
+\item Launchfiles: ROS ofrece la herramienta \textit{''roslaunch''} para ejecutar varios nodos con un solo comando y configurar sus parámetros. Es una forma cómoda de organizar la puesta en marcha de todos los nodos y enlazar unos \textit{launchfiles} con otros. Los archivos suelen tener la extensión \textit{.launch} y su estructura es similar a la sintaxis xml.
 
 \item yaml: Es un formato de serialización de datos legible para los humanos de tal modo que se enfoca más en los datos que en el marcado de los archivos. Su formato es \textit{.yaml} y se utiliza para definir parámetros en cada nodo.
 
@@ -81,19 +84,19 @@ Tmabién es necesario conocer algunos tipos de archivos y su uso dentro de ROS pa
 \item world: Los archivos \textit{.world} definen en sintaxis xml mundos virtuales para cargar en el simulador Gazebo. Pueden definirse los objetos a incorporar, las luces y la posición del punto de vista.
 \end{itemize}
 
-Por último, cabe destacarr la importancia de uno de los paquetes integrados en ROS que más beneficios nos aporta, el paquete de transformadas \textit{tf}.
+Por último, cabe destacar la importancia de uno de los paquetes integrados en ROS que más beneficios nos aporta, el paquete de transformadas \textit{tf}.
 
-\textit{tf} **referencia** es uno de los paquetes de geometría dentro de ROS que nos permite realizar transformadas de los datos de un sistema de coordenadas concreto a otro. estos sistemas de coordenadas son denominados como \textit{frames} y realizan la transformación de los datos de manera periódica. Muchas funcionalidades de ROS se basan en este tipo de transformadas para realizar los cálculos matemáticos oportunos así como para determinar la posición de nuestro robot y sus articulaciones.
+\textit{tf} \cite{tf} es uno de los paquetes de geometría dentro de ROS que nos permite realizar transformadas de los datos de un sistema de coordenadas concreto a otro. estos sistemas de coordenadas son denominados como \textit{frames} y realizan la transformación de los datos de manera periódica. Muchas funcionalidades de ROS se basan en este tipo de transformadas para realizar los cálculos matemáticos oportunos así como para determinar la posición de nuestro robot y sus articulaciones.
 
 \begin{figure}[htp]
 \centering
 \includegraphics[width=0.6\textwidth]{figuras/frames.png}
-\caption{Frames utilizados en el robot PR2}
+\caption{Frames utilizados en el robot PR2.}
 \label{fig:frames}
 \end{figure}
 
 \subsection{Configuración de ROS}
-Para la instalación de ROS es necesario seguir ciertos pasos bien explicados en la wiki de su página **referencia**. Al ser un sistema fuertemente basado en sistemas UNIX y con mayor soporte para Ubuntu, las instalaciones se realizan principalmente a través de herramientas como apt (Advanced Packaging Tool) **referencia**.
+Para la instalación de ROS es necesario seguir ciertos pasos bien explicados en la wiki de su página\footnote{\url{http://wiki.ros.org/indigo/Installation/Ubuntu}}. Al ser un sistema fuertemente basado en sistemas UNIX y con mayor soporte para Ubuntu, las instalaciones se realizan principalmente a través de herramientas como apt (Advanced Packaging Tool).
 
 Existen diferentes instalaciones de ROS dependiendo de si precisamos de todas sus herramientas y utilidades o no, ya que por ejemplo no tendría sentido instalar herramientas de interfaz gráfica en un robot que dispone de entorno gráfico. Para el ordenador de abordo del robot utilizamos la versión completa del software.
 
@@ -166,18 +169,18 @@ Esta sección tiene como objetivo plantear la arquitectura general utilizada en e
 A nivel de hardware utilizado en el proyecto, como es el propio robot, los sensores el ordenador de abordo el sistema se estructura de a siguiente manera:
 
 \begin{enumerate}[i)]
-\item  Robot Pioneer 3 AT: Este es el robot mencionado anteriormente, el cual debe ser configurado para acceder al puerto serie RS-232 de su placa controladora. Esto nos permite conectarnos con el firmware ARCOS **referencia** y comunicarnos a través de la librería ARIA. De esta forma controlamos los motroes y podemos leer el valor de los encoders de la odometría.
+\item  Robot Pioneer 3 AT: Este es el robot mencionado anteriormente, el cual debe ser configurado para acceder al puerto serie RS-232 de su placa controladora. Esto nos permite conectarnos con el firmware ARCOS y comunicarnos a través de la librería ARIA. De esta forma se controlan los motores y se obtiene el valor de los encoders de la odometría.
 
-\item Sensores: Tanto el sensor Kinect como el sensor láser irán alimentados a través de las baterías del robot y se comunicarán con el ordenador de abordo a través de puerto USB y ethernet respectivamente.
+\item Sensores: Tanto el sensor Kinect como el sensor láser sea alimentan mediante las baterías del robot y se comunican con el ordenador de abordo a través del puerto USB y ethernet respectivamente.
 
-\item Ordenador Intel NUC: Será el ordenador de abordo encargado de ejecutar ROS y realizar todo el procesamiento necesario. Irá equipado con el sistema operativo Ubuntu 14.04 por ser la última versión estable disponible a fecha de la entrega del proyecto. Irá conectado al robot mediante un convertidor RS-232 a USB, el sensor láser se comunica vía ethernet y el sensor Kinect a través de puerto USB igualmente. También se conectará el audio al altavoz integrado del robot.
+\item Ordenador Intel NUC: Es el ordenador de abordo encargado de ejecutar ROS y realizar todo el procesamiento necesario. Está equipado con el sistema operativo Ubuntu 14.04 por ser la última versión estable disponible a fecha de la entrega del proyecto. Se conecta al microcontrolador del robot  mediante un convertidor RS-232 a USB, al sensor láser y al sensor Kinect. Además el sistema contiene unos altavoces externos que se conctan por su salida específica.
 
-\item Ordenador externo: Como se ha mencionado anteriormente, un ordenador externo opcional equipado con ROS podrá utilizarse para realizar tareas de a supervisión inalámrica a través de RViz y para realizar la teleoperación del robot vía TCP/IP integrado en ROS.
+\item Ordenador externo: Como se ha mencionado anteriormente, un ordenador externo opcional equipado con ROS podrá utilizarse para realizar tareas de supervisión a través de RViz y para realizar la teleoperación del robot vía TCP/IP en ROS.
 \end{enumerate}
 
-\subsection{Arquitectura del proyecto}
+\subsection{Estructura software del proyecto}
 
-El proyecto está estructurado siguiendo la filosofía de "paquetes" desarrollados en ROS. Los paquetes se compilan dentro de un entorno de trabajo tipo Catkin **REFERENCIA** que se encarga de compilar correctamente a través de CMake **referencia** todos los ejecutables y de realizar el enlazado correctamente.
+El proyecto está estructurado siguiendo la filosofía de "paquetes" desarrollados en ROS. Los paquetes se compilan dentro de un entorno de trabajo tipo Catkin \cite{catkin} que se encarga de compilar correctamente a través de CMake todos los ejecutables y de realizar el enlazado correctamente.
 
 En el directorio raíz del proyecto por tanto, encontraremos los paquetes necesarios para que el sistema funcione:
 
@@ -188,32 +191,33 @@ En el directorio raíz del proyecto por tanto, encontraremos los paquetes necesar
 \label{fig:proyecto_carpetas}
 \end{figure}
 
-Las carpetas de color azul son paquetes desarrollados por terceros que no vienen integrados por defecto en ROS. El procedimiento para utilizarlos es clonar su repositorio en github e incluirlos como submodulos dentro de nuestro proyecto.
+Las carpetas de color azul son paquetes desarrollados por terceros que no vienen integrados por defecto en ROS, mientras que los paquetes ROS de desarrollo propio en este proyecto son los indicados en color naranja. El procedimiento para utilizarlos es clonar su repositorio en GitHub e incluirlos como submodulos dentro de nuestro proyecto.
 
 A continuación se realiza una breve descripción de cada uno:
 \begin{itemize}
-\item  audio\_common: Agrupa todas las funcionalidades para reproducir sonidos y voz sintetizada.
+\item  \textit{audio\_common}: Agrupa todas las funcionalidades para reproducir sonidos y voz sintetizada.
 
-\item depthimage\_to\_laserscan: Nodo que realiza la conversión del tipo de dato Pointcloud2 a laserscan mediante el análisis de imagen. Configurable mediante parámetros.
+\item \textit{depthimage\_to\_laserscan}: Nodo que realiza la conversión del tipo de dato Pointcloud2 a LaserScan mediante el análisis de imagen y la profundidad de la nube de putnos. Configurable mediante parámetros.
 
-\item freenect\_stack: Agrupa los nodos controladores del sensor Kinect basados en libfreenect y tranfroman toda la información a la interfaz de ROS.
+\item \textit{freenect\_stack}: Agrupa los nodos controladores del sensor Kinect basados en libfreenect y tranfroma la información para que se accesible mediante ROS.
 
-\item LMS1xx: Nodo para la conexión con los sensores Láser Sick De la familia LMS100 a través de puerto ethernet.
+\item \textit{LMS1xx}: Nodo para la conexión con los sensores Láser Sick De la familia LMS100 a través de puerto ethernet.
 
-\item p2os: Agrupa utilidades y nodos para conectarse con los robots de la familia Pioneer, en especial Pioneer 3 AT y 3 DX. Ofrece modelos 3D de cada robot y algunos parámetros de configuración de los robots.
+\item \textit{p2os}: Agrupa utilidades y nodos para conectarse con los robots de la familia Pioneer, en especial Pioneer 3 AT y 3 DX. Ofrece modelos 3D de cada robot y algunos parámetros de configuración de los robots.
 
-\item pocketsphinx: Utilidad para el rconocimiento de voz mediante cualquier tipo de micrófono.
+\item \textit{pocketsphinx}: Utilidad para el reconocimiento de voz mediante cualquier tipo de micrófono.
 
-\item rosaria: Interfaz de comunicación ROS con la librería Aria para el control de los motores del robot y la lectura de los encoders. Ofrece parámetros de calibración de los encoders y acceso al array de ultrasonidos del robot (funcionalidad no incorporada en el robot utilizado para este proyecto).
+\item \textit{rosaria}: Interfaz de comunicación ROS con la librería Aria para el control de los motores del robot y la lectura de los encoders. Ofrece parámetros de calibración de los encoders y acceso al array de ultrasonidos del robot (funcionalidad no incorporada en el robot utilizado para este proyecto).
 
-\item turtlebot, turtlebot\_apps y turtlebot\_msgs: Paquetes que agrupan funcionalidades para el robot Turtlebot, usadas en este caso en nuestro desarrollo.
+\item \textit{turtlebot}, \textit{turtlebot\_apps} y \textit{turtlebot\_msgs}: Paquetes que agrupan funcionalidades para el robot \textit{Turtlebot}, usadas en este caso en nuestro desarrollo.
 \end{itemize}
 
-Los paquetes ROS de desarrollo propio en este proyecto son los indicados en color naranja.
+Los paquetes ROS de desarrollo propio son los siguientes:
 
-El paquete navigation\_goals es un nodo que realiza navegación a través de puntos establecidos de modo que se puedan programar rutas a seguir por el robot.
+\begin{itemize}
+\item El paquete \textit{navigation\_goals} es un nodo que realiza navegación a través de puntos establecidos de modo que se puedan programar rutas a seguir por el robot.
 
-El paquete pioneer\_utils es donde se encuentra el desarrollo principal de este proyecto y se describirá en detalle a continuación.
+\item El paquete \textit{pioneer\_utils} es donde se encuentra el desarrollo principal de este proyecto y se describirá en detalle a continuación.
 
 \begin{figure}[htp]
 \centering
@@ -221,29 +225,30 @@ El paquete pioneer\_utils es donde se encuentra el desarrollo principal de este 
 \caption{Estructura de carpetas del paquete pioneer\_utils}
 \label{fig:pioneer_utils_carpetas}
 \end{figure}
+\end{itemize}
 
-Como cualquier paquete en ROS, disponemos de un archivo CMakeLists.txt y un package.xml, donde se indican los objetivos a compilar y las librerías adicionales para el enlazado así como las dependencias respectivamente.
+Como cualquier paquete en ROS, disponemos de un archivo \textit{CMakeLists.txt} y un \textit{package.xml}, donde se indican los objetivos a compilar y las librerías adicionales para el enlazado así como las dependencias respectivamente.
 
-En cada carpeta encontramos:
+En el directorio del paquete \textit{pioneer\_utils} encontramos:
 
 \begin{itemize}
-\item  follower: Archivos de configuración para utilizar la funcionalidad follower del robot Turtlebot en el nuestro.
+\item  \textit{follower}: Archivos de configuración para utilizar la funcionalidad follower del robot Turtlebot en el Pioneer 3 AT.
 
-\item gazebo: Configuraciones necesarias para ejecutar Gazebo utilizando un modelo del robot Pioneer 3 AT y sus sensores del mismo tipo que el utilizado en la realidad. Se incluyen launchfiles **OJO** para realizar la navegación con diferentes mapas.
+\item \textit{gazebo}: Especificaciones necesarias para ejecutar Gazebo. Inluye un modelo en tres dimensiones del robot Pioneer 3 AT y los sensores del mismo tipo que el utilizado en la realidad. También incluye \textit{launchfiles} para realizar la navegación con diferentes mapas.
 
-\item main: Launchfiles de las aplicaciones principales que incorpora el robot **COMPLETAR**.
+\item \textit{main}: Launchfiles de las aplicaciones principales que incorpora el robot como el nodo \textit{endurance\_test}.
 
-\item maps: Mapas guardados realizados con la funcionalidad de slam\_gmapping.
+\item \textit{maps}: Información sobre mapas guardados realizados con la funcionalidad de \textit{slam\_gmapping}.
 
-\item navigation: archivos y ajustes necesarios para realizar navegación del robot con y sin mapa (global navigation o local navigation).
+\item \textit{navigation}: Archivos y ajustes necesarios para realizar navegación del robot con y sin mapa (global navigation o local navigation).
 
-\item panorama: Archivos de configuración para utilizar la funcionalidad panorma del robot Turtlebot en el nuestro.
+\item \textit{panorama}: Archivos de configuración para utilizar la funcionalidad \textit{panorama} del robot \textit{Turtlebot} en el nuestro.
 
-\item rviz: Configuraciones preguardadas para rviz.
+\item \textit{rviz}: Configuraciones preguardadas para rviz.
 
-\item sensors: Archivos de configuración para tener acceso a toda la información del hardware y los sensores que se utilizan.
+\item \textit{sensors}: Archivos de configuración para tener acceso a toda la información del hardware y de los sensores que se utilizan.
 
-\item src: Carpeta donde se incluye el código fuente en C++ o Python de los nodos de teleoperación, test de navegación y navegación por estima (Dead reckoning).
+\item \textit{src}: Carpeta donde se incluye el código fuente en C++ o Python de los nodos de teleoperación, test de navegación y navegación estimada (Dead reckoning).
 
-\item voice\_audio: Archivos de configuración para el nodo de reconocimiento de voz y sonido, diccionarios de palabras y pronunciación.
+\item \textit{voice\_audio}: Archivos de configuración para el nodo de reconocimiento de voz y sonido, diccionarios de palabras y pronunciación.
 \end{itemize}
