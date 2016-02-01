@@ -54,33 +54,38 @@ En este apartado se desarrollan las fases por las que ha pasado este proyecto y 
 \item Cuarta fase: Incorporación del sistema de navegación y ajuste de los parámetros
 
 \begin{enumerate}[i.]
-  \item Calibrado de los encoders de las ruedas del robot y ajuste de la odometría mediante RosAria.
+  \item Calibrado de los encoders de las ruedas del robot y ajuste de la odometría mediante \textit{RosAria}.
   
   \item Incorporación del sistema de navegación ROS de forma básica.
   
-  \item Navegación utilizando el sensor Kinect y el sensor Sick y generado de mapas mediante "slam\_gmapping".
+  \item Navegación utilizando el sensor Kinect y el sensor Sick y generado de mapas mediante SLAM.
   
   \item Ajuste de los planificadores de trayectoria del robot y parámetros de giro y control.
 \end{enumerate}
 
-\item Quinta fase: Ajuste de la navegación y simulación mediante Gazebo
+\item Quinta fase: Ajuste de la navegación y simulación mediante \textit{Gazebo}.
 
 \begin{enumerate}[i.]
   \item Navegación en modo global (utilizando un mapa guardado) y en modo local (completamente reactivo).
   
   \item Puesta en marcha del simulador Gazebo y configuración del robot en el entorno.
-  
-  \item Disposición de los sensores de manera óptima y remodelado de la estructura física del robot.
 \end{enumerate}
 
-\item Sexta fase: Nuevas funcionalidades y toma de datos.
+\item Sexta fase: Remodelado de la estructura del robot
+\begin{enumerate}[i.]
+  \item Disposición de los sensores de manera óptima e integración de los mismos.
+  \item Remodelado de la estructura física del robot.
+  \item Incorporación del ordenador compacto Intel NUC.
+\end{enumerate}
+
+\item Séptima fase: Nuevas funcionalidades y toma de datos.
 
 \begin{enumerate}[i.]
-  \item Incorporación de la funcionalidad "follower", adaptada a partir del robot Turtlebot **Refeencia**, para el guiado del robot.
+  \item Incorporación de la funcionalidad de guiado (follower), adaptada a partir del robot \textit{Turtlebot}.
   
   \item Interfaz de comandos por voz y sintetizador de texto a voz.
   
-  \item Pruebas físicas, recogida y análisis de los datos.
+  \item Pruebas reales, recogida y análisis de los datos.
 \end{enumerate}
 \end{itemize}
 
@@ -92,7 +97,7 @@ Durante el primer mes de Noviembre se estuvo recopilando información sobre ROS y
 
 En el mes de Diciembre se comenzó a trabajar con el robot, comprobando que todos los elementos se encontraban en correcto funcionamiento y se instaló el sistema operativo en su ordenador de abordo
 
-Duarante el mes de Enero se pudo avanzar menos debido a los exámenes y trabajos de las últimas asignaturas.
+Durante el mes de Enero se pudo avanzar menos debido a los exámenes y trabajos de las últimas asignaturas.
 
 En el mes de Febrero se retomó el trabajo, empezando por una primera toma de contacto con la librería Aria y la ejecución de movimientos desde un ordenador externo conectado vía puerto serie.
 
@@ -120,9 +125,9 @@ A continuación se muestra un diagrama de Gantt (Figura \ref{fig:gantt}) con el a
 \vspace{15 cm}
 \pagebreak
 
-\begin{figure}[htp]
+\begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{figuras/gantt.png}
+\includegraphics[width=0.95\textwidth]{figuras/gantt.png}
 \caption{Diagrama de Gantt de la evolución del proyecto.}
 \label{fig:gantt}
 \end{figure}
@@ -135,14 +140,14 @@ En esta sección se describen las tanto las tecnologías como las herramientas uti
 
 \subsection{Robot Operating System}
 
-El Sistema Operativo Robótico \cite{ROS} (conocido en inglés como Robot Operating System o ROS) es un framework para el desarrollo de software para robots que provee la funcionalidad de un sistema operativo \cite{quigley2009ros}. ROS fue desarrollado originalmente en 2007 por el Laboratorio de Inteligencia Artificial de Stanford para dar soporte al proyecto del Robot con Inteligencia Artificial de Stanford \cite{stair}. Desde 2008, el desarrollo continua primordialmente en Willow Garage, un instituto de investigación robótico con más de veinte instituciones que colaboran conjuntamente.
+El Sistema Operativo Robótico \cite{ROS} (conocido en inglés como Robot Operating System o ROS) es un framework para el desarrollo de software para robots que provee la funcionalidad de un sistema operativo \cite{quigley2009ros}. ROS fue desarrollado originalmente en 2007 por el Laboratorio de Inteligencia Artificial de Stanford para dar soporte al proyecto del Robot con Inteligencia Artificial de Stanford \cite{stair}. Desde 2008, el desarrollo continua principalmente en Willow Garage, un instituto de investigación robótico con más de veinte instituciones que colaboran conjuntamente.
 
 ROS provee los servicios estándar de un sistema operativo como abstracción del hardware, control de dispositivos de bajo nivel, implementación de funcionalidad de uso común, paso de mensajes entre procesos y mantenimiento de paquetes. Está basado en una arquitectura de nodos interconectados que pueden mandar, recibir y multiplexar mensajes de sensores, control, estados, planificaciones y actuadores, entre otros. La librería está orientada para un sistema UNIX (Ubuntu (Linux)) aunque también se está adaptando a otros sistemas operativos como Fedora, Mac OS X, Arch, Gentoo, OpenSUSE, Slackware, Debian o Microsoft Windows, considerados como 'experimentales'.
 
 \begin{figure}[htp]
 \centering
 \includegraphics[width=0.4\textwidth]{figuras/ros.png}
-\caption{Logo de ROS}
+\caption{Logo de ROS.}
 \label{fig:ros}
 \end{figure}
 
@@ -152,11 +157,11 @@ ROS ofrece principalmente dos lenguajes de programación para acceder a su API (A
 
 ROS es software libre bajo términos de licencia BSD. Esta licencia permite libertad para uso comercial e investigador. Las contribuciones de los paquetes en ros-pkg están bajo una gran variedad de licencias diferentes.
 
-Actualemtente ROS es mantenido y desarrollado de manera Open Source por Open Source robotics Foundation \cite{osrf}, una organización independiente sin ánimo de lucro fundada por miembros de la comunidad robótica a nivel global.
+Actualemtente ROS es mantenido y desarrollado por Open Source robotics Foundation \cite{osrf}, una organización independiente sin ánimo de lucro fundada por miembros de la comunidad robótica a nivel global.
 
 \subsection{Lenguaje de programación C++}
 
-El lenguaje C++ es un lenguaje orientado a objetos, y como tal, tiene como objetivo la reducción del tiempo de desarrollo aumentando la eficacia del proceso de generación de los programas.
+El lenguaje C++ es un lenguaje orientado a objetos, y como tal, tiene como objetivo la reducción del tiempo de desarrollo aumentando la eficacia del proceso de generación de los programas gracias a la reutilización de código.
 
 Como consecuencia, los programas tienden a tener menos líneas de código y con más facilidad de introducir elementos nuevos escritos
 por otras personas.
@@ -178,12 +183,12 @@ Dentro del desarrollo en Python para ROS (rospy \cite{rospy}), existe una interf
 
 \subsection{Controlador de versiones git y repositiorios GitHub}
 
-Git es un software de control de versiones libre. Es decir, git
-gestiona los archivos y directorios y los cambios hechos en ellos a lo largo del tiempo. Esto te permite recuperar antiguas revisiones del proyecto o ver tu historial de cambios.
+Git es un software de control de versiones creado por Linus Torvalds. Git
+gestiona los archivos y directorios y los cambios hechos en ellos a lo largo del tiempo. Esto permite recuperar antiguas revisiones del proyecto o ver el historial de cambios.
 
-Git fue creado pensando en la eficiencia y la confiabilidad del mantenimiento e versiones cuando estas tienen un gran número de archivos de código fuente. Tiene la capacidad de poder trabajar varias personas con el mismo paquete siempre que no modifiquen el mismo archivo, en ese caso, sería posible ver las diferencias entre ambas versiones, y unirlas o crear unarama del proyecto principal si fuera necesario tener las dos versiones.
+Git fue creado pensando en la eficiencia y la confiabilidad del mantenimiento e versiones cuando estas tienen un gran número de archivos de código fuente. Tiene la capacidad de poder trabajar varias personas con el mismo paquete siempre que no modifiquen el mismo archivo. Además en ese caso, sería posible ver las diferencias entre ambas versiones, y unirlas o crear una rama del proyecto principal si fuera necesario tener las dos versiones.
 
-GitHub **Referencia pag web**es un sistema de almacenamiento público de código fuente (de cualquier tipo) o un servicio de repositorios. Su principal característica es la de ofrecer una plataforma de interacción social \cite{dabbish2012social}en la que distintas personas pueden trabajar en conjunto. Esto permite que varios desarrolladores contribuyan a un proyecto y trabajen de manera coordinada.
+GitHub\footnote{\url{www.github.com}} es un sistema de almacenamiento público de código fuente (de cualquier tipo) o un servicio de repositorios. Su principal característica es la de ofrecer una plataforma de interacción social \cite{dabbish2012social}en la que distintas personas pueden trabajar conjuntamente. Esto permite que varios desarrolladores contribuyan a un proyecto y trabajen de manera coordinada.
 
 Tanto para el desarrollo software de este proyecto como para la redacción de esta memoria se han utilizado estas herramientas, y el acceso a los repositorios se encuentran en las siguientes direcciones:
 
@@ -201,7 +206,7 @@ Un buen simulador de robótica es esencial para cualquier tipo de desarrollo robó
 \begin{figure}[htp]
 \centering
 \includegraphics[width=0.8\textwidth]{figuras/gazebo.png}
-\caption{Entorno de simulación Gazebo}
+\caption{Entorno de simulación Gazebo.}
 \label{fig:gazebo}
 \end{figure}
 
@@ -211,17 +216,16 @@ Gazebo es mantenido y desarrollado actualmente por la Open Source Robotics Found
 
 \subsection{RViz: Herramienta de visualización robótica}
 
-RViz es una herramienta para la visualización de datos en 3 dimensiones de forma gráfica que trabaja dentro del entorno ROS (Figura \ref{fig:rviz}).
-Esta aplicación nos permite ver lo que está ocurriendo en nuestra plataforma robótica a tiempo real.
+RViz es una herramienta para la visualización de datos en 3 dimensiones de forma gráfica que trabaja dentro del entorno ROS (Figura \ref{fig:rviz}). Esta aplicación nos permite ver lo que está ocurriendo en nuestra plataforma robótica a tiempo real.
 
-RViz puede usarse para mostrar lecturas de sensores, datos devueltos por sensores de percepción en 3 dimensiones (nubes de puntos), visualizar mapas, visualizar un modelo de nuestro robot y su posición...
+RViz puede usarse para mostrar lecturas de sensores, datos devueltos por sensores de percepción en 3 dimensiones (nubes de puntos), visualizar mapas, visualizar un modelo de nuestro robot, su posición, etc. También puede utilizarse para interactuar con nuestro robot, utilizando marcadores interactivos o su interfaz de usuario.
 
-También puede utilizarse para interactuar con nuestro robot, utilizando marcadores interactivos o su interfaz de usuario.
+RViz no es un simulador de robótica, si no una herramienta que nos muestra la información que maneja nuestro sistema robótico ROS de manera visual.
 
 \begin{figure}[htp]
 \centering
 \includegraphics[width=0.8\textwidth]{figuras/rviz_model.png}
-\caption{Entorno gráfico RViz}
+\caption{Entorno gráfico RViz.}
 \label{fig:rviz}
 \end{figure}
 
@@ -250,7 +254,7 @@ El robot Pioneer 3 AT (Figura \ref{fig:pioneer3at}), perteneciente a la empresa 
 \begin{figure}[htp]
 \centering
 \includegraphics[width=0.4\textwidth]{figuras/pioneer_3_at.jpg}
-\caption{Robot Pioneer 3-AT} \label{fig:pioneer3at}
+\caption{Robot Pioneer 3-AT.} \label{fig:pioneer3at}
 \end{figure}
 
 Su configuración en skid-steer permite un control relativamente simple utilizando el modo diferencial para poder realizar giros con gran maniobrabilidad, sin embargo, esta configuración depende mucho del tipo de suelo, con lo que se pierde precisión.
@@ -264,7 +268,7 @@ El cuerpo del robot es de aluminio y su parte delantera así como superior es fác
 \begin{figure}[htp]
 \centering
 \includegraphics[width=0.6\textwidth]{figuras/panel_control.png}
-\caption{Panel de control del robot Pioneer 3-AT} \label{fig:panel_control}
+\caption{Panel de control del robot Pioneer 3-AT.} \label{fig:panel_control}
 \end{figure}
 
 En la siguiente tabla (Tabla \ref{tabla_pioneer3at}) se describen las principales características del robot.
@@ -301,7 +305,7 @@ Encoders & 500 pulsos \\
 Procesador & Hitachi H8S \\ \hline
 \end{tabular}
 }
-\caption{Especificaciones del robot Pioneer 3 AT}
+\caption{Especificaciones del robot Pioneer 3 AT.}
 \label{tabla_pioneer3at}
 \end{table}
 
@@ -313,19 +317,19 @@ herramienta excepcional (Figura \ref{fig:sensor_kinect1}). Este dispositivo incl
 
 \begin{figure}[htp]
 \centering
-\includegraphics[width=0.6\textwidth]{figuras/sensor_kinect.png}
+\includegraphics[width=0.5\textwidth]{figuras/sensor_kinect.png}
 \caption{Sensor Kinect.}
 \label{fig:sensor_kinect1}
 \end{figure}
 
 Su función principal es la de percibir el entorno captando una serie de puntos que se ubican en las tres dimensiones. Su funcionamiento a grandes rasgos se basa en un emisor de infrarrojos a 830 nm que interactúa con los objetos y una cámara infrarroja que etecta la diferencia entre la proyección anterior y la actual, obteniendo la distancia a cada objeto.
 
-En primer lugar, el laser infrarrojo es emitido por Kinect con un patrón determinado (Projected textures **REFERENCIA**), el cual no es simétrico sino que tiene puntos aleatorios que se dispersa gracias a unas lentes de proyección. Estos puntos aleatorios se reflejan en los objetos, los cuales sería posible verlos con una cámara externa.
+En primer lugar, el laser infrarrojo es emitido por Kinect con un patrón determinado (Projected textures), el cual no es simétrico sino que tiene puntos aleatorios que se dispersa gracias a unas lentes de proyección. Estos puntos aleatorios se reflejan en los objetos, los cuales sería posible verlos con una cámara externa.
 
 \begin{figure}[!htp]
 \centering
-\includegraphics[width=0.8\textwidth]{figuras/proyecciones_kinect.png}
-\caption{Proyección de infrarrojos y obtención de la nube de puntos}
+\includegraphics[width=0.65\textwidth]{figuras/proyecciones_kinect.png}
+\caption{Proyección de infrarrojos y obtención de la nube de puntos.}
 \label{fig:proyecciones_kinect}
 \end{figure}
 
@@ -361,32 +365,25 @@ digital de 24bits \\
 Acelerómetro & KXSD9-2050\\ \hline
 \end{tabular}
 }
-\caption{Características del sensor Kinect}
+\caption{Características del sensor Kinect.}
 \label{tabla_kinect}
 \end{table}
 
 \subsection{Láser SICK LMS100}
 
-Aunque el planteamiento incial del proyecto planteaba la navegación basada únicamente en el sensor kinect, debemos mencionar el uso del sensor láser Sick LMS100 (Figura \ref{fig:sensor_sicklms100}).
+El sensor Sick LMS100 es un sensor láser por infrarrojos de clase I (Inofensivo para el ojo humano), que obtiene la medida de distancias con gran preción y rapidez en un solo plano y realizando un barrido de 270º (Figura \ref{fig:sensor_sicklms100}).
 
 \begin{figure}[!h]
 \centering
-\includegraphics[width=0.6\textwidth]{figuras/SICK_LMS100.jpg}
-\caption{Sensor escaner láser Sick LMS100}
+\includegraphics[width=0.45\textwidth]{figuras/SICK_LMS100.jpg}
+\includegraphics[width=0.45\textwidth]{figuras/sicklms100_rango.png}
+\caption{Sensor escaner láser Sick LMS100.}
 \label{fig:sensor_sicklms100}
 \end{figure}
 
-Este es un sensor láser por infrarrojos de clase I (Inofensivo para el ojo humano), que obtiene la medida de distancias con gran preción y rapidez en un solo plano y realizando un barrido de 270º (Figura \ref{fig:sicklms100_rango}).
+Tras un análisis realizado durante este proyecto este sensor se ha situado en la parte trasera del robot, enfocando hacia atrás para cubrir un mayor rango y conocer todo el entorno alrededor del robot.
 
-\begin{figure}[htp]
-\centering
-\includegraphics[width=0.6\textwidth]{figuras/sicklms100_rango.png}
-\caption{Campo de visión del sensor láser Sick LMS100} \label{fig:sicklms100_rango}
-\end{figure}
-
-Este sensor está colocado en la parte trasera del robot, enfocando hacia atrás para cubrir un mayor rango y conocer todo el entorno alrededor del robot.
-
-En la siguiente tabla (Tabla \ref{tabla_sicklms100}) se recogen sus características principales.
+Destaca por su amplio rango, alcance y precisión. En la siguiente tabla (Tabla \ref{tabla_sicklms100}) se recogen sus características principales.
 
 \begin{table}[!h]
 \centering
@@ -394,7 +391,7 @@ En la siguiente tabla (Tabla \ref{tabla_sicklms100}) se recogen sus característi
 \begin{tabular}{c c}
 \hline
 {\bf Especificaciones} & {\bf Sick LMS100} \\ \hline
-Campo de aplicación & Interno \\
+Campo de aplicación & Interiores \\
 Fuente infrarroja & 905 nm \\
 Clase Láser & 1 (IEC 60825-1) \\
 Campo de visión & 270º \\
@@ -416,13 +413,20 @@ Dimensiones & 105mm x 102mm x 152mm\\ \hline
 
 \subsection{Intel NUC NUC5i7RYH}
 
-El ordenador Intel NUC NUC5i7RYH, es un ordenador de altas prestaciones y de tamaño compacto que ofrece unas buenas características para procesar datos y realizar la algoritmia adecuada para tareas de robótica.
+El ordenador Intel NUC NUC5i7RYH, es un ordenador compacto de altas prestaciones y de tamaño compacto que ofrece unas buenas características para procesar datos y realizar la algoritmia adecuada para tareas de robótica.
 
-Está equipado con un procesador Intel i7-5557U de quinta generación que ofrece una frecuencia de reloj de 3.1 GHz. Está incorporado con un disco duro de estado sólido que permite una alta velocidad de lectura y escritura en disco, así como una tarjeta RAM de tipo DDR3L de 8GB que permitirá el intercambio de información entre los nodos ROS de una manera fluida.
+Está equipado con un procesador Intel i7-5557U de quinta generación que ofrece una frecuencia de reloj de 3.1 GHz. Dispone de un disco duro de estado sólido que permite una alta velocidad de lectura y escritura en disco, así como una tarjeta RAM de tipo DDR3L de 8GB que permitirá el intercambio de información entre los nodos ROS de una manera fluida.
 
-Su cometido será el de procesar la información de los sensores, generar los mapas incorporando los obstáculos, generar las trayectorias de navegación y comandar los motores del robot para realizar movimientos.
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.4\textwidth]{figuras/intelnuc.jpg}
+\caption{ordenador compacto Intel NUC.}
+\label{fig:intelnuc}
+\end{figure}
 
-Dispone de tamaño compacto y un consumo bajo, juto con una alimentación a partir de los 12 voltios, lo que lo hace ideal para incorporarlo en robots móviles que requieran realizar tareas sin depender de una infraestructura.
+Su cometido será el de procesar la información de los sensores, generar los mapas incorporando los obstáculos, generar las trayectorias de navegación, comandar los motores del robot para realizar movimientos y realizar las funciones de servidor de datos.
+
+Dispone de tamaño compacto y un consumo bajo, junto con una alimentación a partir de los 12 voltios, lo que lo hace ideal para incorporarlo en robots móviles que requieran realizar tareas con alto procesamiento sin depender de una infraestructura.
 
 En la tabla \ref{tabla_intelnuc} pueden consultarse sus características principales.
 
@@ -448,6 +452,6 @@ Consumo & 65 W \\
 Dimensiones & 115mm x 111mm x 48.7mm\\ \hline
 \end{tabular}
 }
-\caption{Características del ordenador Intel NUC NUC5i7RYH}
+\caption{Características del ordenador Intel NUC NUC5i7RYH.}
 \label{tabla_intelnuc}
 \end{table}

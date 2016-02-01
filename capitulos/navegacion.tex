@@ -388,7 +388,7 @@ A parte de estas capas, existe una API que nos permite crear nuestras propias ca
 Existe una configuración por defecto que de estos costmaps que genera una sola capa de obstáculos, una capa de inflado y adcionalmente una capa de mapa estático siempre y cuando pongamos el parámetro \textit{static\_map} a TRUE. Sin embargo, existe la posibilidad de crear costmaps con las capas que consideremos oportunas, siendo de especial interés poder incorporar diferentes capas de obstáculos.
 
 Este último enfoque es el que ha sido adoptado en la implementación final de navegación y será descrito en la sección \ref{subsection:configuracion_costmaps_sensores}.
-
+\vspace{5 cm}
 \pagebreak
 
 \section{Planificador de trayectoria global}\label{section:global_planner}
@@ -416,7 +416,7 @@ El algoritmo de Dijkstra funciona visitando vértices partiendo desde el punto in
 
 \begin{figure}[!htp]
 \centering
-\includegraphics[width=0.65\textwidth]{figuras/pseudo-dijkstra.png}
+\includegraphics[width=\textwidth]{figuras/pseudo-dijkstra.png}
 \caption{Pseudo-código del algoritmo de Dijkstra. Basado en \cite{tomovicpath}.}
 \label{fig:pseudo_dijkstra}
 \end{figure}
@@ -425,16 +425,18 @@ En la figura \ref{fig:algoritmo_dijkstra_libre} se pueden observar la implementa
 
 \begin{figure}[!htp]
 \centering
-\includegraphics[width=0.6\textwidth]{figuras/algoritmo_dijkstra_libre.png}
+\includegraphics[width=0.5\textwidth]{figuras/algoritmo_dijkstra_libre.png}
 \caption{Implementación del algoritmo de Dijkstra en un mapa sin obstáculos. Basado en \cite{AmitPathfinding}.}
 \label{fig:algoritmo_dijkstra_libre}
 \end{figure}
 
-Comparándolo con el algoritmo heurístico "Greedy Best-First-Search algorithm", cuyo funcionamiento es similiar al algoritmo de Dijkstra aunque explora primero qué vertices se encuentran en dirección al punto de meta, vemos en la figura que el camino encontrado es similiar y que el número de vértices analizados se reduce considerablemente.
+Comparándolo con el algoritmo heurístico "Greedy Best-First-Search algorithm", cuyo funcionamiento es similiar al algoritmo de Dijkstra aunque explora primero qué vertices se encuentran en dirección al punto de meta, vemos en la figura \ref{fig:algoritmo_best-first-search_libre} que el camino encontrado es similiar y que el número de vértices analizados se reduce considerablemente.
+
+\pagebreak
 
 \begin{figure}[!htp]
 \centering
-\includegraphics[width=0.6\textwidth]{figuras/algoritmo_best-first-search_libre.png}
+\includegraphics[width=0.5\textwidth]{figuras/algoritmo_best-first-search_libre.png}
 \caption{Implementación del algoritmo Best-First-Search en un mapa sin obstáculos. Basado en \cite{AmitPathfinding}.}
 \label{fig:algoritmo_best-first-search_libre}
 \end{figure}

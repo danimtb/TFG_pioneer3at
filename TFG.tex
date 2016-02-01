@@ -23,7 +23,8 @@
 \usepackage{caption}
 \usepackage{epigraph}
 \usepackage{color}
-\usepackage{setspace}  
+\usepackage{setspace}
+\usepackage{float}
 
 
 \usepackage[bookmarks=true]{hyperref}
@@ -120,8 +121,6 @@
 \include{capitulos/licencia}
 
 \include{capitulos/evaluacion}
-%espaciado entre parrafos 8mm mayor del habitual
-\setlength{\parskip}{4mm}
 
 \include{capitulos/frase_celebre}
 
@@ -129,7 +128,6 @@
 
 \include{capitulos/resumen}
 
-\spacing{0.1}
 %genera índice
 \cleardoublepage
 \pdfbookmark{\contentsname}{general}
@@ -150,7 +148,6 @@
 \pdfbookmark{Índice de códigos}{codigos}
 \listofcodes
 
-\singlespace
 %empieza la parte descriptiva del trabajo
 \mainmatter
 
@@ -177,12 +174,12 @@
 \include{capitulos/apendice}
 %genera doble hoja en blanco
 \cleardoublepage
+
 %se incluye la bibliografía. Archivo de tipo .bib (bibtex)
 \bibliographystyle{alpha}
 \addcontentsline{toc}{chapter}{Bibliografía}
 \bibliography{bibliografia/bibliografia}
 
-\backmatter
 
 %fin del documento
 \end{document}

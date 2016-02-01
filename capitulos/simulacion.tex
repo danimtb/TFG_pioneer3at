@@ -1,0 +1,163 @@
+\chapter{Simulación del sistema}
+
+\section{Simulación con MobileSim}\label{MobileSim}
+Una de las ventajas de utilizar el nodo rosaria para controlar el robot y obtener los datos de odometría es que las herramientas ofrecidas por el fabricante siguen pudiendo utilizarse. Este es el caso del simulador MobileSim.
+
+MobileSim es un simulador robótico en dos dimensiones creado para los robots de Adpet Mobile Robots que puede utilizarse con robots controlados mediante la librería Aria.
+
+Su funcionamiento es el siguiente: El simulador abre un puerto de comunicación local en el ordenador y al ejecutar la conexión con el robot de Aria, si el robot no se encuentra se procede a conectarse a dicho puerto de comunicación. Esto nos permite utilizar MobileSim con RosAria de la misma manera y sin cambiar nuestra configuración.
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.7\textwidth]{figuras/mobilesim.png}
+\caption{MobileSim junto con RViz funcionando con teleoperación.}
+\label{fig:mobilesim}
+\end{figure}
+
+Las pruebas con este simulador sirvieron para comprobar que el nodo rosaria disponía de la funcionalidad adecuada, así como para realizar pruebas con el nodo de teleoperación y dead reckoning (Figura \ref{fig:mobilesim}).
+
+Por otro lado, las limitaciones de este simulador son evidentes. No existe posibilidad de simular otros sensores incorporados al robot, la integración de ROS se realiza con una librería intermedia y la más importante, no puede simularse un entorno en tres dimensiones.
+
+\section{Simulación con Gazebo}\label{Gazebo}
+El simulador Gazebo permite realizar configuraciones más elaboradas y su integración con ROS es completa a pesar de que existen ciertas dificultades en su configuración.
+
+En este entorno podemos simular el robot Pioneer 3 AT y dotarle de los sensores necesarios mediante plug-ins desarrollados que simulan los diferentes sensores y actuadores.
+
+\subsection{Modelado del robot en el simulador}
+
+Gazebo es capaz de simular robots definidos mediante archivos URDF, donde se indica cada tipo articulación y eslabón del robot. Además existen archivos de propiedades de los materiales y características específicas de gazebo que se definen a parte.
+
+A continuación se hace un breve descripción de los archivos utilizados y su función\footnote{\hypersetup{urlcolor=black}
+La configuración de Gazebo puede encontrarse en: \href{https://github.com/danimtb/pioneer3at_ETSIDI/tree/master/pioneer_utils/gazebo}{\textit{pioneer\_utils/gazebo}}
+\hypersetup{urlcolor=blue}}:
+
+\begin{itemize}
+\item \textbf{pioneer3at.xacro:} Es el archivo principal donde se define el modelo del robot mediante URDF y se llama a los plug-ins de los sensores y actuadores y los demás archivos xacro.
+
+\item \textbf{materials.xacro:} Se definen propiedades de los materiales de cada parte del robot.
+
+\item \textbf{pioneer3at\_wheels.xacro:} Macro para definir las ruedas del robot.
+
+\item \textbf{pioneer3at\_pilars.xacro:} Macro para definir las barras de sujeción del robot.
+
+\item \textbf{pioneer3at.gazebo:} Define funcionalidades adicionales de gazebo. Aquí se definen los plug-ins a utilizar como \textit{skid\_steer\_drive\_controller} para el movimiento del robot o \textit{kinect\_camera\_controller} para simular el sensor Kinect.
+
+\item \textbf{pioneer3at.world:} Es un archivo específico del simulador que guarda una descripción del mundo virtual. En este caso se trata de un mundo sin objetos.
+
+\item \textbf{pioneer3at\_gazebo\_world.launch:} Archivo principal para lanzar el simulador. En él se lanza el mundo virtual (configurado para utilizar \textit{willowgarage\_world}), el modelo del robot creado y el nodo \textit{robot\_state\_publisher} que realiza la publicación de transformadas entre los diferentes ejes de coordenadas en base al modelo de nuestro robot.
+\end{itemize}
+
+La definición URDF es la más importante ya que configura los parámetros del robot como el peso de cada parte, el material, el momento de inercia...
+
+A continuación se muestra un fragmento de \textit{pioneer3at.xacro} donde se describe el elemento qu conforma la parte superior del robot y su ``articulación estática" (fixed) con el chasis:
+
+\begin{code}[!htp]
+\begin{lstlisting}[style=launch]
+
+	<!-- Top -->
+	<link name="top_plate">
+		<inertial>
+			<mass value="0.1"/>	
+			<origin xyz="-0.025 0 -0.223"/>
+			<inertia ixx="1.0" ixy="0.0" ixz="0.0"
+				 iyy="1.0" iyz="0.0"
+ 				izz="1.0"/>
+		</inertial>
+		<visual name="top_visual">
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry name="pioneer_geom">
+				<mesh filename="package://p2os_urdf/meshes/p3at_meshes/top.stl"/>
+			</geometry>
+			<material name="TopBlack">
+					<color rgba="0.038 0.038 0.038 1.0"/>
+			</material>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<box size="0 0 0"/>
+			</geometry>
+		</collision>
+	</link>
+
+	<joint name="base_top_joint" type="fixed">
+		<origin xyz="0.003 0 0.274" rpy="0 0 0"/>
+		<parent link="base_link"/>
+		<child link="top_plate"/>
+	</joint>
+\end{lstlisting}
+\caption{Fragmento de la configuración URDF del robot.}\footnotemark
+\end{code}
+\footnotetext{\hypersetup{urlcolor=black}
+Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/gazebo/pioneer3at.xacro}{\textit{pioneer\_utils/gazebo/pioneer3at.xacro}}
+\hypersetup{urlcolor=blue}}
+
+La parte gráfica recae en los elementos "mesh"\footnote{\hypersetup{urlcolor=black}
+Los diseños 3D se encuentran en: \href{https://github.com/danimtb/pioneer3at_ETSIDI/tree/master/pioneer_utils/gazebo/meshes}{\textit{pioneer\_utils/gazebo/meshes}}
+\hypersetup{urlcolor=blue}}: Objetos definidos por mallas en formato \textit{.stl} generados con un programa de modelado en tres dimensiones. Con las dimensiones de esos archivos también podemos simplificar el modelado de colisión para cada pieza.
+
+Este archivo con la definición del robot se carga junto con el mundo virtual y nodos auxiliares para simular el robot e iniciar Gazebo. Esto se recoge en el archivo \textit{pioneer3at\_gazebo\_world.launch:}
+mostrado a continuación.
+
+\begin{code}[!htp]
+\begin{lstlisting}[style=launch]
+<launch>
+
+  <!-- these are the arguments you can pass this launch file, for example paused:=true -->
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="gui" default="true"/>
+  <arg name="headless" default="false"/>
+  <arg name="debug" default="false"/>
+
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+  <include file="$(find gazebo_ros)/launch/willowgarage_world.launch">
+  </include>
+
+  <!-- Load the URDF into the ROS Parameter Server -->
+  <param name="robot_description"
+	 command="$(find xacro)/xacro.py $(find pioneer_utils)/gazebo/pioneer3at.xacro" />
+
+  <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+	args="-urdf -model pioneer3at -param robot_description"/>
+
+  <!-- publish all the frames to TF -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher">
+    <param name="publish_frequency" value="50"/> <!-- Hz -->
+  </node>
+
+  <!-- Launch kinect and depthimage_to_laser node -->
+  <include file="$(find pioneer_utils)/sensors/kinect_to_laser_low.launch"/>
+
+  <!-- Launch kinect and depthimage_to_laser node -->
+  <include file="$(find pioneer_utils)/sensors/kinect_to_laser_long.launch"/>
+
+  <!-- Launch kinect and depthimage_to_laser node -->
+  <include file="$(find pioneer_utils)/sensors/kinect_to_laser.launch"/>
+
+</launch>
+\end{lstlisting}
+\caption{Launchfile para lanzar Gazebo con el modelo del robot y sus sensores.}\footnotemark
+\end{code}
+\footnotetext{\hypersetup{urlcolor=black}
+Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/gazebo/pioneer3at_gazebo_world.launch}{\textit{pioneer\_utils/gazebo/pioneer3at\_gazebo\_world.launch}}
+\hypersetup{urlcolor=blue}}
+
+Las pruebas con Gazebo fueron realizadas gracias a la correcta configuración de todos estos archivos para los cuales no existía una documentación unificada debido al cambio de versiones tanto de Gazebo como de ROS. Se tomaron como punto de partida las siguientes referencias **REFERENCIAS**.
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=0.7\textwidth]{figuras/gazebo_simulado.png}
+\caption{Simulación en Gazebo y visualizado de datos en RViz.}
+\label{fig:gazebo_simulado}
+\end{figure}
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=0.8\textwidth]{figuras/gazebo_willowgarage.png}
+\caption{Pioneer 3 AT simulado en el mapa Willow Garage.}
+\label{fig:gazebo_willowgarage}
+\end{figure}
+
+\pagebreak

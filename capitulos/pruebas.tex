@@ -3,174 +3,13 @@ En este capítulo se describen las principales pruebas realizadas con el robot de
 
 Dividimos este capítulo en dos partes, pruebas del robot en simulación y pruebas en el entorno real, centrándonos exclusivamente en la creación de mapas mediante SLAM y los tests de navegación.
 
-\section{Simulación con MobileSim}\label{MobileSim}
-Una de las ventajas de utilizar el nodo rosaria para controlar el robot y obtener los datos de odometría es que las herramientas ofrecidas por el fabricante siguen pudiendo utilizarse. Este es el caso del simulador MobileSim.
 
-MobileSim es un simulador robótico en dos dimensiones creado para los robots de Adpet Mobile Robots que puede utilizarse con robots controlados mediante la librería Aria.
-
-Su funcionamiento es el siguiente: El simulador abre un puerto de comunicación local en el ordenador y al ejecutar la conexión con el robot de Aria, si el robot no se encuentra se procede a conectarse a dicho puerto de comunicación. Esto nos permite utilizar MobileSim con RosAria de la misma manera y sin cambiar nuestra configuración.
-
-\begin{figure}[htp]
-\centering
-\includegraphics[width=0.7\textwidth]{figuras/mobilesim.png}
-\caption{MobileSim junto con RViz funcionando con teleoperación.}
-\label{fig:mobilesim}
-\end{figure}
-
-Las pruebas con este simulador sirvieron para comprobar que el nodo rosaria disponía de la funcionalidad adecuada, así como para realizar pruebas con el nodo de teleoperación y dead reckoning (Figura \ref{fig:mobilesim}).
-
-Por otro lado, las limitaciones de este simulador son evidentes. No existe posibilidad de simular otros sensores incorporados al robot, la integración de ROS se realiza con una librería intermedia y la más importante, no puede simularse un entorno en tres dimensiones.
-
-\section{Simulación con Gazebo}\label{Gazebo}
-El simulador Gazebo permite realizar configuraciones más elaboradas y su integración con ROS es completa a pesar de que existen ciertas dificultades en su configuración.
-
-En este entorno podemos simular el robot Pioneer 3 AT y dotarle de los sensores necesarios mediante plug-ins desarrollados que simulan los diferentes sensores y actuadores.
-
-\subsection{Modelado del robot en el simulador}
-
-Gazebo es capaz de simular robots definidos mediante archivos URDF, donde se indica cada tipo articulación y eslabón del robot. Además existen archivos de propiedades de los materiales y características específicas de gazebo que se definen a parte.
-
-A continuación se hace un breve descripción de los archivos utilizados y su función\footnote{\hypersetup{urlcolor=black}
-La configuración de Gazebo puede encontrarse en: \href{https://github.com/danimtb/pioneer3at_ETSIDI/tree/master/pioneer_utils/gazebo}{\textit{pioneer\_utils/gazebo}}
-\hypersetup{urlcolor=blue}}:
-
-\begin{itemize}
-\item \textbf{pioneer3at.xacro:} Es el archivo principal donde se define el modelo del robot mediante URDF y se llama a los plug-ins de los sensores y actuadores y los demás archivos xacro.
-
-\item \textbf{materials.xacro:} Se definen propiedades de los materiales de cada parte del robot.
-
-\item \textbf{pioneer3at\_wheels.xacro:} Macro para definir las ruedas del robot.
-
-\item \textbf{pioneer3at\_pilars.xacro:} Macro para definir las barras de sujeción del robot.
-
-\item \textbf{pioneer3at.gazebo:} Define funcionalidades adicionales de gazebo. Aquí se definen los plug-ins a utilizar como \textit{skid\_steer\_drive\_controller} para el movimiento del robot o \textit{kinect\_camera\_controller} para simular el sensor Kinect.
-
-\item \textbf{pioneer3at.world:} Es un archivo específico del simulador que guarda una descripción del mundo virtual. En este caso se trata de un mundo sin objetos.
-
-\item \textbf{pioneer3at\_gazebo\_world.launch:} Archivo principal para lanzar el simulador. En él se lanza el mundo virtual (configurado para utilizar \textit{willowgarage\_world}), el modelo del robot creado y el nodo \textit{robot\_state\_publisher} que realiza la publicación de transformadas entre los diferentes ejes de coordenadas en base al modelo de nuestro robot.
-\end{itemize}
-
-La definición URDF es la más importante ya que configura los parámetros del robot como el peso de cada parte, el material, el momento de inercia...
-
-A continuación se muestra un fragmento de \textit{pioneer3at.xacro} donde se describe el elemento qu conforma la parte superior del robot y su ``articulación estática" (fixed) con el chasis:
-
-\begin{code}[!htp]
-\begin{lstlisting}[style=launch]
-
-	<!-- Top -->
-	<link name="top_plate">
-		<inertial>
-			<mass value="0.1"/>	
-			<origin xyz="-0.025 0 -0.223"/>
-			<inertia ixx="1.0" ixy="0.0" ixz="0.0"
-				 iyy="1.0" iyz="0.0"
- 				izz="1.0"/>
-		</inertial>
-		<visual name="top_visual">
-			<origin xyz="0 0 0" rpy="0 0 0"/>
-			<geometry name="pioneer_geom">
-				<mesh filename="package://p2os_urdf/meshes/p3at_meshes/top.stl"/>
-			</geometry>
-			<material name="TopBlack">
-					<color rgba="0.038 0.038 0.038 1.0"/>
-			</material>
-		</visual>
-		<collision>
-			<origin xyz="0 0 0" rpy="0 0 0"/>
-			<geometry>
-				<box size="0 0 0"/>
-			</geometry>
-		</collision>
-	</link>
-
-	<joint name="base_top_joint" type="fixed">
-		<origin xyz="0.003 0 0.274" rpy="0 0 0"/>
-		<parent link="base_link"/>
-		<child link="top_plate"/>
-	</joint>
-\end{lstlisting}
-\caption{Fragmento de la configuración URDF del robot.}\footnotemark
-\end{code}
-\footnotetext{\hypersetup{urlcolor=black}
-Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/gazebo/pioneer3at.xacro}{\textit{pioneer\_utils/gazebo/pioneer3at.xacro}}
-\hypersetup{urlcolor=blue}}
-
-La parte gráfica recae en los elementos "mesh"\footnote{\hypersetup{urlcolor=black}
-Los diseños 3D se encuentran en: \href{https://github.com/danimtb/pioneer3at_ETSIDI/tree/master/pioneer_utils/gazebo/meshes}{\textit{pioneer\_utils/gazebo/meshes}}
-\hypersetup{urlcolor=blue}}: Objetos definidos por mallas en formato \textit{.stl} generados con un programa de modelado en tres dimensiones. Con las dimensiones de esos archivos también podemos simplificar el modelado de colisión para cada pieza.
-
-Este archivo con la definición del robot se carga junto con el mundo virtual y nodos auxiliares para simular el robot e iniciar Gazebo. Esto se recoge en el archivo \textit{pioneer3at\_gazebo\_world.launch:}
-mostrado a continuación.
-
-\begin{code}[!htp]
-\begin{lstlisting}[style=launch]
-<launch>
-
-  <!-- these are the arguments you can pass this launch file, for example paused:=true -->
-  <arg name="paused" default="false"/>
-  <arg name="use_sim_time" default="true"/>
-  <arg name="gui" default="true"/>
-  <arg name="headless" default="false"/>
-  <arg name="debug" default="false"/>
-
-  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
-  <include file="$(find gazebo_ros)/launch/willowgarage_world.launch">
-  </include>
-
-  <!-- Load the URDF into the ROS Parameter Server -->
-  <param name="robot_description"
-	 command="$(find xacro)/xacro.py $(find pioneer_utils)/gazebo/pioneer3at.xacro" />
-
-  <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
-  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-	args="-urdf -model pioneer3at -param robot_description"/>
-
-  <!-- publish all the frames to TF -->
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher">
-    <param name="publish_frequency" value="50"/> <!-- Hz -->
-  </node>
-
-  <!-- Launch kinect and depthimage_to_laser node -->
-  <include file="$(find pioneer_utils)/sensors/kinect_to_laser_low.launch"/>
-
-  <!-- Launch kinect and depthimage_to_laser node -->
-  <include file="$(find pioneer_utils)/sensors/kinect_to_laser_long.launch"/>
-
-  <!-- Launch kinect and depthimage_to_laser node -->
-  <include file="$(find pioneer_utils)/sensors/kinect_to_laser.launch"/>
-
-</launch>
-\end{lstlisting}
-\caption{Launchfile para lanzar Gazebo con el modelo del robot y sus sensores.}\footnotemark
-\end{code}
-\footnotetext{\hypersetup{urlcolor=black}
-Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/gazebo/pioneer3at_gazebo_world.launch}{\textit{pioneer\_utils/gazebo/pioneer3at\_gazebo\_world.launch}}
-\hypersetup{urlcolor=blue}}
-
-Las pruebas con Gazebo fueron realizadas gracias a la correcta configuración de todos estos archivos para los cuales no existía una documentación unificada debido al cambio de versiones tanto de Gazebo como de ROS. Se tomaron como punto de partida las siguientes referencias **REFERENCIAS**.
-
-\begin{figure}[!htp]
-\centering
-\includegraphics[width=0.7\textwidth]{figuras/gazebo_simulado.png}
-\caption{Simulación en Gazebo y visualizado de datos en RViz.}
-\label{fig:gazebo_simulado}
-\end{figure}
-
-\begin{figure}[!htp]
-\centering
-\includegraphics[width=0.8\textwidth]{figuras/gazebo_willowgarage.png}
-\caption{Pioneer 3 AT simulado en el mapa Willow Garage.}
-\label{fig:gazebo_willowgarage}
-\end{figure}
-
-\pagebreak
-
-\subsection{Pruebas simuladas}
+\section{Pruebas simuladas}
 La ventaja de disponer del simulador Gazebo funcionando con el modelo de nuestro robot permitió que el robot evolucionase más rápido debido a que los cambios se probaban de manera inmediata y que puedieran probarse otras configuraciones del robot, validarlas y finalmente implementarlo en el robot real.
 
 Con la ayuda de Gazebo se han podido probar todas las configuraciones de navegación, el funcionamiento de cada nodo y el intercambio de datos entre ellos.
 
-\subsubsection{SLAM}
+\subsection{SLAM}
 Las pruebas de SLAM se realizaron con el ya mencionado paquete \textit{gmapping}, funcionando de la manera habitual.
 
 Para comprobar su validez, se dispuso al robot en el mundo "Willow Garage" que simula un entorno de oficinas, similar al entorno real del laboratorio. El objetivo principal fue comprobar que el algoritmo de mapeado funcionaba correctamente y si se conseguía cerrar el mapa realizando un bucle completo.
@@ -186,8 +25,8 @@ Para esta prueba se utilizó el nodo de mapeado y el de teleoperación y se guió a
 
 Indicar que este fue el mapa base utilizado para la navegación de sucesivas pruebas con Gazebo en las cuales el nodo AMCL situó correctamente al robot en el entorno virtual, por lo que validación del mapa generado es correcta.
 
-\subsubsection{Navegación con mapa}
-Las navegaciones con mapa en el simulador fueron determinantes para realizar una configuración más elaborada de ambos costmaps debido a los problemas con el borrado de los obstáculos (ver Subsección \label{subsection:configuracion_costmaps_sensores}).
+\subsection{Navegación con mapa}
+Las navegaciones con mapa en el simulador fueron determinantes para realizar una configuración más elaborada de ambos costmaps debido a los problemas con el borrado de los obstáculos (ver Subsección \ref{subsection:configuracion_costmaps_sensores}).
 
 En un principio se valoró la posibilidad de utilizar el sensor Kinect tan solo para obstáculos locales y el sensor láser para obstáculos globales, sin embargó se descartó ya que el robot trataba de seguir una trayectoria global incorrecta que no contemplaba los obstáculos bajos (Figura), con las complicaciones de control que eso supone para el planificador de trayectoria local.
 
@@ -209,7 +48,7 @@ Pruebas posteriores con la nueva configuración y obstáculos bajos determinaron l
 \label{fig:navegacion_global_gazebo}
 \end{figure}
 
-\subsubsection{Navegación reactiva}
+\subsection{Navegación reactiva}
 La nagación reactiva es una configuración menor de la anterior, por lo que no supuso un desarrollo más elaborado en las pruebas realizadas.
 
 Consistieron en realizar navegación mandando al robot hacia varios puntos de meta y comprobar si se quedaba atascado en algún momento.
@@ -331,9 +170,10 @@ En la figura \ref{fig:slam_real1} se muestra el resultado de la primera prueba.
 \begin{figure}[!htp]
 \centering
 \includegraphics[width=0.9\textwidth]{figuras/slam_real1.png}
-\caption{Mapa con la primera prueba de SLAM\footnotemark.}
+\caption{Mapa con la primera prueba de SLAM.}
 \label{fig:slam_real1}
 \end{figure}
+\footnotemark
 \footnotetext{\hypersetup{urlcolor=black}
 Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/maps/slam_real1.pgm}{\textit{pioneer\_utils/maps/slam\_real1.pgm}}
 \hypersetup{urlcolor=blue}}
@@ -347,9 +187,10 @@ En la figura \ref{fig:slam_real2} puede apreciarse el resultado de la segunda pr
 \begin{figure}[!htp]
 \centering
 \includegraphics[width=\textwidth]{figuras/slam_real2.png}
-\caption{Mapa tras la segunda prueba de SLAM\footnotemark.}
+\caption{Mapa tras la segunda prueba de SLAM.}
 \label{fig:slam_real2}
 \end{figure}
+\footnotemark
 \footnotetext{\hypersetup{urlcolor=black}
 Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/maps/slam_real1.pgm}{\textit{pioneer\_utils/maps/slam\_real1.pgm}}
 \hypersetup{urlcolor=blue}}
@@ -446,7 +287,7 @@ Nº de choques & 2 \\
 \end{tabular}
 }
 \caption{Tercera prueba de resistencia real.}
-\label{tabla:primera_prueba_real}
+\label{tabla:tercera_prueba_real}
 \end{table}
 
 Sobre estos resultados cabe decir que el número de metas alcanzadas se ve reducido debido a que en ocasiones se necesita replanificar la ruta hasta el punto de meta y a que el robot a veces encontraba dificultades para conducir su trayectoria a través de pasos estrechos.

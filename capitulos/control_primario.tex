@@ -79,7 +79,7 @@ Para la puesta en marcha del sensor Kinect existen en ROS diferentes paquetes qu
 
 Existen dos paquetes destinados al control del sensor Kinect:
 
-Por un lado tenemos \textit{openni\_kinect} **referencia**, que utiliza los drivers de la librería OpenNI **REFERENCIA**. Este paquete y en concreto los drivers del dispositivo han sido utilizados ampliamente tanto en desarrollos realizados con ROS como fuera de este entorno. Sus características principales son la total funcionalidad, aprovechamiento de toda la tecnología de este sensor y capacidad para monitorear la posición del esqueleto de una persona. Sin embargo, el soporte del paquete \textit{openni\_kinect} solo se mantuvo activo hasta a versión ROS Fuerte **referencia** debido a la compra de PrimeSense, empresa creadora del sensor y miembro fundador del proyecto OpenNI, por la conocida marca de informática Apple **referencia**.
+Por un lado tenemos \textit{openni\_kinect} **referencia**, que utiliza los drivers de la librería OpenNI **REFERENCIA**. Este paquete y en concreto los drivers del dispositivo han sido utilizados ampliamente tanto en desarrollos realizados con ROS como fuera de este entorno. Sus características principales son la total funcionalidad, aprovechamiento de toda la tecnología de este sensor y capacidad para monitorear la posición del esqueleto de una persona. Sin embargo, el soporte del paquete \textit{openni\_kinect} solo se mantuvo activo hasta a versión ROS Fuerte **referencia** debido a la compra de PrimeSense, empresa creadora del sensor y miembro fundador del proyecto OpenNI, por la conocida marca de informática Apple \cite{appleprimesense}.
 
 Por otro lado, gracias al gran desarrollo software llevado a cabo por la comunidad OpenSource, disponemos de los divers \textit{libfreenect} desarrollados por el proyecto OpenKinect \url{http://openkinect.org/wiki/Main_Page} que trata de ofrecer una vía alternativa para controlar el sensor de Microsoft. Estos drivers se encapsulan y adaptan su interfaz a ROS a través del paquete \textit{freenect\_stack} **referencia** el cual nos ofrece acceso tan solo a la imagen y la nube de puntos del sensor. Su integración no es completa, no dispone de características adicionales como el monitoreo de la posición de una persona, sin embargo su funcionamiento es correcto y está adaptado a ROS en su versión Indigo y esto nos ofrece la posibilidad de integrarlo en nuestro sistema. Por estas razones ha sido el software utilizado para acceder al sensor Kinect en este proyecto. \textit{freenect\_stack}, al ser un paquete de terceros, debe clonarse desde su repositorio de código fuente e incorporarlo a nuestro entorno Catkin.
 
@@ -211,7 +211,12 @@ Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_u
 
 Como resultado, obtenemos una relación entre cada sistema de coordenadas (\textit{frame}) y podemos realizar cálculos entre cada uno de ellos. Esto también sirve para que el robot "sea consciente" de su configuración.
 
-FIGURA VIEW FRAMES****
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.8\textwidth]{figuras/frames-odom_base.png}
+\caption{Referencias \textit{frames} de la configuración del robot.}
+\label{fig:frames-odom_base}
+\end{figure}
 
 \section{Nodo de teleoperación}
 
@@ -261,7 +266,7 @@ cmd\_vel & geometry\_msgs/Twist & Publica comandos de velocidad\\
 \end{tabular}
 }
 \caption{API de teleop\_p3at}
-\label{tabla_rosaria}
+\label{tabla:teleop_p3at}
 \end{table}
 
 \section{Nodo de navegación estimada}
@@ -290,5 +295,5 @@ odom & & Referencia odométrica
 \end{tabular}
 }
 \caption{API de moving\_alone}
-\label{tabla_rosaria}
+\label{tabla:moving_alone}
 \end{table}

@@ -10,7 +10,7 @@ En ROS el espacio de trabajo es el lugar donde se realiza el desarrollo software
 
 El espacio de trabajo es el determinado por la herramienta Catkin. A partir de la versión Indigo de ROS, casi todos los paquetes se encuentran adaptados al entorno Catkin y funcionan de manera casi inmediata.
 
-A continuación se describen los pasos para crear un espacio de trabajo Catkin (extraídos del tutorial *TAL*) y los pasos para clonar el repositorio de GitHub que aloja el código.
+A continuación se describen los pasos para crear un espacio de trabajo Catkin (extraídos del tutorial \url{http://wiki.ros.org/catkin/Tutorials/create_a_workspace}) y los pasos para clonar el repositorio de GitHub que aloja el código.
 
 Tras instalar ROS en el equipo deseado, instalamos Catkin:
 
@@ -60,7 +60,7 @@ Sin embargo, es recomendable que si se desea realizar algún desarrollo posterior
 
 De esta forma podemos guardar los cambios realizados en el repositorio de la persona que hace la modificación, con la intención de incorporar los cambios más tarde al repositorio de desarrollo principal (\url{https://github.com/danimtb/pioneer3at_ETSIDI.git}) mediante Pull Request.
 
-\subsection{Gestión de las dependencias}
+\subsection{Gestión de las dependencias}\label{subsection:dependencias}
 
  ROS se vale de la información almacenada en la definición de cada uno de sus paquetes en \textit{package.xml} y gestionar algunas dependencias de librerías, para lo cual se sirve de la herramienta rosdep **referencia** creada por los desarrolladores de ROS para este propósito.
 
@@ -114,6 +114,8 @@ $ rosdep install pocketsphinx
 \caption{Instalando las dependencias de \textit{pocketsphinx} y \textit{gstreamer}.}
 \end{code}
 
+\pagebreak
+
 Es posible que necesitemos las dependencias añadidar de \textit{audio\_capture}.
 
 \begin{code}[!htp]
@@ -160,30 +162,87 @@ El firmware ARCOS de la placa controladora del robot es actualizable y gestiona 
 
 Estos parámetros referentes a la odometría son configurables a través de la librería Aria en caso de que no se desee acceder a modificar el firmware del robot.
 
-Los parámetros a considerar son los siguientes:
-
-\begin{itemize}
-\item TicksMM
-\item DriftFactor
-\item RevCount
-\end{itemize}
-
 El nodo de ROS RosAria es capaz de pasar estos parámetros a la placa controladora del robot a través de Aria. Es por ello que podemos configurar dinámicamente estos parámetros del robot cada vez que ejecutamos el nodo. De esta forma evitamos tener que recurrir a Adept y a software específico para modificar los parámetros de ARCOS.
 
-Podemos ver la descripción de estos parámetros en el manual del robot Pioneer 3 AT **referencia**
+El problema principal es que el robot viene configurado para utilizar los neumáticos de exterior, que tienen un diámetro mayor, mientras que los neumáticos de interior son más pequeños y por tanto hay que ajustar los parámetros de la odometría.
 
-**IMAGEN DEL MANUAL**
+Los parámetros a ajustar son los siguientes:
+\begin{itemize}
+\item TicksMM: Pulsos por cada milímetro.
+\item DriftFactor: Valor de pulsos para compensar las diferencias entre las ruedas de un lado y del otro.
+\item RevCount: Número de pulsos en los encoders para que el robot realice un giro de 180º.
+\end{itemize}
 
-EL procedimiento para calcular cada uno de estos parámetros es el siguiente:
+Del propio manual del robot extraemos la siguiente información:
+\begin{itemize}
+\item Pulsos por revolución (ticks/rev): 500.
+\item Relación de transmisión (gear ratio): 49'8.
+\end{itemize}
 
+Para ajustar \textit{TicksMM} utilizamos la fórmula del manual:
 
+\begin{equation}
+\textit{TicksMM}=\frac{4 \cdot ticks/rev \cdot gear ratio}{wheel diam (mm) \cdot \pi} = 
+= \frac{4 \cdot 500 \cdot 49,8}{190 \cdot \pi} = 166,86
+\end{equation}
+
+Para ajustar \textit{RevCount} situamos al robot paralelo a una referencia en el suelo (una línea recta en el suelo), marcamos el punto en el que las ruedas tocan el suelo y manualmente, agarrando al robot por las ruedas, giramos las mismas hasta que el robot quede girado 180º. Contamos las revoluciones de una de las ruedas gracias a las marcas que habíamos hecho y hacemos el siguiente cálculo:
+
+\begin{equation}
+RevCount = ticks/rev \cdot gear ratio \cdot revoluciones de una rueda
+\end{equation}
+
+En el caso de la última calibración:
+
+\begin{equation}
+RevCount = 500 \cdot 49,8 \cdot 1,5 = 37350
+\end{equation}
+
+Por último, para ajustar \textit{DriftFactor} procedemos de manera experimental. Situamos al robot pararelo a una linea recta marcada en el suelo y lo teleoperamos hacia adelante unos 4 metros. Si observamos que el robot se separa de la linea recta, ajustamos el valor de este parámetro en consecuencia.
+
+Para más información, se recomienda leer el manual del fabricante \cite{pioneer2006}.
 
 \subsection{Ordenador de abordo Intel NUC}
+Los datos de incio de sesión del ordenador son:
+\begin{itemize}
+\item Usuario: pioneer3at.
+\item Contraseña: pioneer3at.
+\item Nombre del equipo: P3AT.
+\end{itemize}
+
+EL ordenador Intel NUC está configurado para que genere una red Wifi Ad-hoc llamada "P3AT" de manera automática al inicio. Esta red presenta direcciones IP dentro del rango 10.42.0.X y su contraseña de acceso es "pioneer3atROS".
+
+El nodo máster de ROS se ejecuta en este ordenador, por lo que es preciso indicarlo en el archivo \textit{.bashrc}.
+
+Para editarlo, abrimos la terminal y escribimos:
+
+\begin{code}[htp]
+\begin{lstlisting}[style=consola]
+$ gedit ~/.bashrc
+\end{lstlisting}
+\caption{Abriendo el \textit{.bashrc}.}
+\end{code}
+
+Una vez abierto, al final del archivo añadimos las siguientes dos líneas indicando la dirección y el puerto del Master y la dirección IP del ordenador:
+
+\begin{code}[htp]
+\begin{lstlisting}[style=consola]
+export ROS_IP=10.42.0.1
+export ROS_MASTER_URI=http://10.42.0.1:11311
+\end{lstlisting}
+\caption{Añadidendo las direcciones IP al \textit{.bashrc}.}
+\end{code}
+
+El resto de configuraciones de software se han indicado a lo largo del documento.
+
+El ordenador está alimentado a 12 voltios directamente desde la placa de alimentación del robot y se encuentra anclado al mismo mediante tiras adhesivas de velcro, por lo que es posible retirarlo del cuerpo del robot en caso de que sea necesario.
 
 \subsection{Sensor Kinect}
-El sensor Kinect utilizado en el proyecto no dispone de ninguna moficiación específica o modo de funcionamiento especial. Lo referente a su conexionado ha sido descrito anteriormente en la sección \label{subsection:implementacion_kinect}.
+El sensor Kinect utilizado en el proyecto no dispone de ninguna moficiación específica o modo de funcionamiento especial. Lo referente a su conexionado ha sido descrito anteriormente en la sección \ref{subsection:implementacion_kinect}.
 
-Tan solo indicar que puede realizarse una primera toma de contacto a través de la librería \textit{libfreenect}. Una manera rápida de hacerlo es utilizando el gestor de depencencias en C++ biicode **LINK A BIICODE**, en un sistema operativo Ubuntu siguiendo esta guía **URL DE BIICODE**.
+Tan solo indicar que puede realizarse una primera toma de contacto a través de la librería \textit{libfreenect}.
+
+Una manera rápida de hacerlo es utilizando el gestor de depencencias en C++ biicode (\url{www.biicode.com}), en un sistema operativo Ubuntu siguiendo esta guía \url{http://blog.biicode.com/kinect-xbox360-biicode/}.
 
 \subsection{Láser SICK LMS100}\label{subsection:sicklms100_apendice}
 
@@ -193,13 +252,13 @@ El fabricante Sick ofrece un software propietario llamado SOPAS Ingineering Tool
 
 Para instalarlo hay que recurrir a la web del fabricante: \url{https://www.mysick.com/eCat.aspx?go=FinderSearch&Cat=Row&At=Fa&Cult=English&FamilyID=235&Category=Software&Selections=54195,54293}
 
-Para configurar el dispositivo debemos enchufarlo a un puerto Ethernet de un ordenador con el software instalado y proporcionarle alimentación.
+Para configurar el dispositivo debemos conectarlo a un puerto Ethernet de un ordenador con el software instalado y proporcionarle alimentación.
 
 El puerto ethernet del ordenador debe estar configurado para obtener una IP automática. Una vez aparezca la red como conectada procedemos a abrir el software SOPAS.
 
 \begin{figure}[!htp]
 \centering
-\includegraphics[width=0.8\textwidth]{figuras/sopas1.png}
+\includegraphics[width=0.7\textwidth]{figuras/sopas1.png}
 \caption{Software Sick SOPAS con el sensor detectado.}
 \label{fig:sopas1}
 \end{figure}
@@ -210,7 +269,7 @@ Para ello abriremos el apartado de configuración y selecionamos ''Asignar IP aut
 
 \begin{figure}[!htp]
 \centering
-\includegraphics[width=0.8\textwidth]{figuras/sopas2.png}
+\includegraphics[width=0.5\textwidth]{figuras/sopas2.png}
 \caption{Configurando la dirección IP del dispositivo.}
 \label{fig:sopas2}
 \end{figure}
@@ -221,7 +280,7 @@ También podemos acceder a los parámetros del sensor y visualizar en un gráfico l
 
 \begin{figure}[!htp]
 \centering
-\includegraphics[width=0.8\textwidth]{figuras/sopas3.png}
+\includegraphics[width=0.7\textwidth]{figuras/sopas3.png}
 \caption{Gráfico de la información captada por el sensor en el software SOPAS.}
 \label{fig:sopas3}
 \end{figure}
@@ -229,8 +288,8 @@ También podemos acceder a los parámetros del sensor y visualizar en un gráfico l
 A partir de aquí podremos conectarnos al láser con el nodo ROS LMS1xx, configurando una IP fija en el adaptador de red ethernet del ordenador al que lo conectemos, en este caso el ordenador Intel NUC del robot.
 
 \begin{itemize}
-\item Dirección IP del láser Sick LMS100:
-\item Dirección IP del adaptador ethernet del ordenador Intel NUC: 
+\item Dirección IP del láser Sick LMS100: 10.42.1.197
+\item Dirección IP del adaptador ethernet del ordenador Intel NUC: 10.42.1.1
 \end{itemize}
 
 Para más información conviene leer el manual que ofrece Sick \cite{sicklms100}.
@@ -242,8 +301,6 @@ Este apéndice es una guía de funcionamiento del robot Pioneer 3 AT (Petrois) uti
 El robot se enciende mediante un interruptor situado en su parte trasera, el cual proporciona alimentación general a todos los sistemas.
 
 Adicionalmente es necesario encender el ordenador de abordo Intel NUC mediante su correspondiente botón y el altavoz frontal del robot, para lo cual será necesario tener activada la alimentación auxiliar 2 (AUX 2) en el panel de control.
-
-**DESCRIPCION ENCENDIDO INTEL NUC**
 
 \section{Panel de control y parada de emergencia}
 El panel de control del robot se sitúa en su lateral derecho. Aquí disponemos de una serie de botones, indicadores luminosos, acústicos y conexiones.
@@ -286,11 +343,11 @@ Para rearmar el robot basta con devolver la seta de emergencia a su posición DE 
 
 Cabe indicar que la comunicación de cualquier ordenador con la placa de control del robot no se interrumpe, por lo que al rearmar el robot es posible que éste continúe con los movimientos previos a la parada de emergencia. Asegúrese de que las consignas de movimiento son las correctas y ponga especial precaución cuando realice el rearmado del robot.
 
-Para información más extensa y detallada se recomienda leer la guía de usuario ofrecida por el fabricante **REFERENCIA**.
+Para información más extensa y detallada se recomienda leer la guía de usuario ofrecida por el fabricante \cite{pioneer2006}.
 
 \section{Conexión mediante un ordenador externo vía Wifi}
 
-Al encender el ordenador Intel NUC, éste está configurado para generar directamente un HotSpot Wifi o red Ad-hoc con el nombre "P3AT". Esta red Wifi maneja direcciones IP en el rango 10.42.0.X por lo que es recomendable conectarse a ella con una IP fija que esté dentro de ese rango. SU contraseña es "pioneer3at"
+Al encender el ordenador Intel NUC, éste está configurado para generar directamente un HotSpot Wifi o red Ad-hoc con el nombre "P3AT". Esta red Wifi maneja direcciones IP en el rango 10.42.0.X por lo que es recomendable conectarse a ella con una IP fija que esté dentro de ese rango. Su contraseña es "pioneer3atROS".
 
 Si se está ejecutando el nodo MASTER en el ordenador Intel NUC, éste estará configurado con la IP 10.42.0.1. Para indicar que queremos conectarnos a un nodo MASTER que se ejecuta en otra máquina debemos editar el script \textit{.bashrc} del ordenador externo, que se ejecuta siempre que abrimos una terminal.
 
@@ -316,7 +373,9 @@ export ROS_MASTER_URI=http://10.42.0.1:11311
 La primera línea indica la IP fija con la que el ordenador externo se conecta a la red Ad-hoc del Intel NUC. Modificar la IP y escribir la IP del ordeandor externo.
 La dirección IP del MASTER es la dirección que está configurada en el Intel NUC y a la que tratarán de conectarse los nodos cuando se lancen desde el ordenador externo.
 
-Este procedimiento está hecho igual en el Intel NUC pero indicando tan solo que la IP de ese equipo es \textbf{ROS\_IP=10.42.0.77}.
+Este procedimiento está hecho igual en el Intel NUC pero indicando tan solo que la IP de ese equipo es \textbf{ROS\_IP=10.42.0.1}.
+
+Para que sea más cómo controlar este ordenador podemos conectarnos vía VNC con el cliente por defecto de Ubuntu 14.04 "Cliente de escritorio remoto Remmina" siempre y cuando estemos conectados a la red Wifi "P3AT". De este modo podremos visualizar el escritorio y lanzar los nodos pertinentes.
 
 \section{Acceder a la placa de alimentación}
 
@@ -331,16 +390,21 @@ El robot Pioneer 3 AT dispone de un pack de 3 baterías estáncas de plomo-ácido a
 
 El acceso a las baterías se encuentra en el interior del chasis del robot y son accesibles mediante una trampilla trasera.
 
-**IMAGEN**
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=0.6\textwidth]{figuras/baterias.jpg}
+\caption{Trampilla de acceso a las baterías.}
+\label{fig:baterias}
+\end{figure}
 
-La carga de las baterías se realiza con el adaptador de la figura **TAL** a través del conector de carga situado junto al interruptor de alimentación general.
+La carga de las baterías se realiza con el adaptador de la figura \ref{fig:cargador} a través del conector de carga situado junto al interruptor de alimentación general.
 
 \begin{figure}[!htp]
 \centering
 \includegraphics[width=0.45\textwidth]{figuras/puerto_carga.jpg}
 \includegraphics[width=0.45\textwidth]{figuras/cargador.jpg}
 \caption{Puerto de carga y cargador del robot Petrois.}
-\label{fig:seta_emergencia}
+\label{fig:cargador}
 \end{figure}
 
 No ha podido estimarse el tiempo de carga completo, sin embargo el propio cargador incorpora un indicador luminoso que muestra el estado de carga de las baterías.
@@ -364,7 +428,7 @@ En este lateral encontramos elementos adicionales como la antena de conexión wif
 Originalmente este ordenador se encontraba conectado a la placa controladora del robot de manera interna a través el puerto COM1 (Accesible en el interior del robot). En su lugar se conectó el convertidor de RS-232 a USB utilizado con el ordeandor Intel NUC, por lo que el ordenador interno se encuentra desconectado del robot.
 
 \textbf{IMPORTANTE:}\\
-Uno de los ventiladores internos situado en la parte frontal derecha del robot fue desconectado debido a su elevado ruido y su encendido permanente. En caso de utilizar el ordenador interno del robot es posible que sea necesario volver a conectarlo. Sin embargo no existe riesgo de sobrecaentamiento ya que el propio ordenador dispone de un ventilador adicional que se pone en marcha al encencerlo.
+Uno de los ventiladores internos situado en la parte frontal derecha del robot fue desconectado debido a su elevado ruido y su encendido permanente. En caso de utilizar el ordenador interno del robot es posible que sea necesario volver a conectarlo. Sin embargo no existe riesgo de sobrecalentamiento ya que el propio ordenador dispone de un ventilador adicional que se pone en marcha al encenderlo.
 
 
 \chapter{Información y documentos ONLINE}

@@ -64,7 +64,7 @@ Consta de tres ruedas. Las ruedas motrices pueden ser las dos ruedas traseras o 
 \setcounter{enum1}{\value{enumi}}
 \end{enumerate}
 
-Consta de dos ruedas colocadas en el eje perpendicular a la dirección de desplazamiento del robot. Cada rueda es controlada por un motor, de tal forma que la diferencia de velocidad giro de una rueda respecto a otra determina el giro, avance o retroceso del robot. Los robots que presentan esta configuración suelen utilizar una tercera rueda que gira libremente que sirver como apoyo (rueda loca). Es la configuración típica de las sillas de ruedas y su característica principal es que permite realizar giros completos sobre sí mismo.
+Consta de dos ruedas colocadas en el eje perpendicular a la dirección de desplazamiento del robot. Cada rueda es controlada por un motor, de tal forma que la diferencia de velocidad de giro de una rueda respecto a otra determina el giro, avance o retroceso del robot. Los robots que presentan esta configuración suelen utilizar una tercera rueda que gira libremente que sirver como apoyo (rueda loca). Es la configuración típica de las sillas de ruedas y su característica principal es que permite realizar giros completos sobre sí mismo.
 
 \begin{figure}[htp]
 \centering
@@ -181,13 +181,15 @@ Existen otros sensores de posicionamiento absoluto como los sistemas IPS (Indoor
 
 Existen sensores de distancia que utilizan tecnología láser para determinar la longitud de un punto a otro, se denominan Scanners láser o LIDAR. Estos sensores emiten rayos láser en un plano de 2 dimensiones y en un rango determinado, y midiendo el tiempo de vuelo del haz láser son capaces de obtener una medida muy precisa de la distancia.
 
-\item \textbf{Sensores de distancia basados en visión:} Existen otro tipo de sensores de distancia que permiten obtener distancias a puntos de manera tridimensional. Los pasivos, como las cámaras estereoscópicas, que utilizan un sistema de doble cámara (Figura \ref{fig:camara_estereoscopica}). Estos sensores son capaces de obtener imágenes 3D con la información de dos imágenes tomadas a cierta distancia una de otra. Es el sensor más parecido a la visión humana.
+\item \textbf{Sensores de distancia basados en visión:} Existen otro tipo de sensores de distancia que permiten obtener distancias a puntos de manera tridimensional. Los pasivos, como las cámaras estereoscópicas, que utilizan un sistema de doble cámara (Figura \ref{fig:camara_estereoscopica}).
 
 \begin{figure}[htp]
 \centering
 \includegraphics[width=0.4\textwidth]{figuras/pr2_stereocam.jpg}
 \caption{Cámara estereoscópica del robot PR2.} \label{fig:camara_estereoscopica}
 \end{figure}
+
+Estos sensores son capaces de obtener imágenes 3D con la información de dos imágenes tomadas a cierta distancia una de otra. Es el sensor más parecido a la visión humana.
 
 Por otro lado están los sensores activos, como las cámaras por tiempo de vuelo (Time-of-flight) que obtienen distancias a los puntos de una imagen basándose en el tiempo que tarda la luz en alcanzar los objetos, o los sensores de tipo infrarrojo, como es el sensor Kinect, de gran interés debido a su bajo coste y su buena respuesta.
 
@@ -205,17 +207,6 @@ Inicialmente permitía controlar e interactuar con la consola XBOX sin necesidad 
 Para captar el entorno en 3 dimensiones, Kinect incluye una cámara de vídeo RGB, un emisor de haz infrarrojo y una cámara infrarroja.
 \end{itemize}
 
-\section{Control en la robótica móvil actual}
-
-El control del movimento en los robots móviles con ruedas puede describirse, de manera general, en cuatro tareas fundamentales: localización y orientación, planificación de trayectoria, seguimiento de la misma y evasión de los obstáculos.
-
-\subsection{Localización y orientación en un entorno}
-Normalmente, uno de los mayores problemas que conciernen a la navegación de robots móviles consiste en la determinación de su localización respecto a un mapa en función de la información captada por los sensores.. No basta con situar una referencia global, si no que es imprescindible conocer la posición relativa respecto a los posibles obstáculos, tanto móviles como estáticos, de su entorno. Para esta tarea existen diferentes opciiones, como utilizar mapas introducidos en el robot, o bien elaborar un mapa de manera simultánea al movimiento del robot por un lugar, como si se tratase de un robot de exploración. Es lo que se conocde como SLAM (Simultaneous Localization and Mapping).
-
-Uno de las motivaciones para el uso de esta técnica es la construcción de mapas desde el punto de vista del robot, así como el ruido que se genera en los sensores de posición internos del robot que miden la odometría. Sin embargo, esta técnica en ocasiones puede producir efectos no deseados, como incorrecciones en el mapa debido a su alto coste computacional o variaciones debidas a objetos que se mueven en torno al robot.
-
-Pueden distenguirse tres tipos de mapas: geomñetrico, topológico y semántico. El nivel geométrico es el más utilizado y consiste en un mapa métrico donde se representan los segmentos bñasicos de un entorno, o un mapa discretizado, donde se efectua la descomposición de los elementos en celdillas. En el nivel topológico, se representaran nodos y coneciones entre ellos, y el nivel semñantico es cuando se elimina la información geométrica.
-
 \section{Aplicaciones actuales de la robótica móvil}
 
 Algunas de las aplicaciones del área de la robótica móvil ya han sido mencionadas con anterioridad en este documento, estas van enfocadas a sustituir la labor que realiza el ser humano en situaciones de riesgo o en tareas repetitivas que aportan poco valor.
@@ -224,10 +215,12 @@ Una de las aplicaciones más famosas sobre robótica móvil son los Rovers de explo
 
 Un tercer robot no tripulado fue enviado con posterioridad a la superficie del planeta rojo. El robot ''Curiosity'' forma parte de la segunda generación de robots de exploración espacial y aterrizó en Marte en el año 2012. La misión ''Mars Science Laboratory'' ha permitido descubrir la existencia de antiguos lagos en la superficie del planeta \cite{marsNASA}.
 
+\pagebreak
+
 \begin{figure}[htp]
 \centering
 \includegraphics[width=0.6\textwidth]{figuras/curiosity_rover.jpg}
-\caption{Imagen tomada a sí mismo por el robot Curiosity en la superficie marciana} \label{fig:curiosity_rover}
+\caption{Imagen tomada a sí mismo por el robot Curiosity en la superficie marciana.} \label{fig:curiosity_rover}
 \end{figure}
 
 Otras aplicaciones conocidas de la robótica móvil son los robots de búsqueda, reconocimiento y desactivación de explosivos. Robots como el iRobot 510 PackBot (Figura \ref{fig:robots_explosivos}), desarrollado por iRobot Corporation, o TALON (Figura \ref{fig:robots_explosivos}), desarrollado por QinetiQ North America, son ejemplos de cómo la robótica móvil es una herramienta muy valiosa en situaciones peligrosas o en sectores como seguridad y defensa.
@@ -236,7 +229,7 @@ Otras aplicaciones conocidas de la robótica móvil son los robots de búsqueda, re
 \centering
 \includegraphics[width=0.4\textwidth]{figuras/irobot510.jpg}
 \includegraphics[width=0.4\textwidth]{figuras/talon.jpg}
-\caption{Robots de desactivación de explosivos: iRobot 510 Packbot y TALON} \label{fig:robots_explosivos}
+\caption{Robots de desactivación de explosivos: iRobot 510 Packbot y TALON.} \label{fig:robots_explosivos}
 \end{figure}
 
 También existen robots ideados para realizar tareas en entornos peligrosos o en situaciones de desastre. Como ejemplo podemos citar la catástrofe que sufrío Japón el 11 de Marzo de 2011, en la que un terremoto causó daños catastróficos en la central nuclear de Fukushima \cite{fukushima}. Los niveles de radiación fueron tan altos que solo los robots eran capaces de entrar a valorar la situación de la central.
@@ -245,37 +238,37 @@ Estos robots, preparados para aguantar la radiación y realizar tareas de explora
 
 Y Raccoon (Figura \ref{fig:quince_raccoon_robots}), desarrollado por Tepco, equipado con dos cabezales móviles preparados para aspirar y limpiar, encargado de recuperar el polvo contaminado del edificio del reactor 2.
 
+\pagebreak
+
 \begin{figure}[htp]
 \centering
 \includegraphics[width=0.4\textwidth]{figuras/quince_robot.jpg}
 \includegraphics[width=0.5\textwidth]{figuras/raccoon_robot.jpg}
-\caption{Robot Quince (izq.) y robot Raccoon (dcha.)} \label{fig:quince_raccoon_robots}
+\caption{Robot Quince (izq.) y robot Raccoon (dcha.).} \label{fig:quince_raccoon_robots}
 \end{figure}
 
 Siguiendo con la aplicación de robots móviles en tareas de limpieza, podemos destacar la popularización de los robots domésticos de tipo aspiradora, que se encargan de las tareas repetitivas del entorno del hogar, como el iRobot Roomba (Figura \ref{fig:roomba_robot}).
 
 \begin{figure}[!htp]
 \centering
-\includegraphics[width=0.5\textwidth]{figuras/roomba_robot.png}
-\caption{Robot para limpieza del hogar Roomba, de iRobot} \label{fig:roomba_robot}
+\includegraphics[width=0.4\textwidth]{figuras/roomba_robot.png}
+\caption{Robot para limpieza del hogar Roomba, de iRobot.} \label{fig:roomba_robot}
 \end{figure}
 
-También existen aplicaciones de robots móviles en el ámbito de la agricultura. La empresa Robotnik \cite{robotnik} tiene en marcha diferentes programas para incorporar sus robots en tareas de recolección o inspección de la cosecha.
-
-Su proyecto AgriRobot (Figura \ref{fig:agrirobot_robot}), investiga el aspecto de la interacción humano-robot (Human-Robot Interface, HRI, en inglés). Para ello se sirven del robot Summit X Lincorporado con 4 ruedas motoras de alta potencia. El robot contiene un pulverizador eléctrico de 10 litros, tiene un sistema de visión, navegación y localización, y utiliza el software ROS.
+También existen aplicaciones de robots móviles en el ámbito de la agricultura. La empresa Robotnik \cite{robotnik} tiene en marcha diferentes programas para incorporar sus robots en tareas de recolección o inspección de la cosecha. Su proyecto AgriRobot (Figura \ref{fig:agrirobot_robot}), investiga el aspecto de la interacción humano-robot (Human-Robot Interface, HRI, en inglés). Para ello se sirven del robot Summit X Lincorporado con 4 ruedas motoras de alta potencia. El robot contiene un pulverizador eléctrico de 10 litros, tiene un sistema de visión, navegación y localización, y utiliza el software ROS.
 
 \begin{figure}[htp]
 \centering
-\includegraphics[width=0.5\textwidth]{figuras/agrirobot_robot.jpg}
-\caption{Robot pulverizador de aplicación agrícola, AgriRobot} \label{fig:agrirobot_robot}
+\includegraphics[width=0.42\textwidth]{figuras/agrirobot_robot.jpg}
+\caption{Robot pulverizador de aplicación agrícola, AgriRobot.} \label{fig:agrirobot_robot}
 \end{figure}
 
-Al igual que el proyecto VinBot (Figura \ref{fig:vinbot_robot}), de la misma empresa. Un robot móvil autónomo todo terreno dotado con un conjunto de sensores capaces de capturar y analizar imágenes de viñedos y datos en 3D mediante el uso de aplicaciones de cloud computing. Su finalidad es determinar el rendimiento de los viñedos y compartir esta información con los viticultores.
+Al igual que el proyecto VinBot (Figura \ref{fig:vinbot_robot}), de la misma empresa. Un robot móvil autónomo todo terreno dotado con un conjunto de sensores capaces de capturar y analizar imágenes de viñedos y datos en 3D mediante el uso de aplicaciones de \textit{cloud computing}. Su finalidad es determinar el rendimiento de los viñedos y compartir esta información con los viticultores.
 
 \begin{figure}[htp]
 \centering
 \includegraphics[width=0.5\textwidth]{figuras/vinbot_robot.jpg}
-\caption{Robot de inspección de viñedos, VinBot}
+\caption{Robot de inspección de viñedos, VinBot.}
 \label{fig:vinbot_robot}
 \end{figure}
 
@@ -285,20 +278,20 @@ En el apartado de la robótica social, podemos hablar de robots móviles con rueda
 \centering
 \includegraphics[width=0.3\textwidth]{figuras/maggie_robot.jpg}
 \includegraphics[width=0.3\textwidth]{figuras/rosa_robot.jpeg}
-\caption{Robot social Maggie y robot de asistencia ROSA}
+\caption{Robot social Maggie y robot de asistencia ROSA.}
 \label{fig:robots_sociales}
 \end{figure}
 
 Existen otro tipo de robots con altas capacidades que realizan la función de un robot móvil, como el robot de investigación PR2 (Figura \ref{fig:pr2_robot}), dotado con un sistema de desplazamiento omnidireccional.
+ 
+Este robot, desarrollado por los investigadores de \textit{Willow Garage}, fue creado para proporcionar una plataforma común junto con ROS (Robot Operating System), sobre la que realizar investigaciones que ayuden al desarrollo software de aplicaciones robóticas.
 
 \begin{figure}[htp]
 \centering
 \includegraphics[width=0.4\textwidth]{figuras/pr2_robot.jpg}
-\caption{Robot PR2 desarrollado por Willow Garage}
+\caption{Robot PR2 desarrollado por Willow Garage.}
 \label{fig:pr2_robot}
 \end{figure}
- 
- Este robot, desarrollado por los investigadores de Willow Garage, fue creado para proporcionar una plataforma común junto con ROS (Robot Operating System), sobre la que realizar investigaciones que ayuden al desarrollo software de aplicaciones robóticas.
  
 Finalmente, podemos destacar una de las aplicaciones que más han llamado la atención en la sociedad, los coches sin conductor. Potenciados por los desarrollos de la empresa Google, cuyo proyecto consiste en combinar la información obtenida del servicio de mapas de la compañía con la inteligencia artificial, estos coches (Figura \ref{fig:coche_google}) suponen un cambio notable a nivel de seguridad en el transporte urbano de nuestra sociedad.
 
@@ -307,7 +300,7 @@ Los vehículos van equipados con cámaras de vídeo, un sensor láser de 360º coloca
 \begin{figure}[htp]
 \centering
 \includegraphics[width=0.9\textwidth]{figuras/coche_google.jpeg}
-\caption{Sensores del coche autónomo de Google}
+\caption{Sensores del coche autónomo de Google.}
 \label{fig:coche_google}
 \end{figure}
 
