@@ -203,7 +203,7 @@ A él se conectaron el vía puerto USB el sensor Kinect y el cable convertidor de 
 
 \subsubsection{Configuración del sistema final}
 
-La configuración final del sistema quedó definida como se indica en la figura \ref{fig:esquema_robot_final}. El ordenador Intel NUC se configuró para que generase en su arranque una red Wifi ad-hoc propia, dentro del mismo subrango **revisar nomenclatura** que las direcciones IP del sensor láser para evitar el malfuncionamiento del mismo tal y como se ha indicado anteriormente.
+La configuración final del sistema quedó definida como se indica en la figura \ref{fig:esquema_robot_final}. El ordenador Intel NUC se configuró para que generase en su arranque una red Wifi ad-hoc propia, dentro del mismo subrango que las direcciones IP del sensor láser para evitar el malfuncionamiento del mismo tal y como se ha indicado anteriormente.
 
 \begin{figure}[htp]
 \centering
@@ -766,7 +766,7 @@ x\_scale & double & Factor de escala en velocidad de rot.\\
 enabled & bool & Hanilita los movimientos\\
 \end{tabular}
 }
-\caption{API de turtlebot\_follower}
+\caption{API de \textit{turtlebot\_follower}}
 \label{tabla:tabla_follower}
 \end{table}
 
@@ -799,8 +799,10 @@ El tratamiento de la nube de puntos se realiza con la librería PCL (PointCloud L
     </node>
 </launch>
 \end{lstlisting}
-\caption{Launchfile para \textit{turtlebot\_follower} en el robot Pioneer 3 AT\footnotemark.}
+\caption{Launchfile para \textit{turtlebot\_follower} en el robot Pioneer 3 AT.}
 \end{code}
+
+\footnotemark
 \footnotetext{\hypersetup{urlcolor=black}
 Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/follower/simple-follower.launch}{\textit{pioneer\_utils/follower/simple-follower.launch}}
 \hypersetup{urlcolor=blue}}
@@ -810,7 +812,22 @@ Como ya se ha visto, la variedad de paquetes de software robótico en ROS es nota
 
 Existe un nodo en ROS llamado \textit{sound\_play} \cite{soundplay} que permite, mediante la publicación de mensajes, reproducir sonidos preincorporados, archivos de sonido OGG/WAV o incluso realizar síntesis de voz a partir de un texto, conocido como \textit{text-to-speech} (TTS), utilizando voces del \textit{Festival Speech Synthesis System} desarrollado por \textit{The Centre for Speech Technology Research} de la Universidad de Edinburgo \cite{festival2014}.
 
-En este caso se ha utilizado la API de Python para interactuar con el nodo de tal modo que tan solo es necesario intercambiar mensajes con el nodo \textit{soundplay\_node}. Para ponerlo en marcha se incia el nodo desde el archivo de \textit{launch}.
+En este caso se ha utilizado la API de Python para interactuar con el nodo de tal modo que tan solo es necesario intercambiar mensajes con el nodo \textit{soundplay\_node}.
+
+\begin{table}[!h]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{c c c}
+& {\bf \textit{soundplay\_node} API} & \\
+{\bf Topics suscritos} & {\bf Mensaje} & {\bf Descripción}\\ \hline
+robotsound & sound\_play/SoundRequest & Sonido a reproducir\\
+\end{tabular}
+}
+\caption{API del nodo \textit{soundplay\_node}.}
+\label{tabla:soundplay_node}
+\end{table}
+
+Para ponerlo en marcha se incia el nodo desde el archivo de \textit{launch}.
 
 \begin{code}[!htp]
 \begin{lstlisting}[style=launch]
@@ -820,7 +837,7 @@ En este caso se ha utilizado la API de Python para interactuar con el nodo de ta
 \end{code}
 
 Para reproducir sonidos se utiliza un ''handle'' de sonido que facilita e paso de mensajes en caso de reproducir sonidos o voz con las funciones \textit{.play()} y \textit{.say()} respectivamente.
-A continuación se presenta un fragmento del nodo \textit{voice\_cmd} de desarrollo propio y que se describirá más adelante
+A continuación se presenta un fragmento del nodo \textit{voice\_cmd\_vel} de desarrollo propio y que se describirá más adelante
 
 \begin{code}[!htp]
 \begin{lstlisting}[style=launch]
@@ -852,9 +869,210 @@ A continuación se presenta un fragmento del nodo \textit{voice\_cmd} de desarrol
 \caption{Fragmento del nodo \textit{voice\_cmd} utilizando el cliente de sonido de \textit{soundplay\_node}.}
 \end{code}
 
+El uso y aplicación del nodo de sonido se expone con más detalle en la sección \ref{section:ejecucion_automatica}.
+
 \section{Reconocimiento de comandos de voz}
 Siguiendo con la idea de utilizar todos los elementos que incorpora el robot y de manera adicional a los objetivos del proyecto, se exploró la idea de la interacción con el robot mediante comandos de voz, gracias una vez más a los paquetes de ROS.
 
 \textit{pocketsphinx} \cite{pocketsphinx2012} es un paquete que actúa como \textit{wrapper} del motor de reconocimiento de voz del mismo nombre, que utiliza el framework multimedia \textit{GStreamer} \cite{gstreamer2001}. La implementación de este nodo está basada en los estudios e investigaciones sobre reconocimiento de voz y patrones en el habla de la Universidad de Carnegie Mellon dentro del proyecto CMU Sphinx \cite{sphinx}.
 
-\section{Nodo de ejecución automática de nodos}
+EL objetivo del paquete \textit{pocketsphinx}, mediante el nodo \textit{recognizer}, es realizar el reconocimiento y procesado de voz, comparar la voz con un diccionario de palabras y pronunciación y devolver una cadena de texto con las palabras que han sido detectadas \cite{rosbyexample}.
+
+\begin{table}[!h]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{c c c}
+& {\bf recognizer API} & \\
+{\bf Topics publicados} & {\bf Mensaje} & {\bf Descripción}\\ \hline
+output & std\_msgs/String & Palabras detectadas\\
+{\bf Parámetros} & {\bf Tipo} & {\bf Descripción}\\
+\hline
+lm & string & Archivo de pronunciación\\
+dict & string & Diccionario de palabras\\
+\end{tabular}
+}
+\caption{API del nodo \textit{recognizer}.}
+\label{tabla:tabla_pocketsphinx}
+\end{table}
+
+La entrada de audio se realiza a través de las entradas de micrófono configuradas en Ubuntu. En este caso, para sacar mayor partido al sensor Kinect, se pretende utilizar el array de micrófonos que incorpora. La entrada de audio del sensor Kinect no se reconoce por defecto en Ubuntu, ni siquiera a través de los drivers \textit{libfreenect} por lo que es necesario instalar el paquete \textit{kinect-audio-setup}.
+
+\begin{code}[!htp]
+\begin{lstlisting}[style=consola]
+sudo apt-get install kinect-audio-setup
+\end{lstlisting}
+\caption{Paquete necesario para reconocer el micrófono del sensor Kinect.}
+\end{code}
+
+Una vez instalado se selecciona el micrófono del sensor en el panel de ajustes de audio de Ubuntu. El resto de instalaciones necesarias para el paquete \textit{pocketsphinx} se detallan en el apéndice \ref{subsection:dependencias}.
+
+Para utilizar el nodo \textit{recognizer} deben indicarse los parámetros del siguiente modo:
+
+\begin{code}[!htp]
+\begin{lstlisting}[style=launch]
+<launch>
+  <node name="recognizer" pkg="pocketsphinx" type="recognizer.py">
+    <param name="lm" value="$(find pioneer_utils)/voice_audio/dic/commands.lm"/>
+    <param name="dict" value="$(find pioneer_utils)/voice_audio/dic/commands.dic"/>
+  </node>
+<\launch>
+\end{lstlisting}
+\caption{Archivo \textit{launchfile} para el nodo \textit{recognizer}.}
+\end{code}
+
+Para realizar acciones con los comandos de voz se utiliza un nodo alternativo que se suscribe al Topic \textit{recognizer/output}, el cual devuelve las palabras reconocidas. A continuación se expone un fragmento de su uso en Python:
+
+\begin{code}[!htp]
+\begin{lstlisting}[style=C++]
+...
+rospy.Subscriber('recognizer/output', String, self.speechCb)
+        
+    def speechCb(self, msg):
+        rospy.loginfo(msg.data)
+
+        if msg.data.find("fast") > -1:
+            if self.speed != 0.3:
+                self.soundhandle.say('Speeding up')
+                self.set_speed(0.3)
+...
+\end{lstlisting}
+\caption{Fragmento del nodo \textit{voide\_cmd} utilizando las palabras reconocidas por el nodo \textit{recognizer}.}
+\end{code}
+
+El uso y aplicación del nodo de reconocimiento de voz se expone con más detalle en la sección \ref{section:ejecucion_automatica}.
+
+\subsection{Crear una lista de vocabulario}
+Como ya se ha mostrado, este nodo precisa de un archivo de pronunciación y un archivo de dicionario. Estos archivos actúan como base de datos de vocabulario del motor de reconocimiento de voz.
+
+Para crear estos archivos de vocabulario y pronunciación se utiliza la herramienta \textit{Sphinx Knowledge Base Tool}\footnote{http://www.speech.cs.cmu.edu/tools/lmtool-new.html} que genera archivos de pronunciación gracias a la herramienta \textit{lmtool}\footnote{http://www.speech.cs.cmu.edu/tools/lmtool.html}. Una de las limitaciones de la herramienta es que su desarrollo está basado principalmente en el reconocimiento de palabras en Inglés, y aunque se pueden incluir palabra de otros lenguajes su pronunciación es probable que no sea la correcta.
+
+Accediendo a la herramienta en web (Figura \ref{fig:lmtool}), tenemos la posibilidad de subir un archivo con las palabras que queramos que nuestro sistema reconozca. En este caso hemos utilizado palabras en Inglés. La herramienta nos genera los archivos necesarios \textit{.lm} y \textit{.dic}.
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.8\textwidth]{figuras/lmtool.png}
+\caption{Herramienta web Sphinx Knowledge Base Tool.}
+\label{fig:lmtool}
+\end{figure}
+
+\section{Nodo de ejecución automática de nodos}\label{section:ejecucion_automatica}
+Para dar integración a todas las funcionalidades de ROS incorporadas en el robot de este proyecto se ha implementado un nodo que ejecuta o detiene cada uno de los nodos dependiendo de las tareas que se envíen al robot mediante comandos de voz.
+
+El nombre de este nodo es \textit{voice\_cmd\_vel}. Es un nodo desarrollado en Python debido a su fácil utilización de los nodos \textit{regonizer} (para reconocer comandos de voz) y del nodo \textit{soundplay\_node} (para reproducir sonidos).
+
+Las fucionalidades que integra son las siguientes:
+\begin{itemize}
+\item Reconocimiento de comandos de voz con el micrófono del sensor Kinect.
+\item Respuesta con voz sintetizada a través del altavoz.
+\item Capacidad para realizar movimientos de desplazamiento básico: forward, backward, right, left, stop.
+\item Indicar al robot que active el nodo de guiado (follower).
+\item Generar mapas mediante SLAM y guardarlos en memoria.
+\item Navegar hacia puntos del mapa preestablecidos (navegación con mapa).
+\end{itemize}
+
+Este nodo es un desarrollo específico y por tanto se encuentra muy acoplado a las configuraciones que se han realizado durante este trabajo.
+
+La API de \textit{voice\_cmd\_vel} (Tabla \ref{tabla:voice_cmd_vel}) sirve para conectarse a los nodos de reconocimiento de voz, al nodo de navegación y al nodo de sonido. Además recibe los mismos parámetros que el nodo \textit{endurance\_test} ya que incorpora su funcionalidad para leer puntos guardados del el mapa para después utilizarlos como objetivos de meta.
+
+\begin{table}[!h]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{c c c}
+& {\bf \textit{voice\_cmd\_vel} API} & \\
+{\bf Topics suscritos} & {\bf Mensaje} & {\bf Descripción}\\ \hline
+recognizer/output & std\_msgs/String & Comandos de voz detectados\\
+{\bf Topics publicados} & {\bf Mensaje} & {\bf Descripción}\\ \hline
+cmd\_vel & geometry\_msgs/Twist & Publica comandos de velocidad \\
+move\_base/goal & move\_base\_msgs/MoveBaseActionGoal & Punto de meta \\
+robotsound & sound\_play/SoundRequest & Sonido a reproducir\\
+{\bf Parámetros} & {\bf Tipo} & {\bf Descripción}\\
+\hline
+map\_locations & file & Archivo con los puntos de meta\\
+cmd\_vel\_topic & string & Nombre del Topic de velocidad\\
+\end{tabular}
+}
+\caption{API del nodo \textit{voice\_cmd\_vel}}
+\label{tabla:voice_cmd_vel}
+\end{table}
+
+\subsection{Ejecución de nodos}
+Para la ejecución y para automática de los nodos existe el paquete \textit{roslaunch}\footnote{\url{http://wiki.ros.org/roslaunch/API\%20Usage}}, sin embargo la API del mismo ofrece una funcionalidad limitada ya que no se pueden ejecutar archivos \textit{launchfile} completos con todos los nodos y parámetros necesarios.
+
+Por tanto, se ha recurrido a los la funcionalidad \textit{Subprocess} de Python, que permite ejecutar subprocesos con determinados comandos de consolas. Con esta forma de proceder podemos ejecutar archivos \textit{launch} completos y después para los utilizando directamente los comandos de ROS "rosnode kill".
+
+\begin{code}[!htp]
+\begin{lstlisting}[style=C++]
+subprocess.Popen(['roslaunch', 'pioneer_utils', 'simple-follower.launch'])
+...
+subprocess.Popen(['rosnode', 'kill', 'turtlebot_follower'])
+\end{lstlisting}
+\caption{Ejemplo de uso de \textit{subprocess} en Python lanzando y parando el nodo \textit{turtlebot\_follower}.}
+\end{code}
+
+La funcinalidad subprocess genera procesos por detrás, que sería el equivalente a abrir manualmente una terminal y lanzar el \textit{launchfile}. Este proceso se mantiene abierto hasta que se ejecuta "rosnode kill", que abre un proceso que se encarga de parar el proceso anterior y después de hacerlo muere automáticamente.
+
+Para que este nodo funcione correctamente requiere que los siguientes nodos se ejecuten al inicio del mismo:
+\begin{itemize}
+\item Nodo de reconocimiento de voz: \textit{recognizer}.
+\item Nodo de reproducción de sonidos: \textit{soundplay\_node}.
+\item Nodos de navegación: \textit{move\_base}, \textit{amcl} y \textit{map\_server}.
+\item Nodos de bajo nivel: \textit{RosAria}, \textit{LMS1xx}, \textit{freenect\_launch} y \textit{depthimage\_to\_laserscan}.
+\end{itemize}
+
+Adicionalmente, controla algunos nodos que no se ejecutan a inicio:
+\begin{itemize}
+\item \textit{turtlebot\_follower}: Para seguir a personas.
+\item \textit{slam\_gmapping}: Para capturar mapas mediante SLAM.
+\item \textit{map\_saver}: Para guardar mapas en memoria.
+\end{itemize}
+
+\subsection{Funcionamiento}
+El funcionamiento del nodo \textit{voice\_cmd\_vel} es el siguiente:
+\begin{enumerate}
+\item Se conecta al Topic de velocidad (\textit{cmd\_vel}) y lee los puntos de meta del archivo indicado en \textit{map\_locations}.
+\item Se conecta al Topic \textit{move\_base/goal} para poder publicar puntos de meta.
+\item Se conecta al Topic \textit{robotsound} para enviar comandos de voz y sonidos.
+\item Se suscribe al Topic \textit{recognizer/output} para leer las palabras del nodo de reconocimiento de voz.
+\item Entra en un bucle esperando algún comando de voz reconocido.
+\item En caso de reconocer alguno de los comandos, ejecuta la acción y responde mediante voz o un sonido.
+\end{enumerate}
+
+Los comandos de voz que puede reconocer el robot son los siguientes:
+\begin{itemize}
+\item Comandos de velocidad "fast", "half", "slow": Cambia la velocidad de desplazamiento del robot.
+\item Comandos de movimiento básico "forward", "back", "right", "left", "stop": El robot se mueve de la forma indicada.
+\item Comandos de guiado "follow me", "stop follower": Inicia o detiene el nodo de guiado (follower).
+\item Comandos de mapa "build map", "save map", "stop map": Construye un mapa mediante SLAM, guarda el mapa o detiene el SLAM.
+\item Comandos de navegación: "Navigate to..." seguido del nombre de un punto de meta guardado en el archivo \textit{map\_locations}: Indica al robot que navegue hasta el punto deseado.
+\end{itemize}
+
+El archivo \textit{voice\_cmd.launch} ejecuta el inicio del nodo de reconocimiento de voz, el nodo de reproducción de sonido y el nodo \textit{voice\_cmd\_vel} con sus respectivos parámetros.
+
+\begin{code}[!htp]
+\begin{lstlisting}[style=launch]
+<launch>
+  <node name="recognizer" pkg="pocketsphinx" type="recognizer.py">
+    <param name="lm" value="$(find pioneer_utils)/voice_audio/dic/commands.lm"/>
+    <param name="dict" value="$(find pioneer_utils)/voice_audio/dic/commands.dic"/>
+  </node>
+
+  <node name="sound_play" pkg="sound_play" type="soundplay_node.py"/>
+
+  <node name="voice_cmd_vel" pkg="pioneer_utils" type="voice_cmd_vel.py" output="screen">
+    <param name="map_locations" value="$(find pioneer_utils)/main/locations.txt"/>
+    <rosparam>
+       cmd_vel_topic: cmd_vel
+     </rosparam>
+  </node>
+</launch>
+\end{lstlisting}
+\caption{Archivo \textit{voice\_cmd.launch}.}
+\end{code}
+\footnotemark
+\footnotetext{\hypersetup{urlcolor=black}
+Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/voice_audio/launch/voice_cmd.launch}{\textit{pioneer\_utils/voice\_audio/launch/voice\_cmd.launch}}
+\hypersetup{urlcolor=blue}}
+
+El código fuente de este nodo se ha omitido por no alargar la explicación, sin embargo puede consultarse de forma externa\footnote{\hypersetup{urlcolor=black}
+Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/voice_audio/node/voice_cmd_vel.py}{\textit{pioneer\_utils/voice\_audio/node/voice\_cmd\_vel.py}}
+\hypersetup{urlcolor=blue}}.
