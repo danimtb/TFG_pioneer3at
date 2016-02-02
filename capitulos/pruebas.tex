@@ -7,9 +7,9 @@ Dividimos este capítulo en dos partes, pruebas del robot en simulación y pruebas
 En este apartado se describen las pruebas llevadas a cabo en el simulador Gazebo con el modelo del robot descrito anteriormente. Cabe indicar que todas las pruebas se realizan con la misma configuración que en el caso del robot real a excepción de los nodos de bajo nivel.
 
 \subsection{SLAM}
-Las pruebas de SLAM se realizaron con el ya mencionado paquete \textit{gmapping}, funcionando de la manera habitual.
+Las pruebas de SLAM se realizaron con el ya mencionado nodo \textit{slam\_gmapping}, funcionando de la manera habitual.
 
-Para comprobar su validez, se dispuso al robot en el mundo "Willow Garage" que simula un entorno de oficinas, similar al entorno real del laboratorio. El objetivo principal fue comprobar que el algoritmo de mapeado funcionaba correctamente y si se conseguía cerrar el mapa realizando un bucle completo.
+Para comprobar su validez, se dispuso al robot en el mundo "Willow Garage" que simula un entorno de oficinas, similar al entorno real del laboratorio. El objetivo principal fue comprobar que el algoritmo de mapeado funcionaba correctamente y que se conseguía cerrar el mapa realizando un bucle completo.
 
 Para esta prueba se utilizó el nodo de mapeado y el de teleoperación y se guió al robot por una parte del entorno realizando diversos bucles (Figura \ref{fig:slam_gazebo}), en los que se observa que no existe distorsión en paredes paralelas y que el mapa no se encuentra solapado.
 
@@ -25,7 +25,7 @@ Indicar que este fue el mapa base utilizado para la navegación de sucesivas prue
 \subsection{Navegación con mapa}
 Las navegaciones con mapa en el simulador fueron determinantes para realizar una configuración más elaborada de ambos costmaps debido a los problemas con el borrado de los obstáculos (ver Subsección \ref{subsection:configuracion_costmaps_sensores}).
 
-En un principio se valoró la posibilidad de utilizar el sensor Kinect tan solo para obstáculos locales y el sensor láser para obstáculos globales, sin embargó se descartó ya que el robot trataba de seguir una trayectoria global incorrecta que no contemplaba los obstáculos bajos (Figura), con las complicaciones de control que eso supone para el planificador de trayectoria local.
+En un principio se valoró la posibilidad de utilizar el sensor Kinect tan solo para obstáculos locales y el sensor láser para obstáculos globales, sin embargo esta idea se descartó ya que el robot trataba de seguir una trayectoria global incorrecta que no contemplaba los obstáculos bajos (Figura \label{fig:discrepancia_costmaps_gazebo}), con las complicaciones de control que eso supone para el planificador de trayectoria local.
 
 \begin{figure}[!htp]
 \centering
@@ -36,7 +36,7 @@ En un principio se valoró la posibilidad de utilizar el sensor Kinect tan solo p
 
 Esto determinó, junto con las características especiales del sensor Kinect, que los sensores fueran recolocados para la configuración final del robot y que se añadiesen capas de obstáculos diferenciadas para cada sensor.
 
-Pruebas posteriores con la nueva configuración y obstáculos bajos determinaron la configuración correcta. Además se configuró un cálculo de trayectoria global repetitivo, de tal modo que el planificador global genera trayectorias actualizadas a medida que el robot incorpora los obstáculos al mapa. Esto ayuda al planificador local de trayectoria y en definitiva a que el robot realice menos maniobras.
+Pruebas posteriores con la nueva configuración y obstáculos bajos determinaron la configuración correcta. Además se configuró un cálculo de trayectoria global repetitivo (parámetro \textit{planner\_frequency: 1.0}), de tal modo que el planificador global genera trayectorias actualizadas a medida que el robot se desplaya e incorpora nuevos obstáculos al mapa. Esto ayuda al planificador local de trayectoria y en definitiva a que el robot realice menos maniobras.
 
 \begin{figure}[!htp]
 \centering
@@ -46,26 +46,24 @@ Pruebas posteriores con la nueva configuración y obstáculos bajos determinaron l
 \end{figure}
 
 \subsection{Navegación reactiva}
-La nagación reactiva es una configuración menor de la anterior, por lo que no supuso un desarrollo más elaborado en las pruebas realizadas.
+La nagación reactiva es una configuración menor de la anterior, por lo que no supuso un desarrollo más elaborado en las pruebas realizadas. Las pruebas consistieron en realizar navegación hacia varios puntos de meta y comprobar si el robot se quedaba atascado en algún momento.
 
-Consistieron en realizar navegación mandando al robot hacia varios puntos de meta y comprobar si se quedaba atascado en algún momento.
+Los resultados determinaron que el robot mostraba el mismo comportamiento en la navegación pero existían limitaciones como la distancia a la que pueden encontrarse los puntos de meta (puntos más cercanos al robot debido a la ausencia de mapa) o solapamientos y giros en el mapa global si este era demasiado grande.
 
-Las pruebas determinaron que el robot mostraba el mismo comportamiento en la navegación pero existían limitaciones como la distancia a la que pueden encontrarse los puntos de meta (puntos más cercanos al robot debido a la ausencia de mapa) o solapamientos y giros en el mapa global si este era demasiado grande.
-
-Como es normal en una navegación reactiva, el robot se desplaza siguiendo la trayectoria más corta en base a la información que sus sensores captan en ese momento, por lo que suceden casos como en la figura *TAL*. A pesar de ello, gracias a la información de los obstáculos que queda retenida en el mapa global, el planificador recalcula.
+Como es normal en una navegación reactiva, el robot se desplaza siguiendo la trayectoria más corta en base a la información que sus sensores captan en ese momento, por lo que suceden casos, como en la figura \label{fig:navegacion_local_gazebo}, en los que la trayectoria global calculada no es la correcta en un principio. A pesar de ello, gracias a la información de los obstáculos que queda retenida en el mapa global, el planificador recalcula encontrando la trayectoria adecuada.
 
 \begin{figure}[!htp]
 \centering
-\includegraphics[width=0.40\textwidth]{figuras/navegacion_local1_gazebop.png}
-\includegraphics[width=0.40\textwidth]{figuras/navegacion_local2_gazebop.png}
+\includegraphics[width=0.30\textwidth]{figuras/navegacion_local1_gazebop.png}
+\includegraphics[width=0.30\textwidth]{figuras/navegacion_local2_gazebop.png}
 \caption{Navegación con mapa final.}
 \label{fig:navegacion_local_gazebo}
 \end{figure}
 
 \subsection{Pruebas de resistencia}
-Para las pruebas de resistencia utilizamos un nodo desarrollado en Python específicamente creado para el caso.
+Para las pruebas de resistencia utilizamos un nodo \textit{endurance\_test}, específicamente creado para el caso.
 
-En estas pruebas se consideraron los siguientes aspectos:
+En estas pruebas se consideraron las siguientes variables:
 \begin{itemize}
 \item Puntos de meta: Puntos totales repartidos por el mapa que serviran como puntos objetivo a alcanzar por el robot.
 \item Tiempo total: Tiempo total de la prueba.
@@ -149,9 +147,9 @@ Nº de choques & 0 \\
 \caption{Tercera prueba de resistencia simulada.}
 \label{tabla:tercera_prueba_simulada}
 \end{table}
-Las metas no alcanzadas se produjeron por un exceso de tiempo en alcanzarlas, saltando el timeout y abortando la meta objetivo.
+Las metas no alcanzadas se produjeron por un exceso de tiempo en alcanzarlas, saltando el \textit{timeout} y abortando la meta objetivo.
 
-Esta prueba nos ofrece resultados de que los planificadores responden bien en el cálculo de trayectorias hacia puntos de meta alejados.
+Los resultados de esta prueba indican que los planificadores responden bien en el cálculo de trayectorias hacia puntos de meta alejados.
 
 \section{Pruebas reales}
 Las pruebas reales se llevaron a cabo en el robot con su configuración hardware y configuración del sistema final. Todos los nodos se ejecutan en el ordenador integrado Intel NUC y se utiliza un ordenador cliente para visualizar datos o teleoperar el robot en caso necesario.
@@ -161,7 +159,7 @@ Las pruebas de navegación con y sin mapa se han omitido debido a que los resulta
 \subsection{SLAM}
 Las pruebas reales de SLAM se realiazron en la planta baja y el aparcamiento de la universidad, ya que era de los pocos lugares donde podía realizar un bucle completo.
 
-Para realizar estas pruebas se utilizó al robot en modo de seguimiento y al mismo se realizó el mapeado. Indicar que no existe interferencias en este modo ya que la persona que sirve de guía se encuentra frente al robot y solo es detectada por el sensor Kinect, de tal modo que el sensor láser es el encargado de mapear el entorno sin perturbaciones.
+Para realizar estas pruebas se utilizó al robot en modo de guiado y al mismo tiempo se realizó el mapeado. Indicar que no existen interferencias al realizar SLAM guiando de este modo al robot, ya que la persona que sirve de guía se encuentra en frente y solo es detectada por el sensor Kinect, de tal modo que el sensor láser se encarga de mapear el entorno sin perturbaciones.
 
 En la figura \ref{fig:slam_real1} se muestra el resultado de la primera prueba.
 
@@ -176,11 +174,11 @@ En la figura \ref{fig:slam_real1} se muestra el resultado de la primera prueba.
 Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/maps/slam_real1.pgm}{\textit{pioneer\_utils/maps/slam\_real1.pgm}}
 \hypersetup{urlcolor=blue}}
 
-El área recuadrada en color rojo indica la zona donde se cerró el bucle y se aprecian ciertas discrepancias en las paredes y un ligero desvío hacia la derecha. Parte de este efecto es debido a que el bucle a cerrar es demasiado grande para esta prueba y a que el robot se desplazó realizando un recorrido sinuoso por el área del parking (se aprecia que se cubrió gran parte del mismo sin ser algo necesario para la prueba), con lo que el error de la odometría pudo haberse visto incrementado.
+El área recuadrada en color rojo indica la zona de cierre del bucle, donde se aprecian ciertas discrepancias en las paredes y un ligero desvío hacia la derecha. Parte de este efecto es debido a que el bucle a cerrar es demasiado grande para esta prueba y a que el robot se desplazó realizando un recorrido sinuoso por el área del parking (se aprecia que se cubrió gran parte del mismo sin ser algo necesario para la prueba), con lo que el error de la odometría pudo haberse visto incrementado.
 
 Debido a estos resultados se decidió realizar una segunda prueba de SLAM en las mismas condiciones pero guiando al robot de una manera más directa a lo largo del bucle (sin giros adicionales).
 
-En la figura \ref{fig:slam_real2} puede apreciarse el resultado de la segunda prueba con el cierre del bucle en la zona recuadrada en rojo. Esta vez el resultado es mejor, ya que no existen grandes discrepancias y el robot es capaz de situarse sin problemas. Tan solo se aprecia una pared exterior duplicada en ángulo, fruto del cierre del mapa.
+En la figura \ref{fig:slam_real2} puede apreciarse el resultado de la segunda prueba con el cierre del bucle en la zona recuadrada en rojo. Esta vez el resultado es mejor, ya que no existen grandes discrepancias y el robot es capaz de situarse sin problemas. Tan solo se aprecia una pared exterior duplicada en ángulo, fruto ligero desvío en el mapa.
 
 \begin{figure}[!htp]
 \centering
@@ -194,9 +192,7 @@ Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_u
 \hypersetup{urlcolor=blue}}
 
 \subsection{Pruebas de resistencia}
-Las pruebas de resistencia se llevaron a cabo en las instalaciones de la planta baja de la universidad.
-
-Se han llevado a cabo mediante el nodo de resistencia creado para el caso y utilizando diversos puntos dentro del mapa "floor\_zero-map"\footnote{\hypersetup{urlcolor=black}Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/maps/floor_zero-map.pgm}{\textit{pioneer\_utils/maps/floor\_zero-map.pgm}}
+Las pruebas de resistencia se llevaron a cabo en las instalaciones de la planta baja de la universidad mediante el nodo \textit{endurance\_test} creado para el caso y utilizando diversos puntos dentro del mapa "floor\_zero-map"\footnote{\hypersetup{urlcolor=black}Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/maps/floor_zero-map.pgm}{\textit{pioneer\_utils/maps/floor\_zero-map.pgm}}
 \hypersetup{urlcolor=blue}} que abarca las zonas indicadas.
 
 El objetivo primordial de las pruebas es que el robot sea capaz de navegar sin ningún tipo de intervención humana, ya que invalidaría el concepto de robot autónomo.
@@ -255,10 +251,12 @@ Las metas no alcanzadas se produjeron por obstáculos móviles (personas en movimi
 
 Los choques fueron roces leves de las ruedas con obstáculos bajos. Esto es debido a que el planificador ajusta mucho la trayectoria para que el robot pueda navegar por lugares estrechos.
 
-\textbf{Tercera prueba}\\
-La segunda prueba de resistencia se planteó como la prueba absoluta, midiendo parámetros como la autonomía de las baterías, con distancias entre puntos más largas, navegación por diferentes salas y pequeños desniveles.
+Cabe destacar la distancia total recorrida, que asciende a más de un kilómetro realizando maniobras con todo tipo de obstáculos.
 
-Los puntos de meta preestablecidos se distribuyen en el mapa tal y como se muestra en la figura \ref{fig:endurance_real2} y el root navega aleatoriamente de uno a otro.
+\textbf{Tercera prueba}\\
+La tercera prueba de resistencia se planteó como la prueba absoluta, midiendo parámetros como la autonomía de las baterías, con distancias entre puntos más largas, navegación por diferentes salas y pequeños desniveles.
+
+Los puntos de meta preestablecidos se distribuyen en el mapa tal y como se muestra en la figura \ref{fig:endurance_real2} y el robot navega aleatoriamente de uno a otro.
 
 \begin{figure}[!htp]
 \centering
@@ -288,13 +286,13 @@ Nº de choques & 2 \\
 \label{tabla:tercera_prueba_real}
 \end{table}
 
-Sobre estos resultados cabe decir que el número de metas alcanzadas se ve reducido debido a que en ocasiones se necesita replanificar la ruta hasta el punto de meta y a que el robot a veces encontraba dificultades para conducir su trayectoria a través de pasos estrechos.
+Sobre estos resultados cabe decir que el número de metas alcanzadas se ve reducido debido a que en ocasiones el planificador global precisaba de algún reintento para trazar la taryectoria al el punto de meta y a que el robot a veces encontraba dificultades para conducir su trayectoria a través de pasos estrechos.
 
-La duración de la batería en navegación continua es superior a las dos horas y media. Al finalizar la prueba el voltaje de las baterías alcanzó un valor 10.5 voltios.
+La duración de la batería en navegación continua durante esta prueba superó las dos horas y media. Al finalizar la prueba el voltaje de las baterías alcanzó un valor 10.5 voltios.
 
 En cuanto al número de choques, estos fueron un roce a un obstáculo bajo al tratar de esquivarlo y un choque con las ruedas de una silla.
 
-Destaca el alto valor de la distancia recorrida, que alcanza los 4 kilómetros sin la intervención de una persona, sin que se ponga en riesgo la integridad de ninguna de las personal involucradas en la prueba ni la del propio robot.
+Destaca el alto valor de la distancia recorrida, que alcanza los 4 kilómetros sin la intervención humana, sin que se ponga en riesgo la integridad de ninguna persona involucrada en la prueba ni la del propio robot.
 
 \subsection{Ascpectos de la navegación}
 
@@ -304,7 +302,7 @@ Tras las pruebas realizadas, analizando los resultados y observando el comportam
 \item \textbf{En cuanto a la navegación:}\\
 Existen limitaciones en cuanto a rampas, ya que este modo de navegación no tiene en cuenta la inclinación del robot para saber si este se encuentra desplazándose por un plano inclinado. Por otro lado tampoco es posible distinguir cambios por debajo del plano de navegación como agujeros, escalones... Estos dos aspectos se deben principalmente a que la navegación se realiza puramente en dos dimensiones.
 
-No obstante, el sistema sí es capaz de absorber pequeñas rampas en las que los sensores no reciban excesivas interferencias con el cambio de plano y siempre que el robot no realice muchos giros para no comprometer la localización debido a una mala lectura de la odometría.
+No obstante, el sistema sí es capaz de absorber pequeñas rampas en las que los sensores no reciban excesivas interferencias con el cambio de plano y siempre que el robot no realice muchos giros para no comprometer la localización debido al cambio del rozamiento de las ruedas del robot con el suelo.
 
 \item \textbf{En cuanto a las características del robot:}\\
 Ciertos obstáculos bajos no son detectados por los sensores debido a que el robot es capaz de superarlos sin problemas, es por ello que no se ha incidido en detectarlos.

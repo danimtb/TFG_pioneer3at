@@ -1,4 +1,5 @@
 \chapter{Simulación del sistema}
+En este capítulo se recoge el apartado de simulación de este proyecto, para el que se han utilizado los simuladores MobileSim en las pruebas preliminares con la plataforma Pioneer 3 AT y Gazebo para realizar pruebas y optimizaciones del sistema robótico completo gracias a sus amplias capacidades y su integración con ROS.
 
 \section{Simulación con MobileSim}\label{MobileSim}
 Una de las ventajas de utilizar el nodo rosaria para controlar el robot y obtener los datos de odometría es que las herramientas ofrecidas por el fabricante siguen pudiendo utilizarse. Este es el caso del simulador MobileSim.
@@ -96,8 +97,20 @@ La parte gráfica recae en los elementos "mesh"\footnote{\hypersetup{urlcolor=bla
 Los diseños 3D se encuentran en: \href{https://github.com/danimtb/pioneer3at_ETSIDI/tree/master/pioneer_utils/gazebo/meshes}{\textit{pioneer\_utils/gazebo/meshes}}
 \hypersetup{urlcolor=blue}}: Objetos definidos por mallas en formato \textit{.stl} generados con un programa de modelado en tres dimensiones. Con las dimensiones de esos archivos también podemos simplificar el modelado de colisión para cada pieza.
 
-Este archivo con la definición del robot se carga junto con el mundo virtual y nodos auxiliares para simular el robot e iniciar Gazebo. Esto se recoge en el archivo \textit{pioneer3at\_gazebo\_world.launch:}
-mostrado a continuación.
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=0.45\textwidth]{figuras/modelo_3D_1.png}
+\includegraphics[width=0.45\textwidth]{figuras/modelo_3D_2.png}
+\caption{Modelo URDF visualizado en \textit{Gazebo}.}
+\label{fig:modelo_3D}
+\end{figure}
+
+\subsection{Funcionamiento de Gazebo}
+Como se ha descrito anteriormente, Gazebo permite simular el sistema robótico completo de tal manera que podemos utilizarlo para probar desarrollos de nodos ROS para luego incorporarlos al robot real.
+
+Para lanzar el los nodos de Gazebo es necesario disponer de un modelo del robot configurado mediante URDF así como los plug-ins necesarios para simular el comportamiento del mismo y generar sensores virtuales que captarán el entorno del mundo simulado.
+
+La ùesta en marcha de Gazebo se realiza a partir de un nuevo archivo \textit{launchfile}. En él se carga la definición URDF del robot junto con el mundo virtual y nodos auxiliares para simular el robot e iniciar Gazebo. Esto se recoge en el archivo \textit{pioneer3at\_gazebo\_world.launch} mostrado a continuación.
 
 \begin{code}[!htp]
 \begin{lstlisting}[style=launch]
@@ -144,14 +157,18 @@ mostrado a continuación.
 Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/gazebo/pioneer3at_gazebo_world.launch}{\textit{pioneer\_utils/gazebo/pioneer3at\_gazebo\_world.launch}}
 \hypersetup{urlcolor=blue}}
 
-Las pruebas con Gazebo fueron realizadas gracias a la correcta configuración de todos estos archivos para los cuales no existía una documentación unificada debido al cambio de versiones tanto de Gazebo como de ROS. Se tomaron como punto de partida las siguientes referencias **REFERENCIAS**.
+Como se ve, en el \textit{launchfile} no es necesario indicar las transformadas entre los diferentes sistemas de referencia debido a que esta información ya la aporta el modelo URDF del robot. Tan solo es necesario llamar al nodo \textit{state\_publisher} e indicar la frecuencia de conversión.
+
+También puede apreciarse los nodos intermedios \textit{depthimage\_to\_laser} que se incluyen y funcionan de la misma manera que en el robot real. Ejemplo de ello es la figura \ref{fig:gazebo_simulado}, donde se observa la nube de puntos virtual junto con el haz láser generado por el nodo \textit{depthimage\_to\_laserscan}.
 
 \begin{figure}[!htp]
 \centering
-\includegraphics[width=0.7\textwidth]{figuras/gazebo_simulado.png}
+\includegraphics[width=0.6\textwidth]{figuras/gazebo_simulado.png}
 \caption{Simulación en Gazebo y visualizado de datos en RViz.}
 \label{fig:gazebo_simulado}
 \end{figure}
+
+Para iniciar Gazebo con el modelo del robot tan solo es necesario lanzar el archivo \textit{launch} anterior, tras lo cual se carga el modelo y se abre la interfaz gráfica del simulador (Figura \ref{fig:gazebo_willowgarage}).
 
 \begin{figure}[!htp]
 \centering
@@ -160,12 +177,16 @@ Las pruebas con Gazebo fueron realizadas gracias a la correcta configuración de 
 \label{fig:gazebo_willowgarage}
 \end{figure}
 
-\begin{figure}[!htp]
-\centering
-\includegraphics[width=0.45\textwidth]{figuras/modelo_3D_1.png}
-\includegraphics[width=0.45\textwidth]{figuras/modelo_3D_2.png}
-\caption{Modelo 3D de la segunda configuración hardware hecho en Gazebo}
-\label{fig:modelo_3D}
-\end{figure}
+A partir de este punto pueden lanzarse cualquiera de los nodos que se han desarrollado en este proyecto (navegación global, teleopeación, comandos de voz, etc.), de tal forma que se puede simular el sistema robótico completo.
 
-\pagebreak
+En el caso de navegación global, se ha creado por comodidad un \textit{launchfile} específico\footnote{\hypersetup{urlcolor=black}
+Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/gazebo/navigation/gazebo-global_navigation_p3at.launch}{\textit{pioneer\_utils/gazebo/avigation/gazebo-global\_navigation\_p3at.launch}}
+\hypersetup{urlcolor=blue}} cuya única diferencia respecto de la navegación global real es que carga el mapa utilizado en el simulador "Willow Garage".
+
+La ventaja de disponer del simulador Gazebo funcionando con el modelo de nuestro robot ha permitido que el robot evolucione más rápido ya que los pequeños ajustes se probaban de manera inmediata para validarlos y finalmente implementarlo en el robot real o no. Con la ayuda de Gazebo se han podido probar todas las configuraciones de navegación, el funcionamiento de cada nodo y el intercambio de datos entre ellos.
+
+Por último indicar que la puesta en marcha del simulador Gazebo a supuesto cierto esfuerzo, ya que no existe una documentación unificada entre ROS y Gazebo debido al salto entre las versiones de uno y otro.
+
+Se han seguido parte de los tutoriales de la web de Gazebo\footnote{\url{http://gazebosim.org/tutorials}} aunque algunas partes se encuentran incompletas, sobre todo en lo referente a los plug-ins de simulación de sensores y del robot.
+
+También el modelo modelo URDF del robot se ha creado mediante la recopilación de información variada y en gran medida reutiliza el modelo incluido en el paquete \textit{p2os} \cite{p2os} incorporando macros nuevas para los nuevos componentes como los paneles laterales.
