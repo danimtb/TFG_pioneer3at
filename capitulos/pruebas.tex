@@ -1,13 +1,10 @@
 \chapter{Pruebas del sistema}
 En este capítulo se describen las principales pruebas realizadas con el robot de tal modo que sirva para validar el trabajo realizado y exponer a los resultados obtenidos.
 
-Dividimos este capítulo en dos partes, pruebas del robot en simulación y pruebas en el entorno real, centrándonos exclusivamente en la creación de mapas mediante SLAM y los tests de navegación.
-
+Dividimos este capítulo en dos partes, pruebas del robot en simulación y pruebas en el entorno real, centrándonos exclusivamente en la creación de mapas mediante SLAM y los tests de navegación por ser el objeto principal de este proyecto.
 
 \section{Pruebas simuladas}
-La ventaja de disponer del simulador Gazebo funcionando con el modelo de nuestro robot permitió que el robot evolucionase más rápido debido a que los cambios se probaban de manera inmediata y que puedieran probarse otras configuraciones del robot, validarlas y finalmente implementarlo en el robot real.
-
-Con la ayuda de Gazebo se han podido probar todas las configuraciones de navegación, el funcionamiento de cada nodo y el intercambio de datos entre ellos.
+En este apartado se describen las pruebas llevadas a cabo en el simulador Gazebo con el modelo del robot descrito anteriormente. Cabe indicar que todas las pruebas se realizan con la misma configuración que en el caso del robot real a excepción de los nodos de bajo nivel.
 
 \subsection{SLAM}
 Las pruebas de SLAM se realizaron con el ya mencionado paquete \textit{gmapping}, funcionando de la manera habitual.
