@@ -490,14 +490,14 @@ Los mapas utilizados para la navegación han sido todos creados utilizando el paq
 
 \begin{figure}[htp]
 \centering
-\includegraphics[width=0.5\textwidth]{figuras/creacion_mapa.png}
+\includegraphics[width=0.4\textwidth]{figuras/creacion_mapa.png}
 \caption{Creación de un mapa mediante SLAM.}
 \label{fig:creacion_mapa}
 \end{figure}
 
 Para realizar una navegación con mapa se utiliza un mapa del tipo anterior cargado en memoria acompañado del ya mencionado \textit{global\_costmap} de manera estática.
 
-Esta es la configuración que se ha venido utilizando de manera general y el uso de todos sus elementos queda reflejado en el archivo launch de navegación global
+Esta es la configuración que se ha venido utilizando de manera general y el uso de todos sus elementos queda reflejado en el \textit{launchfile} de navegación global.
 
 \begin{code}[!htp]
 \begin{lstlisting}[style=launch]
@@ -530,9 +530,7 @@ Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_u
 \hypersetup{urlcolor=blue}}
 
 \subsection{Navegación reactiva}
-La navegación reactiva es la que se conoce por carecer de un mapa previo cargado en la memoria del robot. En su caso el robot percibe el entorno a medida que navega construyendo un mapa global de manera dinámica al igual que sucede con la configuración del mapa local.
-
-En este caso la configuración del mapa global carece de capa estática, por lo que el mapa se desplaza junto con el robot.
+La navegación reactiva es la que se conoce por carecer de un mapa previo cargado en la memoria del robot. En su caso el robot percibe el entorno a medida que navega construyendo un mapa global de manera dinámica al igual que sucede con la configuración del mapa local. En este caso la configuración del mapa global carece de capa estática, por lo que el mapa se desplaza junto con el robot. Tampoco es preciso el nodo \textit{amcl} para situar al robot en el mismo por lo que la orientación y posición del robot queda determinada por su odometría.
 
 \begin{code}[!htp]
 \begin{lstlisting}[style=launch]
@@ -572,32 +570,6 @@ global_costmap:
 \end{code}
 \footnotetext{\hypersetup{urlcolor=black}
 Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/navigation/local_navigation/global_costmap_params.yaml}{\textit{pioneer\_utils/navigation/local\_navigation/global\_costmap\_params.yaml}}
-\hypersetup{urlcolor=blue}}
-
-La configuración de la navegación carece mapa y por tanto tampoco es preciso el nodo AMCL para situar al robot en el mismo. La orientación y posición del robot queda determinada por su odometría.
-
-\begin{code}[!htp]
-\begin{lstlisting}[style=launch]
-<launch>
-	<node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
-        <rosparam file="$(find pioneer_utils)/navigation/common/costmap_common_params_p3at.yaml" command="load" ns="global_costmap" />
-        <rosparam file="$(find pioneer_utils)/navigation/common/costmap_common_params_p3at.yaml" command="load" ns="local_costmap" />
-        <rosparam file="$(find pioneer_utils)/navigation/common/local_costmap_params.yaml" command="load" />
-        <rosparam file="$(find pioneer_utils)/navigation/local_navigation/global_costmap_params.yaml" command="load" />
-        <rosparam file="$(find pioneer_utils)/navigation/common/base_local_planner_params.yaml" command="load"/>
-        <rosparam file="$(find pioneer_utils)/navigation/common/global_planner_params.yaml" command="load" />
-        <rosparam file="$(find pioneer_utils)/navigation/common/recovery_behaviors.yaml" command="load" />
-        <rosparam>
-            planner_frequency: 1.0 
-        </rosparam>
-        <param name="base_global_planner" value="global_planner/GlobalPlanner"/>
-    </node>
-</launch>
-\end{lstlisting}
-\caption{Configuración del launchfile para navegación reactiva.}\footnotemark
-\end{code}
-\footnotetext{\hypersetup{urlcolor=black}
-Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/navigation/local_navigation/local_navigation_p3at.launch}{\textit{pioneer\_utils/navigation/local\_navigation/local\_navigation\_p3at.launch}}
 \hypersetup{urlcolor=blue}}
 
 \section{Nodo de navegación por puntos}
@@ -924,6 +896,8 @@ Accediendo a la herramienta en web (Figura \ref{fig:lmtool}), tenemos la posibil
 \caption{Herramienta web Sphinx Knowledge Base Tool.}
 \label{fig:lmtool}
 \end{figure}
+
+\pagebreak
 
 \section{Nodo de ejecución automática de nodos}\label{section:ejecucion_automatica}
 Para dar integración a todas las funcionalidades de ROS incorporadas en el robot de este proyecto se ha implementado un nodo que ejecuta o detiene cada uno de los nodos dependiendo de las tareas que se envíen al robot mediante comandos de voz.

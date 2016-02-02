@@ -19,6 +19,10 @@ Sin embargo, \textit{p2os} no integra todas las funcionalidades a las que tiene 
 
 \item \textbf{rosaria} \cite{rosaria} es un nodo de interfaz entre ROS y Aria, por tanto incluye todas prácticamente todas las funcionalidades de esta. Podemos acceder a la calibración de los encoders de la odometría así como conectar con el simulador \textit{MobileSim} (ver sección \ref{MobileSim}).
 
+\end{itemize}
+
+El paquete que se ha utilizado para controlar el robot a bajo nivel es \textit{rosaria} debido a que integra funcionalidades adicionales importantes para el ajuste odométrico y a que el paquete \textit{p2os} se encuentra desactualizado en la versión ROS que utiliza.
+
 A continuación se muestra el \textit{launchfile} para ejecutar el nodo \textit{RosAria}:
 
 \begin{code}[htp]
@@ -41,9 +45,9 @@ Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_u
 \caption{Launchfile para RosAria.}
 \end{code}
 
-Como puede verse, podemos modificar los valores usados por Aria para realizar el cómputo de la odometría (más información la subsección \ref{subsection:odometria} del apéndice).
+Como puede verse, los valores de la odometría son configurables (más información la subsección \ref{subsection:odometria} del apéndice).
 
-Como cualquier nodo en ROS, el nodo \textit{RosAria} publicará una serie de Topics y se suscribirá a otros para poder intercambiar información entre otros nodos. En la tabla \ref{tabla_rosaria} se muestra parte de la API utilizada de rosaria.
+Como cualquier nodo en ROS, el nodo \textit{RosAria} publica una serie de Topics y se suscribe a otros para poder intercambiar información entre otros nodos. En la tabla \ref{tabla_rosaria} se muestra parte de la API utilizada de \textit{RosAria}.
 
 \begin{table}[!h]
 \centering
@@ -71,19 +75,23 @@ odom & & Referencia odométrica
 \label{tabla_rosaria}
 \end{table}
 
-\end{itemize}
-
 \subsection{Sensor Kinect}\label{subsection:kinect}
 
-Para la puesta en marcha del sensor Kinect existen en ROS diferentes paquetes que utilizan una u otra librería de código en función de quién lo hayade sarrollado.
+Para la puesta en marcha del sensor Kinect existen en ROS diferentes paquetes que utilizan una u otra librería de código en función de quién lo haya desarrollado.
 
 Existen dos paquetes destinados al control del sensor Kinect:
+\begin{itemize}
 
-Por un lado tenemos \textit{openni\_kinect} **referencia**, que utiliza los drivers de la librería OpenNI **REFERENCIA**. Este paquete y en concreto los drivers del dispositivo han sido utilizados ampliamente tanto en desarrollos realizados con ROS como fuera de este entorno. Sus características principales son la total funcionalidad, aprovechamiento de toda la tecnología de este sensor y capacidad para monitorear la posición del esqueleto de una persona. Sin embargo, el soporte del paquete \textit{openni\_kinect} solo se mantuvo activo hasta a versión ROS Fuerte **referencia** debido a la compra de PrimeSense, empresa creadora del sensor y miembro fundador del proyecto OpenNI, por la conocida marca de informática Apple \cite{appleprimesense}.
+\item Por un lado tenemos \textit{openni\_kinect} \cite{opennikinect}, que utiliza los drivers de la librería OpenNI. Este paquete y en concreto los drivers del dispositivo han sido utilizados ampliamente tanto en desarrollos realizados con ROS como fuera de este entorno. Sus características principales son la total funcionalidad, aprovechamiento de toda la tecnología de este sensor y capacidad para monitorear la posición del esqueleto de una persona. Sin embargo, el soporte del paquete \textit{openni\_kinect} solo se mantuvo activo hasta a versión ROS Fuerte debido a la compra de PrimeSense, empresa creadora del sensor y miembro fundador del proyecto OpenNI, por la conocida marca de informática Apple \cite{appleprimesense}.
 
-Por otro lado, gracias al gran desarrollo software llevado a cabo por la comunidad OpenSource, disponemos de los divers \textit{libfreenect} desarrollados por el proyecto OpenKinect \url{http://openkinect.org/wiki/Main_Page} que trata de ofrecer una vía alternativa para controlar el sensor de Microsoft. Estos drivers se encapsulan y adaptan su interfaz a ROS a través del paquete \textit{freenect\_stack} **referencia** el cual nos ofrece acceso tan solo a la imagen y la nube de puntos del sensor. Su integración no es completa, no dispone de características adicionales como el monitoreo de la posición de una persona, sin embargo su funcionamiento es correcto y está adaptado a ROS en su versión Indigo y esto nos ofrece la posibilidad de integrarlo en nuestro sistema. Por estas razones ha sido el software utilizado para acceder al sensor Kinect en este proyecto. \textit{freenect\_stack}, al ser un paquete de terceros, debe clonarse desde su repositorio de código fuente e incorporarlo a nuestro entorno Catkin.
+\item Por otro lado, gracias al gran desarrollo software llevado a cabo por la comunidad OpenSource, disponemos de los divers \textit{libfreenect} desarrollados por el proyecto OpenKinect \cite{openkinect} que trata de ofrecer una vía alternativa para controlar el sensor de Microsoft. Estos drivers se encapsulan y adaptan su interfaz a ROS a través del paquete \textit{freenect\_stack} \cite{freenect} el cual nos ofrece acceso tan solo a la imagen y la nube de puntos del sensor. Su integración no es completa, no dispone de características adicionales como el monitoreo de la posición de una persona, sin embargo su funcionamiento es correcto y está adaptado a ROS en su versión Indigo por lo que ofrece la posibilidad de integrarlo en nuestro sistema.
 
-Su puesta en marcha es bastante inmediata y podemos hacer uso de los \textit{launchfiles} que ofrece \textit{freenect\_launch} desde consola de la siguiente forma:
+\end{itemize}
+
+
+La comparación anterior denota que el software más adecuado para acceder a la nube de puntos del sensor Kinect es el paquete \textit{freenect\_stack}, por lo que éste ha sido el utilizado en este proyecto.
+
+Al ser un paquete de terceros, debe clonarse desde su repositorio de código fuente e incorporarlo al entorno Catkin. La puesta en marcha del mismo es bastante inmediata haciendo uso de los \textit{launchfiles} que ofrece \textit{freenect\_launch} desde consola de la siguiente forma:
 
 \begin{code}[htp]
 \begin{lstlisting}[style=consola]
@@ -95,7 +103,7 @@ Fuente: \href{https://github.com/ros-drivers/freenect_stack/blob/master/freenect
 \caption{Launchfile para Kinect en el paquete freenect\_launch.}
 \end{code}
 
-En la tabla \ref{tabla_freenect} se muestra parte de la API utilizada.
+En la tabla \ref{tabla_freenect} se muestra parte utilizada de su API.
 
 \begin{table}[!h]
 \centering
@@ -120,13 +128,13 @@ camera\_depth\_frame & & Referencia cámara IR\\
 
 \subsection{Sensor Láser Sick LMS100}\label{subsection:sicklms100}
 
-Existe un amplio soporte para sensores láser de la marca Sick, entre ellos el más popular es la familia Sick LMS200 ya que se utiliza en muchos desarrollos relacionados con la robótica móvil **referencia**. Esa familia de sensores utiliza una interfaz de comunicación en serie a través de puerto RS-232, sin embargo, la familia de dispositivos Sick LMS100 utiliza interfaz ethernet y requiere un tratamiento de datos diferente.
+Existe un amplio soporte en ROS para sensores láser de la marca Sick, entre los más populares se encuentra la familia Sick LMS200, que se utiliza en muchos desarrollos relacionados con la robótica móvil. La familia de sensores LMS200 utiliza una interfaz de comunicación en serie a través de puerto RS-232, sin embargo, la familia de dispositivos Sick LMS100 utiliza interfaz ethernet y requiere un tratamiento de datos diferente.
 
-El láser Sick LMS100 ha sido integrado en ROS y utilizado en este proyecto ya que se había dado uso en proyectos anteriores **referencia alejandro** y se consideró conveniente incorporarlo y utilizarlo para obtener una navegación más precisa del robot.
+El láser Sick LMS100 ha sido integrado en ROS y utilizado en este proyecto ya que se había dado uso en proyectos anteriores \cite{herrero2013} y se consideró conveniente incorporarlo debido a su precisión y rango.
 
-Para acceder al sensor Sick LMS100 utilizamos el paquekte \textit{LMS1xx} desarrollado por Clearpath Robotics **referencia** que se basa en el trabajo de otros dos desarrolladores de la comunidad ROS, y en concreto en los drivers desarrollados por **referencia** https://github.com/konradb3/libLMS1xx
+Para acceder al sensor Sick LMS100 se utiliza el paquete \textit{LMS1xx} desarrollado por Clearpath Robotics \cite{clearpath} que se basa en los drivers desarrollados en la librería \textit{libLMS1xx}\footnote{Repositorio software \textit{libLMS1xx}: \url{https://github.com/konradb3/libLMS1xx}}.
 
-El paquete \textit{LMS1xx} consta de un solo nodo que se conecta a través de una IP indicada como parámetro. Para conectarnos al sensor láser es necesario configurar el puerto del ordeandor con una IP fija dentro del mismo rango que la IP del sensor, la puerta de enlace queda vacía y utilizamos la máscara de subred por defecto.
+El paquete \textit{LMS1xx} consta de un solo nodo que se conecta a través de una IP indicada como parámetro. Para conectarse al sensor láser es necesario configurar el puerto del ordenador con una IP fija dentro del mismo rango que la IP del sensor, la puerta de enlace queda vacía y utilizamos la máscara de subred por defecto.
 
 Seguidamente basta con indicar en el archivo \textit{launchfile} la IP del sensor.
 
@@ -145,7 +153,9 @@ Fuente: \href{https://github.com/clearpathrobotics/LMS1xx/blob/master/launch/LMS
 \caption{Launchfile para el sensor Láser Sick LMS100.}
 \end{code}
 
-Pueden precisarse algunos ajustes previos con la herramienta que ofrece el fabricante "SOPAS Engineering tool", los cuales pueden encontrarse en el apéndice de este trabajo (Sección \ref{subsection:sicklms100_apendice}).
+Pueden precisarse algunos ajustes previos para ajustar la dirección IP del sensor y algunos de sus parámetros. Esto puede hacerse mediante la herramienta "SOPAS Engineering tool" ofrecida el fabricante. Estos ajustes pueden encontrarse en el apéndice de este trabajo (Sección \ref{subsection:sicklms100_apendice}).
+
+La API de este nodo se muestra en la tabla \ref{tabla_lms1xx}.
 
 \begin{table}[!h]
 \centering
@@ -167,13 +177,12 @@ laser & & Centro del haz láser\\
 \label{tabla_lms1xx}
 \end{table}
 
-\url{http://wiki.ros.org/LMS1xx}
 
 \subsection{Integración del hardware}\label{subsection:integracion_hardware}
 
-Una vez disponemos de todos los paquetes necesarios para poner en funcionamiento todo el hardware en el robot, necesitamos integrar todos los nodos bajo una misma configuración y definir mediante transformadas la posición de los sensores en el robot.
+Una vez se dispuso de todos los paquetes necesarios para poner en funcionamiento todo el hardware en el robot, era necesario integrar todos los nodos bajo una misma configuración y definir mediante transformadas la posición de los sensores en el robot.
 
-Es necesario por tanto crear un nuevo archivo launchfile (Código \ref{code:pioneer3at-rosaria})desde el cual lanzar cada nodo con las configuraciones del hardware y definir transformadas estáticas entre cada uno de los \textit{frames}.
+A partir de un nuevo archivo \textit{launchfile} (Código \ref{code:pioneer3at-rosaria}) se enlanzan cada nodo con las configuraciones del hardware y se definen las transformadas estáticas entre cada uno de los \textit{frames}.
 
 \begin{code}[htp]
 \begin{lstlisting}[style=launch]
@@ -209,7 +218,7 @@ Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_u
 \label{code:pioneer3at-rosaria}
 \end{code}
 
-Como resultado, obtenemos una relación entre cada sistema de coordenadas (\textit{frame}) y podemos realizar cálculos entre cada uno de ellos. Esto también sirve para que el robot "sea consciente" de su configuración.
+Como resultado, se obtiene una relación entre cada sistema de referencia (\textit{frame}), lo cual permite realizar transformaciones de los datos entre cada uno de ellos. Esto también sirve para que el robot "sea consciente" de su configuración (Figura \ref{fig:frames-odom_base}).
 
 \begin{figure}[htp]
 \centering
@@ -220,41 +229,42 @@ Como resultado, obtenemos una relación entre cada sistema de coordenadas (\texti
 
 \section{Nodo de teleoperación}
 
-Uno de los primeros objetivos de este proyecto es realizar el control teleoperado del robot. Utilizando ROS y sus características para operar de manera distribuida en diferentes máquinas, esta tarea se vuelve inmediata para el usuario.
+Uno de los primeros objetivos de este proyecto consiste realizar el control teleoperado del robot. Utilizando ROS y sus características para operar de manera distribuida en diferentes máquinas, esta tarea se vuelve inmediata para el usuario.
 
-ROS trabaja en forma de procesos que se ejecutan de manera independiente y se comunican a través del nodo principal o Máster con el paso de mensajes. Ya que el máster dispone de una dirección IP en la máquina que lo ejecuta, basta con indicar en el entorno ROS de cada máquina la dirección de este para que los nodos abran una comunicación con esa dirección IP.
+\subsection{Características distribuidas de ROS}
+ROS trabaja en forma de procesos que se ejecutan de manera independiente y se comunican a través del nodo principal MASTER mediante el paso de mensajes. Ya que el nodo MASTER dispone de una dirección IP en la máquina que lo ejecuta, basta con indicar en el entorno ROS de cada máquina la dirección de este para que los nodos abran una comunicación con esa dirección IP.
 
-Los pasos para configurar las máquinas bajo la misma red se describen con detalle en la guía ROS NETWORKING y consisten básicamente en indicar en el sript \textit{.bashrc} el parámetro ROS	\_IP y ROS\_MASTER\_URI.
+El nodo MASTER en este caso se ejecutará en el ordenador Intel NUC del robot, por lo que realizará la función de servidor de datos de cada nodo.
 
-ROS\_IP debe contener la IP que tenga nuestra máquina en la red que esté operando y ROS\_MASTER\_URI la dirección \textit{http} correspondiente de la máquina donde se ejecute el nodo principal.
+Los pasos para configurar las máquinas bajo la misma red se describen con detalle en la guía \textit{ROS Network Setup} \cite{network-ros} y consisten en indicar en el sript \textit{.bashrc}\footnote{El script \textit{.bashrc} se ejecuta cada vez que se abre una nueva terminal en el ordenador.} los parámetros ROS\_IP y ROS\_MASTER\_URI.
+
+ROS\_IP debe contener la IP de nuestra máquina en la red que esté operando y ROS\_MASTER\_URI la dirección \textit{http} correspondiente de la máquina donde se ejecute el nodo principal, especificando el puerto.
 
 \begin{code}[htp]
 \begin{lstlisting}[style=launch]
 export ROS_IP=10.42.0.1
 export ROS_MASTER_URI=http://10.42.0.1:11311
 \end{lstlisting}
-Fuente: \textit{$\sim$/.bashrc}
-\caption{Líneas del archivo \textit{.bashrc} en el ordenador de abordo.}
+\caption{Líneas del archivo \textit{.bashrc} en el ordenador de abordo Intel NUC.}
 \end{code}
+
+El procedimiento es el mismo en el caso del ordenador que va a servir como control remoto. En la sección \label{section:ordenador_externo} del apéndice se encuentra más información sobre la conexión de un ordenador externo.
 
 \begin{code}[!htp]
 \begin{lstlisting}[style=launch]
 export ROS_IP=10.42.0.77
 export ROS_MASTER_URI=http://10.42.0.1:11311
 \end{lstlisting}
-Fuente: $\sim$\textit{/.bashrc}
 \caption{Ejemplo \textit{.bashrc} en un ordenador externo para realizar comunicación con el máster.}
 \end{code}
 
-De esta manera podemos desarrollar un nodo ROS que se conecte al topic de RosAria que comanda los motores \textit{cmd\_vel} y publicar diferentes valores de velocidad en función de las teclas que se pulsen.
+\subsection{Implementación del nodo}
 
-\begin{code}[htp]
-\begin{lstlisting}[style=C++]	
-}
-\end{lstlisting}
-Fuente: $\sim$\textit{/.bashrc}
-\caption{Ejemplo \textit{.bashrc} en un ordenador externo para realizar comunicación con el máster.}
-\end{code}
+Gracias a las características de sistema distribuido, podemos desarrollar un nodo ROS que se conecte al Topic \textit{cmd\_vel} de \textit{RosAria} y publicar diferentes valores de velocidad en función de las teclas que se pulsen sin tener que preocuparnos por implementar un socket de comunicación.
+
+El nodo que se ha desarrollado realiza una teleoperación básica del robot, publicando mensajes de velocidad fija. Se ha partido del nodo de teleoperación desarrollado en el paquete \textit{turtlesim} \cite{turtlesim} ya que este reacciona ante pulsaciones instantáneas de teclado y favorece el control del robot.
+
+La API ROS de este nodo solo consta de un parámetro (\ref{tabla:teleop_p3at}), el Topic de comandos de velocidad al que se conecta, por lo que esto lo hace reutilizable en cualquier otro robot que opere con ROS.
 
 \begin{table}[!h]
 \centering
@@ -269,15 +279,62 @@ cmd\_vel & geometry\_msgs/Twist & Publica comandos de velocidad\\
 \label{tabla:teleop_p3at}
 \end{table}
 
+La implementación del nodo se ha realizado en C++ y su principal característica es que toma las pulsaciones del teclado en modo \textit{raw} de tal modo que es detectada inmediatamente.
+
+\begin{code}[htp]
+\begin{lstlisting}[style=C++]
+...
+	// get the console in raw mode
+	tcgetattr(kfd, &cooked);
+	memcpy(&raw, &cooked, sizeof(struct termios));
+	raw.c_lflag &=~ (ICANON | ECHO);
+	// Setting a new line, then end of file
+	raw.c_cc[VEOL] = 1;
+	raw.c_cc[VEOF] = 2;
+	tcsetattr(kfd, TCSANOW, &raw);
+	puts("--------------Reading from keyboard-------------");
+	puts("------------------------------------------------");
+	puts("Use arrow keys to move Pioneer and SPACE to stop");
+
+
+	while(!g_request_shutdown && ros::ok())
+	{
+
+		// get the next event from the keyboard
+
+		if(read(kfd, &c, 1) < 0)
+		{
+			perror("read():");
+			exit(-1);
+		}
+			
+		switch(c)
+		{
+			case KEYCODE_L:
+				vel.linear.x = 0;
+				vel.linear.y=0;
+...
+\end{lstlisting}
+\hypersetup{urlcolor=black}
+Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/src/teleop_p3at.cpp}{\textit{pioneer\_utils/src/teleop\_p3at.cpp}}
+\hypersetup{urlcolor=blue}
+\caption{Fragmento de código del nodo \textit{teleop\_p3at}.}
+\label{code:teleop_p3at}
+\end{code}
+
+
+
+
+
 \section{Nodo de navegación estimada}
 
 La navegación estimada, más conocida en inglés como Dead Reckoning \cite{deadreckoning}, es la capacidad para realizar navegación en un entorno basándonos solamente en la información que aportan los sensores de la odometría.
 
 Es un método estimado de localización que se basa en la información de los encoders y no tiene en cuenta aspectos como el tipo de superficie, la inclinación, el rozamiento o incluso obstáculos que puedan frenar o modificar el desplazamiento del robot (a pesar de que sus ruedas giren).
 
-Este nodo de navegación puede utilizarse para indicar al robot que avance cierta cantidad de metros y que realice giros a derecha o izquierda en un determinado ángulo.
+Este nodo de navegación puede utilizarse para indicar al robot que avance cierta cantidad de metros y que realice giros a derecha o izquierda en un determinado ángulo siempre tomando como referencia la información aportada por la odometría.
 
-**Fragmento de código**
+Este nodo toma los valores de la odometría y envía comandos de velocidad para que realice el movimiento indicado. A continuación se muestra su API (Tabla \ref{tabla:moving_alone}).
 
 \begin{table}[!h]
 \centering
@@ -294,6 +351,30 @@ base\_link & & Referencia base del robot\\
 odom & & Referencia odométrica
 \end{tabular}
 }
-\caption{API de moving\_alone}
+\caption{API del nodo \textit{moving\_alone}.}
 \label{tabla:moving_alone}
 \end{table}
+
+El nodo \textit{moving\_alone} está desarrollado en la interfaz C++ y su uso se muestra función \textit{main}.
+
+\begin{code}[htp]
+\begin{lstlisting}[style=C++]
+...
+int main(int argc, char** argv)
+{
+	ros::init(argc, argv, "moving_alone");
+	ROS_INFO("Moving alone started");
+	ros::NodeHandle nh;
+	MoveAlone moving_alone(nh);
+	moving_alone.avanza(1.0f, 0.5f);
+	moving_alone.gira(true, 90.0f, 0.2f);
+	moving_alone.avanza(-0.5f, 0.1f);
+	return 0;
+}
+\end{lstlisting}
+\hypersetup{urlcolor=black}
+Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/src/moving_alone.cpp}{\textit{pioneer\_utils/src/moving\_alone.cpp}}
+\hypersetup{urlcolor=blue}
+\caption{Fragmento de código del nodo \textit{moving\_alone}.}
+\label{code:moving_alone}
+\end{code}

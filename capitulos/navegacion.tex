@@ -1,6 +1,6 @@
 \chapter{Navegación}\label{chapter:navegacion}
 
-En este capítulo se expone el desarrollo referente a la navegación dentro del ecosistema ROS. En él se describen las características de navegación del paquete de navegación y sus posibilidades.
+En este capítulo se exponen los conceptos referentes a la navegación dentro del ecosistema ROS. En él se describen las características de navegación del paquete específico y sus posibilidades.
 
 Este capítulo trata de abordar el aspecto de la navegación desde el punto de vista de la utilidad, pasando por su fundamento teórico y sin dejar de lado su aplicación en el robot Pioneer 3 AT.
 
@@ -412,7 +412,7 @@ Los algoritmos implementados en ROS se basan en métodos discretos mediante grafo
 \subsection{Algoritmo de Dijkstra}
 El algoritmo de Dijkstra es un algoritmo para la determinación del camino más corto dado un vértice origen al resto de vértices de un grafo con costes en cada arista. Este algoritmo debe su nombre a Edsger Dijkstra, quien lo describió por primera vez en el año 1959.
 
-El algoritmo de Dijkstra funciona visitando vértices partiendo desde el punto incial. Examina repetidamente los vértices próximos que aún no han sido examinados expandiéndose desde el punto de partida hasta el punto de meta. De esta forma el algoritmo garantiza que se encuentre uno de los caminos más cortos (pueden existir varios caminos igual de cortos).
+El algoritmo de Dijkstra funciona visitando celdas partiendo desde una celda incial. Examina repetidamente las celdas vecinas que aún no han sido examinadas expandiéndose desde el punto de partida hasta el punto de meta. De esta forma el algoritmo garantiza que se encuentre uno de los caminos más cortos (pueden existir varios caminos igual de cortos).
 
 \begin{figure}[!htp]
 \centering
@@ -430,7 +430,7 @@ En la figura \ref{fig:algoritmo_dijkstra_libre} se pueden observar la implementa
 \label{fig:algoritmo_dijkstra_libre}
 \end{figure}
 
-Comparándolo con el algoritmo heurístico "Greedy Best-First-Search algorithm", cuyo funcionamiento es similiar al algoritmo de Dijkstra aunque explora primero qué vertices se encuentran en dirección al punto de meta, vemos en la figura \ref{fig:algoritmo_best-first-search_libre} que el camino encontrado es similiar y que el número de vértices analizados se reduce considerablemente.
+Comparándolo con el algoritmo heurístico "Greedy Best-First-Search algorithm", cuyo funcionamiento es similar al algoritmo de Dijkstra aunque explora primero las celdas que se encuentran en dirección al punto de meta, vemos en la figura \ref{fig:algoritmo_best-first-search_libre} que el camino encontrado es similar y que el número de nodos analizados se reduce considerablemente.
 
 \pagebreak
 
@@ -451,12 +451,12 @@ Sin embargo, estamos analizando el mejor de los casos, cuando el mapa se encuent
 \label{fig:algoritmo_dijkstra_best-first-search}
 \end{figure}
 
-El algoritmo Best-First-Search realiza un análisis de vértices menor hasta llegar al punto de meta comparado con el algoritmo de Dijkstra, lo cual se significa un menor coste computacional, sin embargo el camino obtenido no es el menor, ya que Best-First-Search prioriza aquellos vértices que se encuentran más cerca del punto de meta.
+El algoritmo Best-First-Search realiza un análisis de celdas menor hasta llegar al punto de meta comparado con el algoritmo de Dijkstra, lo cual se significa un menor coste computacional, sin embargo el camino obtenido no es el más corto, ya que Best-First-Search prioriza aquellas celdas que se encuentran más cerca del punto de meta.
 
-El algoritmo de Dijkstra garantiza que se encuentre el camino más corto entre los dos puntos a costa de realizar un análisis de vértices mayor. Como vemos, este algoritmo es más inmersivo expandiéndose por todos los vértices, sin embargo su resultado es el óptimo.
+El algoritmo de Dijkstra garantiza que se encuentre el camino más corto entre los dos puntos a costa de realizar un análisis de celdas mayor. Como vemos, este algoritmo es más inmersivo y se expande por una cantidad mayor de nodos, sin embargo su resultado es el óptimo.
 
 \subsection{Algoritmo de A estrella}
-El algoritmo A estrella (denominado comúnmente A*) es un algoritmo para la búsqueda del camino más corto entre vértices origen y objetivo dentro de un grafo con costes en cada arista. Fue presentado por primera vez en 1968 por Peter E. Hart, Nils J. Nilsson y Bertram Raphael.
+El algoritmo A estrella (denominado comúnmente A*) es un algoritmo para la búsqueda del camino más corto entre las celdas de origen y objetivo dentro de un grafo con costes en cada arista. Fue presentado por primera vez en 1968 por Peter E. Hart, Nils J. Nilsson y Bertram Raphael.
 
 \begin{figure}[!htp]
 \centering
@@ -466,7 +466,7 @@ El algoritmo A estrella (denominado comúnmente A*) es un algoritmo para la búsqu
 \end{figure}
 
 
-El algoritmo A* combina el enfoque de algoritmos como Best-First-Search y Dijsktra. Este algoritmo favorece la creación de un camino por vértices que se encuentren cerca del punto incial, así como vértices que se encuentren en dirección al punto de meta. El cálculo del camino se basa en considerar tanto el coste de llegada hasta un nodo como en la estimación de la distancia que falta para alcanzarlo. SI la estimación es menor que el coste real, el resultado es óptimo.
+El algoritmo A* combina el enfoque de algoritmos como Best-First-Search y Dijsktra. Este algoritmo favorece la creación de un camino por celdas que se encuentren cerca del punto incial así como aquellas que se encuentren en dirección al punto de meta. El cálculo del camino se basa en considerar tanto el coste de llegada hasta un nodo como en la estimación de la distancia que falta para alcanzarlo. Si la estimación es menor que el coste real, el resultado es óptimo.
 
 \begin{figure}[!htp]
 \centering
@@ -476,32 +476,36 @@ El algoritmo A* combina el enfoque de algoritmos como Best-First-Search y Dijskt
 \label{fig:algoritmo_a-estrella}
 \end{figure}
 
-En la figura \ref{fig:algoritmo_a-estrella} podemos observar el comportamiento del algoritmo en un mapa despejado y en otro con un obstáculo cóncavo. Los vértices en color amarillo muestran la transición partiendo desde el vértice incial y los de color azulado muestran la transición desde el vértice final.
+En la figura \ref{fig:algoritmo_a-estrella} podemos observar el comportamiento del algoritmo en un mapa despejado y en otro con un obstáculo cóncavo. Las celdas de color amarillo muestran la transición partiendo desde el punto incial y las de color azulado muestran la transición desde el punto final.
 
 El algoritmo A estrella ofrece por tanto unos resultados similares al algoritmo de Dijsktra en cuanto al camino calculado. Sin embargo análisis de los vértices es similar e incluso menor Best-First-Search y por tanto menor que en el de Dijsktra.
 
 
 \section{Planificador de trayectoria local}
-EL planificador de trayctoria local es el encargado de guiar al robot, según sus posibilidades de movimiento, hacia la ruta marcada por el planificador global. Este planificador de trayectoria se basa en el mapa de coste local, el cuál determina por la información de los sensores los obstáculos más próximos al robot.
+El planificador de trayectoria local es el encargado de guiar al robot, según sus posibilidades de movimiento, hacia la ruta marcada por el planificador global esquivando obstáculos de manera reactiva. Este planificador de trayectoria se basa en el mapa de coste local, el cuál determina por la información de los sensores los obstáculos más próximos al robot.
 
-La filosofía del planificador de trayectoria local es servir de control reactivo del robot además de conducirlo hacia la ruta marcada por el planificador global. Su misión es resolver las obstrucciones sobre la ruta global en el entorno local al robot para determinar la ruta real que será seguida. El modelo del entorno local se construye mediante la fusión de la información proporcionada por los sensores externos del robot móvil.
+La misión del planificador de trayectoria local es resolver las obstrucciones sobre la ruta global en el entorno local al robot para determinar la ruta real que será seguida. El modelo del entorno local se construye mediante la fusión de la información proporcionada por los sensores exteroceptivos del robot móvil.
 
 EL planificador de trayectoria local ya implementado en ROS utiliza los algoritmos \textit{Trajectory Rollout} y \textit{Dynamic Window} para realizar la navegación reactiva basada en un solo plano. Los pasos que realizan estos algoritmos son los siguientes:
 
 \begin{figure}[!htp]
 \centering
-\includegraphics[width=0.55\textwidth]{figuras/local_plan.png}
-\caption{Funcionamiento de los planificadores de trayectoria local.}
+\includegraphics[width=0.6\textwidth]{figuras/local_plan.png}
+\caption{Esquema del funcionamiento de los planificadores de trayectoria local.}
 \label{fig:local_plan}
 \end{figure}
 
 \begin{enumerate}
 \item Muestreo discreto del espacio de control del robot según sus velocidades en cada eje.
 \item Para cada velocidad, realizar una simulación desde el estado actual del robot para predecir la posición del robot durante un periodo corto de tiempo.
-\item Evaluar cada unoa de las trayectorias resultantes del paso anterior utilizando características como la proximidad a los obstáculos, proximidad a la meta, proximidad a la ruta global y la velocidad.
+\item Evaluar cada una de las trayectorias resultantes del paso anterior utilizando características como la proximidad a los obstáculos, proximidad a la meta, proximidad a la ruta global y la velocidad.
 \item Repetir los pasos anteriores hasta alcanzar el punto final de meta.
 \end{enumerate}
 
-La diferencia entre los algoritmos \textit{Trajectory Rollout} \cite{gerkey2008planning} y \textit{Dynamic Window} \cite{fox1997dynamic} es el modo en el que se realiza el muestreo del espacio de control del robot. \textit{Trajectory Rollout} muestrea todas las trayectorias alcanzables variando la velocidad en todo el periodo de simulación, mientras que \textit{Dynamic Window} realiza la evaluación de las trayectorias en cada uno de los pasos, evaluando la velocidad  comparándola con las capacidades de aceleración del robot.
+La diferencia entre los algoritmos \textit{Trajectory Rollout} \cite{gerkey2008planning} y \textit{Dynamic Window} \cite{fox1997dynamic} es el modo en el que se realiza el muestreo del espacio de control del robot.
+
+\textit{Trajectory Rollout} muestrea todas las trayectorias alcanzables variando la velocidad en todo el periodo de simulación, mientras que \textit{Dynamic Window} realiza la evaluación de las trayectorias en cada uno de los pasos, evaluando la velocidad  comparándola con las capacidades de aceleración del robot.
 
 \textit{Dynamic Window} es un algoritmo más eficiente pero que se comporta peor en robots con bajos límites de aceleración por lo que en ocasiones el algoritmo \textit{Trajectory Rollout} realiza trayectorias locales más adecuadas.
+
+Es importante que la configuración de los parámetros de velocidad y aceleración del robot sean los adecuados, de tal forma que la simulación de posibles trayectorias sea realizada de acuerdo a las capacidades específicas del robot.
