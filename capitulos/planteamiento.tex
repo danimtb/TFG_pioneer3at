@@ -3,15 +3,15 @@
 En esta capítulo se expone cuál ha sido el planteamiento incial del proyecto, un análisis de tiempos, las tecnologías y equipos utilizados y el hardaware que forma parte del proyecto en sí mismo.
 
 \section{Planteamiento preliminar}
-El robot sobre el que se ha trabajadoes el Pioneer 3 AT, de la empresa Adept Mobile Robots, cuyas características se detallarán más adelante. La configuración del sistema motriz es de tipo skid-steer y será determinante a la hora de realizar el control del desplazamiento.
+El robot sobre el que se ha trabajado es el Pioneer 3 AT, de la empresa Adept Mobile Robots, cuyas características se detallarán más adelante. La configuración del sistema motriz es de tipo skid-steer y será determinante a la hora de realizar el control del desplazamiento.
 
 Para realizar la teleoperación del robot, se han utilizado las herramientas de comunicación de ROS, que hacen que la ejecución de los diferentes nodos de forma distribuida entre equipos se realice de forma transparente para el usuario. Con esta característica es posible desarrollar con facilidad un sistema de telecontrol sin preocuparnos en exceso por la implementación de la comunicación entre equipos.
 
-Para la navegación se pretende que el robot base sus movimientos en un sistema reactivo, es decir, que el robot base su navegación principalmente en la información captada por sus sensores y no en un mapa preestablecido. El control en navegación del robot se basa en la funcionalidad ''Navigation Stack'' de ROS, que también será explicada en detalle más delante.
+Para la navegación se pretende que el robot base sus movimientos en un sistema reactivo, es decir, que el robot base su navegación principalmente en la información captada por sus sensores y no en un mapa preestablecido. El control en navegación del robot se basa en la funcionalidad ''Navigation Stack'' de ROS, que también será explicada en detalle más adelante.
 
 El desarrollo principal para la navegación utiliza la información aportada por el sensor Kinect y el sensor láser, ya que ambos proporcionan información muy valiosa debido a sus diferentes características.
 
-Seguidamente, se han realizado los ajustes pertinentes en la navegación del robot, para la cual se ha seguido el concepto de mapas de coste y descomposición en mapas de celdillas. También se ha valorado la disposición de ambos sensores para capturar el entorno, así como el tratamiento dispar de los datos capturados por cada uno de ellos. De esta forma logramos que no se produzcan detecciones de objetos de manera duplicada y que no haya discrepancias entre los obstáculos que detecta un sensor respecto al otro \footnote{De especial interés en la icorporación de obstáculos al mapa mediante el uso de Costmaps en el sistema de navegación de ROS}.
+Seguidamente, se han realizado los ajustes pertinentes en la navegación del robot, para la cual se ha seguido el concepto de mapas de coste y descomposición en mapas de celdillas. También se ha valorado la disposición de ambos sensores para capturar el entorno, así como el tratamiento dispar de los datos capturados por cada uno de ellos. De esta forma logramos que no se produzcan detecciones de objetos de manera duplicada y que no haya discrepancias entre los obstáculos que detecta un sensor respecto al otro \footnote{De especial interés en la incorporación de obstáculos al mapa mediante el uso de Costmaps en el sistema de navegación de ROS}.
 
 Finalmente, se han incorporado características adicionales que aportan valor al desarrollo del proyecto, como el uso del simulador Gazebo o la interacción con el robot mediante comandos de voz y sintetizado de voz.
 
@@ -136,7 +136,7 @@ A continuación se muestra un diagrama de Gantt (Figura \ref{fig:gantt}) con el a
 
 \section{Tecnologías y herramientas empleadas en el proyecto}
 
-En esta sección se describen las tanto las tecnologías como las herramientas utilizadas en el desarrollo del proyecto. 
+En esta sección se describen tanto las tecnologías como las herramientas utilizadas en el desarrollo del proyecto. 
 
 \subsection{Robot Operating System}
 
@@ -186,7 +186,7 @@ Dentro del desarrollo en Python para ROS (rospy \cite{rospy}), existe una interf
 Git es un software de control de versiones creado por Linus Torvalds. Git
 gestiona los archivos y directorios y los cambios hechos en ellos a lo largo del tiempo. Esto permite recuperar antiguas revisiones del proyecto o ver el historial de cambios.
 
-Git fue creado pensando en la eficiencia y la confiabilidad del mantenimiento e versiones cuando estas tienen un gran número de archivos de código fuente. Tiene la capacidad de poder trabajar varias personas con el mismo paquete siempre que no modifiquen el mismo archivo. Además en ese caso, sería posible ver las diferencias entre ambas versiones, y unirlas o crear una rama del proyecto principal si fuera necesario tener las dos versiones.
+Git fue creado pensando en la eficiencia y la confiabilidad del mantenimiento de versiones cuando estas tienen un gran número de archivos de código fuente. Tiene la capacidad de poder trabajar varias personas con el mismo paquete siempre que no modifiquen el mismo archivo. Además en ese caso, sería posible ver las diferencias entre ambas versiones, y unirlas o crear una rama del proyecto principal si fuera necesario tener las dos versiones.
 
 GitHub\footnote{\url{www.github.com}} es un sistema de almacenamiento público de código fuente (de cualquier tipo) o un servicio de repositorios. Su principal característica es la de ofrecer una plataforma de interacción social \cite{dabbish2012social}en la que distintas personas pueden trabajar conjuntamente. Esto permite que varios desarrolladores contribuyan a un proyecto y trabajen de manera coordinada.
 
