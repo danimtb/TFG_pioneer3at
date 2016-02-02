@@ -97,7 +97,7 @@ Esta configuración fue probada utilizando un ordenador portátil con suficiente c
 
 \begin{itemize}
 
-\item \textbf{Problemas con el sensor Láser: LMS1xx}\\\\
+\item \textbf{Problemática del sensor Láser: LMS1xx}\\\\
 Debido a que el sensor láser se conecta vía Ethernet al ordenador del robot, el nodo \textit{LMS1xx} debe obtener información a través de la IP del láser y enviarla a través del adaptador Wifi a la IP del nodo MASTER. El problema reside en que el nodo se saturaba al tener que lidiar con ambas interfaces de conexión y provocaba su detención.
 
 Tras varias consultas a \textit{Clearpath Robotics} a través de su repositorio de \textit{GitHub} y preguntas en el foro \textit{ROS Answers} (ver sección \ref{section:preguntas}), la solución no estaba implementada en código y lo más inmediato era hacer un \textit{bridge} en el ordenador del Pioneer 3 AT entre la interfaz Ethernet y la Wifi.
@@ -137,22 +137,14 @@ En esta nueva configuración el sensor Kinect se ha situado más retrasado, hacia 
 
 \begin{figure}[!htp]
 \centering
-\includegraphics[width=0.8\textwidth]{figuras/configuracion3.png}
+\includegraphics[width=0.65\textwidth]{figuras/configuracion3.png}
 \caption{Esquema de la nueva configuración hardware.}
 \label{fig:configuracion3}
 \end{figure}
 
 El ordenador Intel NUC se ha situado al lado izquierdo del sensor láser dejando el lado derecho para situar el cableado de los sensores y del ordenador.
 
-Finalmente, para dejar todo el sistema integrado, se han diseñado unos paneles laterales, un sistema de varillas roscadas atornilladas a la base del robot y un panel superior para esconder el cableado interno. Previamente se diseñó un modelo en 3D en el simulador \textit{Gazebo} para comprobar su correcta compatibilidad con la disposición de los sensores.
-
-\begin{figure}[!htp]
-\centering
-\includegraphics[width=0.45\textwidth]{figuras/modelo_3D_1.png}
-\includegraphics[width=0.45\textwidth]{figuras/modelo_3D_2.png}
-\caption{Modelo 3D de la segunda configuración hardware hecho en Gazebo}
-\label{fig:modelo_3D}
-\end{figure}
+Finalmente, para dejar todo el sistema integrado, se han diseñado unos paneles laterales, un sistema de varillas roscadas atornilladas a la base del robot y un panel superior para esconder el cableado interno. Previamente se diseñó un modelo en 3D en el simulador \textit{Gazebo} para comprobar su correcta compatibilidad con la disposición de los sensores (Ver figura \ref{fig:modelo_3D}).
 
 Tras comprobar que el diseño funcionaba y cumplía las características necesarias se mecanizó la parte superior del robot para anclar el sensor láser y las varillas roscadas, como se ve en la figura \ref{fig:petrois_laser1}.
 
@@ -163,28 +155,33 @@ Tras comprobar que el diseño funcionaba y cumplía las características necesarias
 \label{fig:petrois_laser1}
 \end{figure}
 
+\pagebreak
+
 Además, para evitar vibraciones, anclar el sensor Kinect a la base del robot y situarlo a la altura necesaria, se diseñaron e imprimieron en 3D unas piezas de soporte (Figura \ref{fig:kinect_final}).
 
 \begin{figure}[!htp]
 \centering
-\includegraphics[width=0.45\textwidth]{figuras/soporte_kinect.png}
+\includegraphics[width=0.35\textwidth]{figuras/soporte_kinect.png}
 \includegraphics[width=0.45\textwidth]{figuras/petrois_kinect.jpg}
 \caption{Pieza 3D para el soporte del sensor Kinect y su posición final.}
 \label{fig:kinect_final}
 \end{figure}
 
-Los paneles laterales y el panel superior se mecanizaron en metacrilato de 3 y 4 milímetros respectivamente con una fresadora y se sujetaron al robot mediante remaches, tornillos y escuadras en forma de L, algunas de las cuales fueron diseñadas también en 3D.
+Los paneles laterales y el panel superior se mecanizaron en metacrilato de 3 y 4 milímetros respectivamente con una fresadora y se sujetaron al robot mediante remaches, tornillos y escuadras, algunas de las cuales fueron diseñadas también en 3D.
 
 El panel de control del robot quedó dividido en dos partes, la destinada al ordenador de abordo y la destinada al microcontrolador del robot. Ambas partes fueron recolocadas en los laterales del robot para facilitar su acceso.
 
-\pagebreak
 
 \begin{figure}[htp]
 \centering
-\includegraphics[width=0.45\textwidth]{figuras/panel_lateral.jpg}
-\caption{Panel lateral.}
+\includegraphics[width=0.45\textwidth]{figuras/panel_izq.jpg}
+\includegraphics[width=0.45\textwidth]{figuras/panel_dcho.jpg}
+\includegraphics[width=0.45\textwidth]{figuras/petrois_laser.jpg}
+\caption{Panelado del robot.}
 \label{fig:panel_lateral}
 \end{figure}
+
+\pagebreak
 
 A continuación se muestran algunas imágenes del rediseño del robot.
 
@@ -193,19 +190,19 @@ A continuación se muestran algunas imágenes del rediseño del robot.
 \includegraphics[width=0.8\textwidth]{figuras/petrois1.jpg}
 \includegraphics[width=0.45\textwidth]{figuras/petrois2.jpg}
 \includegraphics[width=0.45\textwidth]{figuras/petrois3.jpg}
-\caption{Imágenes de la implementación final.}
+\caption{Imágenes del diseño final del robot ''Petrois''.}
 \label{fig:petrois}
 \end{figure}
 
 \subsubsection{Intel NUC}
-El ordenador compacto Intel NUC se eligió como unidad de procesamiento y ejecución del sistema ROS debido a sus altas capacidades de procesador y memoria y a su bajo consumo. Éste fue alimentado a 12 voltios de la misma forma que el sensor Kinect y se fijó al chasis del robot mediante tiras del velcro adhesivo.
+El ordenador compacto Intel NUC se eligió como unidad de procesamiento y ejecución del sistema ROS debido a sus altas capacidades de procesamiento y memoria. Además su bajo consumo y la posibilidad de alimentarlo a tensión de 12 voltios hacen que sea el ordenador ideal para este tipo de aplicación frente a otros ordenadores similares. La alimentación se realiza de la misma forma que en el caso de los sensores y su anclaje al robot se ha realizado mediante tiras del velcro adhesivo para su fácil manipulación en caso de ser extraído.
 
-A él se conectaron el vía puerto USB el sensor Kinect y el cable convertidor de control del robot, el jack de auriculares al altavoz frontal del robot y vía ethernet el sensor láser.
+Sus características son superiores a las del portátil utilizado en la configuración previa del sistema, por lo que su desempeño es mayor y maneja el sistema ROS en navegación con adecuadamente.
 
 
 \subsubsection{Configuración del sistema final}
 
-La configuración final del sistema quedó definida como se indica en la figura \ref{fig:esquema_robot_final}. El ordenador Intel NUC se configuró para que generase en su arranque una red Wifi ad-hoc propia, dentro del mismo subrango que las direcciones IP del sensor láser para evitar el malfuncionamiento del mismo tal y como se ha indicado anteriormente.
+La configuración final del sistema quedó definida como se indica en la figura \ref{fig:esquema_robot_final}. El ordenador Intel NUC se configuró para que generase en su arranque una red Wifi ad-hoc propia (que permite conectarse a ROS mediante ordenadores externos) dentro del mismo subrango que las direcciones IP del sensor láser para evitar el malfuncionamiento del mismo tal y como se ha indicado anteriormente.
 
 \begin{figure}[htp]
 \centering
@@ -218,112 +215,74 @@ El suministro de energía a todos los elementos que incorpora el robot se realiza
 \section{Navegación}
 La navegación es el propósito central de este proyecto. Como ya se ha indicado anteriormente la navegación se centra en el Navigation Stack de ROS.
 
-En el capítulo \ref{chapter:navegacion} vimos una descripción de cada una de sus partes y unos ajustes generales para nuestro robot. En este apartado veremos unos ajustes más específicos y elaborados que son los ajustes finales para la navegación del robot.
+En el capítulo \ref{chapter:navegacion} se vió una descripción de cada una de sus partes y unos ajustes generales para nuestro robot. En este apartado se describen los ajustes específicos llevados implementados en el sistema robótico final.
 
-El robot ha sido adaptado y configurado de manera óptima basándonos en las características de la navegación en dos dimensiones que ofrece ROS, como hemos visto en el apartado anterior.
+Cabe decir que el robot ha sido adaptado y configurado de manera óptima basándonos en las características de la navegación en dos dimensiones que ofrece ROS tal y como se ha mostrado en el apartado anterior.
 
 \subsection{Configuración de los costmaps y los sensores}\label{subsection:configuracion_costmaps_sensores}
-La navegación del robot se basa en la información recogida en los llamados "costmaps".
+La navegación del robot se basa en la información recogida en los llamados \textit{costmaps}.
 
-Para realizar la navegación disponemos de dos costmaps, el llamado "global\_costmap'' y el llamado "local\_costmap". El primero sirve de base al planificador de trayectoria global y el segundo lo hace para el planificador de trayectoria local.
+Para realizar la navegación disponemos de dos costmaps, el llamado \textit{global\_costmap} y el llamado \textit{local\_costmap}. El primero sirve de base al planificador de trayectoria global y el segundo lo hace para el planificador de trayectoria local.
 
 Su comportamiento y posibilidades de configuración son las mismas con la excepción de que el mapa global toma información del mapa que se cargue para realizar navegación (en caso de utilizar uno) además de la información aportada por los sensores.
 
 La misión de los mapas de coste es la tomar la información de los sensores e incorporarla a un mapa de celdillas y marcar o borrar los obstáculos pertinentes. A partir de esa información se calcula un gradiente de coste que asigna un valor a cada una de ellas.
 
-Los mapas de coste tal y como está implementados en ROS integran la información de los sensores en una misma capa, de tal forma que no existe distinción entre el tipo de información que está tomando un sensor u otro. Esto supone un problema añadido en el caso de este proyecto, ya que se pretendía utilizar la información de los dos sensores: Kinect y láser.
+Los mapas de coste tal y como está implementados en ROS integran la información de los sensores en una misma capa, de tal forma que no existe distinción entre el tipo de información que está tomando un sensor u otro. Esto supone un problema añadido en el caso de este proyecto, ya que se pretende utilizar la información de los dos sensores: Kinect y láser.
 
 \begin{itemize}
-\item \textbf{La problemática de los dos sensores}\\\\
-El problema consiste en que el sensor Kinect es capaz de tomar información de la posición de os obstáculos a diferente altura pero con un alcance más reducido. Sin embargo, el sensor láser dispone de un alcance mayor, pero no puede detectar obstáculos que queden por encima o por debajo de su haz.
+\item \textbf{Problemática de la fusión sensorial}\\\\
+El problema consiste en que el sensor Kinect es capaz de tomar información de la posición de los obstáculos a diferente altura pero con un alcance más reducido. Sin embargo, el sensor láser dispone de un alcance mayor, pero no puede detectar obstáculos que queden por encima o por debajo de su haz.
 
-Esto hacía que si se configuraban los mapas de coste con una sola capa de obstáculos, en caso de que el sensor Kinect incorporase un obstáculo al mapa que quedaba por debajo del haz láser, si ese obstáculo dejaba de ser visto por el sensor Kinect pero se encontraba dentro del rango del láser, al quedar por debajo del haz de este último no se detectaba ningún obstáculo y se borraba del mapa.
+Esto hace que, con la configuración de los mapas de coste con una sola capa de obstáculos, si el sensor Kinect incorpora un obstáculo al mapa que queda por debajo del haz láser y ese obstáculo deja de ser visto por el sensor Kinect pero permanece dentro del rango del láser, provoca que el obstáculo se borre del mapa.
 
-Esta problemática se producía tanto para el mapa de coste global como para el local.
+Esta problemática se produce tanto para el mapa de coste global como para el local.
 
-Esta problemática es bien conocida dentro del mundo de la robótica y se denomina "Fusión sensorial" **referencia** donde una de las técnicas más conocidas es la de fusión mediante Filtro de Kalman **refrencia**.
+Esta problemática es bien conocida dentro del mundo de la robótica y se denomina ''fusión sensorial'' donde una de las técnicas más conocidas es la de fusión mediante Filtro de Kalman \cite{lopez2003integracion}.
 
-La solución a esta problemática más adecuada era realizar una composición de los puntos obtenidos por el sensor Láser y el sensor Kinect. Sin embargo, el coste computacional de crear una nueva nube de puntos a partir de dos tipos de datos diferentes a una frecuencia adecuada se antojaba elevado, por lo que la opción más adecuada consistió en utilizar capas de obstáculos diferentes (\textit{costmap\_2d::VoxelLayer}) para cada uno de los sensores.
+La solución más adecuada a esta problemática es realizar una composición de los puntos obtenidos por el sensor láser y el sensor Kinect. Sin embargo, el coste computacional de crear una nueva nube de puntos a partir de dos tipos de datos diferentes a una frecuencia adecuada se antoja elevado, por lo que la opción óptima consistió en utilizar capas de obstáculos diferentes (\textit{costmap\_2d::VoxelLayer}) para cada uno de los sensores.
 
-Así, cada sensor sería capaz de incorporar o borrar obstáculos del mapa solo si eran detectados o no por ese mismo sensor y no por el otro. Si bien es cierto que de esta forma existen duplicidades de los obstáculos al tener que ser incorporados o borrados del mapa por cada sensor de manera independiente, esto nos permite salvar el caso en el que exista un obstáculo y este no se tenga en cuenta por interferencias de los sensores.
+De este modo, cada sensor es capaz de incorporar o borrar obstáculos del mapa solo si son detectados o no por ese mismo sensor y no por el otro. Si bien es cierto que de esta forma existen duplicidades de los obstáculos al tener que ser incorporados o borrados del mapa por cada sensor de manera independiente, esto nos permite salvar el caso en el que exista un obstáculo y este no se tenga en cuenta por interferencias de los sensores, que es la situación crucial a evitar.
 
-\item \textbf{La problemática de la nube de puntos}\\\\
+\item \textbf{Problemática de la nube de puntos}\\\\
 Otro de los problemas a solventar fue la manera en la que gestionar los obstáculos del sensor Kinect.
 
 El gran número de puntos disponibles incrementa mucho el cálculo de los obstáculos si se analiza toda la nube directamente, por lo que es mejor recurrir a analizarla por partes.
 
-Para hacer esta operación se probaron nodos de ros que realizaban la conversión del dato tipo PointCloud2 a tipo LaserScan definiendo parámetros como la altura, distancia...
+Para hacer esta operación se probaron nodos de ROS que realizaban la conversión del dato tipo \textit{PointCloud2} a tipo \textit{LaserScan} definiendo parámetros como la altura y distancia., con el objetivo de el procesado de puntos sea más rápido.
 
-El nodo \textbf{\textit{PointCloud\_to\_LaserScan}} **referencia** realiza este filtrado y conversión de tipo de datos a partir del análisis de la nube de puntos basándose en la librería PCL \cite{PCL}. Su funcionamiento es correcto y el coste computacional se reduce, sin embargo no se consigue la frecuencia adecuada para que los datos se actualicen a tiempo a medida que el robot navega.
+El nodo \textbf{\textit{PointCloud\_to\_LaserScan}}\footnote{\url{http://wiki.ros.org/pointcloud_to_laserscan}} realiza el filtrado y la conversión de tipo de datos a partir del análisis de la nube de puntos basándose en la librería PCL \cite{PCL}. Su funcionamiento es correcto y el coste computacional se reduce, sin embargo no se consigue la frecuencia adecuada para que los datos se actualicen a medida que el robot navega.
 
-Otro de los nodos utilizados para este propósito es \textbf{\textit{DepthImage\_to\_LaserScan}} **referencia**. En este caso su enfoque es diferente, ya que utiliza los píxeles de la imagen para analizar la nube de puntos de tal modo que solo analiza los puntos correspondientes a un determinado rango de píxeles. Este nodo es mucho más eficiente en el cálculo pero no tiene en cuenta aspectos como la inclinación del sensor o la detección del suelo como obstáculo.
+Otro de los nodos utilizados para este propósito es \textbf{\textit{DepthImage\_to\_LaserScan}}\footnote{\url{http://wiki.ros.org/depthimage_to_laserscan}}. En este caso su enfoque es diferente, ya que utilizan los píxeles de la imagen junto con la componente de profundidad de los puntos para analizar la nube, de tal modo que solo analizan los puntos correspondientes a un determinado rango de píxeles. Este nodo es mucho más eficiente en el cálculo pero no tiene en cuenta aspectos como la inclinación del sensor o la detección del suelo como obstáculo.
 
-Las pruebas realizadas utilizando este nodo fueron correctas, ya que el procesado de la nube de puntos era más rápido y permitía realizar los cáculos a una frecuencia adecuada. Sin embargo requiere más de una instancia de estos nodos para poder detectar obstáculos bajos a corta (hasta 1.5 metros) y media distancia (hasta unos 3 metros) para que no se produzcan interferencias con el suelo.
+Las pruebas realizadas utilizando ofrecieron un resultado correcto, ya que el procesado de la nube de puntos es más rápido y permite realizar los cáculos a una frecuencia adecuada. Sin embargo esta estrategia requiere más de una instancia de estos nodos para poder detectar obstáculos bajos a corta (hasta 1.5 metros) y media distancia (hasta unos 3 metros) para que no se produzcan interferencias con el suelo.
 
 De este modo, se crearon 3 instancias diferentes de este nodo: uno para obstáculos situados a una distancia mayor, un segundo para obstáculos a distancias medias, y un tercero para obstáculos a distancias cortas.
 
 \begin{code}[!htp]
 \begin{lstlisting}[style=launch]
 <launch>
-    <node pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" name="depthimage_to_laserscan_long">
+    <node pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" name="depthimage_to_laserscan_low">
         <remap from="image" to="/camera/depth/image_raw"/>
         <remap from="camera_info" to="/camera/depth/camera_info"/>
-        <remap from="scan" to="camera/scan_depth_long"/>
+        <remap from="scan" to="camera/scan_depth_low"/>
         <rosparam>
-            scan_height: 10
+            scan_height: 220
             scan_time: 0.167
+            range_min: 0.45
+            range_max: 1.4
         </rosparam>
     </node>
 </launch>
 \end{lstlisting}
-\caption{Launchfile \textit{DepthImage\_to\_LaserScan} para obstáculos lejanos.}\footnotemark
+\caption{\textit{Launchfile} del nodo \textit{DepthImage\_to\_LaserScan} para obstáculos bajos.}\footnotemark
 \end{code}
 \footnotetext{\hypersetup{urlcolor=black}
-Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/sensors/kinect_to_laser_long.launch}{\textit{pioneer\_utils/sensors/kinect\_to\_laser\_long.launch}}
-\hypersetup{urlcolor=blue}}
-
-\begin{code}[!htp]
-\begin{lstlisting}[style=launch]
-<launch>
-    <node pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" name="depthimage_to_laserscan_long">
-        <remap from="image" to="/camera/depth/image_raw"/>
-        <remap from="camera_info" to="/camera/depth/camera_info"/>
-        <remap from="scan" to="camera/scan_depth_long"/>
-        <rosparam>
-            scan_height: 10
-            scan_time: 0.167
-        </rosparam>
-    </node>
-</launch>
-\end{lstlisting}
-\caption{Launchfile \textit{DepthImage\_to\_LaserScan} para obstáculos lejanos.}\footnotemark
-\end{code}
-\footnotetext{\hypersetup{urlcolor=black}
-Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/sensors/kinect_to_laser_long.launch}{\textit{pioneer\_utils/sensors/kinect\_to\_laser\_long.launch}}
-\hypersetup{urlcolor=blue}}
-
-\begin{code}[!htp]
-\begin{lstlisting}[style=launch]
-<launch>
-    <node pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" name="depthimage_to_laserscan_long">
-        <remap from="image" to="/camera/depth/image_raw"/>
-        <remap from="camera_info" to="/camera/depth/camera_info"/>
-        <remap from="scan" to="camera/scan_depth_long"/>
-        <rosparam>
-            scan_height: 10
-            scan_time: 0.167
-        </rosparam>
-    </node>
-</launch>
-\end{lstlisting}
-\caption{Launchfile \textit{DepthImage\_to\_LaserScan} para obstáculos lejanos.}\footnotemark
-\end{code}
-\footnotetext{\hypersetup{urlcolor=black}
-Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/sensors/kinect_to_laser_long.launch}{\textit{pioneer\_utils/sensors/kinect\_to\_laser\_long.launch}}
+Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/sensors/kinect_to_laser_low.launch}{\textit{pioneer\_utils/sensors/kinect\_to\_laser\_low.launch}}
 \hypersetup{urlcolor=blue}}
 \end{itemize}
 
-Una vez solventados los problemas anteriores el ajuste de ambos costmaps se realizó mediante ensayos prueba error con el propio robot y con su modelo creado en el simulador Gazebo.
+Una vez solventados los problemas anteriores se realizaron los ajustes de ambos costmaps mediante ensayos prueba error con el propio robot y con su modelo creado en el simulador \textit{Gazebo}.
 
 La configuración de los mismos se expone a continuación.
 
@@ -363,10 +322,17 @@ global_costmap:
 Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/navigation/global_navigation/global_costmap_params.yaml}{\textit{pioneer\_utils/navigation/global\_navigation/global\_costmap\_params.yaml}}
 \hypersetup{urlcolor=blue}}
 
-De especial interés la configuración de los parámetros de la capa \textit{costmap\_2d::InflationLayer} donde se ajusta el radio de "inflado" de los obstáculos así como un valor de escala en el cálculo del coste de cada celda.
-Esto determina en gran medida el cálculo de trayectoria global, permitiendo trayectorias más suaves y alejadas de los obstáculos **referencia Imagen**.
+De especial interés la configuración de los parámetros de la capa \textit{costmap\_2d::InflationLayer} donde se ajusta el radio de ''inflado'' (\textit{inflation\_radius}) de los obstáculos así como un valor de escala en el cálculo del coste de cada celda (\textit{cost\_scaling\_factor}).
+Esto determina en gran medida el cálculo de trayectoria global, permitiendo trayectorias más suaves y alejadas de los obstáculos \ref{fig:global_costmap_inflation}.
 
-**IMAGEN GLOBAL COSTMAP**
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.42\textwidth]{figuras/global_costmap_inflation.png}
+\caption{Visualizado del costmap global.}
+\label{fig:global_costmap_inflation}
+\end{figure}
+
+\pagebreak
 
 Para el mapa local la configuración es muy similar y lo más importante es una frecuencia de actualización del mapa mayor y la ausencia de la capa estática.
 
@@ -474,7 +440,7 @@ Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_u
 \hypersetup{urlcolor=blue}}
 
 \subsubsection{Parámetros del local\_planner}
-EL planificador de trayectoria local que se ha utilizado es \textit{Trajectory Rollout} por sus buenos resultados en robot con bajas capacidades de aceleración.
+El planificador de trayectoria local que se ha utilizado es \textit{Trajectory Rollout} por sus buenos resultados en robot con bajas capacidades de aceleración.
 
 Las pruebas realizadas tanto en el simulador como en el propio robot han servido para ajustar los parámetros de velocidad y aceleración así como para mantener un compromiso entre la correcta reacción ante obstáculos locales y el ajuste a la trayectoria global.
 
@@ -519,6 +485,8 @@ Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_u
 Usualmente cuando hablamos de navegación nos referimos a una navegación basada en un mapa previo que se carga en la memoria del robot.
 
 Los mapas utilizados para la navegación han sido todos creados utilizando el paquete \textit{gmapping} de ROS, utilizando el sensor láser del robot para obtener un rango y precisión mayor (Figura \ref{fig:creacion_mapa}).
+
+\pagebreak
 
 \begin{figure}[htp]
 \centering
