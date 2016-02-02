@@ -54,19 +54,19 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {code}{\numberline {A.1}{\ignorespaces Instalaci\'on y workspace de Catkin\relax }}{117}{code.caption.162}
-\contentsline {code}{\numberline {A.2}{\ignorespaces Source al setup de nuestro entorno Catkin\relax }}{117}{code.caption.163}
-\contentsline {code}{\numberline {A.3}{\ignorespaces Clonado del repositorio \textit {pioneer3at\_ETSIDI}\relax }}{118}{code.caption.164}
-\contentsline {code}{\numberline {A.4}{\ignorespaces Inicializando la herramienta \textit {rosdep}.\relax }}{119}{code.caption.166}
-\contentsline {code}{\numberline {A.5}{\ignorespaces Instalando los paquetes de navegaci\'on mapeo.\relax }}{119}{code.caption.167}
-\contentsline {code}{\numberline {A.6}{\ignorespaces Instalando las dependencias de rosaria.\relax }}{119}{code.caption.168}
-\contentsline {code}{\numberline {A.7}{\ignorespaces Instalando las dependencias de \textit {pocketsphinx} y \textit {gstreamer}.\relax }}{119}{code.caption.169}
-\contentsline {code}{\numberline {A.8}{\ignorespaces Instalando las dependencias de \textit {audio\_capture}.\relax }}{120}{code.caption.170}
-\contentsline {code}{\numberline {A.9}{\ignorespaces Instalando las dependencias de \textit {sound\_play}.\relax }}{120}{code.caption.171}
-\contentsline {code}{\numberline {A.10}{\ignorespaces Compilando los paquetes del espacio de trabajo Catkin.\relax }}{120}{code.caption.172}
-\contentsline {code}{\numberline {A.11}{\ignorespaces Abriendo el \textit {.bashrc}.\relax }}{122}{code.caption.173}
-\contentsline {code}{\numberline {A.12}{\ignorespaces A\~nadidendo las direcciones IP al \textit {.bashrc}.\relax }}{122}{code.caption.174}
+\contentsline {code}{\numberline {A.1}{\ignorespaces Instalaci\'on y workspace de Catkin\relax }}{119}{code.caption.162}
+\contentsline {code}{\numberline {A.2}{\ignorespaces Source al setup de nuestro entorno Catkin\relax }}{119}{code.caption.163}
+\contentsline {code}{\numberline {A.3}{\ignorespaces Clonado del repositorio \textit {pioneer3at\_ETSIDI}\relax }}{120}{code.caption.164}
+\contentsline {code}{\numberline {A.4}{\ignorespaces Inicializando la herramienta \textit {rosdep}.\relax }}{121}{code.caption.166}
+\contentsline {code}{\numberline {A.5}{\ignorespaces Instalando los paquetes de navegaci\'on mapeo.\relax }}{121}{code.caption.167}
+\contentsline {code}{\numberline {A.6}{\ignorespaces Instalando las dependencias de rosaria.\relax }}{121}{code.caption.168}
+\contentsline {code}{\numberline {A.7}{\ignorespaces Instalando las dependencias de \textit {pocketsphinx} y \textit {gstreamer}.\relax }}{121}{code.caption.169}
+\contentsline {code}{\numberline {A.8}{\ignorespaces Instalando las dependencias de \textit {audio\_capture}.\relax }}{122}{code.caption.170}
+\contentsline {code}{\numberline {A.9}{\ignorespaces Instalando las dependencias de \textit {sound\_play}.\relax }}{122}{code.caption.171}
+\contentsline {code}{\numberline {A.10}{\ignorespaces Compilando los paquetes del espacio de trabajo Catkin.\relax }}{122}{code.caption.172}
+\contentsline {code}{\numberline {A.11}{\ignorespaces Abriendo el \textit {.bashrc}.\relax }}{124}{code.caption.173}
+\contentsline {code}{\numberline {A.12}{\ignorespaces A\~nadidendo las direcciones IP al \textit {.bashrc}.\relax }}{124}{code.caption.174}
 \addvspace {10\p@ }
-\contentsline {code}{\numberline {B.1}{\ignorespaces Abriendo el \textit {.bashrc}.\relax }}{127}{code.caption.180}
-\contentsline {code}{\numberline {B.2}{\ignorespaces A\~nadidendo las direcciones IP al \textit {.bashrc}.\relax }}{127}{code.caption.181}
+\contentsline {code}{\numberline {B.1}{\ignorespaces Abriendo el \textit {.bashrc}.\relax }}{129}{code.caption.180}
+\contentsline {code}{\numberline {B.2}{\ignorespaces A\~nadidendo las direcciones IP al \textit {.bashrc}.\relax }}{129}{code.caption.181}
 \addvspace {10\p@ }
