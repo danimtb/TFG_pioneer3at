@@ -166,14 +166,14 @@ Esta sección tiene como objetivo plantear la arquitectura general utilizada en e
 
 \subsection{Arquitectura del sistema}
 
-A nivel de hardware utilizado en el proyecto, como es el propio robot, los sensores el ordenador de abordo el sistema se estructura de a siguiente manera:
+A nivel de hardware utilizado en el proyecto, como es el propio robot, los sensores el ordenador de a bordo el sistema se estructura de a siguiente manera:
 
 \begin{enumerate}[i)]
 \item  Robot Pioneer 3 AT: Este es el robot mencionado anteriormente, el cual debe ser configurado para acceder al puerto serie RS-232 de su placa controladora. Esto nos permite conectarnos con el firmware ARCOS y comunicarnos a través de la librería ARIA. De esta forma se controlan los motores y se obtiene el valor de los encoders de la odometría.
 
-\item Sensores: Tanto el sensor Kinect como el sensor láser sea alimentan mediante las baterías del robot y se comunican con el ordenador de abordo a través del puerto USB y ethernet respectivamente.
+\item Sensores: Tanto el sensor Kinect como el sensor láser sea alimentan mediante las baterías del robot y se comunican con el ordenador de a bordo a través del puerto USB y ethernet respectivamente.
 
-\item Ordenador Intel NUC: Es el ordenador de abordo encargado de ejecutar ROS y realizar todo el procesamiento necesario. Está equipado con el sistema operativo Ubuntu 14.04 por ser la última versión estable disponible a fecha de la entrega del proyecto. Se conecta al microcontrolador del robot  mediante un convertidor RS-232 a USB, al sensor láser y al sensor Kinect. Además el sistema contiene unos altavoces externos que se conctan por su salida específica.
+\item Ordenador Intel NUC: Es el ordenador de a bordo encargado de ejecutar ROS y realizar todo el procesamiento necesario. Está equipado con el sistema operativo Ubuntu 14.04 por ser la última versión estable disponible a fecha de la entrega del proyecto. Se conecta al microcontrolador del robot  mediante un convertidor RS-232 a USB, al sensor láser y al sensor Kinect. Además el sistema contiene unos altavoces externos que se conctan por su salida específica.
 
 \item Ordenador externo: Como se ha mencionado anteriormente, un ordenador externo opcional equipado con ROS podrá utilizarse para realizar tareas de supervisión a través de RViz y para realizar la teleoperación del robot vía TCP/IP en ROS.
 \end{enumerate}
