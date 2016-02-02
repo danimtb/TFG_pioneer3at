@@ -2,7 +2,7 @@
 
 La robótica móvil vive actualmente un momento de gran desarrollo para multitud de aplicaciones en entornos diversos, desde espacios abiertos con orografía accidentada y condiciones climáticas adversas \cite{rescuerobots} \cite{playter2006bigdog}, entornos controlados y espacios interiores conocidos como la automatización de tareas de almacenaje de productos \cite{amazonKiva}, hasta orientación y exploración de espacios interiores desconocidos con robots usados para la creación de mapas de edificios.
 
-De la misma forma, el interés en robots que sea capaces de reproducir las capacidades de un ser humano e incluso que pueda dar asistencia ya sea en entornos conocidos o no abre un área de posibilidades en las que los robots móviles cobran importancia.
+De la misma forma, el interés en robots que sean capaces de reproducir las capacidades de un ser humano e incluso que puedan dar asistencia, ya sea en entornos conocidos o no, abre un área de posibilidades en las que los robots móviles cobran importancia.
 
 Los avances tanto el las características hardware como software son notables aunque estas suelen variar dependiendo de la aplicación a la que un robot esté destinado.
 
@@ -14,7 +14,7 @@ Prácticamente cualquier robot consta de alguna parte móvil que le permite realiz
 
 Los robots móviles son aquellos que tienen la capacidad de desplazarse utilizando algún sistema locomoción como pueden ser ruedas, patas, orugas... Estos robots se diferencian respecto a los robots fijos que permanecen anclados a una superficie, como un brazo robótico industrial. Tampoco debe confundirse con los robots destinados a desplazarse por otros medios como agua o aire, ya que estaríamos entrando en el área de la robótica acuática/submarina o robótica aérea respectivamente. Podemos decir en este proyecto que la robótica móvil se refiere a robots que se mueven en el entorno terrestre.
 
-Las aplicaciones dentro de la robótica móvil pueden ser múltiples: exploración de entornos peligrosos, exploración espacial o minera, misiones e búsqueda y rescate de personas, telepresencia, automatización de procesos, transporte autónomo, vigilancia, inspección y reconocimiento del terreno o utilizados como plataformas móviles que incorporan otros sistemas robóticos como podrían ser un brazo manipulador.
+Las aplicaciones dentro de la robótica móvil pueden ser múltiples: exploración de entornos peligrosos, exploración espacial o minera, misiones de búsqueda y rescate de personas, telepresencia, automatización de procesos, transporte autónomo, vigilancia, inspección y reconocimiento del terreno o utilizados como plataformas móviles que incorporan otros sistemas robóticos como podrían ser un brazo manipulador.
 
 \section{Hardware en robótica móvil}
 
@@ -64,7 +64,7 @@ Consta de tres ruedas. Las ruedas motrices pueden ser las dos ruedas traseras o 
 \setcounter{enum1}{\value{enumi}}
 \end{enumerate}
 
-Consta de dos ruedas colocadas en el eje perpendicular a la dirección de desplazamiento del robot. Cada rueda es controlada por un motor, de tal forma que la diferencia de velocidad de giro de una rueda respecto a otra determina el giro, avance o retroceso del robot. Los robots que presentan esta configuración suelen utilizar una tercera rueda que gira libremente que sirver como apoyo (rueda loca). Es la configuración típica de las sillas de ruedas y su característica principal es que permite realizar giros completos sobre sí mismo.
+Consta de dos ruedas colocadas en el eje perpendicular a la dirección de desplazamiento del robot. Cada rueda es controlada por un motor, de tal forma que la diferencia de velocidad de giro de una rueda respecto a otra determina el giro, avance o retroceso del robot. Los robots que presentan esta configuración suelen utilizar una tercera rueda que gira libremente que sirva como apoyo (rueda loca). Es la configuración típica de las sillas de ruedas y su característica principal es que permite realizar giros completos sobre sí mismo.
 
 \begin{figure}[htp]
 \centering
@@ -111,7 +111,7 @@ Conformado por tres o más ruedas acopladas mecánicamente y dotadas de tracción, 
 \setcounter{enum1}{\value{enumi}}
 \end{enumerate}
 
-Consta de 3 ruedas cada una con un motor independiente, que permiten el desplazamiento en cualquier direción (Figura \ref{fig:configuracion_omnidireccional}). Las ruedas omnidireccionaes constan de una serie de rodillos con el eje de rotación perpendicular a la dirección de avance.
+Consta de 3 ruedas cada una con un motor independiente, que permiten el desplazamiento en cualquier direción (Figura \ref{fig:configuracion_omnidireccional}). Las ruedas omnidireccionales constan de una serie de rodillos con el eje de rotación perpendicular a la dirección de avance.
 
 \begin{figure}[htp]
 \centering
@@ -122,7 +122,7 @@ Consta de 3 ruedas cada una con un motor independiente, que permiten el desplaza
 
 \pagebreak
 
-Esta configuración diferencial empieza a utilizarse en sistemas de 4 ruedas con las demonminadas ''Mecanum Wheels'' \cite{dickerson1991control}, que son ruedas similares a las omnidireccionales pero con los rodillos colocados en cierto ángulo (Figura \ref{fig:ruedas_mecanum}). La combinación de los giros de cada una permiten al robot moverse en cualquier dirección.
+Esta configuración diferencial empieza a utilizarse en sistemas de 4 ruedas con las denominadas ''Mecanum Wheels'' \cite{dickerson1991control}, que son ruedas similares a las omnidireccionales pero con los rodillos colocados en cierto ángulo (Figura \ref{fig:ruedas_mecanum}). La combinación de los giros de cada una permiten al robot moverse en cualquier dirección.
 
 \begin{figure}[htp]
 \centering
@@ -175,7 +175,7 @@ Los sensores externos son aquellos que nos aportan información sobre el estado d
 
 Los sensores GPS se utilizan en robots móviles que operan en el exterior y suelen combinarse con otros sensores que ofrezcan una mayor precisión.
 
-Existen otros sensores de posicionamiento absoluto como los sistemas IPS (Indoor Positioning System) que sirven para la localización en interiores y puede utilizar ondas de radio, campos magnéticos, señales acústicas... Dentro de esta categoría no existe un estándar y coexisten diferentes sitemas como el sistema Bat, basado en utrasonidos o el sistema Symeo, basado en radiofrecuencia \cite{cuenca2010} por citar algunos de ellos.
+Existen otros sensores de posicionamiento absoluto como los sistemas IPS (Indoor Positioning System) que sirven para la localización en interiores y puede utilizar ondas de radio, campos magnéticos, señales acústicas... Dentro de esta categoría no existe un estándar y coexisten diferentes sistemas como el sistema Bat, basado en ultrasonidos o el sistema Symeo, basado en radiofrecuencia \cite{cuenca2010} por citar algunos de ellos.
 
 \item \textbf{Sensores de distancia}: Son aquellos que nos dan una referencia de la longitud que existe a los objetos cercanos. Es el caso de los sensores de ultrasonidos, donde un emisor emite una onda ultrasónica y cuando es reflejada por un objeto se puede determinar la distancia a la que se encuentra midiendo el tiempo que tarda el sonido en ir y volver. Los sensores de distancia también pueden ser infrarrojos, funcionando de manera análoga. En robótica móvil es común colocar varios sensores de este tipo alrededor del robot.
 
@@ -285,6 +285,8 @@ En el apartado de la robótica social, podemos hablar de robots móviles con rueda
 Existen otro tipo de robots con altas capacidades que realizan la función de un robot móvil, como el robot de investigación PR2 (Figura \ref{fig:pr2_robot}), dotado con un sistema de desplazamiento omnidireccional.
  
 Este robot, desarrollado por los investigadores de \textit{Willow Garage}, fue creado para proporcionar una plataforma común junto con ROS (Robot Operating System), sobre la que realizar investigaciones que ayuden al desarrollo software de aplicaciones robóticas.
+
+\pagebreak
 
 \begin{figure}[htp]
 \centering
