@@ -69,7 +69,7 @@ La primera configuración del robot consistió en ambos sensores situados en la pa
 
 \begin{figure}[!htp]
 \centering
-\includegraphics[width=\textwidth]{figuras/primera_configuracion1.jpg}
+\includegraphics[width=0.65\textwidth]{figuras/primera_configuracion1.jpg}
 \caption{Primera configuración hardware del robot: Kinect y láser en la parte frontal.}
 \label{fig:primera_configuracion}
 \end{figure}
@@ -82,7 +82,7 @@ El ordenador interno corría todos los nodos de ROS, de modo que se disponía de l
 Sin embargo, la primera implementación con los primeros ajustes de los sensores no fue posible debido a la sobrecarga de la CPU del ordenador interno del robot Pioneer y a problemas de memoria en la ejecución de nodos como \textit{amcl}.
 
 \subsubsection{Segunda configuración del sistema}
-La siguiente opción ha consistido en utilizar un ordenador externo para realizar los cálculos de navegación y enviar al robot las consignas de movimiento a través de una red inalámbrica (Figura \ref{fig:segunda_configuracion_sistema}). Esta idea no era la solución más ideal, ya que desde el principio la idea era que el robot fuese lo más autónomo posible sin depender de una infraestructura, sin embargo esta configuración no suponía mucho esfuerzo debido a que los nodos pueden ejecutarse de manera distribuida.
+La siguiente opción ha consistido en utilizar un ordenador externo para realizar los cálculos de navegación y enviar al robot las consignas de movimiento a través de una red inalámbrica (Figura \ref{fig:segunda_configuracion_sistema}). Esta idea no era la solución más idónea, ya que desde el principio se trató de que el robot fuese lo más autónomo posible sin depender de una infraestructura, sin embargo esta configuración no suponía mucho esfuerzo debido a que los nodos pueden ejecutarse de manera distribuida.
 
 \pagebreak
 
@@ -104,7 +104,7 @@ Tras varias consultas a \textit{Clearpath Robotics} a través de su repositorio d
 
 Los resultados de esta solución no fueron satisfactorios ya que el comportamiento era el mismo: el nodo \textit{LMS1xx} se saturaba e interrumpía a los pocos minutos de su ejecución.
 
-Tratando de resolver este problema, se hicieron pruebas generando una red Wifi Ad-hoc desde el ordenador del robot, a la cual se conectaba el ordenador externo. Con esta configuración resultados son satisfactorios siempre y cuando las IPs del nodo MASTER y del sensor Láser se encuentren en el mismo subrango.
+Tratando de resolver este problema, se hicieron pruebas generando una red Wifi Ad-hoc desde el ordenador del robot, a la cual se conectaba el ordenador externo. Con esta configuración los resultados son satisfactorios siempre y cuando las IPs del nodo MASTER y del sensor Láser se encuentren en el mismo subrango.
 
 Esta solución es la implementada en el sistema final.
 \end{itemize}
@@ -195,10 +195,9 @@ A continuación se muestran algunas imágenes del rediseño del robot.
 \end{figure}
 
 \subsubsection{Intel NUC}
-El ordenador compacto Intel NUC se eligió como unidad de procesamiento y ejecución del sistema ROS debido a sus altas capacidades de procesamiento y memoria. Además su bajo consumo y la posibilidad de alimentarlo a tensión de 12 voltios hacen que sea el ordenador ideal para este tipo de aplicación frente a otros ordenadores similares. La alimentación se realiza de la misma forma que en el caso de los sensores y su anclaje al robot se ha realizado mediante tiras del velcro adhesivo para su fácil manipulación en caso de ser extraído.
+El ordenador compacto Intel NUC se eligió como unidad de procesamiento y ejecución del sistema ROS debido a sus altas capacidades de procesamiento y memoria. Además su bajo consumo y la posibilidad de alimentarlo a tensión de 12 voltios hacen que sea el ordenador ideal para este tipo de aplicación frente a otros ordenadores similares. La alimentación se realiza de la misma forma que en el caso de los sensores y su anclaje al robot se ha realizado mediante tiras de velcro adhesivo para su fácil manipulación en caso de ser extraído.
 
-Sus características son superiores a las del portátil utilizado en la configuración previa del sistema, por lo que su desempeño es mayor y maneja el sistema ROS en navegación con adecuadamente.
-
+Sus características son superiores a las del portátil utilizado en la configuración previa del sistema, por lo que su desempeño es mayor y maneja el sistema ROS en navegación adecuadamente.
 
 \subsubsection{Configuración del sistema final}
 
