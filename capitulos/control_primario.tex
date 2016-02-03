@@ -15,9 +15,9 @@ Los paquetes disponibles en ROS para el control de los robots de la familia Pion
 \begin{itemize}
 \item \textbf{p2os} \cite{p2os} es un paquete que agrupa un conjunto de utilidades y nodos desarrollados para controlar el robot. Su característica principal es que accede de manera nativa a la placa controladora del robot por lo que no depende de la librería Aria. Además incorpora funcionalidades adicionales como modelos 3D de robot, simulación con Gazebo o la configuración de la navegación.
 
-Sin embargo, \textit{p2os} no integra todas las funcionalidades a las que tiene acceso Aria como es la reconfiguración de los parámetros de la odometría.
+Sin embargo, \textit{p2os} no integra todas las funcionalidades a las que tiene acceso Aria, como es la reconfiguración de los parámetros de la odometría.
 
-\item \textbf{rosaria} \cite{rosaria} es un nodo de interfaz entre ROS y Aria, por tanto incluye todas prácticamente todas las funcionalidades de esta. Podemos acceder a la calibración de los encoders de la odometría así como conectar con el simulador \textit{MobileSim} (ver sección \ref{MobileSim}).
+\item \textbf{rosaria} \cite{rosaria} es un nodo de interfaz entre ROS y Aria, por tanto incluye prácticamente todas las funcionalidades de esta. Podemos acceder a la calibración de los encoders de la odometría así como conectar con el simulador \textit{MobileSim} (ver sección \ref{MobileSim}).
 
 \end{itemize}
 
@@ -39,11 +39,9 @@ A continuación se muestra el \textit{launchfile} para ejecutar el nodo \textit{R
   </node>
 </launch>
 \end{lstlisting}
-\hypersetup{urlcolor=black}
-Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/sensors/rosaria.launch}{\textit{ pioneer\_utils/sensors/rosaria.launch}}
-\hypersetup{urlcolor=blue}
-\caption{Launchfile para RosAria.}
+\caption[Launchfile para \textit{RosAria}]{Launchfile para \textit{RosAria}\footnotemark.}
 \end{code}
+\footnotetext{Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/sensors/rosaria.launch}{\textit{ pioneer\_utils/sensors/rosaria.launch}}}
 
 Como puede verse, los valores de la odometría son configurables (más información la subsección \ref{subsection:odometria} del apéndice).
 
