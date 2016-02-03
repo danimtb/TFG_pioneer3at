@@ -95,11 +95,9 @@ Al ser un paquete de terceros, debe clonarse desde su repositorio de código fuen
 \begin{lstlisting}[style=consola]
 roslaunch freenect_launch freenect.launch
 \end{lstlisting}
-\hypersetup{urlcolor=black}
-Fuente: \href{https://github.com/ros-drivers/freenect_stack/blob/master/freenect_launch/launch/freenect.launch}{\textit{freenect\_stack/freenect\_launch/launch/freenect.launch}}
-\hypersetup{urlcolor=blue}
-\caption{Launchfile para Kinect en el paquete freenect\_launch.}
+\caption[Launchfile para Kinect en el paquete \textit{freenect\_launch}]{Launchfile para Kinect en el paquete \textit{freenect\_launch}\footnotemark.}
 \end{code}
+\footnotetext{Fuente: \href{https://github.com/ros-drivers/freenect_stack/blob/master/freenect_launch/launch/freenect.launch}{\textit{freenect\_stack/freenect\_launch/launch/freenect.launch}}}
 
 En la tabla \ref{tabla_freenect} se muestra parte utilizada de su API.
 
@@ -120,7 +118,7 @@ camera\_rgb\_frame & & Referencia cámara RGB\\
 camera\_depth\_frame & & Referencia cámara IR\\
 \end{tabular}
 }
-\caption{API de freenect\_stack utilizada.}
+\caption{API de \textit{freenect\_stack} utilizada.}
 \label{tabla_freenect}
 \end{table}
 
@@ -145,11 +143,9 @@ Seguidamente basta con indicar en el archivo \textit{launchfile} la IP del senso
   </node>
 </launch>
 \end{lstlisting}
-\hypersetup{urlcolor=black}
-Fuente: \href{https://github.com/clearpathrobotics/LMS1xx/blob/master/launch/LMS1xx.launch}{\textit{LMS1xx/launch/LMS1xx.launch}}
-\hypersetup{urlcolor=blue}
-\caption{Launchfile para el sensor Láser Sick LMS100.}
+\caption[Launchfile para el sensor Láser Sick LMS100]{Launchfile para el sensor Láser Sick LMS100\footnotemark.}
 \end{code}
+\footnotetext{Fuente: \href{https://github.com/clearpathrobotics/LMS1xx/blob/master/launch/LMS1xx.launch}{\textit{LMS1xx/launch/LMS1xx.launch}}}
 
 Pueden precisarse algunos ajustes previos para ajustar la dirección IP del sensor y algunos de sus parámetros. Esto puede hacerse mediante la herramienta "SOPAS Engineering tool" ofrecida el fabricante. Estos ajustes pueden encontrarse en el apéndice de este trabajo (Sección \ref{subsection:sicklms100_apendice}).
 
@@ -171,7 +167,7 @@ host & string & Dirección IP del láser\\
 laser & & Centro del haz láser\\
 \end{tabular}
 }
-\caption{API de LMS1xx utilizada.}
+\caption{API del nodo \textit{LMS1xx}.}
 \label{tabla_lms1xx}
 \end{table}
 
@@ -182,11 +178,13 @@ Una vez se dispuso de todos los paquetes necesarios para poner en funcionamiento
 
 A partir de un nuevo archivo \textit{launchfile} (Código \ref{code:pioneer3at-rosaria}) se enlanzan cada nodo con las configuraciones del hardware y se definen las transformadas estáticas entre cada uno de los \textit{frames}.
 
+\pagebreak
+
 \begin{code}[htp]
 \begin{lstlisting}[style=launch]
 <launch>
 
-<!-- Launching p2os RobotModel --> OJO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+<!-- Launching p2os RobotModel -->
   <include file="$(find p2os_urdf)/launch/pioneer3at_urdf.launch"/>
 
 <!-- Launching LMS1xx_node for laser Sick LMS100 via ethernet -->
@@ -209,12 +207,10 @@ A partir de un nuevo archivo \textit{launchfile} (Código \ref{code:pioneer3at-ro
 
 </launch>
 \end{lstlisting}
-\hypersetup{urlcolor=black}
-Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/sensors/pioneer3at-rosaria.launch}{\textit{pioneer\_utils/sensors/pioneer3at-rosaria.launch}}
-\hypersetup{urlcolor=blue}
-\caption{Launchfile creado para robot Pioneer 3 AT.}
+\caption[Launchfile creado para robot Pioneer 3 AT]{Launchfile creado para robot Pioneer 3 AT\footnotemark.}
 \label{code:pioneer3at-rosaria}
 \end{code}
+\footnotetext{Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/sensors/pioneer3at-rosaria.launch}{\textit{pioneer\_utils/sensors/pioneer3at-rosaria.launch}}}
 
 Como resultado, se obtiene una relación entre cada sistema de referencia (\textit{frame}), lo cual permite realizar transformaciones de los datos entre cada uno de ellos. Esto también sirve para que el robot "sea consciente" de su configuración (Figura \ref{fig:frames-odom_base}).
 
