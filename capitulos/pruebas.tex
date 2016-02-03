@@ -74,7 +74,7 @@ En estas pruebas se consideraron las siguientes variables:
 \item Nº de choques: Número de obstáculos con los que el robot ha chocado (si los hubiera).
 \end{itemize}
 
-Las pruebas de resistencia se realizaron en el modo de navegación con mapa, el entorno virtual fue el mundo "Willow Garage" y se utilizaron un total de 9 puntos de meta como objetivo, distribuidos de manera aleatoria (dentro de habitaciones, pasillos, salas grandes...) a distancias largas. Cabe señalar que no existe ningún tipo de obstáculo móvil implicado en estas pruebas.
+Las pruebas de resistencia se realizaron en el modo de navegación con mapa, el entorno virtual fue el mundo ''Willow Garage'' y se utilizaron un total de 9 puntos de meta como objetivo, distribuidos de manera aleatoria (dentro de habitaciones, pasillos, salas grandes...) a distancias largas. Cabe señalar que no existe ningún tipo de obstáculo móvil implicado en estas pruebas.
 
 \textbf{Primera prueba}\\
 Prueba inicial sin obstáculos adicionales en el entorno.
@@ -122,7 +122,7 @@ Nº de choques & 0 \\
 \caption{Segunda prueba de resistencia simulada.}
 \label{tabla:segunda_prueba_simulada}
 \end{table}
-La prueba finalizó debido a que el robot quedó inmobilizado por encontrarse demasiado cerca de una pared frontal y otra lateral. El incremento de tiempo a pesar de no haber recorrido muchos más metros respecto de la prueba anterior se debe a las esperas por reintento en alcanzar las metas fallidas.
+La prueba finalizó debido a que el robot quedó inmovilizado por encontrarse demasiado cerca de una pared frontal y otra lateral. El incremento de tiempo a pesar de no haber recorrido muchos más metros respecto de la prueba anterior se debe a las esperas por reintento en alcanzar las metas fallidas.
 
 A pesar de todo el robot no colisiona con ningún obstáculo.
 
@@ -215,9 +215,10 @@ Nº de choques & 0 \\
 \hline
 \end{tabular}
 }
-\caption{Primera prueba de resistencia real\protect\footnotemark.}
+\caption{Primera prueba de resistencia real.}
 \label{tabla:primera_prueba_real}
 \end{table}
+\footnotemark
 \footnotetext{La distancia total recorrida no pudo contabilizarse debido a un error en la configuración del nodo.}
 
 Los resultados de la primera prueba no reflejan una navegación buena del robot, sin embargo esto es debido a la existencia de obstáculos prominentes no incluidos en el mapa del laboratorio que generaban distorsión en AMCL provocando que el robot quedase mal situado en el mapa. Estos obstáculos generaban a su vez un pasillo estrecho a través del cuál el planificador en ocasiones no era capaz de trazar una trayectoria correcta hasta la meta.
@@ -286,7 +287,7 @@ Nº de choques & 2 \\
 \label{tabla:tercera_prueba_real}
 \end{table}
 
-Sobre estos resultados cabe decir que el número de metas alcanzadas se ve reducido debido a que en ocasiones el planificador global precisaba de algún reintento para trazar la taryectoria al el punto de meta y a que el robot a veces encontraba dificultades para conducir su trayectoria a través de pasos estrechos.
+Sobre estos resultados cabe decir que el número de metas alcanzadas se ve reducido debido a que en ocasiones el planificador global precisaba de algún reintento para trazar la trayectoria al punto de meta y a que el robot a veces encontraba dificultades para planificar a través de pasos estrechos.
 
 La duración de la batería en navegación continua durante esta prueba superó las dos horas y media. Al finalizar la prueba el voltaje de las baterías alcanzó un valor 10.5 voltios.
 
@@ -294,7 +295,7 @@ En cuanto al número de choques, estos fueron un roce a un obstáculo bajo al trat
 
 Destaca el alto valor de la distancia recorrida, que alcanza los 4 kilómetros sin la intervención humana, sin que se ponga en riesgo la integridad de ninguna persona involucrada en la prueba ni la del propio robot.
 
-\subsection{Ascpectos de la navegación}
+\subsection{Aspectos de la navegación}
 
 Tras las pruebas realizadas, analizando los resultados y observando el comportamiento general de todo el sistema robótico podemos decir que existen algunas limitaciones en la navegación y aspectos que no se tienen en cuenta por las características del robot.
 
