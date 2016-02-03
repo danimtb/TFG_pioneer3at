@@ -273,11 +273,9 @@ De este modo, se crearon 3 instancias diferentes de este nodo: uno para obstácul
     </node>
 </launch>
 \end{lstlisting}
-\caption{\textit{Launchfile} del nodo \textit{DepthImage\_to\_LaserScan} para obstáculos bajos.}\footnotemark
+\caption[\textit{Launchfile} del nodo \textit{DepthImage\_to\_LaserScan} para obstáculos bajos.]{\textit{Launchfile} del nodo \textit{DepthImage\_to\_LaserScan} para obstáculos bajos\footnotemark.}
 \end{code}
-\footnotetext{\hypersetup{urlcolor=black}
-Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/sensors/kinect_to_laser_low.launch}{\textit{pioneer\_utils/sensors/kinect\_to\_laser\_low.launch}}
-\hypersetup{urlcolor=blue}}
+\footnotetext{Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/sensors/kinect_to_laser_low.launch}{\textit{pioneer\_utils/sensors/kinect\_to\_laser\_low.launch}}}
 \end{itemize}
 
 Una vez solventados los problemas anteriores se realizaron los ajustes de ambos costmaps mediante ensayos prueba error con el propio robot y con su modelo creado en el simulador \textit{Gazebo}.
@@ -314,18 +312,16 @@ global_costmap:
     inflation_radius: 0.55
     cost_scaling_factor: 4.0
 \end{lstlisting}
-\caption{Configuración del \textit{global\_costmap}.}\footnotemark
+\caption[Configuración del \textit{global\_costmap}]{Configuración del \textit{global\_costmap}\footnotemark.}
 \end{code}
-\footnotetext{\hypersetup{urlcolor=black}
-Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/navigation/global_navigation/global_costmap_params.yaml}{\textit{pioneer\_utils/navigation/global\_navigation/global\_costmap\_params.yaml}}
-\hypersetup{urlcolor=blue}}
+\footnotetext{Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/navigation/global_navigation/global_costmap_params.yaml}{\textit{pioneer\_utils/navigation/global\_navigation/global\_costmap\_params.yaml}}}
 
 De especial interés la configuración de los parámetros de la capa \textit{costmap\_2d::InflationLayer} donde se ajusta el radio de ''inflado'' (\textit{inflation\_radius}) de los obstáculos así como un valor de escala en el cálculo del coste de cada celda (\textit{cost\_scaling\_factor}).
 Esto determina en gran medida el cálculo de trayectoria global, permitiendo trayectorias más suaves y alejadas de los obstáculos \ref{fig:global_costmap_inflation}.
 
 \begin{figure}[htp]
 \centering
-\includegraphics[width=0.42\textwidth]{figuras/global_costmap_inflation.png}
+\includegraphics[width=0.4\textwidth]{figuras/global_costmap_inflation.png}
 \caption{Visualizado del costmap global.}
 \label{fig:global_costmap_inflation}
 \end{figure}
@@ -368,11 +364,10 @@ local_costmap:
     inflation_radius: 0.55
     cost_scaling_factor: 4.0
 \end{lstlisting}
-\caption{Configuración del \textit{local\_costmap}.}\footnotemark
+\caption[{Configuración del \textit{local\_costmap}.}]{Configuración del \textit{local\_costmap}\footnotemark.}
 \end{code}
-\footnotetext{\hypersetup{urlcolor=black}
-Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/navigation/common/local_costmap_params.yaml}{\textit{pioneer\_utils/navigation/common/local\_costmap\_params.yaml}}
-\hypersetup{urlcolor=blue}}
+\footnotetext{
+Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/navigation/common/local_costmap_params.yaml}{\textit{pioneer\_utils/navigation/common/local\_costmap\_params.yaml}}}
 
 \subsection{Configuración de los planificadores de trayectoria}
 Los planificadores de trayectoria por defecto en ROS utilizan algoritmos como Dijsktra o A* además de algunos ajustes para el cálculo y parámetros especiales en el caso del planificador de trayectoria local.
@@ -388,22 +383,21 @@ A continuación podemos ver el comportamiento del planificador con diferente conf
 \item \textbf{Algoritmo A*}:
 \\El planificador de trayectoria A* ofrece los siguientes resultados.
 
-\begin{figure}[htp]
+\begin{figure}[!htp]
 \centering
-\includegraphics[width=0.7\textwidth]{figuras/rviz-astar.png}
+\includegraphics[width=0.65\textwidth]{figuras/rviz-astar.png}
 \caption{Planificador de trayectoria A* visualizado en RViz.}
 \label{fig:rviz-astar}
 \end{figure}
 
 El espacio analizado es menor que en el caso de Dijkstra, sin embargo el camino final no es el adecuado, ya que es sinuoso y se acerca demasiado a obstáculos y paredes. Eso a simple vista parece un mal funcionamiento del algoritmo, ya que el comportamiento es exagerado.
 
-
 \item \textbf{Algoritmo de Dijkstra}:
 \\La configuración por defecto del planeador realiza el cálculo de trayectoria mediante el algoritmo de Dijsktra.
 
-\begin{figure}[htp]
+\begin{figure}[!htp]
 \centering
-\includegraphics[width=0.7\textwidth]{figuras/rviz-dijkstra.png}
+\includegraphics[width=0.65\textwidth]{figuras/rviz-dijkstra.png}
 \caption{Planificador de trayectoria Dijkstra visualizado en RViz.}
 \label{fig:rviz-dijkstra}
 \end{figure}
@@ -431,11 +425,9 @@ GlobalPlanner:
   publish_scale: 100
   planner_costmap_publish_frequency: 0.0
 \end{lstlisting}
-\caption{Configuración del \textit{global\_planner}.}\footnotemark
+\caption[Configuración del \textit{global\_planner}]{Configuración del \textit{global\_planner}\footnotemark.}
 \end{code}
-\footnotetext{\hypersetup{urlcolor=black}
-Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/navigation/common/global_planner_params.yaml}{\textit{pioneer\_utils/navigation/common/global\_planner\_params.yaml}}
-\hypersetup{urlcolor=blue}}
+\footnotetext{Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/navigation/common/global_planner_params.yaml}{\textit{pioneer\_utils/navigation/common/global\_planner\_params.yaml}}}
 
 \subsubsection{Parámetros del local\_planner}
 El planificador de trayectoria local que se ha utilizado es \textit{Trajectory Rollout} por sus buenos resultados en robot con bajas capacidades de aceleración.
@@ -473,18 +465,14 @@ TrajectoryPlannerROS:
   pdist_scale: 0.9
   gdist_scale: 0.6
 \end{lstlisting}
-\caption{Configuración de \textit{base\_local\_planner}.}\footnotemark
+\caption[Configuración de \textit{base\_local\_planner}]{Configuración de \textit{base\_local\_planner}\footnotemark.}
 \end{code}
-\footnotetext{\hypersetup{urlcolor=black}
-Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/navigation/common/base_local_planner_params.yaml}{\textit{pioneer\_utils/navigation/common/base\_local\_planner\_params.yaml}}
-\hypersetup{urlcolor=blue}}
+\footnotetext{Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/navigation/common/base_local_planner_params.yaml}{\textit{pioneer\_utils/navigation/common/base\_local\_planner\_params.yaml}}}
 
 \subsection{Navegación con mapa}
 Usualmente cuando hablamos de navegación nos referimos a una navegación basada en un mapa previo que se carga en la memoria del robot.
 
 Los mapas utilizados para la navegación han sido todos creados utilizando el paquete \textit{gmapping} de ROS, utilizando el sensor láser del robot para obtener un rango y precisión mayor (Figura \ref{fig:creacion_mapa}).
-
-\pagebreak
 
 \begin{figure}[htp]
 \centering
@@ -496,6 +484,8 @@ Los mapas utilizados para la navegación han sido todos creados utilizando el paq
 Para realizar una navegación con mapa se utiliza un mapa del tipo anterior cargado en memoria acompañado del ya mencionado \textit{global\_costmap} de manera estática.
 
 Esta es la configuración que se ha venido utilizando de manera general y el uso de todos sus elementos queda reflejado en el \textit{launchfile} de navegación global.
+
+\pagebreak
 
 \begin{code}[!htp]
 \begin{lstlisting}[style=launch]
