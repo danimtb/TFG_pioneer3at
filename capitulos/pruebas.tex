@@ -20,12 +20,12 @@ Para esta prueba se utilizó el nodo de mapeado y el de teleoperación y se guió a
 \label{fig:slam_gazebo}
 \end{figure}
 
-Indicar que este fue el mapa base utilizado para la navegación de sucesivas pruebas con Gazebo en las cuales el nodo AMCL situó correctamente al robot en el entorno virtual, por lo que validación del mapa generado es correcta.
+Indicar que este fue el mapa base utilizado para la navegación de sucesivas pruebas con Gazebo en las cuales el nodo AMCL situó correctamente al robot en el entorno virtual, por lo que la validación del mapa generado es correcta.
 
 \subsection{Navegación con mapa}
 Las navegaciones con mapa en el simulador fueron determinantes para realizar una configuración más elaborada de ambos costmaps debido a los problemas con el borrado de los obstáculos (ver Subsección \ref{subsection:configuracion_costmaps_sensores}).
 
-En un principio se valoró la posibilidad de utilizar el sensor Kinect tan solo para obstáculos locales y el sensor láser para obstáculos globales, sin embargo esta idea se descartó ya que el robot trataba de seguir una trayectoria global incorrecta que no contemplaba los obstáculos bajos (Figura \label{fig:discrepancia_costmaps_gazebo}), con las complicaciones de control que eso supone para el planificador de trayectoria local.
+En un principio se valoró la posibilidad de utilizar el sensor Kinect tan solo para obstáculos locales y el sensor láser para obstáculos globales, sin embargo esta idea se descartó ya que el robot trataba de seguir una trayectoria global incorrecta que no contemplaba los obstáculos bajos (Figura \ref{fig:discrepancia_costmaps_gazebo}), con las complicaciones de control que eso supone para el planificador de trayectoria local.
 
 \begin{figure}[!htp]
 \centering
