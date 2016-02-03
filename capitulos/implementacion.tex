@@ -1,9 +1,9 @@
 \chapter{Implementación del sistema}\label{chapter:implementacion}
 
-Este capítulo describe los cambios, ajustes y modificaciones que, basados en la información anterior expuesta, las características de ROS y el hardware del que disponemos, se han realizado para alcanzar los objetivos del proyecto.
+Este capítulo describe los cambios, ajustes y modificaciones que se han realizado para alcanzar los objetivos del proyecto, basándose en la información anterior expuesta, en las características de ROS y en el hardware.
 
 \section{Configuraciones hardware}
-Como ya se ha descrito, la navegación se basa en el sensor Kinect y en el sensor láser Sick. Estos sensores han sido incorporados al robot de manera que disponen de alimentación desde las baterías del mismo y su interfaz de conexión es conexión la correspondiente en cada caso.
+Como ya se ha descrito, la navegación se basa en el sensor Kinect y en el sensor láser Sick. Estos sensores han sido incorporados al robot de manera que disponen de alimentación desde las baterías del mismo y su interfaz de conexión es la correspondiente en cada caso.
 
 En esta sección se describen las implementaciones que se han llevado a cabo en el hardware utilizado en este proyecto.
 
@@ -65,11 +65,11 @@ Para anclar el sensor Kinect al robot se optó por situarlo en la parte superior 
 El sensor Kinect se conecta a la interfaz ROS mediante el paquete freenect\_stack tal y como se describió en el apartado \ref{subsection:kinect}.
 
 \subsection{Primera configuración hardware}
-La primera configuración del robot consistió en ambos sensores situados en la parte frontal del mismo (Figura )\ref{fig:primera_configuracion}). Los sensores se encontraban colocados de manera vertical otro, de tal forma que no existieran interferencias en su rango de detección.
+La primera configuración del robot consistió en ambos sensores situados en la parte frontal del mismo (Figura )\ref{fig:primera_configuracion}). Los sensores se encontraban colocados de manera vertical al otro, de tal forma que no existieran interferencias en su rango de detección.
 
 \begin{figure}[!htp]
 \centering
-\includegraphics[width=\textwidth]{figuras/primera_configuracion.jpg}
+\includegraphics[width=\textwidth]{figuras/primera_configuracion1.jpg}
 \caption{Primera configuración hardware del robot: Kinect y láser en la parte frontal.}
 \label{fig:primera_configuracion}
 \end{figure}
