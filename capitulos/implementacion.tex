@@ -554,16 +554,16 @@ global_costmap:
     inflation_radius: 0.55
     cost_scaling_factor: 4.0
 \end{lstlisting}
-\caption{Configuración de \textit{global\_costmap} para navegación reactiva.}\footnotemark
+\caption[Configuración de \textit{global\_costmap} para navegación reactiva]{Configuración de \textit{global\_costmap} para navegación reactiva\footnotemark.}
 \end{code}
-\footnotetext{\hypersetup{urlcolor=black}
-Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/navigation/local_navigation/global_costmap_params.yaml}{\textit{pioneer\_utils/navigation/local\_navigation/global\_costmap\_params.yaml}}
-\hypersetup{urlcolor=blue}}
+\footnotetext{Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/navigation/local_navigation/global_costmap_params.yaml}{\textit{pioneer\_utils/navigation/local\_navigation/global\_costmap\_params.yaml}}}
 
 \section{Nodo de navegación por puntos}
 El nodo de navegación por puntos ofrece a posibilidad de enviar diferentes puntos de meta al robot tanto en el modo global como en el modo local. esto quiere decir, que ofrece unas funciones capaces de manda al robot a un punto deseado del mapa o hacer que este avance cierta distancia determinada.
 
 El nodo de navegación por puntos \textit{nav-waypoints} está desarrollado en C++ y ofrece un ejemplo de las posibilidades de uso de la navegación del robot. Este nodo se subscribe al estado del nodo de navegación del robot y publica puntos de meta en el \textit{frame} apropiado dependiendo de si es una meta global o local.
+
+\pagebreak
 
 \begin{code}[!htp]
 \begin{lstlisting}[style=C++]
