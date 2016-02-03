@@ -511,14 +511,14 @@ Esta es la configuración que se ha venido utilizando de manera general y el uso 
     </node>
 </launch>
 \end{lstlisting}
-\caption{Configuración de navegación global.}\footnotemark
+\caption[Configuración de navegación global]{Configuración de navegación global\footnotemark.}
 \end{code}
-\footnotetext{\hypersetup{urlcolor=black}
-Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/navigation/global_navigation/global_navigation_p3at.launch}{\textit{pioneer\_utils/navigation/global\_navigation/global\_navigation\_p3at.launch}}
-\hypersetup{urlcolor=blue}}
+\footnotetext{Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/navigation/global_navigation/global_navigation_p3at.launch}{\textit{pioneer\_utils/navigation/global\_navigation/global\_navigation\_p3at.launch}}}
 
 \subsection{Navegación reactiva}
 La navegación reactiva es la que se conoce por carecer de un mapa previo cargado en la memoria del robot. En su caso el robot percibe el entorno a medida que navega construyendo un mapa global de manera dinámica al igual que sucede con la configuración del mapa local. En este caso la configuración del mapa global carece de capa estática, por lo que el mapa se desplaza junto con el robot. Tampoco es preciso el nodo \textit{amcl} para situar al robot en el mismo por lo que la orientación y posición del robot queda determinada por su odometría.
+
+\pagebreak
 
 \begin{code}[!htp]
 \begin{lstlisting}[style=launch]
