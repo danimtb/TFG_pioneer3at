@@ -6,7 +6,7 @@
 En este apéndice se resume de manera simplificada y muy enfocada la configuración completa del sistema robótico objeto de este trabajo, tanto la parte referente al software de robot como la parte destinada a la configuración hardware de todos los equipos que incorpora.
 
 \section{Configuración del espacio de trabajo}
-En ROS el espacio de trabajo es el lugar donde se realiza el desarrollo software de los paquetes ROS. Este en torno de trabajo es capaz de gestionar la correcta compilación de los nodos.
+En ROS el espacio de trabajo es el lugar donde se realiza el desarrollo software de los paquetes ROS. Este entorno de trabajo es capaz de gestionar la correcta compilación del código de los nodos.
 
 El espacio de trabajo es el determinado por la herramienta Catkin. A partir de la versión Indigo de ROS, casi todos los paquetes se encuentran adaptados al entorno Catkin y funcionan de manera casi inmediata.
 
@@ -24,7 +24,7 @@ $ catkin_init_workspace
 \caption{Instalación y workspace de Catkin}
 \end{code}
 
-A continuación inncluimos el directorio de desarrollo para que sea reconocido por ROS a la hora de buscar dependencias:
+A continuación incluimos el directorio de desarrollo para que sea reconocido por ROS a la hora de buscar dependencias:
 
 \begin{code}[!htp]
 \begin{lstlisting}[style=consola]
@@ -116,7 +116,7 @@ $ rosdep install pocketsphinx
 
 \pagebreak
 
-Es posible que necesitemos las dependencias añadidar de \textit{audio\_capture}.
+Es posible que necesitemos las dependencias añadida de \textit{audio\_capture}.
 
 \begin{code}[!htp]
 \begin{lstlisting}[style=consola]
