@@ -207,7 +207,7 @@ A partir de un nuevo archivo \textit{launchfile} (Código \ref{code:pioneer3at-ro
 
 </launch>
 \end{lstlisting}
-\caption[Launchfile creado para robot Pioneer 3 AT]{Launchfile creado para robot Pioneer 3 AT\footnotemark.}
+\caption[Launchfile creado para el robot Pioneer 3 AT]{Launchfile creado para robot Pioneer 3 AT\footnotemark.}
 \label{code:pioneer3at-rosaria}
 \end{code}
 \footnotetext{Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/sensors/pioneer3at-rosaria.launch}{\textit{pioneer\_utils/sensors/pioneer3at-rosaria.launch}}}
@@ -233,6 +233,8 @@ El nodo MASTER en este caso se ejecutará en el ordenador Intel NUC del robot, po
 Los pasos para configurar las máquinas bajo la misma red se describen con detalle en la guía \textit{ROS Network Setup} \cite{network-ros} y consisten en indicar en el sript \textit{.bashrc}\footnote{El script \textit{.bashrc} se ejecuta cada vez que se abre una nueva terminal en el ordenador.} los parámetros ROS\_IP y ROS\_MASTER\_URI.
 
 ROS\_IP debe contener la IP de nuestra máquina en la red que esté operando y ROS\_MASTER\_URI la dirección \textit{http} correspondiente de la máquina donde se ejecute el nodo principal, especificando el puerto.
+
+\pagebreak
 
 \begin{code}[htp]
 \begin{lstlisting}[style=launch]
