@@ -69,7 +69,7 @@ La primera configuración del robot consistió en ambos sensores situados en la pa
 
 \begin{figure}[!htp]
 \centering
-\includegraphics[width=0.65\textwidth]{figuras/primera_configuracion1.jpg}
+\includegraphics[width=0.65\textwidth]{figuras/primera_configuracion.jpg}
 \caption{Primera configuración hardware del robot: Kinect y láser en la parte frontal.}
 \label{fig:primera_configuracion}
 \end{figure}
@@ -254,7 +254,7 @@ El nodo \textbf{\textit{PointCloud\_to\_LaserScan}}\footnote{\url{http://wiki.ro
 
 Otro de los nodos utilizados para este propósito es \textbf{\textit{DepthImage\_to\_LaserScan}}\footnote{\url{http://wiki.ros.org/depthimage_to_laserscan}}. En este caso su enfoque es diferente, ya que utilizan los píxeles de la imagen junto con la componente de profundidad de los puntos para analizar la nube, de tal modo que solo analizan los puntos correspondientes a un determinado rango de píxeles. Este nodo es mucho más eficiente en el cálculo pero no tiene en cuenta aspectos como la inclinación del sensor o la detección del suelo como obstáculo.
 
-Las pruebas realizadas utilizando ofrecieron un resultado correcto, ya que el procesado de la nube de puntos es más rápido y permite realizar los cáculos a una frecuencia adecuada. Sin embargo esta estrategia requiere más de una instancia de estos nodos para poder detectar obstáculos bajos a corta (hasta 1.5 metros) y media distancia (hasta unos 3 metros) para que no se produzcan interferencias con el suelo.
+Las pruebas realizadas ofrecieron un resultado correcto, ya que el procesado de la nube de puntos es más rápido y permite realizar los cálculos a una frecuencia adecuada. Sin embargo esta estrategia requiere más de una instancia de estos nodos para poder detectar obstáculos bajos a corta (hasta 1.5 metros) y media distancia (hasta unos 3 metros) para que no se produzcan interferencias con el suelo.
 
 De este modo, se crearon 3 instancias diferentes de este nodo: uno para obstáculos situados a una distancia mayor, un segundo para obstáculos a distancias medias, y un tercero para obstáculos a distancias cortas.
 
@@ -777,7 +777,7 @@ Para ponerlo en marcha se incia el nodo desde el archivo de \textit{launch}.
 \caption{Nodo soundplay\_node para reproducir sonidos.}
 \end{code}
 
-Para reproducir sonidos se utiliza un ''handle'' de sonido que facilita e paso de mensajes en caso de reproducir sonidos o voz con las funciones \textit{.play()} y \textit{.say()} respectivamente.
+Para reproducir sonidos se utiliza un ''handle'' de sonido que facilita el paso de mensajes en caso de reproducir sonidos o voz con las funciones \textit{.play()} y \textit{.say()} respectivamente.
 A continuación se presenta un fragmento del nodo \textit{voice\_cmd\_vel} de desarrollo propio y que se describirá más adelante
 
 \begin{code}[!htp]
@@ -903,7 +903,7 @@ Para dar integración a todas las funcionalidades de ROS incorporadas en el robot
 
 El nombre de este nodo es \textit{voice\_cmd\_vel}. Es un nodo desarrollado en Python debido a su fácil utilización de los nodos \textit{regonizer} (para reconocer comandos de voz) y del nodo \textit{soundplay\_node} (para reproducir sonidos).
 
-Las fucionalidades que integra son las siguientes:
+Las funcionalidades que integra son las siguientes:
 \begin{itemize}
 \item Reconocimiento de comandos de voz con el micrófono del sensor Kinect.
 \item Respuesta con voz sintetizada a través del altavoz.
