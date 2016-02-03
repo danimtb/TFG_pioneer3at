@@ -46,11 +46,11 @@ Pruebas posteriores con la nueva configuración y obstáculos bajos determinaron l
 \end{figure}
 
 \subsection{Navegación reactiva}
-La nagación reactiva es una configuración menor de la anterior, por lo que no supuso un desarrollo más elaborado en las pruebas realizadas. Las pruebas consistieron en realizar navegación hacia varios puntos de meta y comprobar si el robot se quedaba atascado en algún momento.
+La navegación reactiva es una configuración menor de la anterior, por lo que no supuso un desarrollo más elaborado en las pruebas realizadas. Las pruebas consistieron en realizar navegación hacia varios puntos de meta y comprobar si el robot se quedaba atascado en algún momento.
 
 Los resultados determinaron que el robot mostraba el mismo comportamiento en la navegación pero existían limitaciones como la distancia a la que pueden encontrarse los puntos de meta (puntos más cercanos al robot debido a la ausencia de mapa) o solapamientos y giros en el mapa global si este era demasiado grande.
 
-Como es normal en una navegación reactiva, el robot se desplaza siguiendo la trayectoria más corta en base a la información que sus sensores captan en ese momento, por lo que suceden casos, como en la figura \label{fig:navegacion_local_gazebo}, en los que la trayectoria global calculada no es la correcta en un principio. A pesar de ello, gracias a la información de los obstáculos que queda retenida en el mapa global, el planificador recalcula encontrando la trayectoria adecuada.
+Como es normal en una navegación reactiva, el robot se desplaza siguiendo la trayectoria más corta en base a la información que sus sensores captan en ese momento, por lo que suceden casos, como en la figura \ref{fig:navegacion_local_gazebo}, en los que la trayectoria global calculada no es la correcta en un principio. A pesar de ello, gracias a la información de los obstáculos que queda retenida en el mapa global, el planificador recalcula encontrando la trayectoria adecuada.
 
 \begin{figure}[!htp]
 \centering
