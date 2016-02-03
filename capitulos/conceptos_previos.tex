@@ -96,7 +96,7 @@ Por último, cabe destacar la importancia de uno de los paquetes integrados en RO
 \end{figure}
 
 \subsection{Configuración de ROS}
-Para la instalación de ROS es necesario seguir ciertos pasos bien explicados en la wiki de su página\footnote{\url{http://wiki.ros.org/indigo/Installation/Ubuntu}}. Al ser un sistema fuertemente basado en sistemas UNIX y con mayor soporte para Ubuntu, las instalaciones se realizan principalmente a través de herramientas como apt (Advanced Packaging Tool).
+Para la instalación de ROS es necesario seguir ciertos pasos bien explicados en la wiki de su página\footnote{Instalación ROS: \url{http://wiki.ros.org/indigo/Installation/Ubuntu}}. Al ser un sistema fuertemente basado en sistemas UNIX y con mayor soporte para Ubuntu, las instalaciones se realizan principalmente a través de herramientas como apt (Advanced Packaging Tool).
 
 Existen diferentes instalaciones de ROS dependiendo de si precisamos de todas sus herramientas y utilidades o no, ya que por ejemplo no tendría sentido instalar herramientas de interfaz gráfica en un robot que dispone de entorno gráfico. Para el ordenador de a bordo del robot utilizamos la versión completa del software.
 
@@ -116,7 +116,7 @@ $ source /opt/ros/indigo/setup.bash
 \caption{Source al setup de ROS Indigo}
 \end{code}
 
-Para el desarrollo dentro de ROS se utiliza el entorno de desarrollo Catkin **referencia**, que facilita el enlazado y compilación de los paquetes. para ello es necesario tenerlo instalado y crear un entorno de desarrollo:
+Para el desarrollo dentro de ROS se utiliza el entorno de desarrollo Catkin \ref{catkin}, que facilita el enlazado y compilación de los paquetes. Para ello es necesario instalarlo y crear un entorno de desarrollo:
 
 \begin{code}[htp]
 \begin{lstlisting}[style=consola]
@@ -146,18 +146,16 @@ Los paquetes ROS son funcionalidades desarrolladas por terceros que se integran 
 
 Los paquetes ROS incorporan un archivo \textit{CMakeLists.txt} para la compilación de los nodos que se hayan desarrollado así como sus mensajes y un archivo Package Manifest (\textit{package.xml}), como hemos indicado anteriormente.
 
-Para el desarrollo de este proyecto es necesario clonar el repositorio GitHub \hypersetup{urlcolor=black} \href{https://github.com/danimtb/pioneer3at_ETSIDI}{\textit{ pioneeer3at\_ETSIDI}} \hypersetup{urlcolor=blue}en nuestra carpeta \textit{$\sim$/catkin\_ws/src}. Este repositorio contiene todos los paquetes necesarios en nuestro entorno:
+Para el desarrollo de este proyecto es necesario clonar el repositorio GitHub \href{https://github.com/danimtb/pioneer3at_ETSIDI}{\textit{ pioneeer3at\_ETSIDI}} en nuestra carpeta \textit{$\sim$/catkin\_ws/src}. Este repositorio contiene todos los paquetes necesarios en nuestro entorno:
 
 \begin{code}[!htp]
 \begin{lstlisting}[style=consola]
 $ cd ~/catkin_ws/src
 $ $ git clone --recursive https://github.com/danimtb/pioneer3at_ETSIDI.git .
 \end{lstlisting}
-\hypersetup{urlcolor=black}
-Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI}{\textit{https://github.com/danimtb/pioneer3at\_ETSIDI}}
-\hypersetup{urlcolor=blue}
-\caption{Clonado del repositorio \textit{pioneer3at\_ETSIDI}.}
+\caption{Clonado del repositorio \textit{pioneer3at\_ETSIDI}\footnotemark.}
 \end{code}
+\footnotetext{Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI}{\textit{https://github.com/danimtb/pioneer3at\_ETSIDI}}}
 
 Junto con el repositorio de desarrollo también es preciso instalar funcionalidades adicionales de ROS. Toda esta configuración puede consultarse con más detalle en el apéndice \ref{chapter:configuracion_sistema}.
 
