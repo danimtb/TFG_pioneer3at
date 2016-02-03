@@ -613,8 +613,9 @@ int main(int argc, char** argv){
   return 0;
 }
 \end{lstlisting}
-\caption{Fragmento de código del nodo \textit{nav-waypoints}.}
+\caption{Fragmento de código del nodo \textit{nav-waypoints}}{Fragmento de código del nodo \textit{nav-waypoints}\footnotemark.}
 \end{code}
+\footnotetext{Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/navigation_goals/src/nav-waypoints.cpp}{\textit{navigation\_goals/src/nav-waypoints.cpp}}}
 
 Este nodo se encuentra separado del directorio habitual \textit{pioneer\_utils} debido a dependencias adicionales que pueden causar conflicto. Por ello, se aloja en el paquete \textit{navigation\_goals}.
 
@@ -661,10 +662,9 @@ Para lanzar este nodo se utiliza un archivo \textit{launchfile} en el que se ind
   </node>
 </launch>
 \end{lstlisting}
-\caption{Archivo \textit{launchfile} para el nodo \textit{endurance\_test}.}
+\caption[Archivo \textit{launchfile} para el nodo \textit{endurance\_test}.]{Archivo \textit{launchfile} para el nodo \textit{endurance\_test}\footnotemark.}
 \end{code}
-
-
+\footnotetext{Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/main/endurance_test_lab.launch}{\textit{pioneer\_utils/main/endurance\_test\_lab.launch}}}
 
 \section{Nodo de guiado (follower)}
 
@@ -796,7 +796,7 @@ A continuación se presenta un fragmento del nodo \textit{voice\_cmd\_vel} de des
           rospy.sleep(2)
           self.soundhandle.say("Say one of the navigation commands")
 \end{lstlisting}
-\caption{Fragmento del nodo \textit{voice\_cmd} utilizando el cliente de sonido de \textit{soundplay\_node}.}
+\caption{Fragmento del nodo \textit{voice\_cmd\_vel} utilizando el cliente de sonido de \textit{soundplay\_node}.}
 \end{code}
 
 El uso y aplicación del nodo de sonido se expone con más detalle en la sección \ref{section:ejecucion_automatica}.
@@ -866,7 +866,7 @@ rospy.Subscriber('recognizer/output', String, self.speechCb)
                 self.set_speed(0.3)
 ...
 \end{lstlisting}
-\caption{Fragmento del nodo \textit{voide\_cmd} utilizando las palabras reconocidas por el nodo \textit{recognizer}.}
+\caption{Fragmento del nodo \textit{voide\_cmd\_vel} utilizando las palabras reconocidas por el nodo \textit{recognizer}.}
 \end{code}
 
 El uso y aplicación del nodo de reconocimiento de voz se expone con más detalle en la sección \ref{section:ejecucion_automatica}.
@@ -998,13 +998,9 @@ El archivo \textit{voice\_cmd.launch} ejecuta el inicio del nodo de reconocimien
   </node>
 </launch>
 \end{lstlisting}
-\caption{Archivo \textit{voice\_cmd.launch}.}
+\caption[Archivo \textit{voice\_cmd.launch}]{Archivo \textit{voice\_cmd.launch}\footnotemark.}
 \end{code}
-\footnotemark
-\footnotetext{\hypersetup{urlcolor=black}
-Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/voice_audio/launch/voice_cmd.launch}{\textit{pioneer\_utils/voice\_audio/launch/voice\_cmd.launch}}
-\hypersetup{urlcolor=blue}}
+\footnotetext{
+Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/voice_audio/launch/voice_cmd.launch}{\textit{pioneer\_utils/voice\_audio/launch/voice\_cmd.launch}}}
 
-El código fuente de este nodo se ha omitido por no alargar la explicación, sin embargo puede consultarse de forma externa\footnote{\hypersetup{urlcolor=black}
-Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/voice_audio/node/voice_cmd_vel.py}{\textit{pioneer\_utils/voice\_audio/node/voice\_cmd\_vel.py}}
-\hypersetup{urlcolor=blue}}.
+El código fuente de este nodo se ha omitido por no alargar la explicación, sin embargo puede consultarse de forma externa\footnote{Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/voice_audio/node/voice_cmd_vel.py}{\textit{pioneer\_utils/voice\_audio/node/voice\_cmd\_vel.py}}}.

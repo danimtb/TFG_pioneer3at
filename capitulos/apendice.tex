@@ -21,7 +21,7 @@ $ mkdir -p ~/catkin_ws/src
 $ cd ~/catkin_ws/src
 $ catkin_init_workspace
 \end{lstlisting}
-\caption{Instalación y workspace de Catkin}
+\caption{Instalación y workspace de Catkin.}
 \end{code}
 
 A continuación incluimos el directorio de desarrollo para que sea reconocido por ROS a la hora de buscar dependencias:
@@ -31,7 +31,7 @@ A continuación incluimos el directorio de desarrollo para que sea reconocido por
 $ cd ~/catkin_ws
 $ source devel/setup.bash
 \end{lstlisting}
-\caption{Source al setup de nuestro entorno Catkin}
+\caption{Source al setup de nuestro entorno Catkin.}
 \end{code}
 
 \subsection{Instalación de las librerías}
@@ -44,12 +44,10 @@ $ cd ~/catkin_ws/src
 $ $ git clone --recursive https://github.com/danimtb/pioneer3at_ETSIDI.git .
 \end{lstlisting}
 \hypersetup{urlcolor=black}
-Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI}{\textit{https://github.com/danimtb/pioneer3at\_ETSIDI}}
-\hypersetup{urlcolor=blue}
-\caption{Clonado del repositorio \textit{pioneer3at\_ETSIDI}}
+\caption{Clonado del repositorio \textit{pioneer3at\_ETSIDI}.}
 \end{code}
 
-Sin embargo, es recomendable que si se desea realizar algún desarrollo posterior, se realice un fork en GitHub de este proyecto (Figura \ref{fig:pioneer3at_ETDSIDI}) y se clone el repositorio propio.
+Sin embargo, es recomendable que si se desea realizar algún desarrollo posterior, se realice un \textit{fork} en GitHub de este proyecto (Figura \ref{fig:pioneer3at_ETDSIDI}) y se clone el repositorio propio.
 
 \begin{figure}[!htp]
 \centering
@@ -58,13 +56,13 @@ Sin embargo, es recomendable que si se desea realizar algún desarrollo posterior
 \label{fig:pioneer3at_ETDSIDI}
 \end{figure}
 
-De esta forma podemos guardar los cambios realizados en el repositorio de la persona que hace la modificación, con la intención de incorporar los cambios más tarde al repositorio de desarrollo principal (\url{https://github.com/danimtb/pioneer3at_ETSIDI.git}) mediante Pull Request.
+De esta forma podemos guardar los cambios realizados en el repositorio de la persona que hace la modificación, con la intención de incorporar los cambios más tarde al repositorio de desarrollo principal (\url{https://github.com/danimtb/pioneer3at_ETSIDI.git}) mediante \textit{Pull Request}.
 
 \subsection{Gestión de las dependencias}\label{subsection:dependencias}
 
- ROS se vale de la información almacenada en la definición de cada uno de sus paquetes en \textit{package.xml} y gestionar algunas dependencias de librerías, para lo cual se sirve de la herramienta rosdep **referencia** creada por los desarrolladores de ROS para este propósito.
+ ROS se vale de la información almacenada en la definición de cada uno de sus paquetes en \textit{package.xml} y gestionar algunas dependencias de librerías, para lo cual se sirve de la herramienta \textit{rosdep} creada por los desarrolladores de ROS para este propósito.
 
-Para comenzar a utilizarla inicializamos rosdep y actualizamos las dependencias:
+Para comenzar a utilizarla inicializamos \textit{rosdep} y actualizamos las dependencias:
 
 \begin{code}[htp]
 \begin{lstlisting}[style=consola]
@@ -116,7 +114,7 @@ $ rosdep install pocketsphinx
 
 \pagebreak
 
-Es posible que necesitemos las dependencias añadida de \textit{audio\_capture}.
+Es posible que necesitemos las dependencias añadidas de \textit{audio\_capture}.
 
 \begin{code}[!htp]
 \begin{lstlisting}[style=consola]
@@ -153,12 +151,12 @@ $ catkin_make
 
 En este apéndice se describen algunos ajustes útiles del hardware que se ha utilizado en el proyecto. Esta información es importante para que el sistema robótico desarrollado funcione pero no ha sido incluida dentro del cuerpo de la memoria para no alargar las explicaciones.
 
-En cualquier caso, los procemientos que a continuación se describen es probable que no sea necesarioz volver a realizarlos en futuros usos del robot si se mantiene la configuración descrita en este trabajo.
+En cualquier caso, los procedimientos que a continuación se describen es probable que no sea necesario volver a realizarlos en futuros usos del robot si se mantiene la configuración descrita en este trabajo.
 
 \subsection{Calibración de la odometría}\label{subsection:odometria}
 La lectura de la posición de los motores del robot se realiza mediante unos encoders situados en el eje de cada motor.
 
-El firmware ARCOS de la placa controladora del robot es actualizable y gestiona os parámetros de calibración de la odometría. Este firmware es actualizable aunque para ello es necesario ponerse en contacto con el fabricante Adept.
+El firmware ARCOS de la placa controladora del robot es actualizable y gestiona los parámetros de calibración de la odometría. Este firmware es actualizable aunque para ello es necesario ponerse en contacto con el fabricante Adept.
 
 Estos parámetros referentes a la odometría son configurables a través de la librería Aria en caso de que no se desee acceder a modificar el firmware del robot.
 
@@ -238,7 +236,7 @@ El resto de configuraciones de software se han indicado a lo largo del documento
 El ordenador está alimentado a 12 voltios directamente desde la placa de alimentación del robot y se encuentra anclado al mismo mediante tiras adhesivas de velcro, por lo que es posible retirarlo del cuerpo del robot en caso de que sea necesario.
 
 \subsection{Sensor Kinect}
-El sensor Kinect utilizado en el proyecto no dispone de ninguna moficiación específica o modo de funcionamiento especial. Lo referente a su conexionado ha sido descrito anteriormente en la sección \ref{subsection:implementacion_kinect}.
+El sensor Kinect utilizado en el proyecto no dispone de ninguna modificación específica o modo de funcionamiento especial. Lo referente a su conexionado ha sido descrito anteriormente en la sección \ref{subsection:implementacion_kinect}.
 
 Tan solo indicar que puede realizarse una primera toma de contacto a través de la librería \textit{libfreenect}.
 
@@ -246,7 +244,7 @@ Una manera rápida de hacerlo es utilizando el gestor de depencencias en C++ biic
 
 \subsection{Láser SICK LMS100}\label{subsection:sicklms100_apendice}
 
-El sensor láser LMS100 de la marca Sick es un sensor de ampli rango y largo alcance de tipo industrial.
+El sensor láser LMS100 de la marca Sick es un sensor de amplio rango y largo alcance de tipo industrial.
 
 El fabricante Sick ofrece un software propietario llamado SOPAS Ingineering Tool que permite acceder a la configuración interna del sensor. Este software tan solo puede utilizarse bajo el sistema operativo Microsoft Windows, en concreto ha sido utilizado con Windows 7.
 
@@ -323,7 +321,7 @@ A continuación se describe cada uno de los elementos de la figura \ref{fig:panel
 \item LED BATERY: Indica el estado de carga de la batería.
 \item LEDs AUX 1 y AUX 2: Indica si las alimentaciones auxiliares se encuentran activas.
 \item LEDs RX y TX: Muestran el estado de la comunicación con la placa de control.
-\item SERIAL: Puerto RS-232 que comunica con la placa de control. Puede ser utilizado para conectar un ordeandor externo directamente la placa de control del robot.
+\item SERIAL: Puerto RS-232 que comunica con la placa de control. Puede ser utilizado para conectar un ordeandor externo directamente a la placa de control del robot.
 \end{itemize}
 
 Muchos de los estados anteriores se indican mediante una señal acústica. El reseteo de la placa tiene un sonido característico al igual que cuando se pierde la conexión con la placa de control.
@@ -457,14 +455,11 @@ Preguntas realizadas en el foro ROS Answers y mediante issues en repositorios Gi
 
 \textbf{ROS Answers:}
 \begin{itemize}
-\item What compact PC to buy to run ROS in a mobile robot
-\end{itemize}
+\item What compact PC to buy to run ROS in a mobile robot\\
 \url{http://answers.ros.org/question/218043/what-compact-pc-to-buy-to-run-ros-in-a-mobile-robot/}
-
-\begin{itemize}
-\item Connecting a Sick laserscanner via ethernet
-\end{itemize}
+\item Connecting a Sick laserscanner via ethernet\\
 \url{http://answers.ros.org/question/207220/connecting-a-sick-laserscanner-via-ethernet/#209347}
+\end{itemize}
 
 \textbf{Github:}
 \begin{itemize}
@@ -510,11 +505,11 @@ Imágenes:
 
 La memoria del trabajo ha sido desarrollada en \LaTeX, bajo el editor \textit{TexStudio} en un ordenador con sistema operativo GNU/Linux Ubuntu 14.04 LTS.
 
-Su desarrollo ha sido puesto bajo un controlador de versiones y alojado en el siguiente repositorio de github:
+Su desarrollo ha sido puesto bajo un controlador de versiones y alojado en el siguiente repositorio de GitHub:
 
 \url{https://github.com/danimtb/TFG_pioneer3at}
 
-En el propio repositorio se encuentran las figuras utilizadas y los archivos .tex, donde se ha escrito el mismo,  y la bibligrafía empleada.
+En el propio repositorio se encuentran las figuras utilizadas y los archivos .tex, donde se ha escrito el mismo,  y la bibliografía empleada.
 
 El documento PDF compilado de \LaTeX puede consultarse en el siguiente enlace:
 

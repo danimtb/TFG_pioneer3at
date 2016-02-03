@@ -186,8 +186,7 @@ En la figura \ref{fig:slam_real2} puede apreciarse el resultado de la segunda pr
 \footnotetext{Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/maps/slam_real2.pgm}{\textit{pioneer\_utils/maps/slam\_real2.pgm}}}
 
 \subsection{Pruebas de resistencia}
-Las pruebas de resistencia se llevaron a cabo en las instalaciones de la planta baja de la universidad mediante el nodo \textit{endurance\_test} creado para el caso y utilizando diversos puntos dentro del mapa "floor\_zero-map"\footnote{\hypersetup{urlcolor=black}Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/maps/floor_zero-map.pgm}{\textit{pioneer\_utils/maps/floor\_zero-map.pgm}}
-\hypersetup{urlcolor=blue}} que abarca las zonas indicadas.
+Las pruebas de resistencia se llevaron a cabo en las instalaciones de la planta baja de la universidad mediante el nodo \textit{endurance\_test} creado para el caso y utilizando diversos puntos dentro del mapa "floor\_zero-map"\footnote{Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/maps/floor_zero-map.pgm}{\textit{pioneer\_utils/maps/floor\_zero-map.pgm}}} que abarca las zonas indicadas.
 
 El objetivo primordial de las pruebas es que el robot sea capaz de navegar sin ningún tipo de intervención humana, ya que invalidaría el concepto de robot autónomo.
 
@@ -209,10 +208,9 @@ Nº de choques & 0 \\
 \hline
 \end{tabular}
 }
-\caption{Primera prueba de resistencia real.}
+\caption[Primera prueba de resistencia real]{Primera prueba de resistencia real\footnotemark.}
 \label{tabla:primera_prueba_real}
 \end{table}
-\footnotemark
 \footnotetext{La distancia total recorrida no pudo contabilizarse debido a un error en la configuración del nodo.}
 
 Los resultados de la primera prueba no reflejan una navegación buena del robot, sin embargo esto es debido a la existencia de obstáculos prominentes no incluidos en el mapa del laboratorio que generaban distorsión en AMCL provocando que el robot quedase mal situado en el mapa. Estos obstáculos generaban a su vez un pasillo estrecho a través del cuál el planificador en ocasiones no era capaz de trazar una trayectoria correcta hasta la meta.

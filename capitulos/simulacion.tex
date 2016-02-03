@@ -28,9 +28,8 @@ En este entorno podemos simular el robot Pioneer 3 AT y dotarle de los sensores 
 
 Gazebo es capaz de simular robots definidos mediante archivos URDF, donde se indica cada tipo articulación y eslabón del robot. Además existen archivos de propiedades de los materiales y características específicas de gazebo que se definen a parte.
 
-A continuación se hace un breve descripción de los archivos utilizados y su función\footnote{\hypersetup{urlcolor=black}
-La configuración de Gazebo puede encontrarse en: \href{https://github.com/danimtb/pioneer3at_ETSIDI/tree/master/pioneer_utils/gazebo}{\textit{pioneer\_utils/gazebo}}
-\hypersetup{urlcolor=blue}}:
+A continuación se hace un breve descripción de los archivos utilizados y su función\footnote{
+La configuración de Gazebo puede encontrarse en: \href{https://github.com/danimtb/pioneer3at_ETSIDI/tree/master/pioneer_utils/gazebo}{\textit{pioneer\_utils/gazebo}}}:
 
 \begin{itemize}
 \item \textbf{pioneer3at.xacro:} Es el archivo principal donde se define el modelo del robot mediante URDF y se llama a los plug-ins de los sensores y actuadores y los demás archivos xacro.
@@ -87,15 +86,12 @@ A continuación se muestra un fragmento de \textit{pioneer3at.xacro} donde se des
 		<child link="top_plate"/>
 	</joint>
 \end{lstlisting}
-\caption{Fragmento de la configuración URDF del robot.}\footnotemark
+\caption{Fragmento de la configuración URDF del robot}{Fragmento de la configuración URDF del robot\footnotemark.}
 \end{code}
-\footnotetext{\hypersetup{urlcolor=black}
-Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/gazebo/pioneer3at.xacro}{\textit{pioneer\_utils/gazebo/pioneer3at.xacro}}
-\hypersetup{urlcolor=blue}}
+\footnotetext{Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/gazebo/pioneer3at.xacro}{\textit{pioneer\_utils/gazebo/pioneer3at.xacro}}}
 
-La parte gráfica recae en los elementos "mesh"\footnote{\hypersetup{urlcolor=black}
-Los diseños 3D se encuentran en: \href{https://github.com/danimtb/pioneer3at_ETSIDI/tree/master/pioneer_utils/gazebo/meshes}{\textit{pioneer\_utils/gazebo/meshes}}
-\hypersetup{urlcolor=blue}}: Objetos definidos por mallas en formato \textit{.stl} generados con un programa de modelado en tres dimensiones. Con las dimensiones de esos archivos también podemos simplificar el modelado de colisión para cada pieza.
+La parte gráfica recae en los elementos "mesh"\footnote{
+Los diseños 3D se encuentran en: \href{https://github.com/danimtb/pioneer3at_ETSIDI/tree/master/pioneer_utils/gazebo/meshes}{\textit{pioneer\_utils/gazebo/meshes}}}: Objetos definidos por mallas en formato \textit{.stl} generados con un programa de modelado en tres dimensiones. Con las dimensiones de esos archivos también podemos simplificar el modelado de colisión para cada pieza.
 
 \begin{figure}[!htp]
 \centering
@@ -151,11 +147,9 @@ La ùesta en marcha de Gazebo se realiza a partir de un nuevo archivo \textit{lau
 
 </launch>
 \end{lstlisting}
-\caption{Launchfile para lanzar Gazebo con el modelo del robot y sus sensores.}\footnotemark
+\caption[Launchfile para lanzar Gazebo con el modelo del robot y sus sensores]{Launchfile para lanzar Gazebo con el modelo del robot y sus sensores\footnotemark.}
 \end{code}
-\footnotetext{\hypersetup{urlcolor=black}
-Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/gazebo/pioneer3at_gazebo_world.launch}{\textit{pioneer\_utils/gazebo/pioneer3at\_gazebo\_world.launch}}
-\hypersetup{urlcolor=blue}}
+\footnotetext{Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/gazebo/pioneer3at_gazebo_world.launch}{\textit{pioneer\_utils/gazebo/pioneer3at\_gazebo\_world.launch}}}
 
 Como se ve, en el \textit{launchfile} no es necesario indicar las transformadas entre los diferentes sistemas de referencia debido a que esta información ya la aporta el modelo URDF del robot. Tan solo es necesario llamar al nodo \textit{state\_publisher} e indicar la frecuencia de conversión.
 

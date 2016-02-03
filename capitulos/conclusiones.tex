@@ -9,7 +9,7 @@ El objetivo de familiarizarse con e entorno robótico ROS se ha superado, adquiri
 
 También ha sido llevada a cabo la integración de los sensores láser y Kinect dentro del sistema robótico de tal forma que se detectan obstáculos del entorno en dos y tres dimensiones.
 
-Se ha cumplido con el objetivo del desarrollo de un sistema de teleoperación para el robot, así como aplicaciones menores pero que aportan valor al sistema robótico como la navegación basada en la odometría o el guiado del robot mediante personas, lo cual supone una característica añadida en la interacción con el robot.
+Se ha cumplido con el objetivo del desarrollo de un sistema de teleoperación para el robot, así como otras aplicaciones menores que aportan valor al sistema robótico como la navegación basada en la odometría o el guiado del robot mediante personas, lo cual supone una característica añadida en la interacción con el robot.
 
 El sistema de navegación autónoma y orientación se han realizado de manera satisfactoria, en gran parte debido a la optimización realizada en la distribución de los sensores, el correcto tratado de la información sensorial, el adecuado ajuste de los mapas y de sus respectivos planificadores de trayectoria. Si bien es cierto que existen algunos aspectos que la navegación actual no cubre, como la posibilidad de encontrar cambios de plano en la superficie, esto no impide que el robot pueda absorber variaciones del mismo sin comprometer el sistema de navegación utilizado.
 
@@ -17,35 +17,34 @@ Adicionalmente se han desarrollado nuevas funcionalidades como la navegación por
 
 Por último, todos los objetivos anteriores han servido para que la integración de los elementos implicados en este proyecto formen parte de la plataforma móvil final, de tal modo que su funcionamiento a bajo nivel quede solventado de cara a futuros desarrollos. Los resultados obtenidos en las pruebas de resistencia reflejan el buen comportamiento del robot en entornos reales y que el sistema es completamente funcional.
 
-
 \section{Desarrollos futuros}
 
 A continuación se analizarán algunos desarrollos y aspectos a afrontar en futuros
 trabajos que tengan como objeto mejorar el sistema propuesto.
 
 \subsection{Navegación en tres dimensiones}
-Durante este proyecto se ha abordado la navegación basándose en un único plano de tal modo que el análisis del entorno queda reducido a dos dimensiones. El uso de Kinect como sensor en tres dimensiones considera ciertos obstáculos a alturas diferentes de tal modo que puede considerarse que la navegación implementada es pseudo-3D. En cualquier caso, la reducción de los obstáculos a una sola capa restringe el movimiento del robot de manera vertical por lo que lo más adecuado sería implementar un sistema de navegación que considerase el entorno en 3 dimensiones.
+Durante este proyecto se ha abordado la navegación basándose en un único plano de tal modo que el análisis del entorno queda reducido a dos dimensiones. El uso de Kinect como sensor en tres dimensiones considera ciertos obstáculos a alturas diferentes por lo que puede considerarse que la navegación implementada es pseudo-3D. En cualquier caso, la reducción de los obstáculos a una sola capa restringe el movimiento del robot de manera vertical (al subir una cuesta por ejemplo) por lo que lo más adecuado sería implementar un sistema de navegación que considerase el entorno en 3 dimensiones.
 
-Este posible desarrollo aportaría ventajas en cuanto a las capacidades del robot, ya que podrían considerarse adecuadamente cambios de inclinación en la superficie de navegación así como detectar huecos o agujeros en el suelo por los que la navegación sería impracticable. Esto conlleva en primer lugar a que el sistema robótico deba estar dotado de una referencia de posición en el eje vertical para que puedan detectarse desplazamientos en una superficie inclinada. Esto podría realizarse con el inclinómetro incorporado en el sensor Kinect u otro sensor adicional de mayo precisión.
+Este posible desarrollo aportaría ventajas en cuanto a las capacidades del robot, ya que podrían considerarse adecuadamente cambios de inclinación en la superficie de navegación así como detectar huecos o agujeros en el suelo por los que la marcha del robot sería impracticable. Esto conlleva en primer lugar a que el sistema robótico deba estar dotado de una referencia de posición en el eje vertical para que puedan detectarse desplazamientos en una superficie inclinada. Esto podría realizarse con el inclinómetro incorporado en el sensor Kinect u otro sensor adicional de mayor precisión.
 
 En segundo lugar, la captura del entorno debe realizarse también tres dimensiones de tal modo que puedan obtenerse mapas que el robot pueda tomar de referencia. La estimación de su posición en el mismo también sería uno de los aspectos a considerar.
 
 Por último habría que utilizar planificadores de trayectoria en tres dimensiones teniendo en cuenta la particularidad de que el robot debe permanecer situado siempre en un plano de apoyo.
 
-La capacidad para navegar considerando un entorno tridimensional real aportaría al robot grandes posibilidades para abordar terrenos irregulares, desniveles o elementos comunes en interiores como pequeños escalones y rampas.
+La capacidad para navegar considerando un entorno tridimensional real aportaría al robot grandes posibilidades para abordar terrenos irregulares, desniveles o elementos comunes en interiores como pequeños escalones y rampas. Una posible implementacion sería utilizar el paquete \textit{3d\_navigation} de ROS.
 
 \subsection{Sensórica adicional embebida}
 En relación con el desarrollo propuesto anteriormente, incorporar nuevos sensores al sistema robótico supondría una ventaja por varias razones.
 
-En primer lugar, considerar la inclinación del robot mediante acelerómetros para considerar una navegación en tres dimensiones aportaría más libertad de movimientos al robot y lo dotaría del conocimiento real de su posición y orientación.
+En primer lugar, considerar la inclinación del robot mediante acelerómetros para realizar una navegación en tres dimensiones aportaría más libertad de movimientos al robot y lo dotaría del conocimiento real de su posición y orientación.
 
-En segundo lugar, incorporar sensores esteroceptivos de naturaleza distinta al haz infrarrojo permitiría detectar obstáculos transparentes como puertas de cristal o mamparas, ya que son elementos comunes en entornos interiores. Sensores de ultrasonidos colocados en puntos estratégicos y a diferente altura harían que el sistema fuese consciente de este tipo de elementos, aumentando las capacidades del mismo.
+En segundo lugar, incorporar sensores esteroceptivos de naturaleza distinta al haz infrarrojo permitiría detectar obstáculos transparentes como puertas de cristal o mamparas, elementos comunes en entornos interiores. Sensores de ultrasonidos colocados en puntos estratégicos y a diferente altura harían que el sistema considerase este tipo de elementos, aumentando las capacidades del mismo.
 
-Otros sensores esteroceptivos podrían estar orientados a la detección de desniveles inminentes, de tal modo que el robot no pudiese caer en caso de encontrarse próximo al mismo. Esto sería interesante en un entorno con escaleras por citar un ejemplo.
+Otros sensores esteroceptivos podrían estar orientados a la detección de desniveles inminentes, de tal modo que el robot no pudiese caer en caso de encontrarse próximo al borde. Esto sería interesante en un entorno con escaleras por ejemplo.
 
 En tercer lugar, podría ser interesante incorporar sensores de posicionamiento absoluto tanto para interiores como para exteriores. En el caso de entornos interiores, esta tarea es más compleja debido a que sería necesario utilizar un sistema de balizas o similar que formase parte de la infraestructura. Sin embargo, incorporar un sistema GPS aportaría gran valor al robot en exteriores sin que suponga un alto esfuerzo de desarrollo.
 
-Para la incorporación de futuros sensores también podría considerarse realizar un sistema de adquisición de datos a través de puerto USB e implementar su interfaz en ROS. Esto supondría dotar al robot de una interfaz de conexión genérica para toda una variedad de sensores.
+Para la incorporación de futuros sensores también podría considerarse realizar un sistema de adquisición de datos a través de puerto USB e implementar su interfaz en ROS. Esto supondría dotar al robot de una interfaz de conexión genérica para toda una variedad de sensores adicionales.
 
 Indicar que este posible desarrollo debería tener en cuenta la fusión sensorial de los datos para que no existan duplicidades o perturbaciones en la percepción del entorno del robot.
 
@@ -54,6 +53,6 @@ Los puntos adicionales incluidos en este proyecto como el guiado del robot media
 
 El uso de un robot para navegación en interiores hace de la interacción con personas un aspecto fundamental, por lo que implementar nuevas formas de interactuar con el mismo dota de mucho valor en cuanto a facilidad de uso y capacidades como robot social.
 
-El desarrollo futuro en esta área puede ser considerable debido a que las posibilidades de interacción pueden venir dadas mediante instrucciones de voz, determinados gestos o movimientos captados mediante visión artificial, etc.
+El desarrollo futuro en esta área puede ser considerable debido a que las posibilidades de interacción pueden venir dadas mediante instrucciones de voz, determinados gestos o movimientos captados mediante visión artificial, navegación semántica, etc.
 
-En concreto, una de las funcionalidades a mejorar sería el seguimiento de personas ya que actualmente el sistema se encuentra restringido a una detección básica de un objeto situado frente al robot, por lo que si la distancia al mismo es demasiado grande el robot no es capaz de mantener la distancia. Esto podría mejorarse utilizando referencias visuales que permitiesen al robot reproducir la trayectoria realizada por una persona que lo guía.
+En concreto, una de las funcionalidades a mejorar sería el seguimiento de personas ya que actualmente el sistema se encuentra restringido a una detección básica de un objeto situado frente al robot, por lo que si la distancia al mismo es demasiado grande el robot no es capaz de mantener la distancia. Esto podría mejorarse utilizando referencias visuales que permitiesen al robot reproducir la trayectoria realizada por una persona que realice la función de guía.

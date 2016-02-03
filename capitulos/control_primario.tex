@@ -207,7 +207,7 @@ A partir de un nuevo archivo \textit{launchfile} (Código \ref{code:pioneer3at-ro
 
 </launch>
 \end{lstlisting}
-\caption[Launchfile creado para el robot Pioneer 3 AT]{Launchfile creado para robot Pioneer 3 AT\footnotemark.}
+\caption[Launchfile creado para el robot Pioneer 3 AT]{Launchfile creado para el robot Pioneer 3 AT\footnotemark.}
 \label{code:pioneer3at-rosaria}
 \end{code}
 \footnotetext{Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/sensors/pioneer3at-rosaria.launch}{\textit{pioneer\_utils/sensors/pioneer3at-rosaria.launch}}}
@@ -216,7 +216,7 @@ Como resultado, se obtiene una relación entre cada sistema de referencia (\texti
 
 \begin{figure}[htp]
 \centering
-\includegraphics[width=0.8\textwidth]{figuras/frames-odom_base.png}
+\includegraphics[width=0.66\textwidth]{figuras/frames-odom_base.png}
 \caption{Referencias \textit{frames} de la configuración del robot.}
 \label{fig:frames-odom_base}
 \end{figure}
@@ -234,8 +234,6 @@ Los pasos para configurar las máquinas bajo la misma red se describen con detall
 
 ROS\_IP debe contener la IP de nuestra máquina en la red que esté operando y ROS\_MASTER\_URI la dirección \textit{http} correspondiente de la máquina donde se ejecute el nodo principal, especificando el puerto.
 
-\pagebreak
-
 \begin{code}[htp]
 \begin{lstlisting}[style=launch]
 export ROS_IP=10.42.0.1
@@ -251,7 +249,7 @@ El procedimiento es el mismo en el caso del ordenador que va a servir como contr
 export ROS_IP=10.42.0.77
 export ROS_MASTER_URI=http://10.42.0.1:11311
 \end{lstlisting}
-\caption{Ejemplo \textit{.bashrc} en un ordenador externo para realizar comunicación con el máster.}
+\caption{Ejemplo \textit{.bashrc} en un ordenador externo para realizar comunicación con el nodo MASTER.}
 \end{code}
 
 \subsection{Implementación del nodo}
@@ -311,16 +309,10 @@ La implementación del nodo se ha realizado en C++ y su principal característica 
 				vel.linear.y=0;
 ...
 \end{lstlisting}
-\hypersetup{urlcolor=black}
-Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/src/teleop_p3at.cpp}{\textit{pioneer\_utils/src/teleop\_p3at.cpp}}
-\hypersetup{urlcolor=blue}
-\caption{Fragmento de código del nodo \textit{teleop\_p3at}.}
+\caption[Fragmento de código del nodo \textit{teleop\_p3at}.]{Fragmento de código del nodo \textit{teleop\_p3at}\footnotemark.}
 \label{code:teleop_p3at}
 \end{code}
-
-
-
-
+\footnotetext{Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/src/teleop_p3at.cpp}{\textit{pioneer\_utils/src/teleop\_p3at.cpp}}}
 
 \section{Nodo de navegación estimada}
 
@@ -368,9 +360,7 @@ int main(int argc, char** argv)
 	return 0;
 }
 \end{lstlisting}
-\hypersetup{urlcolor=black}
-Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/src/moving_alone.cpp}{\textit{pioneer\_utils/src/moving\_alone.cpp}}
-\hypersetup{urlcolor=blue}
-\caption{Fragmento de código del nodo \textit{moving\_alone}.}
+\caption[Fragmento de código del nodo \textit{moving\_alone}.]{Fragmento de código del nodo \textit{moving\_alone}\footnotemark.}
 \label{code:moving_alone}
 \end{code}
+\footnotetext{Fuente: \href{https://github.com/danimtb/pioneer3at_ETSIDI/blob/master/pioneer_utils/src/moving_alone.cpp}{\textit{pioneer\_utils/src/moving\_alone.cpp}}}

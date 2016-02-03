@@ -5,68 +5,68 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {code}{\numberline {4.1}{\ignorespaces Mandato de consola para instalar la versi\'on completa de ROS Indigo.\relax }}{38}{code.caption.50}
-\contentsline {code}{\numberline {4.2}{\ignorespaces Source al setup de ROS Indigo\relax }}{39}{code.caption.51}
-\contentsline {code}{\numberline {4.3}{\ignorespaces Instalaci\'on y workspace de Catkin\relax }}{39}{code.caption.52}
-\contentsline {code}{\numberline {4.4}{\ignorespaces Source al setup de nuestro entorno Catkin\relax }}{39}{code.caption.53}
-\contentsline {code}{\numberline {4.5}{\ignorespaces Clonado del repositorio \textit {pioneer3at\_ETSIDI}.\relax }}{39}{code.caption.54}
+\contentsline {code}{\numberline {4.1}{\ignorespaces Mandato de consola para instalar la versi\'on completa de ROS Indigo.\relax }}{36}{code.caption.50}
+\contentsline {code}{\numberline {4.2}{\ignorespaces Source al setup de ROS Indigo\relax }}{37}{code.caption.51}
+\contentsline {code}{\numberline {4.3}{\ignorespaces Instalaci\'on y workspace de Catkin.\relax }}{37}{code.caption.52}
+\contentsline {code}{\numberline {4.4}{\ignorespaces Source al setup de nuestro entorno Catkin.\relax }}{37}{code.caption.53}
+\contentsline {code}{\numberline {4.5}{\ignorespaces Clonado del repositorio \textit {pioneer3at\_ETSIDI}}}{37}{code.caption.54}
 \addvspace {10\p@ }
-\contentsline {code}{\numberline {5.1}{\ignorespaces Ejemplo de \textit {costmap\_common\_params.yaml}\relax }}{46}{code.caption.59}
-\contentsline {code}{\numberline {5.2}{\ignorespaces Ejemplo de \textit {global\_costmap.yaml}\relax }}{46}{code.caption.60}
-\contentsline {code}{\numberline {5.3}{\ignorespaces Ejemplo de \textit {local\_costmap.yaml}\relax }}{47}{code.caption.61}
-\contentsline {code}{\numberline {5.4}{\ignorespaces Ejemplo de \textit {local\_costmap.yaml}\relax }}{47}{code.caption.62}
-\contentsline {code}{\numberline {5.5}{\ignorespaces Ejemplo de \textit {global\_planner\_params.yaml}\relax }}{47}{code.caption.63}
-\contentsline {code}{\numberline {5.6}{\ignorespaces Ejemplo de \textit {robot\_navigation.launch}\relax }}{48}{code.caption.64}
-\contentsline {code}{\numberline {5.7}{\ignorespaces Launchfile \textit {slam\_gmaping}.\relax }}{50}{code.caption.66}
-\contentsline {code}{\numberline {5.8}{\ignorespaces Launchfile para visualizar slam\_gmaping en RViz\relax }}{50}{code.caption.67}
-\contentsline {code}{\numberline {5.9}{\ignorespaces Ejecuci\'on del nodo map\_saver para guardar el mapa\relax }}{50}{code.caption.69}
-\contentsline {code}{\numberline {5.10}{\ignorespaces Launchfile del nodo amcl utilizado.\relax }}{52}{code.caption.71}
+\contentsline {code}{\numberline {5.1}{\ignorespaces Ejemplo de \textit {costmap\_common\_params.yaml}\relax }}{44}{code.caption.59}
+\contentsline {code}{\numberline {5.2}{\ignorespaces Ejemplo de \textit {global\_costmap.yaml}\relax }}{44}{code.caption.60}
+\contentsline {code}{\numberline {5.3}{\ignorespaces Ejemplo de \textit {local\_costmap.yaml}\relax }}{45}{code.caption.61}
+\contentsline {code}{\numberline {5.4}{\ignorespaces Ejemplo de \textit {local\_costmap.yaml}\relax }}{45}{code.caption.62}
+\contentsline {code}{\numberline {5.5}{\ignorespaces Ejemplo de \textit {global\_planner\_params.yaml}\relax }}{45}{code.caption.63}
+\contentsline {code}{\numberline {5.6}{\ignorespaces Ejemplo de \textit {robot\_navigation.launch}\relax }}{46}{code.caption.64}
+\contentsline {code}{\numberline {5.7}{\ignorespaces Launchfile \textit {slam\_gmaping}}}{48}{code.caption.66}
+\contentsline {code}{\numberline {5.8}{\ignorespaces Launchfile para visualizar slam\_gmaping en RViz}}{48}{code.caption.67}
+\contentsline {code}{\numberline {5.9}{\ignorespaces Ejecuci\'on del nodo map\_saver para guardar el mapa\relax }}{48}{code.caption.69}
+\contentsline {code}{\numberline {5.10}{\ignorespaces Launchfile del nodo \textit {amcl} utilizado}}{50}{code.caption.71}
 \addvspace {10\p@ }
-\contentsline {code}{\numberline {6.1}{\ignorespaces Launchfile para RosAria.\relax }}{62}{code.caption.81}
-\contentsline {code}{\numberline {6.2}{\ignorespaces Launchfile para Kinect en el paquete freenect\_launch.\relax }}{63}{code.caption.83}
-\contentsline {code}{\numberline {6.3}{\ignorespaces Launchfile para el sensor L\'aser Sick LMS100.\relax }}{64}{code.caption.85}
-\contentsline {code}{\numberline {6.4}{\ignorespaces Launchfile creado para robot Pioneer 3 AT.\relax }}{65}{code.caption.87}
-\contentsline {code}{\numberline {6.5}{\ignorespaces L\IeC {\'\i }neas del archivo \textit {.bashrc} en el ordenador de abordo Intel NUC.\relax }}{66}{code.caption.89}
-\contentsline {code}{\numberline {6.6}{\ignorespaces Ejemplo \textit {.bashrc} en un ordenador externo para realizar comunicaci\'on con el m\'aster.\relax }}{66}{code.caption.90}
-\contentsline {code}{\numberline {6.7}{\ignorespaces Fragmento de c\'odigo del nodo \textit {teleop\_p3at}.\relax }}{67}{code.caption.92}
-\contentsline {code}{\numberline {6.8}{\ignorespaces Fragmento de c\'odigo del nodo \textit {moving\_alone}.\relax }}{68}{code.caption.94}
+\contentsline {code}{\numberline {6.1}{\ignorespaces Launchfile para \textit {RosAria}}}{60}{code.caption.81}
+\contentsline {code}{\numberline {6.2}{\ignorespaces Launchfile para Kinect en el paquete \textit {freenect\_launch}}}{61}{code.caption.83}
+\contentsline {code}{\numberline {6.3}{\ignorespaces Launchfile para el sensor L\'aser Sick LMS100}}{62}{code.caption.85}
+\contentsline {code}{\numberline {6.4}{\ignorespaces Launchfile creado para el robot Pioneer 3 AT}}{63}{code.caption.87}
+\contentsline {code}{\numberline {6.5}{\ignorespaces L\IeC {\'\i }neas del archivo \textit {.bashrc} en el ordenador de a bordo Intel NUC.\relax }}{64}{code.caption.89}
+\contentsline {code}{\numberline {6.6}{\ignorespaces Ejemplo \textit {.bashrc} en un ordenador externo para realizar comunicaci\'on con el nodo MASTER.\relax }}{64}{code.caption.90}
+\contentsline {code}{\numberline {6.7}{\ignorespaces Fragmento de c\'odigo del nodo \textit {teleop\_p3at}.}}{65}{code.caption.92}
+\contentsline {code}{\numberline {6.8}{\ignorespaces Fragmento de c\'odigo del nodo \textit {moving\_alone}.}}{66}{code.caption.94}
 \addvspace {10\p@ }
-\contentsline {code}{\numberline {7.1}{\ignorespaces \textit {Launchfile} del nodo \textit {DepthImage\_to\_LaserScan} para obst\'aculos bajos.\relax }}{80}{code.caption.112}
-\contentsline {code}{\numberline {7.2}{\ignorespaces Configuraci\'on del \textit {global\_costmap}.\relax }}{81}{code.caption.113}
-\contentsline {code}{\numberline {7.3}{\ignorespaces Configuraci\'on del \textit {local\_costmap}.\relax }}{82}{code.caption.115}
-\contentsline {code}{\numberline {7.4}{\ignorespaces Configuraci\'on del \textit {global\_planner}.\relax }}{84}{code.caption.119}
-\contentsline {code}{\numberline {7.5}{\ignorespaces Configuraci\'on de \textit {base\_local\_planner}.\relax }}{85}{code.caption.122}
-\contentsline {code}{\numberline {7.6}{\ignorespaces Configuraci\'on de navegaci\'on global.\relax }}{86}{code.caption.124}
-\contentsline {code}{\numberline {7.7}{\ignorespaces Configuraci\'on de \textit {global\_costmap} para navegaci\'on reactiva.\relax }}{87}{code.caption.125}
-\contentsline {code}{\numberline {7.8}{\ignorespaces Fragmento de c\'odigo del nodo \textit {nav-waypoints}.\relax }}{88}{code.caption.126}
-\contentsline {code}{\numberline {7.9}{\ignorespaces Archivo \textit {launchfile} para el nodo \textit {endurance\_test}.\relax }}{89}{code.caption.128}
-\contentsline {code}{\numberline {7.10}{\ignorespaces Launchfile para \textit {turtlebot\_follower} en el robot Pioneer 3 AT.\relax }}{90}{code.caption.130}
-\contentsline {code}{\numberline {7.11}{\ignorespaces Nodo soundplay\_node para reproducir sonidos.\relax }}{91}{code.caption.132}
-\contentsline {code}{\numberline {7.12}{\ignorespaces Fragmento del nodo \textit {voice\_cmd} utilizando el cliente de sonido de \textit {soundplay\_node}.\relax }}{92}{code.caption.133}
-\contentsline {code}{\numberline {7.13}{\ignorespaces Paquete necesario para reconocer el micr\'ofono del sensor Kinect.\relax }}{92}{code.caption.135}
-\contentsline {code}{\numberline {7.14}{\ignorespaces Archivo \textit {launchfile} para el nodo \textit {recognizer}.\relax }}{93}{code.caption.136}
-\contentsline {code}{\numberline {7.15}{\ignorespaces Fragmento del nodo \textit {voide\_cmd} utilizando las palabras reconocidas por el nodo \textit {recognizer}.\relax }}{93}{code.caption.137}
-\contentsline {code}{\numberline {7.16}{\ignorespaces Ejemplo de uso de \textit {subprocess} en Python lanzando y parando el nodo \textit {turtlebot\_follower}.\relax }}{95}{code.caption.140}
-\contentsline {code}{\numberline {7.17}{\ignorespaces Archivo \textit {voice\_cmd.launch}.\relax }}{96}{code.caption.141}
+\contentsline {code}{\numberline {7.1}{\ignorespaces \textit {Launchfile} del nodo \textit {DepthImage\_to\_LaserScan} para obst\'aculos bajos.}}{78}{code.caption.112}
+\contentsline {code}{\numberline {7.2}{\ignorespaces Configuraci\'on del \textit {global\_costmap}}}{79}{code.caption.113}
+\contentsline {code}{\numberline {7.3}{\ignorespaces Configuraci\'on del \textit {local\_costmap}.}}{80}{code.caption.115}
+\contentsline {code}{\numberline {7.4}{\ignorespaces Configuraci\'on del \textit {global\_planner}}}{82}{code.caption.119}
+\contentsline {code}{\numberline {7.5}{\ignorespaces Configuraci\'on de \textit {base\_local\_planner}}}{83}{code.caption.122}
+\contentsline {code}{\numberline {7.6}{\ignorespaces Configuraci\'on de navegaci\'on global}}{84}{code.caption.124}
+\contentsline {code}{\numberline {7.7}{\ignorespaces Configuraci\'on de \textit {global\_costmap} para navegaci\'on reactiva}}{85}{code.caption.125}
+\contentsline {code}{\numberline {7.8}{\ignorespaces Fragmento de c\'odigo del nodo \textit {nav-waypoints}\relax }}{86}{code.caption.126}
+\contentsline {code}{\numberline {7.9}{\ignorespaces Archivo \textit {launchfile} para el nodo \textit {endurance\_test}.}}{87}{code.caption.128}
+\contentsline {code}{\numberline {7.10}{\ignorespaces Launchfile para \textit {turtlebot\_follower} en el robot Pioneer 3 AT.\relax }}{89}{code.caption.130}
+\contentsline {code}{\numberline {7.11}{\ignorespaces Nodo soundplay\_node para reproducir sonidos.\relax }}{89}{code.caption.132}
+\contentsline {code}{\numberline {7.12}{\ignorespaces Fragmento del nodo \textit {voice\_cmd\_vel} utilizando el cliente de sonido de \textit {soundplay\_node}.\relax }}{90}{code.caption.133}
+\contentsline {code}{\numberline {7.13}{\ignorespaces Paquete necesario para reconocer el micr\'ofono del sensor Kinect.\relax }}{90}{code.caption.135}
+\contentsline {code}{\numberline {7.14}{\ignorespaces Archivo \textit {launchfile} para el nodo \textit {recognizer}.\relax }}{91}{code.caption.136}
+\contentsline {code}{\numberline {7.15}{\ignorespaces Fragmento del nodo \textit {voide\_cmd\_vel} utilizando las palabras reconocidas por el nodo \textit {recognizer}.\relax }}{91}{code.caption.137}
+\contentsline {code}{\numberline {7.16}{\ignorespaces Ejemplo de uso de \textit {subprocess} en Python lanzando y parando el nodo \textit {turtlebot\_follower}.\relax }}{93}{code.caption.140}
+\contentsline {code}{\numberline {7.17}{\ignorespaces Archivo \textit {voice\_cmd.launch}}}{94}{code.caption.141}
 \addvspace {10\p@ }
-\contentsline {code}{\numberline {8.1}{\ignorespaces Fragmento de la configuraci\'on URDF del robot.\relax }}{99}{code.caption.143}
-\contentsline {code}{\numberline {8.2}{\ignorespaces Launchfile para lanzar Gazebo con el modelo del robot y sus sensores.\relax }}{100}{code.caption.145}
+\contentsline {code}{\numberline {8.1}{\ignorespaces Fragmento de la configuraci\'on URDF del robot\relax }}{97}{code.caption.143}
+\contentsline {code}{\numberline {8.2}{\ignorespaces Launchfile para lanzar Gazebo con el modelo del robot y sus sensores}}{98}{code.caption.145}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {code}{\numberline {A.1}{\ignorespaces Instalaci\'on y workspace de Catkin\relax }}{119}{code.caption.162}
-\contentsline {code}{\numberline {A.2}{\ignorespaces Source al setup de nuestro entorno Catkin\relax }}{119}{code.caption.163}
-\contentsline {code}{\numberline {A.3}{\ignorespaces Clonado del repositorio \textit {pioneer3at\_ETSIDI}\relax }}{120}{code.caption.164}
-\contentsline {code}{\numberline {A.4}{\ignorespaces Inicializando la herramienta \textit {rosdep}.\relax }}{121}{code.caption.166}
-\contentsline {code}{\numberline {A.5}{\ignorespaces Instalando los paquetes de navegaci\'on mapeo.\relax }}{121}{code.caption.167}
-\contentsline {code}{\numberline {A.6}{\ignorespaces Instalando las dependencias de rosaria.\relax }}{121}{code.caption.168}
-\contentsline {code}{\numberline {A.7}{\ignorespaces Instalando las dependencias de \textit {pocketsphinx} y \textit {gstreamer}.\relax }}{121}{code.caption.169}
-\contentsline {code}{\numberline {A.8}{\ignorespaces Instalando las dependencias de \textit {audio\_capture}.\relax }}{122}{code.caption.170}
-\contentsline {code}{\numberline {A.9}{\ignorespaces Instalando las dependencias de \textit {sound\_play}.\relax }}{122}{code.caption.171}
-\contentsline {code}{\numberline {A.10}{\ignorespaces Compilando los paquetes del espacio de trabajo Catkin.\relax }}{122}{code.caption.172}
-\contentsline {code}{\numberline {A.11}{\ignorespaces Abriendo el \textit {.bashrc}.\relax }}{124}{code.caption.173}
-\contentsline {code}{\numberline {A.12}{\ignorespaces A\~nadidendo las direcciones IP al \textit {.bashrc}.\relax }}{124}{code.caption.174}
+\contentsline {code}{\numberline {A.1}{\ignorespaces Instalaci\'on y workspace de Catkin.\relax }}{117}{code.caption.162}
+\contentsline {code}{\numberline {A.2}{\ignorespaces Source al setup de nuestro entorno Catkin.\relax }}{117}{code.caption.163}
+\contentsline {code}{\numberline {A.3}{\ignorespaces Clonado del repositorio \textit {pioneer3at\_ETSIDI}.\relax }}{118}{code.caption.164}
+\contentsline {code}{\numberline {A.4}{\ignorespaces Inicializando la herramienta \textit {rosdep}.\relax }}{119}{code.caption.166}
+\contentsline {code}{\numberline {A.5}{\ignorespaces Instalando los paquetes de navegaci\'on mapeo.\relax }}{119}{code.caption.167}
+\contentsline {code}{\numberline {A.6}{\ignorespaces Instalando las dependencias de rosaria.\relax }}{119}{code.caption.168}
+\contentsline {code}{\numberline {A.7}{\ignorespaces Instalando las dependencias de \textit {pocketsphinx} y \textit {gstreamer}.\relax }}{119}{code.caption.169}
+\contentsline {code}{\numberline {A.8}{\ignorespaces Instalando las dependencias de \textit {audio\_capture}.\relax }}{120}{code.caption.170}
+\contentsline {code}{\numberline {A.9}{\ignorespaces Instalando las dependencias de \textit {sound\_play}.\relax }}{120}{code.caption.171}
+\contentsline {code}{\numberline {A.10}{\ignorespaces Compilando los paquetes del espacio de trabajo Catkin.\relax }}{120}{code.caption.172}
+\contentsline {code}{\numberline {A.11}{\ignorespaces Abriendo el \textit {.bashrc}.\relax }}{122}{code.caption.173}
+\contentsline {code}{\numberline {A.12}{\ignorespaces A\~nadidendo las direcciones IP al \textit {.bashrc}.\relax }}{122}{code.caption.174}
 \addvspace {10\p@ }
-\contentsline {code}{\numberline {B.1}{\ignorespaces Abriendo el \textit {.bashrc}.\relax }}{129}{code.caption.180}
-\contentsline {code}{\numberline {B.2}{\ignorespaces A\~nadidendo las direcciones IP al \textit {.bashrc}.\relax }}{129}{code.caption.181}
+\contentsline {code}{\numberline {B.1}{\ignorespaces Abriendo el \textit {.bashrc}.\relax }}{127}{code.caption.180}
+\contentsline {code}{\numberline {B.2}{\ignorespaces A\~nadiendo las direcciones IP al \textit {.bashrc}.\relax }}{127}{code.caption.181}
 \addvspace {10\p@ }
