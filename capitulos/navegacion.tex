@@ -13,7 +13,7 @@ El paquete de navegación de ROS \cite{navigation-ros} se define como un paquete 
 
 La navegación se basa en el uso de ''Mapas de coste''\footnote{También denominados mapas de potencial, en esta memoria se hace referencia como mapa de coste o \textit{costmap}} y planificación global y local de trayectorias.
 
-Por un lado, el sistema hace un mapa de coste global que tiene encuentra información de los sensores y la posibilidad de cargar un mapa previo. A este mapa se incorporan los obstáculos que permanecen estáticos durante más tiempo y en base a este se realizan los cálculos de trayectoria global.
+Por un lado, el sistema hace un mapa de coste global que tiene en cuenta información de los sensores y la posibilidad de cargar un mapa previo. A este mapa se incorporan los obstáculos que permanecen estáticos durante más tiempo y en base a este se realizan los cálculos de trayectoria global.
 
 Por otro lado, el sistema realiza un mapa de coste local, que analiza los obstáculos más cercanos al robot en cada momento. A este mapa se incorpora la información de los sensores sobre cualquier tipo de obstáculo detectado. En base a este mapa y de forma reactiva se realizan los cálculos de trayectoria local que llevará el control de la navegación reactiva del robot.
 
@@ -48,7 +48,7 @@ Por último indicar que el paquete de navegación no precisa de un mapa pregrabado
 El uso de un nodo de localización del robot en el mapa, como AMCL (Adaptive Monte Carlo Localization), será preciso cuando se utilice un mapa pregrabado para conocer la posición inicial del robot y posicionarlo correctamente dentro del mismo (Sección \ref{section:amcl}).
 
 \subsection{Requisitos para la navegación}
-El sistema de navegación de ROS está diseñado para ser flexible, altamente configurable y adaptable a muchos tipos de robots. Sin embargo requiere de ciertos requisitos para poder se integrado. A continuación se describe cada uno de los requisitos aplicados al robot Pioneer 3 AT utilizado en este trabajo.
+El sistema de navegación de ROS está diseñado para ser flexible, altamente configurable y adaptable a muchos tipos de robots. Sin embargo requiere de ciertos requisitos para poder ser integrado. A continuación se describe cada uno de los requisitos aplicados al robot Pioneer 3 AT utilizado en este trabajo.
 
 \textbf{Odometría}\\
 El sistema de navegación requiere de un robot que publique información sobre la odometría del robot en mensajes de tipo \textit{nav\_msgs/Odometry}.
@@ -58,7 +58,7 @@ En el robot Pioneer 3 AT y gracias al paquete \textit{RosAria} (Subsección \ref{
 \textbf{Movimientos}\\
 El sistema de navegación requiere que el robot sea controlable a través de comandos de velocidad de tipo \textit{geometry\_msgs/Twist}.
 
-En el robot Pioneer 3 AT a través de \textit{RosAria} (Subsección \ref{subsection:rosaria}) podemos mover nuestro robot con comandos de velocidad publicandolos al topic \textit{cmd\_vel}.
+En el robot Pioneer 3 AT a través de \textit{RosAria} (Subsección \ref{subsection:rosaria}) podemos mover nuestro robot con comandos de velocidad publicándolos al Topic \textit{cmd\_vel}.
 
 \textbf{Sensores}\\
 Los tipos de sensores que pueden utilizarse en la navegación son variados, el requisito que deben cumplir para poder integrarse en el sistema de navegación es que publiquen información de tipo \textit{sensor\_msgs/LaserScan} o \textit{sensor\_msgs/PointCloud2}.
@@ -201,13 +201,13 @@ Este primer ajuste no tiene en cuenta muchos factores concretos de la navegación
 \section{SLAM}
 La técnica de SLAM (Simultaneous Localization And Mapping) es una técnica muy utilizada en robótica para construir un mapa de un etorno que es desconocido al mismo tiempo que se estima la posición del robot en el mismo.
 
-Esta técnica presenta dificultades como la incertidumbre de los sensores, la imperfección del sistema de locomoción el robot, la repetitividad de las medidas... Además de que la localización y el mapeado simultáneo de un entorno son dos problemas que están intrínsecamente acoplados \cite{puente2012probabilistic}.
+Esta técnica presenta dificultades como la incertidumbre de los sensores, la imperfección del sistema de locomoción del robot, la repetitividad de las medidas... Además de que la localización y el mapeado simultáneo de un entorno son dos problemas que están intrínsecamente acoplados \cite{puente2012probabilistic}.
 
 \textbf{Principales algoritmos}\\
 Los principales algoritmos para realizar los cálculos pababilísticos en técnicas de SLAM son los siguientes:
 
 \begin{itemize}
-\item Filtro extendido de Kalman: Es uno de los métodos más extendidos en la técnica del SLAM por ofrecer resultados satisfactorios a pesar de sus problemas de convergencia \cite{rodriguez2006consistency}. Esta ha sido la técnica utilizada de facto hasta a aparición del FastSLAM \cite{montemerlo2002fastslam}.
+\item Filtro extendido de Kalman: Es uno de los métodos más extendidos en la técnica del SLAM por ofrecer resultados satisfactorios a pesar de sus problemas de convergencia \cite{rodriguez2006consistency}. Esta ha sido la técnica utilizada de facto hasta la aparición del FastSLAM \cite{montemerlo2002fastslam}.
 
 \item Mapas de ocupación de celdillas: Se basa en discretizar el espacio dividiéndolo en unidades de tamaño predefinido que se clasifican como ocupadas o vacías con un determinado nivel de confianza o probabilidad. La precisión (mayor cuanto más fina es la división del espacio), permite que el algoritmo de localización empleado acumule errores reducidos a lo largo de intervalos prolongados de tiempo. Su mayor desventaja de estos métodos es la pérdida de potencia que se deriva de no tener en cuenta la incertidumbre asociada a la posición del robot, lo cual origina que su capacidad para cerrar bucles correctamente se vea mermada \cite{collins2007occupancy}.
 \end{itemize}
@@ -347,11 +347,11 @@ Un costmap es un mapa  generado a partir de los obstáculos detectados por sensor
 
 Generalmente, este enfoque solo tiene en cuenta navegación en un solo plano o navegación en dos dimensiones, ya que todos los objetos son incorporados al mapa sin importar su altura. Existe una variante que pseudo-3D que tiene en cuenta la altura a la que se sitúan los sensores, aunque no es el modelo típico de aplicación.
 
-El funcionamiento de este tipo de mapas se basa en la incorporación o el borrado de obstáculos al mapa. Cada sensor puede utilizarse de manera independiente para incorporar o borrar obstáculos en estos mapas. Esto permite a nuestro sistema robótico abstraerse de la información directa de los sensores y obtener información más completa de todos los obstáculos su alrededor.
+El funcionamiento de este tipo de mapas se basa en la incorporación o el borrado de obstáculos al mapa. Cada sensor puede utilizarse de manera independiente para incorporar o borrar obstáculos en estos mapas. Esto permite a nuestro sistema robótico abstraerse de la información directa de los sensores y obtener información más completa de todos los obstáculos a su alrededor.
 
 La principal ventaja de utilizar este tipo de mapas en navegación es la de crear mapas dinámicos locales en el que guardar información de los obstáculos alrededor del robot sin que necesariamente dispongamos de un sensor captando el mismo continuamente. Esto nos permite, por ejemplo, realizar navegación con un sensor con un rango horizontal de pocos grados, como el sensor Kinect, y aún así permitir al robot conocer información de obstáculos que han quedado fuera del rango del sensor.
 
-El nodo encargado de la creación de estos costmaps es \textit{costmap\_2d} y su funcionamiento está basado en diferentes capas que manejan la infomración de los sensores y generan cálculos a partir de los mismos.
+El nodo encargado de la creación de estos costmaps es \textit{costmap\_2d} y su funcionamiento está basado en diferentes capas que manejan la información de los sensores y generan cálculos a partir de los mismos.
 
 Las denominadas capas de las que hace uso \textit{costmap\_2d} son las siguientes:
 
@@ -366,7 +366,7 @@ Las denominadas capas de las que hace uso \textit{costmap\_2d} son las siguiente
 \item Letal: Existe un obstáculo real en esa celda del mapa
 \item Inscrito: Las celdas con este valor se encuentran a una distancia de un obstáculo que es menor o igual al radio de la circunferencia inscrita en el área que ocupa el robot.
 \item Posiblemente circunscrito: Celdas que se encuentran a una distancia de un obstáculo que es mayor que el radio de la circunferencia inscrita en el área que ocupa el robot pero menor que el radio de la circunferencia circunscrita. Esta información como "posible" debido que la orientación del robot puede no ser exacta.
-\item Espacio libre: El coste de este tipo de celdas es cero e indica que no existe ningun obstáculo cercano que impida o limite el movimiento del robot.
+\item Espacio libre: El coste de este tipo de celdas es cero e indica que no existe ningún obstáculo cercano que impida o limite el movimiento del robot.
 \item Desconocido: No existe información sobre el estado de esa celda.
 
 \end{enumerate}
@@ -380,12 +380,12 @@ Las denominadas capas de las que hace uso \textit{costmap\_2d} son las siguiente
 \label{fig:inflation_layer}
 \end{figure}
 
-Esta capa indica a los planificadores las zonas optimas por las que trazar su ruta, es la más importante y donde reside gran parte de la funcionalidad de los costmaps. Existen parámetros configurables por el usuario como el radio de inflado (\textit{inflation\_radius}) o el valor de escala (\textit{cost\_scaling\_factor}).
+Esta capa indica a los planificadores las zonas óptimas por las que trazar su ruta, es la más importante y donde reside gran parte de la funcionalidad de los costmaps. Existen parámetros configurables por el usuario como el radio de inflado (\textit{inflation\_radius}) o el valor de escala (\textit{cost\_scaling\_factor}).
 \end{itemize}
 
 A parte de estas capas, existe una API que nos permite crear nuestras propias capas para el nodo \textit{costmap\_2d} para darles la funcionalidad que se desee.
 
-Existe una configuración por defecto que de estos costmaps que genera una sola capa de obstáculos, una capa de inflado y adcionalmente una capa de mapa estático siempre y cuando pongamos el parámetro \textit{static\_map} a TRUE. Sin embargo, existe la posibilidad de crear costmaps con las capas que consideremos oportunas, siendo de especial interés poder incorporar diferentes capas de obstáculos.
+Existe una configuración por defecto que de estos costmaps que genera una sola capa de obstáculos, una capa de inflado y adicionalmente una capa de mapa estático siempre y cuando pongamos el parámetro \textit{static\_map} a TRUE. Sin embargo, existe la posibilidad de crear costmaps con las capas que consideremos oportunas, siendo de especial interés poder incorporar diferentes capas de obstáculos.
 
 Este último enfoque es el que ha sido adoptado en la implementación final de navegación y será descrito en la sección \ref{subsection:configuracion_costmaps_sensores}.
 \vspace{5 cm}
@@ -486,7 +486,7 @@ El planificador de trayectoria local es el encargado de guiar al robot, según su
 
 La misión del planificador de trayectoria local es resolver las obstrucciones sobre la ruta global en el entorno local al robot para determinar la ruta real que será seguida. El modelo del entorno local se construye mediante la fusión de la información proporcionada por los sensores exteroceptivos del robot móvil.
 
-EL planificador de trayectoria local ya implementado en ROS utiliza los algoritmos \textit{Trajectory Rollout} y \textit{Dynamic Window} para realizar la navegación reactiva basada en un solo plano. Los pasos que realizan estos algoritmos son los siguientes:
+El planificador de trayectoria local ya implementado en ROS utiliza los algoritmos \textit{Trajectory Rollout} y \textit{Dynamic Window} para realizar la navegación reactiva basada en un solo plano. Los pasos que realizan estos algoritmos son los siguientes:
 
 \begin{figure}[!htp]
 \centering
