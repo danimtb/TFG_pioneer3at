@@ -84,8 +84,6 @@ Sin embargo, la primera implementación con los primeros ajustes de los sensores 
 \subsubsection{Segunda configuración del sistema}
 La siguiente opción ha consistido en utilizar un ordenador externo para realizar los cálculos de navegación y enviar al robot las consignas de movimiento a través de una red inalámbrica (Figura \ref{fig:segunda_configuracion_sistema}). Esta idea no era la solución más idónea, ya que desde el principio se trató de que el robot fuese lo más autónomo posible sin depender de una infraestructura, sin embargo esta configuración no suponía mucho esfuerzo debido a que los nodos pueden ejecutarse de manera distribuida.
 
-\pagebreak
-
 \begin{figure}[!htp]
 \centering
 \includegraphics[width=\textwidth]{figuras/segunda_configuracion_sistema.png}
@@ -95,8 +93,9 @@ La siguiente opción ha consistido en utilizar un ordenador externo para realizar
 
 Esta configuración fue probada utilizando un ordenador portátil con suficiente capacidad de procesamiento y memoria como para ejecutar la navegación, sin embargo aparecieron algunos inconvenientes relacionados con la comunicación. Estos problemas se detallan a continuación.
 
-\begin{itemize}
+\pagebreak
 
+\begin{itemize}
 \item \textbf{Problemática del sensor Láser: LMS1xx}\\\\
 Debido a que el sensor láser se conecta vía Ethernet al ordenador del robot, el nodo \textit{LMS1xx} debe obtener información a través de la IP del láser y enviarla a través del adaptador Wifi a la IP del nodo MASTER. El problema reside en que el nodo se saturaba al tener que lidiar con ambas interfaces de conexión y provocaba su detención.
 
